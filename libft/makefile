@@ -12,144 +12,66 @@
 
 NAME = libft.a
 
-SRC = ft_isdigit.c \
-	  ft_putnbr.c \
-	  ft_strcmp.c \
-	  ft_strncpy.c \
-	  ft_isprint.c \
-	  ft_putnbr_fd.c \
-	  ft_strcpy.c \
-	  ft_strrchr.c \
-	  ft_atoi.c \
-	  ft_putchar.c \
-	  ft_putstr.c \
-	  ft_strdup.c \
-	  ft_strstr.c \
-	  ft_strnstr.c \
-	  ft_isalnum.c \
-	  ft_putchar_fd.c \
-	  ft_putstr_fd.c \
-	  ft_strlen.c \
-	  ft_tolower.c \
-	  ft_isalpha.c \
-	  ft_putendl.c \
-	  ft_strcat.c \
-	  ft_strncat.c \
-	  ft_strlcat.c \
-	  ft_toupper.c \
-	  ft_isascii.c \
-	  ft_putendl_fd.c \
-	  ft_strchr.c \
-	  ft_strncmp.c \
-	  ft_memset.c \
-	  ft_bzero.c \
-	  ft_memcpy.c \
-	  ft_memccpy.c \
-	  ft_memmove.c \
-	  ft_memcmp.c \
-	  ft_memchr.c \
-	  ft_memalloc.c \
-	  ft_memdel.c \
-	  ft_strnew.c \
-	  ft_strdel.c \
-	  ft_strclr.c \
-	  ft_striter.c \
-	  ft_strmap.c \
-	  ft_striteri.c \
-	  ft_strmapi.c \
-	  ft_strequ.c \
-	  ft_strnequ.c \
-	  ft_strsub.c \
-	  ft_strjoin.c \
-	  ft_strtrim.c \
-	  ft_power.c \
-	  ft_strsplit.c \
-	  ft_itoa.c \
-	  ft_lstnew.c \
-	  ft_lstdelone.c \
-	  ft_lstnew.c \
-	  ft_lstdel.c \
-	  ft_lstiter.c \
-	  ft_lstadd.c \
-	  ft_lstmap.c \
-	  ft_factorial.c \
-	  ft_is_prime.c \
-	  ft_power.c \
-	  ft_sqrt.c \
-	  ft_swap.c \
+SRC_CLASS = ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
+ft_tolower.c ft_toupper.c
+SRC_CONVERT = ft_atoi.c ft_itoa.c
+SRC_LIST = ft_lstadd.c ft_lstdel.c ft_lstdelone.c ft_lstiter.c ft_lstmap.c \
+ft_lstnew.c
+SRC_MATH = ft_factorial.c ft_is_prime.c ft_power.c ft_sqrt.c
+SRC_MEM = ft_memalloc.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c \
+ft_memdel.c ft_memmove.c ft_memset.c
+SRC_PUT = ft_putchar.c ft_putchar_fd.c ft_putendl.c ft_putendl_fd.c \
+ft_putnbr.c ft_putnbr_fd.c ft_putstr.c ft_putstr_fd.c
+SRC_STR = ft_bzero.c ft_strclr.c ft_strdel.c ft_striter.c ft_strlcat.c \
+ft_strmapi.c ft_strncpy.c ft_strnstr.c ft_strstr.c ft_swap.c \
+ft_strcat.c ft_strcmp.c ft_strdup.c ft_striteri.c ft_strlen.c \
+ft_strncat.c ft_strnequ.c ft_strrchr.c ft_strsub.c ft_strchr.c ft_strcpy.c \
+ft_strequ.c ft_strjoin.c ft_strmap.c ft_strncmp.c ft_strnew.c \
+ft_strsplit.c ft_strtrim.c
 
-SRO = ft_isdigit.o \
-	  ft_putnbr.o \
-	  ft_strcmp.o \
-	  ft_strncpy.o \
-	  ft_isprint.o \
-	  ft_putnbr_fd.o \
-	  ft_strcpy.o \
-	  ft_strrchr.o \
-	  ft_atoi.o \
-	  ft_putchar.o \
-	  ft_putstr.o \
-	  ft_strdup.o \
-	  ft_strstr.o \
-	  ft_strnstr.o \
-	  ft_isalnum.o \
-	  ft_putchar_fd.o \
-	  ft_putstr_fd.o \
-	  ft_strlen.o \
-	  ft_tolower.o \
-	  ft_isalpha.o \
-	  ft_putendl.o \
-	  ft_strcat.o \
-	  ft_strncat.o \
-	  ft_strlcat.o \
-	  ft_toupper.o \
-	  ft_isascii.o \
-	  ft_putendl_fd.o \
-	  ft_strchr.o \
-	  ft_strncmp.o \
-	  ft_memset.o \
-	  ft_bzero.o \
-	  ft_memcpy.o \
-	  ft_memccpy.o \
-	  ft_memmove.o \
-	  ft_memcmp.o \
-	  ft_memchr.o \
-	  ft_memalloc.o \
-	  ft_memdel.o \
-	  ft_strnew.o \
-	  ft_strdel.o \
-	  ft_strclr.o \
-	  ft_striter.o \
-	  ft_striteri.o \
-	  ft_strmap.o \
-	  ft_strmapi.o \
-	  ft_strequ.o \
-	  ft_strnequ.o \
-	  ft_strsub.o \
-	  ft_strjoin.o \
-	  ft_strtrim.o \
-	  ft_strsplit.o \
-	  ft_itoa.o \
-	  ft_power.o \
-	  ft_lstnew.o \
-	  ft_lstdelone.o \
-	  ft_lstdel.o \
-	  ft_lstnew.o \
-	  ft_lstiter.o \
-	  ft_lstadd.o \
-	  ft_lstmap.o \
-	  ft_factorial.o \
-	  ft_is_prime.o \
-	  ft_power.o \
-	  ft_sqrt.o \
-	  ft_swap.o \
+SRCDIR_CLASS = class
+SRCDIR_CONVERT = convert
+SRCDIR_LIST = list
+SRCDIR_MATH = math
+SRCDIR_MEM = mem
+SRCDIR_PUT = put
+SRCDIR_STR = str
+
+BUILDDIR = object
+SRCDIR = src
+
+FLAGS = -Wall -Wextra -Werror
+
+SRC = $(addprefix $(SRCDIR_CLASS)/, $(SRC_CLASS)) \
+	$(addprefix $(SRCDIR_CONVERT)/, $(SRC_CONVERT)) \
+	$(addprefix $(SRCDIR_LIST)/, $(SRC_LIST)) \
+	$(addprefix $(SRCDIR_MATH)/, $(SRC_MATH)) \
+	$(addprefix $(SRCDIR_MEM)/, $(SRC_MEM)) \
+	$(addprefix $(SRCDIR_PUT)/, $(SRC_PUT)) \
+	$(addprefix $(SRCDIR_STR)/, $(SRC_STR))
+
+SRO = $(SRC:%.c=$(BUILDDIR)/%.o)
+
+FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(NAME):
-	gcc -c $(SRC)
+$(NAME): $(BUILDDIR) $(SRO)
 	ar rc $(NAME) $(SRO)
 	ranlib $(NAME)
+
+$(BUILDDIR):
+	mkdir $(BUILDDIR)
+	mkdir $(BUILDDIR)/$(SRCDIR_CLASS)
+	mkdir $(BUILDDIR)/$(SRCDIR_CONVERT)
+	mkdir $(BUILDDIR)/$(SRCDIR_LIST)
+	mkdir $(BUILDDIR)/$(SRCDIR_MATH)
+	mkdir $(BUILDDIR)/$(SRCDIR_MEM)
+	mkdir $(BUILDDIR)/$(SRCDIR_PUT)
+	mkdir $(BUILDDIR)/$(SRCDIR_STR)
+
+$(BUILDDIR)/%.o: $(SRCDIR)/%.c
+	gcc $(FLAG) -I ./incs/ -c $< -o $@
 
 clean:
 	rm -f $(SRO)
