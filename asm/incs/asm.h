@@ -12,7 +12,7 @@
 
 #ifndef ASM_H
 # define ASM_H
-# include "libft.h"
+# include "../../libft/libft.h"
 # include <fcntl.h>
 
 int			main(int ac, char **av);
