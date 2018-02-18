@@ -50,3 +50,9 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# CLion IDE
+.idea
+cmake-build-debug/
+libft/object/
+ressources/
