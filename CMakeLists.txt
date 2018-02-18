@@ -5,6 +5,7 @@ set(CMAKE_C_STANDARD 99)
 
 add_executable(Corewar
         vm/srcs/main.c
+        vm/srcs/parsing.c
         )
 
 include_directories(Corewar

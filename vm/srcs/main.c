@@ -1,6 +1,10 @@
 #include "vm.h"
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
-	ft_putstr("Hello world");
+	t_env		env;
+
+	env = parse_argv(argv);
+
+	return (EXIT_SUCCESS);
 }

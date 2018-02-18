@@ -1,0 +1,1 @@
+//TODO: Thinking of making a robust way to exit the VM in case of error (maybe with signals).
