@@ -8,6 +8,8 @@ add_executable(Corewar
         vm/srcs/parsing.c
         vm/srcs/exit.c
         vm/srcs/utils.c
+        vm/srcs/init.c
+#        vm/srcs/op.c
         )
 
 include_directories(Corewar

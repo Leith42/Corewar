@@ -2,7 +2,7 @@
 
 void	error_manager(enum e_error signal)
 {
-	ft_putendl_fd("ERROR: ", STDERR_FILENO);
+	ft_putstr_fd("ERROR: ", STDERR_FILENO);
 	if (signal == INVALID_NB_OF_CYCLES)
 		ft_putendl_fd("invalid number of cycles.", STDERR_FILENO);
 	else if (signal == INVALID_NB_OF_CHAMPIONS)
