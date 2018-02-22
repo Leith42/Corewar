@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <ctype.h>
 # include <stdlib.h>
+# include "get_next_line.h"
 
 typedef struct		s_list
 {
