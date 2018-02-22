@@ -17,7 +17,7 @@ int	main(int argc, char *argv[])
 	t_env		env;
 
 	env = parse_argv(argv);
-	debug(env);
+	//debug(env);
 
 	return (EXIT_SUCCESS);
 }

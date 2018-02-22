@@ -8,7 +8,7 @@ void	init_champions(t_env *env)
 	while (i < MAX_PLAYERS)
 	{
 		env->champions[i].id = 0;
-		env->champions[i].program = NULL;
+		env->champions[i].program_file = NULL;
 		i++;
 	}
 }
@@ -17,5 +17,6 @@ void	init_env(t_env *env)
 {
 	env->options.dump_cycle = 0;
 	env->options.champions_amount = 0;
+	env->nb_of_champions = 0;
 	init_champions(env);
 }
