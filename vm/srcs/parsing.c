@@ -26,6 +26,7 @@ void		parse_champion_id(t_env *env, char *custom_champion_id)
 			new_champion->id = 1;
 		else
 			new_champion->id = env->champions[env->nb_of_champions - 1].id + 1;
+		//TODO: Ensure that all IDs are unique.
 	}
 	env->nb_of_champions++;
 }
@@ -53,7 +54,7 @@ t_env		parse_argv(char **argv)
 		if (env.nb_of_champions < MAX_PLAYERS)
 		{
 			parse_champion_id(&env, custom_id);
-			// TODO: Parse champion's program (asm).
+			// TODO: Parse programs (.cor).
 		}
 		else
 			error_manager(INVALID_NB_OF_CHAMPIONS);
