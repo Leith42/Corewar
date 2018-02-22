@@ -51,6 +51,9 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+# MacOS
+.DS_Store
+
 # CLion IDE
 .idea
 cmake-build-debug/
