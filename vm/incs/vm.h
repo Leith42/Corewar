@@ -8,15 +8,10 @@
 
 enum				e_error {
 	INVALID_NB_OF_CYCLES,
-	INVALID_NB_OF_CHAMPIONS,
+	TOO_MANY_CHAMPIONS,
+	NO_CHAMPIONS,
 	INVALID_CHAMPION_ID,
 };
-
-typedef struct		s_options
-{
-	size_t			dump_cycle;
-	size_t			champions_amount;
-}					t_options;
 
 typedef	struct 		s_champion
 {
@@ -30,7 +25,8 @@ typedef struct		s_env
 {
 	unsigned char	arena[MEM_SIZE + 1];
 	t_champion		champions[MAX_PLAYERS];
-	t_options		options;
+	size_t			dump_cycle;
+	size_t 			nb_of_champions;
 }					t_env;
 
 // Init & Parsing.

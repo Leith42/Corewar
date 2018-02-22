@@ -15,8 +15,7 @@ void	init_champions(t_env *env)
 
 void	init_env(t_env *env)
 {
-	env->options.dump_cycle = 0;
-	env->options.champions_amount = 0;
+	env->dump_cycle = 0;
 	env->nb_of_champions = 0;
 	init_champions(env);
 }
