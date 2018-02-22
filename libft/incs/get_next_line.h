@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/15 18:21:49 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/02/15 18:21:50 by lmartin-         ###   ########.fr       */
+/*   Created: 2016/11/22 21:23:34 by lmartin-          #+#    #+#             */
+/*   Updated: 2017/01/06 20:58:59 by lmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-void	print_binary(int fd)
+# include <unistd.h>
+# include <stdlib.h>
+# include "libft.h"
+
+# define BUFF_SIZE 32
+
+typedef struct		s_file
 {
-	
-}
+	char			*save;
+	struct s_file	*next;
+	int				fd;
+	int				pos;
+}					t_file;
 
-int		main(int ac, char **av)
-{
-	int fd;
+int					get_next_line(const int fd, char **line);
 
-	if (ac != 2)
-		write(1, "Usage: ./asm File_Name\n", 23);
-	else if (!(ft_strnequ(av[1] + ft_strlen(av[1]) - 2, ".s", 2)))
-		write(1, "Wrong file\n", 11);
-	else if (!(fd = open(av[1], O_RDONLY)))
-	 	write(1, "Wrong file\n", 11);
-	else
-	{
-		print_binary(fd);
-	}
-	return (0);
-}
+#endif

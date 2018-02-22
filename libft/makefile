@@ -28,6 +28,7 @@ ft_strcat.c ft_strcmp.c ft_strdup.c ft_striteri.c ft_strlen.c \
 ft_strncat.c ft_strnequ.c ft_strrchr.c ft_strsub.c ft_strchr.c ft_strcpy.c \
 ft_strequ.c ft_strjoin.c ft_strmap.c ft_strncmp.c ft_strnew.c \
 ft_strsplit.c ft_strtrim.c
+SRC_GNL = get_next_line.c
 
 SRCDIR_CLASS = class
 SRCDIR_CONVERT = convert
@@ -36,6 +37,7 @@ SRCDIR_MATH = math
 SRCDIR_MEM = mem
 SRCDIR_PUT = put
 SRCDIR_STR = str
+SRCDIR_GNL = gnl
 
 BUILDDIR = object
 SRCDIR = src
@@ -48,7 +50,8 @@ SRC = $(addprefix $(SRCDIR_CLASS)/, $(SRC_CLASS)) \
 	$(addprefix $(SRCDIR_MATH)/, $(SRC_MATH)) \
 	$(addprefix $(SRCDIR_MEM)/, $(SRC_MEM)) \
 	$(addprefix $(SRCDIR_PUT)/, $(SRC_PUT)) \
-	$(addprefix $(SRCDIR_STR)/, $(SRC_STR))
+	$(addprefix $(SRCDIR_STR)/, $(SRC_STR)) \
+	$(addprefix $(SRCDIR_GNL)/, $(SRC_GNL))
 
 SRO = $(SRC:%.c=$(BUILDDIR)/%.o)
 
@@ -57,26 +60,32 @@ FLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(BUILDDIR) $(SRO)
-	ar rc $(NAME) $(SRO)
-	ranlib $(NAME)
+	@echo "\033[92m[gcc done]\033[0m"
+	@ar rc $(NAME) $(SRO)
+	@ranlib $(NAME)
+	@echo "\033[92m[libft.a create]\033[0m"
 
 $(BUILDDIR):
-	mkdir $(BUILDDIR)
-	mkdir $(BUILDDIR)/$(SRCDIR_CLASS)
-	mkdir $(BUILDDIR)/$(SRCDIR_CONVERT)
-	mkdir $(BUILDDIR)/$(SRCDIR_LIST)
-	mkdir $(BUILDDIR)/$(SRCDIR_MATH)
-	mkdir $(BUILDDIR)/$(SRCDIR_MEM)
-	mkdir $(BUILDDIR)/$(SRCDIR_PUT)
-	mkdir $(BUILDDIR)/$(SRCDIR_STR)
+	@mkdir $(BUILDDIR)
+	@mkdir $(BUILDDIR)/$(SRCDIR_CLASS)
+	@mkdir $(BUILDDIR)/$(SRCDIR_CONVERT)
+	@mkdir $(BUILDDIR)/$(SRCDIR_LIST)
+	@mkdir $(BUILDDIR)/$(SRCDIR_MATH)
+	@mkdir $(BUILDDIR)/$(SRCDIR_MEM)
+	@mkdir $(BUILDDIR)/$(SRCDIR_PUT)
+	@mkdir $(BUILDDIR)/$(SRCDIR_STR)
+	@mkdir $(BUILDDIR)/$(SRCDIR_GNL)
+	@echo "\033[92m[folder create]\033[0m"
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c
-	gcc $(FLAG) -I ./incs/ -c $< -o $@
+	@gcc $(FLAG) -I ./incs/ -c $< -o $@
 
 clean:
-	rm -f $(SRO)
+	@rm -f $(SRO)
+	@echo "\033[92m[clean done]\033[0m"
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
+	@rm -rf $(BUILDDIR)
 
 re: fclean all
