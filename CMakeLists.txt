@@ -14,7 +14,7 @@ add_executable(Corewar
 
 include_directories(Corewar
         ${CMAKE_SOURCE_DIR}/vm/incs/
-        ${CMAKE_SOURCE_DIR}/libft/incs/)
+        ${CMAKE_SOURCE_DIR}/libft/include/)
 
 target_link_libraries(Corewar
 ${CMAKE_SOURCE_DIR}/libft/libft.a)
