@@ -12,12 +12,16 @@ void	debug(t_env env)
 	}
 }
 
-int	main(int argc, char *argv[])
+int		main(int argc, char *argv[])
 {
 	t_env		env;
 
-	env = parse_argv(argv + 1);
-	debug(env);
-
+	if (argc < 2)
+		ft_putendl(VM_USAGE);
+	else
+	{
+		env = parse_argv(argv + 1);
+		debug(env);
+	}
 	return (EXIT_SUCCESS);
 }
