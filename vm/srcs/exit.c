@@ -1,7 +1,17 @@
 #include "vm.h"
 
-void	error_manager(enum e_error signal)
+void	free_env(t_env env)
 {
+	while (env.process)
+	{
+		free(env.process);
+		env.process = env.process->next;
+	}
+}
+
+void	error_manager(t_env env, enum e_error signal)
+{
+	free_env(env);
 	ft_putstr_fd("ERROR: ", STDERR_FILENO);
 	if (signal == INVALID_NB_OF_CYCLES)
 		ft_putendl_fd("invalid number of cycles.", STDERR_FILENO);
@@ -15,6 +25,8 @@ void	error_manager(enum e_error signal)
 		perror("occurred while attempting to open a champion's program");
 	else if (signal == INVALID_FILE_EXTENSION)
 		ft_putendl_fd("the file extension of the programs must be \".cor\".", STDERR_FILENO);
+	else
+		perror(NULL);
 	ft_putendl(VM_USAGE);
 	exit(EXIT_FAILURE);
 }

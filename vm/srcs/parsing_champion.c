@@ -1,35 +1,36 @@
 #include <fcntl.h>
 #include "vm.h"
 
-static void	parse_champion_id(t_env *e, char *custom_champion_id, t_champion *new_champion)
+static void	parse_champion_id(t_env *env, char *custom_champion_id, t_champion *new_champion)
 {
 	int			champion_id;
 
+	// Todo: ensure that all ID's are unique.
 	if (custom_champion_id)
 	{
 		if (is_string_numeric(custom_champion_id) == false)
-			error_manager(INVALID_CHAMPION_ID);
+			error_manager(*env, INVALID_CHAMPION_ID);
 		champion_id = ft_atoi(custom_champion_id);
 		new_champion->id = champion_id;
 	}
 	else
 	{
-		if (e->nb_of_champions == 0)
+		if (env->nb_of_champions == 0)
 			new_champion->id = 1;
 		else
-			new_champion->id = e->champions[e->nb_of_champions - 1].id + e->nb_of_champions;
+			new_champion->id = env->champions[env->nb_of_champions - 1].id + 1;
 	}
-	e->nb_of_champions++;
+	env->nb_of_champions++;
 }
 
-static int is_cor_file(char *program_file)
+static int is_cor_file(char *program_path)
 {
 	size_t len;
 
-	if (program_file)
+	if (program_path)
 	{
-		len = ft_strlen(program_file);
-		if (len > 4 && ft_strcmp(&program_file[len - 4], ".cor") == 0)
+		len = ft_strlen(program_path);
+		if (len > 4 && ft_strcmp(&program_path[len - 4], ".cor") == 0)
 		{
 			return (true);
 		}
@@ -37,22 +38,31 @@ static int is_cor_file(char *program_file)
 	return (false);
 }
 
-static void	parse_champion_program(t_env *e, t_champion *champion, char *program_path)
+static void	parse_champion_program(t_env *env, char *program_path, int champion_id)
 {
-	int	fd;
+	int			fd;
+	t_process	*process;
 
 	if (is_cor_file(program_path) == false)
-		error_manager(INVALID_FILE_EXTENSION);
+		error_manager(*env, INVALID_FILE_EXTENSION);
 	if ((fd = open(program_path, O_RDONLY)) == ERROR)
-		error_manager(OPEN_FILE_FAILED);
-	//TODO
+		error_manager(*env, OPEN_FILE_FAILED);
+	if ((process = ft_memalloc(sizeof(t_process))) == NULL)
+		error_manager(*env, MEMORY_ALLOCATION_FAILED);
+	process->reg[0] = champion_id;
+	if (env->process)
+		process->next = env->process;
+	env->process = process;
+//	 DONE: The processes are initialized and the IDs of the champions are registered in their r1 (reg[0]).
+//	 TODO: Parse file...
+	close(fd);
 }
 
-void		parse_champion(t_env *e, char *custom_id, char *program_path)
+void		parse_champion(t_env *env, char *custom_id, char *program_path)
 {
 	t_champion *champion;
 
-	champion = &e->champions[e->nb_of_champions];
-	parse_champion_id(e, custom_id, champion);
-	parse_champion_program(e, champion, program_path);
+	champion = &env->champions[env->nb_of_champions];
+	parse_champion_id(env, custom_id, champion);
+	parse_champion_program(env, program_path, champion->id);
 }

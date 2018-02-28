@@ -7,7 +7,10 @@ void	debug(t_env env)
 	printf("Champions amount: %zu\n", env.nb_of_champions);
 	while (i < env.nb_of_champions)
 	{
-		printf("%d\n", env.champions[i].id);
+		printf("Champion ID : %d\n", env.champions[i].id);
+		printf("Process ID: %d\n", env.process->reg[0]);
+		printf("\n");
+		env.process = env.process->next;
 		i++;
 	}
 }
@@ -22,6 +25,7 @@ int		main(int argc, char *argv[])
 	{
 		env = parse_argv(argv + 1);
 		debug(env);
+		free_env(env);
 	}
 	return (EXIT_SUCCESS);
 }

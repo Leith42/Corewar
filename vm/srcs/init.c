@@ -16,5 +16,7 @@ void		init_env(t_env *env)
 {
 	env->dump_cycle = 0;
 	env->nb_of_champions = 0;
+	env->process = NULL;
 	init_champions(env);
+	ft_bzero(&(env->arena), sizeof(env->arena));
 }
