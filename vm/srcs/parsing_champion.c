@@ -1,7 +1,6 @@
 #include <fcntl.h>
 #include "vm.h"
 
-//TODO: Ensure that all IDs are unique.
 static void	parse_champion_id(t_env *e, char *custom_champion_id, t_champion *new_champion)
 {
 	int			champion_id;
@@ -18,7 +17,7 @@ static void	parse_champion_id(t_env *e, char *custom_champion_id, t_champion *ne
 		if (e->nb_of_champions == 0)
 			new_champion->id = 1;
 		else
-			new_champion->id = e->champions[e->nb_of_champions - 1].id + 1;
+			new_champion->id = e->champions[e->nb_of_champions - 1].id + e->nb_of_champions;
 	}
 	e->nb_of_champions++;
 }

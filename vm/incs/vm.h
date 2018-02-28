@@ -1,6 +1,5 @@
 #ifndef VM_H
 # define VM_H
-
 # define VM_USAGE "Usage: ./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ..."
 
 # include "libft.h"
@@ -15,19 +14,24 @@ enum				e_error {
 	INVALID_FILE_EXTENSION,
 };
 
+typedef	struct 		s_process
+{
+	int 			pc;
+	int 			reg[REG_NUMBER]; 	//	Not sure about the type since we need REG_NUMBER * REG_SIZE bytes.
+	bool			carry;
+}					t_process;
+
 typedef	struct 		s_champion
 {
 	int				id;
-	unsigned char	name[PROG_NAME_LENGTH + 1];
-	unsigned char	comment[COMMENT_LENGTH + 1];
-	unsigned char	program[CHAMP_MAX_SIZE];
+	t_process		process;
 }					t_champion;
 
 // Todo: Don't know if a structure representing the arena (memory) is relevant, we'll think about it.
 
 typedef struct		s_env
 {
-	unsigned char	arena[MEM_SIZE + 1];
+	unsigned char	arena[MEM_SIZE];
 	t_champion		champions[MAX_PLAYERS];
 	size_t			dump_cycle;
 	size_t 			nb_of_champions;
@@ -40,7 +44,6 @@ void				parse_champion(t_env *e, char *custom_id, char *program_path);
 
 // Utils
 bool				is_string_numeric(char *s);
-size_t 				get_argv_len(char **argv);
 
 // Errors
 void				error_manager(enum e_error signal);

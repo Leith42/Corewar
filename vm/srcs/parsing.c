@@ -28,7 +28,10 @@ t_env			parse_argv(char **argv)
 		custom_id = NULL;
 		if (ft_strequ(argv[i], "-n") == true)
 		{
-			argv[i + 1] != NULL ? custom_id = argv[i + 1] : error_manager(INVALID_CHAMPION_ID);
+			if (argv[1 + 1])
+				custom_id = argv[i + 1];
+			else
+				error_manager(INVALID_CHAMPION_ID);
 			i += 2;
 		}
 		if (env.nb_of_champions < MAX_PLAYERS)
