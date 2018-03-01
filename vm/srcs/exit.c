@@ -32,6 +32,8 @@ void	error_manager(t_env env, enum e_error signal)
 		perror("occurred while attempting to open a champion's program");
 	else if (signal == INVALID_FILE_EXTENSION)
 		ft_putendl_fd("the file extension of the programs must be \".cor\".", STDERR_FILENO);
+	else if (signal == NB_OF_CYCLES_ALREADY_EXISTS)
+		ft_putendl_fd("a number of cycles has already been specified.", STDERR_FILENO);
 	else
 		perror(NULL);
 	ft_putendl(VM_USAGE);
