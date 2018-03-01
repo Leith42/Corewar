@@ -2,7 +2,7 @@
 #include "vm.h"
 
 /*
-**	Add or generates an ID (player's number) to the champion.
+**	Add or generates an ID (player's number) for the champion.
 **	Todo: ensure that all ID's are unique. /!\
 */
 
