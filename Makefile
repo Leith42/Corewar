@@ -6,14 +6,14 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/01 17:00:29 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/01 17:23:35 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #=================================== Project ===================================
 
 LIBFT		=	libft/libft.a
-NAME_ASM	=	asm
+NAME_ASM	=	asm_exec
 NAME_VM		=	corewar
 
 LIBFT_DIR	=	libft/
