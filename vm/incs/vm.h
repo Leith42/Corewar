@@ -4,6 +4,7 @@
 
 # include "libft.h"
 # include "op.h"
+# include <stdbool.h>
 
 enum				e_error {
 	INVALID_NB_OF_CYCLES,

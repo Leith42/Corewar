@@ -1,4 +1,6 @@
 #include "vm.h"
+#include <stdlib.h>
+#include <zconf.h>
 
 void	free_env(t_env env)
 {

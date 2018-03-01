@@ -1,5 +1,6 @@
-#include <fcntl.h>
 #include "vm.h"
+#include <fcntl.h>
+#include <zconf.h>
 
 /*
 **	Add or generates an ID (player's number) for the champion.
@@ -59,7 +60,7 @@ static void	parse_champion_program(t_env *env, char *program_path, int champion_
 
 	if (is_cor_file(program_path) == false)
 		error_manager(*env, INVALID_FILE_EXTENSION);
-	if ((fd = open(program_path, O_RDONLY)) == ERROR)
+	if ((fd = open(program_path, O_RDONLY)) == -1)
 		error_manager(*env, OPEN_FILE_FAILED);
 	if ((process = ft_memalloc(sizeof(t_process))) == NULL)
 		error_manager(*env, MEMORY_ALLOCATION_FAILED);

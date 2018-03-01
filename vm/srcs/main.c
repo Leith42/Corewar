@@ -1,4 +1,5 @@
 #include "vm.h"
+#include <stdlib.h>
 
 void	debug(t_env env)
 {
