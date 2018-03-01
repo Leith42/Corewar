@@ -1,11 +1,15 @@
 #include <fcntl.h>
 #include "vm.h"
 
+/*
+**	Add or generates an ID (player's number) to the champion.
+**	Todo: ensure that all ID's are unique. /!\
+*/
+
 static void	parse_champion_id(t_env *env, char *custom_champion_id, t_champion *new_champion)
 {
 	int			champion_id;
 
-	// Todo: ensure that all ID's are unique.
 	if (custom_champion_id)
 	{
 		if (is_string_numeric(custom_champion_id) == false)
@@ -23,6 +27,11 @@ static void	parse_champion_id(t_env *env, char *custom_champion_id, t_champion *
 	env->nb_of_champions++;
 }
 
+/*
+**	Simply check if the file extension of the binary is '.cor'.
+*	If not, Corewar will stop.
+*/
+
 static int is_cor_file(char *program_path)
 {
 	size_t len;
@@ -37,6 +46,11 @@ static int is_cor_file(char *program_path)
 	}
 	return (false);
 }
+
+/*
+**	The processes are initialized and the IDs of the champions are registered in their r1 (reg[0]).
+**	TODO: Parse file... /!\
+*/
 
 static void	parse_champion_program(t_env *env, char *program_path, int champion_id)
 {
@@ -53,8 +67,6 @@ static void	parse_champion_program(t_env *env, char *program_path, int champion_
 	if (env->process)
 		process->next = env->process;
 	env->process = process;
-//	 DONE: The processes are initialized and the IDs of the champions are registered in their r1 (reg[0]).
-//	 TODO: Parse file...
 	close(fd);
 }
 

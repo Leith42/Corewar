@@ -1,5 +1,9 @@
 #include "vm.h"
 
+/*
+**	Ensure that the dump cycle is a positive integer and returns it.
+*/
+
 static size_t	get_dump_cycle(char **argv, size_t *pos, t_env env)
 {
 	int	cycles;
@@ -12,6 +16,12 @@ static size_t	get_dump_cycle(char **argv, size_t *pos, t_env env)
 	*pos += 2;
 	return ((size_t)cycles);
 }
+
+/*
+**	Starting point of the parsing.
+**	Here we make sure that all arguments are valid.
+**	Generates and return the main structure of Corewar (t_env).
+*/
 
 t_env			parse_argv(char **argv)
 {
