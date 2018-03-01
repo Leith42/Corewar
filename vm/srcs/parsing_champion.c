@@ -63,6 +63,7 @@ static void	parse_champion_program(t_env *env, char *program_path, int champion_
 		error_manager(*env, OPEN_FILE_FAILED);
 	if ((process = ft_memalloc(sizeof(t_process))) == NULL)
 		error_manager(*env, MEMORY_ALLOCATION_FAILED);
+	ft_bzero(&process->reg, sizeof(process->reg));
 	process->reg[0] = champion_id;
 	if (env->process)
 		process->next = env->process;
