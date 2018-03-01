@@ -9,6 +9,11 @@ void	free_env(t_env env)
 	}
 }
 
+/*
+**	Basic error handling.
+**	Take a signal, displays an appropriate error message on STDERR and exit.
+*/
+
 void	error_manager(t_env env, enum e_error signal)
 {
 	free_env(env);
