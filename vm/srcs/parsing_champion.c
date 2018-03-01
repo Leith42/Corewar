@@ -60,8 +60,8 @@ static void	parse_champion_program(t_env *env, char *program_path, int champion_
 
 	if (is_cor_file(program_path) == false)
 		error_manager(*env, INVALID_FILE_EXTENSION);
-	if ((fd = open(program_path, O_RDONLY)) == -1)
-		error_manager(*env, OPEN_FILE_FAILED);
+//	if ((fd = open(program_path, O_RDONLY)) == -1)
+//		error_manager(*env, OPEN_FILE_FAILED);
 	if ((process = ft_memalloc(sizeof(t_process))) == NULL)
 		error_manager(*env, MEMORY_ALLOCATION_FAILED);
 	ft_bzero(&process->reg, sizeof(process->reg));
@@ -69,7 +69,7 @@ static void	parse_champion_program(t_env *env, char *program_path, int champion_
 	if (env->process)
 		process->next = env->process;
 	env->process = process;
-	close(fd);
+//	close(fd);
 }
 
 void		parse_champion(t_env *env, char *custom_id, char *program_path)

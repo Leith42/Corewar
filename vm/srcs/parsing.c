@@ -8,6 +8,10 @@ static size_t	get_dump_cycle(char **argv, size_t *pos, t_env env)
 {
 	int	cycles;
 
+	if (env.dump_cycle)
+	{
+		error_manager(env, NB_OF_CYCLES_ALREADY_EXISTS);
+	}
 	if (argv[*pos + 1] == NULL || is_string_numeric(argv[*pos + 1]) == false)
 	{
 		error_manager(env, INVALID_NB_OF_CYCLES);
@@ -31,11 +35,13 @@ t_env			parse_argv(char **argv)
 
 	pos = 0;
 	init_env(&env);
-	if (ft_strequ(argv[0], "-dump") == true)
-		env.dump_cycle = get_dump_cycle(argv, &pos, env);
 	while (argv[pos])
 	{
 		custom_id = NULL;
+		if (ft_strequ(argv[pos], "-dump") == true)
+			env.dump_cycle = get_dump_cycle(argv, &pos, env);
+		if (argv[pos] == NULL)
+			break;
 		if (ft_strequ(argv[pos], "-n") == true)
 		{
 			if (argv[1 + 1])
