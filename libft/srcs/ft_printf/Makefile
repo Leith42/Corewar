@@ -5,36 +5,40 @@
 #                                                     +:+ +:+         +:+      #
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/01 18:32:41 by gudemare         ###   ########.fr        #
+#    Created: 2016/09/18 01:13:53 by gudemare          #+#    #+#              #
+#    Updated: 2018/03/01 18:31:23 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #=================================== Project ===================================
 
-NAME			=	../corewar
+NAME			=	ft_printf.o
 
 CC				=	clang
 CFLAGS			=	-Wall -Wextra -Werror
 
-LIB_H_DIR		=	../libft/incs
-PROJECT_H_DIR	=	incs/
-IFLAGS			=	-I $(LIB_H_DIR) -I $(PROJECT_H_DIR)
+PROJECT_H_DIR	=	../../incs
+PROJECT_HEADERS	=	ft_printf.h
+IFLAGS			=	-I $(PROJECT_H_DIR)
 
 COMPILE.c		=	$(CC) $(CFLAGS) $(IFLAGS)
 
-LIBFT			=	../libft/libft.a
-LFLAGS			=	-lft -Llibft
-
 SRCS_DIR		=	srcs/
 SRCS_LIST		=	\
-					exit.c \
-					init.c \
-					main.c \
-					op.c \
-					parsing.c \
-					parsing_champion.c \
-					utils.c
+					conv_c.c \
+					conv_d.c \
+					conv_o.c \
+					conv_p.c \
+					conv_s.c \
+					conv_u.c \
+					conv_x.c \
+					fill_spec.c \
+					ft_anytoa.c \
+					ft_get_args.c \
+					ft_printf.c \
+					ft_uanytoa.c \
+					ft_uanytoa_base.c \
+					handle_conv.c
 SRCS			=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 
 OBJS_DIR		=	./objs/
@@ -68,44 +72,24 @@ WHITE_BG		=	\e[47m
 
 #==================================== Rules ====================================
 
-.PHONY : all norme clean fclean re debug debug_re
+.PHONY : all clean fclean re debug debug_re
 
 all: $(NAME)
 
-$(NAME) : $(LIBFT) $(OBJS)
-	@$(COMPILE.c) $(LFLAGS) $(OBJS) -o $(NAME)
-	@printf "$(GREEN)Executable $(BOLD)$(NAME)$(END_GRAPHICS)$(GREEN) has been created.$(END_GRAPHICS)\n"
-
-$(LIBFT) :
-	@make -C ../libft -j8
+$(NAME) : $(OBJS)
+	@ld -r $(OBJS) -o $(NAME)
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)
-	@printf "\e[K$(CYAN)Compiling $(BOLD)$(notdir $<)$(END_GRAPHICS)$(CYAN) ...\n\e[A$(END_GRAPHICS)"
 	@$(COMPILE.c) -c $< -o $@
 
 clean :
-	@rm -rf $(OBJS_DIR)
-	@printf "$(YELLOW)Executable $(BOLD)$(NAME)$(END_GRAPHICS)$(YELLOW)'s objects files have been removed.$(END_GRAPHICS)\n"
-fclean :
 	@rm -rf $(NAME) $(OBJS_DIR)
-	@printf "$(YELLOW)Executable $(BOLD)$(NAME)$(END_GRAPHICS)$(YELLOW) and its objects files have been removed.$(END_GRAPHICS)\n"
+fclean : clean
 
 re: fclean all
 
-#================================ Personal Rules ===============================
-
-norme :
-	@if type "norminette" &> /dev/null ; then \
-		printf "Checking Norm...\n"; \
-		printf "$(BLUE)$(BOLD)[ ] $(NAME)$(END_GRAPHICS)\n\e[A" && \
-		norminette $(SRCS) $(PROJECT_H_DIR) | grep -v -B 1 "^Norme: " || printf "$(GREEN)[✔]\n$(END_GRAPHICS)" ; \
-	else \
-		printf "$(RED)Norminette not installed, cannot check norm.\n$(END_GRAPHICS)" ; \
-	fi
-
 debug : CFLAGS=-Wall -Wextra -g
 debug : all
-	@printf "\e[K$(GREEN)Executable $(BOLD)$(NAME)$(END_GRAPHICS)$(GREEN) has successfully compiled $(YELLOW)(with debug symbols).$(END_GRAPHICS)\n"
 
-debug_re : project_fclean debug
+debug_re : fclean debug
