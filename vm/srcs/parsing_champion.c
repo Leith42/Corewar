@@ -29,7 +29,7 @@ static void	parse_champion_id(t_env *env, char *custom_champion_id, t_champion *
 
 /*
 **	Simply check if the file extension of the binary is '.cor'.
-*	If not, Corewar will stop.
+**	If not, Corewar will stop.
 */
 
 static int is_cor_file(char *program_path)
