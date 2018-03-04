@@ -1,6 +1,4 @@
 #include "vm.h"
-#include <fcntl.h>
-#include <zconf.h>
 
 /*
 **	Add or generates an ID (player's number) for the champion.
@@ -14,18 +12,23 @@ static void	parse_champion_id(t_env *env, char *custom_champion_id, t_champion *
 	if (custom_champion_id)
 	{
 		if (is_string_numeric(custom_champion_id) == false)
+		{
 			error_manager(*env, INVALID_CHAMPION_ID);
+		}
 		champion_id = ft_atoi(custom_champion_id);
 		new_champion->id = champion_id;
 	}
 	else
 	{
 		if (env->nb_of_champions == 0)
+		{
 			new_champion->id = 1;
+		}
 		else
+		{
 			new_champion->id = env->champions[env->nb_of_champions - 1].id + 1;
+		}
 	}
-	env->nb_of_champions++;
 }
 
 /*
@@ -35,12 +38,12 @@ static void	parse_champion_id(t_env *env, char *custom_champion_id, t_champion *
 
 static int is_cor_file(char *program_path)
 {
-	size_t len;
+	size_t filename_length;
 
 	if (program_path)
 	{
-		len = ft_strlen(program_path);
-		if (len > 4 && ft_strcmp(&program_path[len - 4], ".cor") == 0)
+		filename_length = ft_strlen(program_path);
+		if (filename_length > 4 && ft_strcmp(&program_path[filename_length - 4], ".cor") == 0)
 		{
 			return (true);
 		}
@@ -50,26 +53,32 @@ static int is_cor_file(char *program_path)
 
 /*
 **	The processes are initialized and the IDs of the champions are registered in their r1 (reg[0]).
-**	TODO: Parse file... /!\
 */
 
 static void	parse_champion_program(t_env *env, char *program_path, int champion_id)
 {
-	int			fd;
 	t_process	*process;
 
-	if (is_cor_file(program_path) == false)
+	if (is_cor_file(program_path))
+	{
+		parse_file(env, program_path);
+
+		if ((process = ft_memalloc(sizeof(t_process))) == NULL)
+		{
+			error_manager(*env, MEMORY_ALLOCATION_FAILED);
+		}
+		ft_bzero(&process->reg, sizeof(process->reg));
+		process->reg[0] = champion_id;
+		if (env->process)
+		{
+			process->next = env->process;
+		}
+		env->process = process;
+	}
+	else
+	{
 		error_manager(*env, INVALID_FILE_EXTENSION);
-	if ((fd = open(program_path, O_RDONLY)) == -1)
-		error_manager(*env, OPEN_FILE_FAILED);
-	if ((process = ft_memalloc(sizeof(t_process))) == NULL)
-		error_manager(*env, MEMORY_ALLOCATION_FAILED);
-	ft_bzero(&process->reg, sizeof(process->reg));
-	process->reg[0] = champion_id;
-	if (env->process)
-		process->next = env->process;
-	env->process = process;
-	close(fd);
+	}
 }
 
 void		parse_champion(t_env *env, char *custom_id, char *program_path)
@@ -79,4 +88,5 @@ void		parse_champion(t_env *env, char *custom_id, char *program_path)
 	champion = &env->champions[env->nb_of_champions];
 	parse_champion_id(env, custom_id, champion);
 	parse_champion_program(env, program_path, champion->id);
+	env->nb_of_champions++;
 }

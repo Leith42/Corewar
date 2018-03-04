@@ -2,6 +2,7 @@
 
 /*
 **	Ensure that the dump cycle is a positive integer and returns it.
+**	Todo: fix overflow, atoi is crap.
 */
 
 static size_t	get_dump_cycle(char **argv, size_t *pos, t_env env)
@@ -25,38 +26,35 @@ static size_t	get_dump_cycle(char **argv, size_t *pos, t_env env)
 **	Starting point of the parsing.
 **	Here we make sure that all arguments are valid.
 **	Generates and return the main structure of Corewar (t_env).
+**	Todo: must be factorized, the function is disgusting.
 */
 
-t_env			parse_argv(char **argv)
+t_env			parse_argv(t_env *env, char **arguments)
 {
-	t_env		env;
-	size_t		pos;
+	size_t		index;
 	char		*custom_id;
 
-	pos = 0;
-	init_env(&env);
-	while (argv[pos])
+	index = 0;
+	while (arguments[index])
 	{
 		custom_id = NULL;
-		if (ft_strequ(argv[pos], "-dump") == true)
-			env.dump_cycle = get_dump_cycle(argv, &pos, env);
-		if (argv[pos] == NULL)
+		if (ft_strequ(arguments[index], "-dump") == true)
+			env->dump_cycle = get_dump_cycle(arguments, &index, *env);
+		if (arguments[index] == NULL)
 			break;
-		if (ft_strequ(argv[pos], "-n") == true)
+		if (ft_strequ(arguments[index], "-n") == true)
 		{
-			if (argv[1 + 1])
-				custom_id = argv[pos + 1];
-			else
-				error_manager(env, INVALID_CHAMPION_ID);
-			pos += 2;
+			if (arguments[index + 1] == NULL)
+				error_manager(*env, INVALID_CHAMPION_ID);
+			custom_id = arguments[index + 1];
+			index += 2;
 		}
-		if (env.nb_of_champions < MAX_PLAYERS)
-			parse_champion(&env, custom_id, argv[pos]);
+		if (env->nb_of_champions < MAX_PLAYERS)
+			parse_champion(env, custom_id, arguments[index]);
 		else
-			error_manager(env, TOO_MANY_CHAMPIONS);
-		pos++;
+			error_manager(*env, TOO_MANY_CHAMPIONS);
+		index++;
 	}
-	if (env.nb_of_champions == 0)
-		error_manager(env, NO_CHAMPIONS);
-	return (env);
+	if (env->nb_of_champions == 0)
+		error_manager(*env, NO_CHAMPIONS);
 }

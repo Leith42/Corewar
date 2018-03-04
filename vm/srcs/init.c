@@ -8,6 +8,8 @@ static void	init_champions(t_env *env)
 	while (i < MAX_PLAYERS)
 	{
 		env->champions[i].id = 0;
+//		env->champions[i].name[PROG_NAME_LENGTH] = '\0';
+//		env->champions[i].comment[COMMENT_LENGTH] = '\0';
 		i++;
 	}
 }
