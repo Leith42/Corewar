@@ -1,6 +1,6 @@
 #include "vm.h"
 
-void	init_champions(t_env *env)
+static void	init_champions(t_env *env)
 {
 	size_t	i;
 
@@ -8,15 +8,17 @@ void	init_champions(t_env *env)
 	while (i < MAX_PLAYERS)
 	{
 		env->champions[i].id = 0;
-		env->champions[i].program_file = NULL;
+//		env->champions[i].name[PROG_NAME_LENGTH] = '\0';
+//		env->champions[i].comment[COMMENT_LENGTH] = '\0';
 		i++;
 	}
 }
 
-void	init_env(t_env *env)
+void		init_env(t_env *env)
 {
-	env->options.dump_cycle = 0;
-	env->options.champions_amount = 0;
+	env->dump_cycle = 0;
 	env->nb_of_champions = 0;
+	env->process = NULL;
 	init_champions(env);
+	ft_bzero(&(env->arena), sizeof(env->arena));
 }

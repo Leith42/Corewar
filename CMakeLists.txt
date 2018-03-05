@@ -9,6 +9,8 @@ add_executable(Corewar
         vm/srcs/exit.c
         vm/srcs/utils.c
         vm/srcs/init.c
+        vm/srcs/parsing_champion.c
+        vm/srcs/parsing_file.c
 #        vm/srcs/op.c
         )
 

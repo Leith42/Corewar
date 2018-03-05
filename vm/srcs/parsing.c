@@ -1,64 +1,60 @@
 #include "vm.h"
 
-size_t		get_dump_cycle(char *arg)
+/*
+**	Ensure that the dump cycle is a positive integer and returns it.
+**	Todo: fix overflow, atoi is crap.
+*/
+
+static size_t	get_dump_cycle(char **argv, size_t *pos, t_env env)
 {
-	if (is_string_numeric(arg) == false)
-		error_manager(INVALID_NB_OF_CYCLES);
-	return ((size_t)ft_atoi(arg));
+	int	cycles;
+
+	if (env.dump_cycle)
+	{
+		error_manager(env, NB_OF_CYCLES_ALREADY_EXISTS);
+	}
+	if (argv[*pos + 1] == NULL || is_string_numeric(argv[*pos + 1]) == false)
+	{
+		error_manager(env, INVALID_NB_OF_CYCLES);
+	}
+	cycles = ft_atoi(argv[*pos + 1]);
+	*pos += 2;
+	return ((size_t)cycles);
 }
 
-void		parse_champion_id(t_env *env, char *custom_champion_id)
-{
-	int			champion_id;
-	t_champion	*new_champion;
+/*
+**	Starting point of the parsing.
+**	Here we make sure that all arguments are valid.
+**	Generates and return the main structure of Corewar (t_env).
+**	Todo: must be factorized, the function is disgusting.
+*/
 
-	new_champion = &env->champions[env->nb_of_champions];
-	if (custom_champion_id)
-	{
-		if (is_string_numeric(custom_champion_id) == false)
-			error_manager(INVALID_CHAMPION_ID);
-		champion_id = ft_atoi(custom_champion_id);
-		new_champion->id = champion_id;
-	}
-	else
-	{
-		if (env->nb_of_champions == 0)
-			new_champion->id = 1;
-		else
-			new_champion->id = env->champions[env->nb_of_champions - 1].id + 1;
-		//TODO: Ensure that all IDs are unique.
-	}
-	env->nb_of_champions++;
-}
-
-t_env		parse_argv(char **argv)
+t_env			parse_argv(t_env *env, char **arguments)
 {
-	t_env		env;
-	size_t		i;
+	size_t		index;
 	char		*custom_id;
-	size_t		argv_len;
 
-	init_env(&env);
-	argv_len = get_argv_len(argv);
-	i = 1;
-	while(i < argv_len)
+	index = 0;
+	while (arguments[index])
 	{
 		custom_id = NULL;
-		if (ft_strequ(argv[i], "-dump") == true)
-			env.options.dump_cycle = get_dump_cycle(argv[++i]);
-		else if (ft_strequ(argv[i], "-n") == true)
+		if (ft_strequ(arguments[index], "-dump") == true)
+			env->dump_cycle = get_dump_cycle(arguments, &index, *env);
+		if (arguments[index] == NULL)
+			break;
+		if (ft_strequ(arguments[index], "-n") == true)
 		{
-			custom_id = argv[i + 1];
-			i += 2;
+			if (arguments[index + 1] == NULL)
+				error_manager(*env, INVALID_CHAMPION_ID);
+			custom_id = arguments[index + 1];
+			index += 2;
 		}
-		if (env.nb_of_champions < MAX_PLAYERS)
-		{
-			parse_champion_id(&env, custom_id);
-			// TODO: Parse programs (.cor).
-		}
+		if (env->nb_of_champions < MAX_PLAYERS)
+			parse_champion(env, custom_id, arguments[index]);
 		else
-			error_manager(INVALID_NB_OF_CHAMPIONS);
-		i++;
+			error_manager(*env, TOO_MANY_CHAMPIONS);
+		index++;
 	}
-	return (env);
+	if (env->nb_of_champions == 0)
+		error_manager(*env, NO_CHAMPIONS);
 }
