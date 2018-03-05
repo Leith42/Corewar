@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:15:13 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/05 16:35:47 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/05 17:05:25 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		free_env(t_env env)
 **	Take a signal, displays an appropriate error message on STDERR and exit.
 */
 
-static void	error_manager_bis(t_env env, enum e_error signal)
+static void	error_manager_bis(enum e_error signal)
 {
 	if (signal == READ_FILE_FAILED)
 		ft_putendl_fd("occurred while attempting to read a champion's program.",
@@ -64,7 +64,7 @@ void		error_manager(t_env env, enum e_error signal)
 		ft_putendl_fd("a number of cycles has already been specified.",
 				STDERR_FILENO);
 	else
-		error_manager_bis(env, signal);
+		error_manager_bis(signal);
 	ft_putendl("Usage: ./corewar \
 [-dump nbr_cycles] [[-n number] champion1.cor] ...");
 	exit(EXIT_FAILURE);
