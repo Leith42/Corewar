@@ -6,7 +6,7 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/05 17:16:37 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/05 18:51:41 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS_LIST		=	\
 					parsing/parsing.c \
 					parsing/parsing_champion.c \
 					parsing/parsing_file.c \
+					run/run.c\
 					utils.c
 SRCS			=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 
@@ -81,7 +82,7 @@ $(LIBFT) :
 	@make -C ../libft -j8
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
-	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)/parsing
+	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)/{parsing,run}
 	@printf "\e[K$(CYAN)Compiling $(BOLD)$(notdir $<)$(END_GRAPHICS)$(CYAN) ...\n\e[A$(END_GRAPHICS)"
 	@$(COMPILE.c) -c $< -o $@
 

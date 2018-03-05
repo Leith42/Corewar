@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:21:39 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/05 16:36:23 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/05 18:49:51 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int		main(int argc, char *argv[])
 		init_env(&env);
 		parse_argv(&env, argv + 1);
 		debug(env);
+		run(env);
 		free_env(env);
 	}
 	return (EXIT_SUCCESS);

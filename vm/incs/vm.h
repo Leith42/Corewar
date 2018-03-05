@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/05 17:05:52 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/05 18:51:41 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ void					parse_file(t_env *env, char *program_path);
 bool					is_string_numeric(char *s);
 void					free_env(t_env env);
 unsigned int			swap_uint32(unsigned int x);
+
+/*
+** Arena runtime
+*/
+void					run(t_env env);
 
 /*
 ** Errors
