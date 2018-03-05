@@ -6,7 +6,7 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/05 17:09:32 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/05 17:16:37 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ IFLAGS			=	-I $(LIB_H_DIR) -I $(PROJECT_H_DIR)
 COMPILE.c		=	$(CC) $(CFLAGS) $(IFLAGS)
 
 LIBFT			=	../libft/libft.a
-LFLAGS			=	-lft -Llibft
+LFLAGS			=	-lft -L../libft
 
 SRCS_DIR		=	srcs/
 SRCS_LIST		=	\
@@ -34,6 +34,7 @@ SRCS_LIST		=	\
 					op.c \
 					parsing/parsing.c \
 					parsing/parsing_champion.c \
+					parsing/parsing_file.c \
 					utils.c
 SRCS			=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 
