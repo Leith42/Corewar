@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:15:13 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/05 16:21:02 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/05 16:35:47 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void		error_manager(t_env env, enum e_error signal)
 				STDERR_FILENO);
 	else
 		error_manager_bis(env, signal);
-	ft_putendl(VM_USAGE);
+	ft_putendl("Usage: ./corewar \
+[-dump nbr_cycles] [[-n number] champion1.cor] ...");
 	exit(EXIT_FAILURE);
 }
