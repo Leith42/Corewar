@@ -10,12 +10,13 @@ add_executable(Corewar
         vm/srcs/utils.c
         vm/srcs/init.c
         vm/srcs/parsing_champion.c
+        vm/srcs/parsing_file.c
 #        vm/srcs/op.c
         )
 
 include_directories(Corewar
         ${CMAKE_SOURCE_DIR}/vm/incs/
-        ${CMAKE_SOURCE_DIR}/libft/include/)
+        ${CMAKE_SOURCE_DIR}/libft/incs/)
 
 target_link_libraries(Corewar
 ${CMAKE_SOURCE_DIR}/libft/libft.a)
