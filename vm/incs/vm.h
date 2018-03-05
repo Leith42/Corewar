@@ -68,7 +68,7 @@ typedef struct			s_env
 ** Init & Parsing
 */
 void					init_env(t_env *env);
-t_env					parse_argv(t_env *env, char **argv);
+void					parse_argv(t_env *env, char **argv);
 void					parse_champion(t_env *env, char *custom_id,
 						char *program_path);
 void					parse_file(t_env *env, char *program_path);
@@ -78,6 +78,7 @@ void					parse_file(t_env *env, char *program_path);
 */
 bool					is_string_numeric(char *s);
 void					free_env(t_env env);
+unsigned int			swap_uint32(unsigned int x);
 
 /*
 ** Errors

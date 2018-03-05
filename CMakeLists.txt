@@ -5,12 +5,12 @@ set(CMAKE_C_STANDARD 99)
 
 add_executable(Corewar
         vm/srcs/main.c
-        vm/srcs/parsing.c
         vm/srcs/exit.c
         vm/srcs/utils.c
         vm/srcs/init.c
-        vm/srcs/parsing_champion.c
-        vm/srcs/parsing_file.c
+        vm/srcs/parsing/parsing.c
+        vm/srcs/parsing/parsing_champion.c
+        vm/srcs/parsing/parsing_file.c
 #        vm/srcs/op.c
         )
 

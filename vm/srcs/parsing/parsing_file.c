@@ -25,17 +25,23 @@ void 		read_header(t_env *env, int program_fd, t_header *header)
 		error_manager(*env, READ_FILE_FAILED);
 	}
 
-	// Convert numbers from little to big-endian (321 become 123).
-	header->prog_size = SWAP_UINT32(header->prog_size);
-	header->magic = SWAP_UINT32(header->magic);
+	/*
+	**	Convert numbers from little to big-endian (321 become 123).
+	*/
+	header->prog_size = swap_uint32(header->prog_size);
+	header->magic = swap_uint32(header->magic);
 
-	// Make sure the file is a Corewar champion by checking its magic number.
+	/*
+	**	Make sure the file is a Corewar champion by checking its magic number.
+	*/
 	if (header->magic != COREWAR_EXEC_MAGIC)
 	{
 		error_manager(*env, NOT_A_CHAMPION_FILE);
 	}
 
-	// Also check that the program is not bigger (in bytes) than CHAMP_MAX_SIZE.
+	/*
+	**	Also check that the program is not bigger (in bytes) than CHAMP_MAX_SIZE.
+	*/
 	if (header->prog_size > CHAMP_MAX_SIZE)
 	{
 		error_manager(*env, FILE_IS_TOO_BIG);

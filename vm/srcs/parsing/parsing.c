@@ -29,7 +29,7 @@ static size_t	get_dump_cycle(char **argv, size_t *pos, t_env env)
 **	Todo: must be factorized, the function is disgusting.
 */
 
-t_env			parse_argv(t_env *env, char **arguments)
+void		parse_argv(t_env *env, char **arguments)
 {
 	size_t		index;
 	char		*custom_id;
