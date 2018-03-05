@@ -6,13 +6,13 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:22:49 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/05 16:23:31 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/05 17:04:52 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-bool	is_string_numeric(char *string)
+bool			is_string_numeric(char *string)
 {
 	size_t i;
 
@@ -26,4 +26,10 @@ bool	is_string_numeric(char *string)
 		i++;
 	}
 	return (true);
+}
+
+unsigned int	swap_uint32(unsigned int x)
+{
+	return (((x) >> 24) | (((x) & 0x00FF0000) >> 8)
+			| (((x) & 0x0000FF00) << 8) | ((x) << 24));
 }
