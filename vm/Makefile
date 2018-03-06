@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
+#    By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/06 13:53:53 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/06 19:24:31 by mgonon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,10 @@ SRCS_LIST		=	\
 					parsing/parsing_file.c \
 					run/run.c \
 					run/load_champions.c \
+					run/actions_1.c \
+					run/actions_2.c \
+					run/actions_3.c \
+					run/actions_4.c \
 					run/utils.c \
 					utils.c
 SRCS			=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))

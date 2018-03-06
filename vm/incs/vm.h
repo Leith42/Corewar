@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/06 18:48:49 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/06 19:18:05 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,27 @@ void					load_champions(t_env *env);
 void					disp_arena(t_env *env, size_t line_len);
 void					disp_arena_part(t_env *env, char *color,
 						size_t start, size_t end);
+void					debug_actions(t_process process, char *action);
+
+/*
+** List of actions tht can be performed by the process
+*/
+void    				do_live(t_process process, t_env env);
+void    				do_ld(t_process process, t_env env);
+void    				do_st(t_process process, t_env env);
+void    				do_zjmp(t_process process, t_env env);
+void    				do_ldi(t_process process, t_env env);
+void    				do_add(t_process process, t_env env);
+void    				do_sub(t_process process, t_env env);
+void    				do_and(t_process process, t_env env);
+void    				do_or(t_process process, t_env env);
+void    				do_xor(t_process process, t_env env);
+void    				do_sti(t_process process, t_env env);
+void    				do_fork(t_process process, t_env env);
+void    				do_lld(t_process process, t_env env);
+void    				do_lldi(t_process process, t_env env);
+void    				do_lfork(t_process process, t_env env);
+void    				do_aff(t_process process, t_env env);
 
 /*
 ** Errors
