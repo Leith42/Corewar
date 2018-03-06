@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/06 11:25:21 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:41:19 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void					load_champions(t_env *env);
 /*
 ** Arena utils
 */
-void					disp_arena(t_env *env);
+void					disp_arena(t_env *env, size_t line_len);
 
 /*
 ** Errors

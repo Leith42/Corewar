@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/06 10:38:15 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:41:38 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@
 void	run(t_env *env)
 {
 	load_champions(env);
-	disp_arena(env);
+	disp_arena(env, 64);
 }
