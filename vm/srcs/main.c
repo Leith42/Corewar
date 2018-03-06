@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:21:39 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/06 10:48:33 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/06 20:29:52 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,23 @@
 
 static void	debug(t_env env)
 {
-	size_t i;
+	size_t		i;
+	t_process	*process;
 
 	i = 0;
+	process = (t_process *)env.process;
 	ft_printf("Champions amount: %zu\n", env.nb_of_champions);
 	while (i < env.nb_of_champions)
 	{
 		ft_printf("\n");
 		ft_printf("Champion ID : %d\n", env.champions[i].id);
-		ft_printf("Process ID: %d\n", env.process->reg[0]);
+		ft_printf("Process ID: %d\n", process->reg[0]);
 		ft_printf("Magic number: %d\n", env.champions[i].header.magic);
 		ft_printf("Prog size: %d\n", env.champions[i].header.prog_size);
 		ft_printf("Name: %s\n", env.champions[i].header.prog_name);
 		ft_printf("Comment: %s\n", env.champions[i].header.comment);
 		ft_printf("Program: %s\n", env.champions[i].program);
-		env.process = env.process->next;
+		process = (t_process *)env.process->next;
 		i++;
 	}
 }

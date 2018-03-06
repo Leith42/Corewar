@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/06 19:47:13 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/06 20:29:46 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef	struct			s_process
 	int					reg[REG_NUMBER];
 	int					champ_id;
 	bool				carry;
-	struct s_process	*next;
 }						t_process;
 
 typedef	struct			s_champion
@@ -65,7 +64,7 @@ typedef struct			s_env
 {
 	unsigned char		arena[MEM_SIZE];
 	t_champion			champions[MAX_PLAYERS];
-	t_process			*process;
+	t_list				*process;
 	size_t				dump_cycle;
 	size_t				nb_of_champions;
 }						t_env;
@@ -105,22 +104,22 @@ void					debug_actions(t_process *process, char *action);
 /*
 ** List of actions tht can be performed by the process
 */
-void    				do_live(t_process *process, t_env *env);
-void    				do_ld(t_process *process, t_env *env);
-void    				do_st(t_process *process, t_env *env);
-void    				do_zjmp(t_process *process, t_env *env);
-void    				do_ldi(t_process *process, t_env *env);
-void    				do_add(t_process *process, t_env *env);
-void    				do_sub(t_process *process, t_env *env);
-void    				do_and(t_process *process, t_env *env);
-void    				do_or(t_process *process, t_env *env);
-void    				do_xor(t_process *process, t_env *env);
-void    				do_sti(t_process *process, t_env *env);
-void    				do_fork(t_process *process, t_env *env);
-void    				do_lld(t_process *process, t_env *env);
-void    				do_lldi(t_process *process, t_env *env);
-void    				do_lfork(t_process *process, t_env *env);
-void    				do_aff(t_process *process, t_env *env);
+void					do_live(t_process *process, t_env *env);
+void					do_ld(t_process *process, t_env *env);
+void					do_st(t_process *process, t_env *env);
+void					do_zjmp(t_process *process, t_env *env);
+void					do_ldi(t_process *process, t_env *env);
+void					do_add(t_process *process, t_env *env);
+void					do_sub(t_process *process, t_env *env);
+void					do_and(t_process *process, t_env *env);
+void					do_or(t_process *process, t_env *env);
+void					do_xor(t_process *process, t_env *env);
+void					do_sti(t_process *process, t_env *env);
+void					do_fork(t_process *process, t_env *env);
+void					do_lld(t_process *process, t_env *env);
+void					do_lldi(t_process *process, t_env *env);
+void					do_lfork(t_process *process, t_env *env);
+void					do_aff(t_process *process, t_env *env);
 
 /*
 ** Errors

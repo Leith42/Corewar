@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_champion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:54:44 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/05 19:00:21 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/06 20:27:55 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,7 @@ static void	parse_champion_program(t_env *env, char *program_path,
 			error_manager(*env, MEMORY_ALLOCATION_FAILED);
 		ft_bzero(&process->reg, sizeof(process->reg));
 		process->reg[0] = champion_id;
-		if (env->process)
-			process->next = env->process;
-		env->process = process;
+		ft_lstpush_front(&(env->process), (void *)process);
 	}
 	else
 		error_manager(*env, INVALID_FILE_EXTENSION);
