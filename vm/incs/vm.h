@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/06 11:41:19 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:59:52 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "libft.h"
 # include "op.h"
 # include <stdbool.h>
+
+# define DUMP_LINE_LEN	32
 
 enum				e_error
 {
