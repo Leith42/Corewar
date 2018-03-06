@@ -63,3 +63,6 @@ cmake-build-debug/
 CMakeLists.txt
 corewar
 asm
+
+#Vim Session
+Session.vim
