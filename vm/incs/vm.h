@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/05 18:51:41 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/06 10:11:51 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,14 @@ unsigned int			swap_uint32(unsigned int x);
 ** Arena runtime
 */
 void					run(t_env env);
+/*
+** Arena Init
+*/
+void					load_champions(t_env env);
+/*
+** Arena utils
+*/
+void					disp_arena(t_env env);
 
 /*
 ** Errors

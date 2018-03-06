@@ -6,7 +6,7 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/05 18:51:41 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/06 10:07:30 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,9 @@ SRCS_LIST		=	\
 					parsing/parsing.c \
 					parsing/parsing_champion.c \
 					parsing/parsing_file.c \
-					run/run.c\
+					run/run.c \
+					run/load_champions.c \
+					run/utils.c \
 					utils.c
 SRCS			=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 
