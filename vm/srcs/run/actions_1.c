@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 17:53:08 by mgonon            #+#    #+#             */
-/*   Updated: 2018/03/06 19:45:50 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/06 22:51:56 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 void	do_live(t_process *process, t_env *env)
 {
 	debug_actions(process, "live");
+	env->nb_live++;
+	if (env->nb_live == NBR_LIVE && process_are_alive(env))
+		env->cycle_to_die -= CYCLE_DELTA;
 	(void)env;
 }
 
