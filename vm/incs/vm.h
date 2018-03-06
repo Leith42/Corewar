@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/06 11:59:52 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/06 13:55:18 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 # include <stdbool.h>
 
 # define DUMP_LINE_LEN	32
+# define NORETURN _Noreturn void
 
-enum				e_error
+enum						e_error
 {
 	INVALID_NB_OF_CYCLES,
 	NB_OF_CYCLES_ALREADY_EXISTS,
@@ -99,6 +100,6 @@ void					disp_arena(t_env *env, size_t line_len);
 ** Errors
 ** error_manager() should have attribute _Noreturn, but the Norm doesn't let it
 */
-void					error_manager(t_env env, enum e_error signal);
+NORETURN				error_manager(t_env env, enum e_error signal);
 
 #endif
