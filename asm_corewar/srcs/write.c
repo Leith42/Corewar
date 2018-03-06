@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   write.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/15 18:21:49 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/02/15 18:21:50 by lmartin-         ###   ########.fr       */
+/*   Created: 2018/03/06 15:47:03 by lmartin-          #+#    #+#             */
+/*   Updated: 2018/03/06 15:47:05 by lmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int		main(int ac, char **av)
+int		ft_write(char *file_name, unsigned char *tab)
 {
-	int fd;
+	int n;
 
-	if (ac != 2)
-		write(1, "Usage: ./asm File_Name\n", 23);
-	else if (!(ft_strnequ(av[1] + ft_strlen(av[1]) - 2, ".s", 2)))
-		write(1, "Wrong file\n", 11);
-	else if (!(fd = open(av[1], O_RDONLY)))
-	 	write(1, "Wrong file\n", 11);
-	else
+	n = -1;
+	//fonction qui change file_name.s en file_name.cor
+	//creation file_name
+	while (tab[++n])
 	{
-		read(fd, av[1]);
+		//convertir unsigned char en binaire
+		//write binaire dans file_name
 	}
-	return (0);
+	return (1);
 }
