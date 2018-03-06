@@ -24,7 +24,7 @@ int		main(int ac, char **av)
 	 	write(1, "Wrong file\n", 11);
 	else
 	{
-		read(fd, av[1]);
+		ft_read(fd, av[1]);
 	}
 	return (0);
 }
