@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:54:44 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/06 20:27:55 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/06 20:51:27 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@
 static void	parse_champion_id(t_env *env, char *custom_champion_id,
 		t_champion *new_champion)
 {
-	int			champion_id;
+	unsigned int	champion_id;
 
 	if (custom_champion_id)
 	{
 		if (is_string_numeric(custom_champion_id) == false)
 			error_manager(*env, INVALID_CHAMPION_ID);
-		champion_id = ft_atoi(custom_champion_id);
+		champion_id = (unsigned int)ft_atoi(custom_champion_id);
 		new_champion->id = champion_id;
 	}
 	else
@@ -64,7 +64,7 @@ static int	is_cor_file(char *program_path)
 */
 
 static void	parse_champion_program(t_env *env, char *program_path,
-		int champion_id)
+		unsigned int champion_id)
 {
 	t_process	*process;
 

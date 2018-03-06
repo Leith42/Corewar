@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/06 20:29:46 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/06 20:51:14 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,16 @@ enum						e_error
 */
 typedef	struct			s_process
 {
-	int					pc;
-	int					reg[REG_NUMBER];
-	int					champ_id;
+	unsigned int		pc;
+	unsigned int		reg[REG_NUMBER];
+	unsigned int		champ_id;
 	bool				carry;
 }						t_process;
 
 typedef	struct			s_champion
 {
 	t_header			header;
-	int					id;
+	unsigned int		id;
 	unsigned char		program[CHAMP_MAX_SIZE];
 }						t_champion;
 
