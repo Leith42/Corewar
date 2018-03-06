@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/06 20:51:14 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/07 00:00:02 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,14 @@ enum						e_error
 /*
 ** Not sure about the type since we need (REG_NUMBER * REG_SIZE) bytes.
 ** add champ_id for the display
-** TO DELETE *next
+** add is_alive
 */
 typedef	struct			s_process
 {
 	unsigned int		pc;
 	unsigned int		reg[REG_NUMBER];
 	unsigned int		champ_id;
+	bool				is_alive;
 	bool				carry;
 }						t_process;
 
@@ -59,6 +60,8 @@ typedef	struct			s_champion
 /*
 ** Todo: Don't know if a structure representing the arena (memory) is relevant,
 ** we'll think about it.
+** add cycle_to_die
+** add nb_live;
 */
 typedef struct			s_env
 {
@@ -67,6 +70,8 @@ typedef struct			s_env
 	t_list				*process;
 	size_t				dump_cycle;
 	size_t				nb_of_champions;
+	size_t				cycle_to_die;
+	size_t				nb_live;
 }						t_env;
 
 /*
@@ -120,6 +125,13 @@ void					do_lld(t_process *process, t_env *env);
 void					do_lldi(t_process *process, t_env *env);
 void					do_lfork(t_process *process, t_env *env);
 void					do_aff(t_process *process, t_env *env);
+
+/*
+** Utils for process
+*/
+t_list					*lstdelnode(t_list *cur, t_list *node);
+int						process_are_alive(t_env *env);
+void					kill_dead_process(t_env *env);
 
 /*
 ** Errors

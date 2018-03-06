@@ -6,7 +6,7 @@
 #    By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/06 19:24:31 by mgonon           ###   ########.fr        #
+#    Updated: 2018/03/06 23:58:26 by mgonon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS_LIST		=	\
 					run/actions_3.c \
 					run/actions_4.c \
 					run/utils.c \
+					run/process.c \
 					utils.c
 SRCS			=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 
