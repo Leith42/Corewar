@@ -6,7 +6,7 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/06 10:07:30 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/06 10:21:46 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -112,4 +112,4 @@ debug : CFLAGS=-Wall -Wextra -g
 debug : all
 	@printf "\e[K$(GREEN)Executable $(BOLD)$(NAME)$(END_GRAPHICS)$(GREEN) has successfully compiled $(YELLOW)(with debug symbols).$(END_GRAPHICS)\n"
 
-debug_re : project_fclean debug
+debug_re : fclean debug
