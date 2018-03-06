@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/06 11:20:06 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:25:21 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void					disp_arena(t_env *env);
 
 /*
 ** Errors
+** error_manager() should have attribute _Noreturn, but the Norm doesn't let it
 */
 void					error_manager(t_env env, enum e_error signal);
 

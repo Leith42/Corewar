@@ -6,9 +6,13 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:15:13 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/06 11:21:18 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:27:14 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+** zconf.h is included for its STDERR_X in signal handling.
+*/
 
 #include "vm.h"
 #include <stdlib.h>
