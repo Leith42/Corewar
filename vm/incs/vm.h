@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/06 13:55:18 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/06 18:18:38 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,14 @@ enum						e_error
 
 /*
 ** Not sure about the type since we need (REG_NUMBER * REG_SIZE) bytes.
+** add champ_id for the display
+** TO DELETE *next
 */
 typedef	struct			s_process
 {
 	int					pc;
 	int					reg[REG_NUMBER];
+	int					champ_id;
 	bool				carry;
 	struct s_process	*next;
 }						t_process;
