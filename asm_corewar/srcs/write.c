@@ -12,6 +12,30 @@
 
 #include "asm.h"
 
+char		*ft_binary_itoa(unsigned char c, int type) // si type > 0, on aura 0b devant le resultat
+{
+	int		n;
+	char	*nb;
+	int		tmp;
+
+	type = (type > 0) ? 2 : 0;
+	nb = (char *)malloc(sizeof(char) * 8 + type);
+	n = 8 + type;
+	nb[n--] = '\0';
+	while (n >= type)
+	{
+		tmp = (c >= 2) ? c % 2 : c;
+		nb[n--] = (char)(48 + tmp);
+		c /= 2;
+	}
+	if (type == 2)
+	{
+		nb[1] = 'b';
+		nb[0] = '0';
+	}
+	return (nb);
+}
+
 int		ft_write(char *file_name, unsigned char *tab)
 {
 	int n;
