@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:15:13 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/05 17:05:25 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:21:18 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <zconf.h>
 
-void		free_env(t_env env)
+void			free_env(t_env env)
 {
 	while (env.process)
 	{
@@ -28,7 +28,7 @@ void		free_env(t_env env)
 **	Take a signal, displays an appropriate error message on STDERR and exit.
 */
 
-static void	error_manager_bis(enum e_error signal)
+static void		error_manager_bis(enum e_error signal)
 {
 	if (signal == READ_FILE_FAILED)
 		ft_putendl_fd("occurred while attempting to read a champion's program.",
@@ -42,7 +42,7 @@ static void	error_manager_bis(enum e_error signal)
 		perror(NULL);
 }
 
-void		error_manager(t_env env, enum e_error signal)
+void			error_manager(t_env env, enum e_error signal)
 {
 	free_env(env);
 	ft_putstr_fd("ERROR: ", STDERR_FILENO);

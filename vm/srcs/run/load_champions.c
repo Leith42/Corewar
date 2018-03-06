@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 09:57:28 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/06 10:38:09 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/06 10:49:45 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 void	load_champions(t_env *env)
 {
-	int		champ_nb;
+	unsigned int	champ_nb;
 
 	champ_nb = 0;
 	while (env->champions[champ_nb].id > 0)

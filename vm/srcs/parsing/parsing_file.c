@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:54:43 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/05 18:58:29 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/06 10:48:59 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	read_program(t_env *env, int program_fd,
 **	Also check that the program is not bigger (in bytes) than CHAMP_MAX_SIZE.
 */
 
-void		read_header(t_env *env, int program_fd, t_header *header)
+static void	read_header(t_env *env, int program_fd, t_header *header)
 {
 	if (read(program_fd, header, sizeof(t_header)) != sizeof(t_header))
 		error_manager(*env, READ_FILE_FAILED);

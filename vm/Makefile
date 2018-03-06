@@ -6,7 +6,7 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/06 10:21:46 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/06 11:21:03 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME			=	../corewar
 
 CC				=	clang
-CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror -Weverything -Wno-padded -Wno-missing-noreturn
 
 LIB_H_DIR		=	../libft/incs
 PROJECT_H_DIR	=	incs/

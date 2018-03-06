@@ -6,14 +6,14 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:21:39 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/06 10:29:06 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/06 10:48:33 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <stdlib.h>
 
-void	debug(t_env env)
+static void	debug(t_env env)
 {
 	size_t i;
 
@@ -34,7 +34,7 @@ void	debug(t_env env)
 	}
 }
 
-int		main(int argc, char *argv[])
+int			main(int argc, char *argv[])
 {
 	t_env		env;
 
