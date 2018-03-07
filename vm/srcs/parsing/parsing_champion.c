@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:54:44 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 19:51:52 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/07 20:49:13 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,15 @@ static void	parse_champion_program(t_env *env, char *program_path,
 		unsigned int champion_id)
 {
 	t_process	*process;
+	t_list		*tmp;
 
 	if (is_cor_file(program_path))
 	{
 		parse_file(env, program_path);
 		process = init_process(env, champion_id);
-		ft_lstpush_front(&(env->process), ft_lstnew((void *)process, sizeof(t_process)));
+		if (!(tmp = ft_lstnew((void *)process, sizeof(t_process))))
+			exit(EXIT_FAILURE);
+		ft_lstpush_front(&(env->process), tmp);
 	}
 	else
 		error_manager(*env, INVALID_FILE_EXTENSION);
