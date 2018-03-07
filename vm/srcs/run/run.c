@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 00:11:19 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/07 16:19:08 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,13 @@ void	run(t_env *env)
 
 	i = 0;
 	load_champions(env);
+	ft_putstr("\x1b[2J");
+	while (1)
+	{
+		env->arena[i] += i % 7;
+		env->mask[i] = i % 4 + 1;
+		i += 7;
+		i %= MEM_SIZE;
+		disp_arena(env, 64);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 00:00:02 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/07 16:17:52 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdbool.h>
 
 # define DUMP_LINE_LEN	32
+# define NULL_ID 0
 # define NORETURN _Noreturn void
 
 enum						e_error

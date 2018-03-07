@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:06:58 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/06 19:47:32 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/07 16:19:08 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,18 @@ void	disp_arena_part(t_env *env, char *color, size_t start, size_t end)
 void	disp_arena(t_env *env, size_t line_len)
 {
 	size_t	i;
+	char	colors[5][12] = {
+		"\x1b[2;37m",
+		"\x1b[0;31m",
+		"\x1b[0;32m",
+		"\x1b[0;33m",
+		"\x1b[0;34m"};
 
 	i = 0;
+	ft_putstr("\x1b[H");
 	while (i < MEM_SIZE)
 	{
-		ft_printf("%02X ", env->arena[i]);
+		ft_printf("%s%02X \x1b[0m", colors[env->mask[i]], env->arena[i]);
 		i++;
 		if ((i % line_len) == 0)
 			ft_putchar('\n');
