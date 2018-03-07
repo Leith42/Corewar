@@ -13,32 +13,54 @@
 #include <stdlib.h>
 #include "vm.h"
 
+static bool	is_id_unique(unsigned int id, t_champion *champions)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < MAX_PLAYERS)
+	{
+		if (id == champions[i].id)
+		{
+			return (false);
+		}
+		i++;
+	}
+	return (true);
+}
+
 /*
 **	Add or generates an ID (player's number) for the champion.
 **	Todo: ensure that all ID's are unique. /!\
 */
 
 static void	parse_champion_id(t_env *env, char *custom_champion_id,
-		t_champion *new_champion)
+		t_champion *current_champion)
 {
 	unsigned int	champion_id;
+	unsigned int	last_champion_id;
 
+	last_champion_id = env->champions[env->nb_of_champions - 1].id;
 	if (custom_champion_id)
 	{
 		if (is_string_numeric(custom_champion_id) == false)
 			error_manager(*env, INVALID_CHAMPION_ID);
-		champion_id = (unsigned int)ft_atoi(custom_champion_id);
-		if (champion_id == 0)
+		if ((champion_id = (unsigned int)ft_atoi(custom_champion_id)) == 0)
 			error_manager(*env, INVALID_CHAMPION_ID);
-		new_champion->id = champion_id;
+		if (is_id_unique(champion_id, env->champions) == false)
+			error_manager(*env, CHAMPION_ID_IS_ALREADY_TAKEN);
+		current_champion->id = champion_id;
 	}
 	else
 	{
 		if (env->nb_of_champions == 0)
-			new_champion->id = 1;
+			env->champions[env->nb_of_champions].id = 1;
 		else
-			new_champion->id =
-				env->champions[env->nb_of_champions - 1].id + 1;
+		{
+			while (is_id_unique(last_champion_id, env->champions) == false)
+				last_champion_id++;
+			current_champion->id = last_champion_id;
+		}
 	}
 }
 

@@ -42,6 +42,9 @@ static void		error_manager_bis(enum e_error signal)
 	else if (signal == NOT_A_CHAMPION_FILE)
 		ft_putendl_fd("please make sure the files are Corewar champions.",
 				STDERR_FILENO);
+	else if (signal == CHAMPION_ID_IS_ALREADY_TAKEN)
+		ft_putendl_fd("please make sure that your IDs are uniques",
+				STDERR_FILENO);
 	else
 		perror(NULL);
 }
