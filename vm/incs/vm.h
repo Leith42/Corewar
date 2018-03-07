@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 16:25:54 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/07 16:30:26 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define DUMP_LINE_LEN	32
 # define NULL_ID 0
 
-enum						e_error
+enum					e_error
 {
 	INVALID_NB_OF_CYCLES,
 	NB_OF_CYCLES_ALREADY_EXISTS,
@@ -34,6 +34,27 @@ enum						e_error
 	MEMORY_ALLOCATION_FAILED,
 	NOT_A_CHAMPION_FILE,
 	FILE_IS_TOO_BIG,
+};
+
+enum					e_opcode
+{
+	OP_ADD = 0x04,
+	OP_AFF = 0x10,
+	OP_AND = 0x06,
+	OP_FORK = 0x0C,
+	OP_LD = 0x02,
+	OP_LDI = 0x0A,
+	OP_LFORK = 0x0F,
+	OP_LIVE = 0x01,
+	OP_LLD = 0x0D,
+	OP_LLDI = 0x0E,
+	OP_OR = 0x07,
+	OP_ST = 0x03,
+	OP_STI = 0x0B,
+	OP_SUB = 0x05,
+	OP_XOR = 0x08,
+	OP_ZJMP = 0x09,
+
 };
 
 /*
