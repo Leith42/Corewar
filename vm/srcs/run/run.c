@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 21:09:39 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/08 00:46:16 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,23 @@
 /*
 ** For each process, in order, executes the current instruction by calling
 ** the associated function.
-** IS NOT PROTECTED FROM BAD OPCODES
 */
 
 static void	run_processes(t_env *env)
 {
 	t_list		*lst;
 	t_process	*process;
+	size_t		opcode;
 
 	lst = env->process;
 	while (lst)
 	{
 		process = (t_process *)lst->content;
-		(*(env->op_tab[env->arena[process->pc] - 1]))(process, env);
+		opcode = env->arena[process->pc];
+		if (opcode - 1 < 16)
+			(*(env->op_tab[opcode - 1]))(process, env);
+		else
+			debug_actions(process, "bad opcode");
 		lst = lst->next;
 	}
 }
