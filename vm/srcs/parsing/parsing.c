@@ -57,7 +57,7 @@ void			parse_argv(t_env *env, char **arguments)
 			custom_id = arguments[index + 1];
 			index += 2;
 		}
-		if (env->nb_of_champions > MAX_PLAYERS)
+		if (env->nb_of_champions >= MAX_PLAYERS)
 			error_manager(*env, TOO_MANY_CHAMPIONS);
 		parse_champion(env, custom_id, arguments[index]);
 		index++;
