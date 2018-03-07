@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:54:44 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 19:43:02 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/07 19:51:52 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,11 @@ static void	parse_champion_program(t_env *env, char *program_path,
 		unsigned int champion_id)
 {
 	t_process	*process;
-	int			i;
 
 	if (is_cor_file(program_path))
 	{
 		parse_file(env, program_path);
-		if ((process = malloc(sizeof(t_process))) == NULL)
-			error_manager(*env, MEMORY_ALLOCATION_FAILED);
-		i = 0;
-		while (i < REG_NUMBER)
-			process->reg[i++] = 0;
-		process->reg[0] = champion_id;
-		process->champ_id = champion_id;
+		process = init_process(env, champion_id);
 		ft_lstpush_front(&(env->process), ft_lstnew((void *)process, sizeof(t_process)));
 	}
 	else

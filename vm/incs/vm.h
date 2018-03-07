@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 18:13:15 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/07 19:51:08 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct			s_env
 ** Init & Parsing
 */
 void					init_env(t_env *env);
+t_process				*init_process(t_env *env, unsigned int champion_id);
 void					parse_argv(t_env *env, char **argv);
 void					parse_champion(t_env *env, char *custom_id,
 						char *program_path);
