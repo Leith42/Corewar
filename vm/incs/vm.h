@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 19:51:08 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/07 20:24:33 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct			s_env
 	size_t				cycle_to_die;
 	size_t				nb_live;
 	unsigned int		last_live_id;
+	void				(*op_tab[16]) (t_process *process, struct s_env *env);
 }						t_env;
 
 /*
