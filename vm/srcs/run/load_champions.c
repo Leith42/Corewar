@@ -30,14 +30,14 @@ void	load_champions(t_env *env)
 	{
 		entry_point = ((MEM_SIZE / env->nb_of_champions) * champ_nb);
 		process->pc = entry_point;
-		disp_arena_part(env, "\x1b[37m", end_point, entry_point);
+//		disp_arena_part(env, "\x1b[37m", end_point, entry_point);
 		ft_memcpy(env->arena + entry_point,
 				env->champions[champ_nb].program,
 				env->champions[champ_nb].header.prog_size);
 		end_point = entry_point + env->champions[champ_nb].header.prog_size;
-		disp_arena_part(env, NULL, entry_point, end_point);
+//		disp_arena_part(env, NULL, entry_point, end_point);
 		champ_nb++;
 		process = (t_process *)env->process->next;
 	}
-	disp_arena_part(env, "\x1b[37m", end_point, MEM_SIZE);
+//	disp_arena_part(env, "\x1b[37m", end_point, MEM_SIZE);
 }

@@ -31,6 +31,7 @@ static void	debug(t_env env)
 		ft_printf("Name: %s\n", env.champions[i].header.prog_name);
 		ft_printf("Comment: %s\n", env.champions[i].header.comment);
 		ft_printf("Program: %s\n", env.champions[i].program);
+		ft_printf("PC: %ud\n", process->pc);
 		process = (t_process *)env.process->next;
 		i++;
 	}
