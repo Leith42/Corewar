@@ -6,7 +6,7 @@
 #    By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/06 23:58:26 by mgonon           ###   ########.fr        #
+#    Updated: 2018/03/07 17:42:23 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME			=	../corewar
 
 CC				=	clang
-CFLAGS			=	-Wall -Wextra -Werror -Weverything -Wno-padded
+CFLAGS			=	-Wall -Wextra -Werror -Weverything -Wno-padded -Wno-missing-noreturn
 LIB_H_DIR		=	../libft/incs
 PROJECT_H_DIR	=	incs/
 IFLAGS			=	-I $(LIB_H_DIR) -I $(PROJECT_H_DIR)
