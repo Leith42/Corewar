@@ -6,7 +6,7 @@
 #    By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/07 17:42:23 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/07 23:58:18 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,12 +36,24 @@ SRCS_LIST		=	\
 					parsing/parsing_file.c \
 					run/run.c \
 					run/load_champions.c \
-					run/actions_1.c \
-					run/actions_2.c \
-					run/actions_3.c \
-					run/actions_4.c \
 					run/utils.c \
 					run/process.c \
+					op_func/op_add.c \
+					op_func/op_aff.c \
+					op_func/op_and.c \
+					op_func/op_fork.c \
+					op_func/op_ld.c \
+					op_func/op_ldi.c \
+					op_func/op_lfork.c \
+					op_func/op_live.c \
+					op_func/op_lld.c \
+					op_func/op_lldi.c \
+					op_func/op_or.c \
+					op_func/op_st.c \
+					op_func/op_sti.c \
+					op_func/op_sub.c \
+					op_func/op_xor.c \
+					op_func/op_zjmp.c \
 					utils.c
 SRCS			=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 
@@ -88,7 +100,7 @@ $(LIBFT) :
 	@make -C ../libft -j8
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
-	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)/{parsing,run}
+	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)/{parsing,run,op_func}
 	@printf "\e[K$(CYAN)Compiling $(BOLD)$(notdir $<)$(END_GRAPHICS)$(CYAN) ...\n\e[A$(END_GRAPHICS)"
 	@$(COMPILE.c) -c $< -o $@
 
