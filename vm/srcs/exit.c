@@ -57,7 +57,7 @@ void			error_manager(t_env env, enum e_error signal)
 	else if (signal == NO_CHAMPIONS)
 		ft_putendl_fd("no champions.", STDERR_FILENO);
 	else if (signal == INVALID_CHAMPION_ID)
-		ft_putendl_fd("champions numbers must be positive integers.",
+		ft_putendl_fd("champions numbers must be strictly positive integers.",
 				STDERR_FILENO);
 	else if (signal == OPEN_FILE_FAILED || signal == CLOSE_FILE_FAILED)
 		perror("occurred while attempting to open a champion's program");
