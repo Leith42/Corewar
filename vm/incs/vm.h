@@ -6,7 +6,11 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2018/03/07 00:00:02 by mgonon           ###   ########.fr       */
+=======
+/*   Updated: 2018/03/07 16:25:54 by gudemare         ###   ########.fr       */
+>>>>>>> 9c52c6ef6f6b5700d134f312eb41b7a7441fc40e
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +23,7 @@
 
 # define DUMP_LINE_LEN	32
 # define NORETURN _Noreturn void
+# define NULL_ID 0
 
 enum						e_error
 {
@@ -139,6 +144,6 @@ void					kill_dead_process(t_env *env);
 ** Errors
 ** error_manager() should have attribute _Noreturn, but the Norm doesn't let it
 */
-NORETURN				error_manager(t_env env, enum e_error signal);
+void					error_manager(t_env env, enum e_error signal);
 
 #endif
