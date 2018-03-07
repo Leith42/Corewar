@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 21:05:03 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/07 21:09:39 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** For each process, in order, executes the current instruction by calling
 ** the associated function.
+** IS NOT PROTECTED FROM BAD OPCODES
 */
 
 static void	run_processes(t_env *env)
