@@ -27,6 +27,8 @@ static void	parse_champion_id(t_env *env, char *custom_champion_id,
 		if (is_string_numeric(custom_champion_id) == false)
 			error_manager(*env, INVALID_CHAMPION_ID);
 		champion_id = (unsigned int)ft_atoi(custom_champion_id);
+		if (champion_id == 0)
+			error_manager(*env, INVALID_CHAMPION_ID);
 		new_champion->id = champion_id;
 	}
 	else
