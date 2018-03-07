@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 16:30:26 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/07 16:31:20 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,6 @@ void					load_champions(t_env *env);
 ** Arena utils
 */
 void					disp_arena(t_env *env, size_t line_len);
-void					disp_arena_part(t_env *env, char *color,
-						size_t start, size_t end);
 void					debug_actions(t_process *process, char *action);
 
 /*
