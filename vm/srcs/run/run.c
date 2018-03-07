@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 20:44:25 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/07 21:05:03 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ static void	run_processes(t_env *env)
 ** }
 */
 
+/*
+** DOES NOT DUMP if dump_cycle = 0 ! Needs var saying -dump is in argv
+** kill_all_process() should replace break calls for leaks and sanity
+*/
+
 void		run(t_env *env)
 {
 	size_t	cycle;
@@ -61,6 +66,12 @@ void		run(t_env *env)
 				cycle, env->cycle_to_die);
 		run_processes(env);
 		cycle++;
-		break ;
+		env->dump_cycle--;
+		if (env->dump_cycle == 0)
+		{
+			ft_putstr("\x1b[2J");
+			disp_arena(env, DUMP_LINE_LEN);
+			break ;
+		}
 	}
 }
