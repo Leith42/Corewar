@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 20:13:37 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/07 20:44:25 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	run_processes(t_env *env)
 	while (lst)
 	{
 		process = (t_process *)lst->content;
-//		(*(env->op_tab[env->arena[process->pc]]))(process, env);
+		(*(env->op_tab[env->arena[process->pc] - 1]))(process, env);
 		lst = lst->next;
 	}
 }
@@ -56,10 +56,11 @@ void		run(t_env *env)
 	cycle = 0;
 	while (env->process)
 	{
-		run_processes(env);
 		disp_arena(env, 64);
 		ft_printf("\n\x1b[KCycle = %d\tCycle to die = %d\n",
 				cycle, env->cycle_to_die);
+		run_processes(env);
 		cycle++;
+		break ;
 	}
 }
