@@ -6,15 +6,36 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 17:45:02 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/07 20:13:37 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
 /*
+** For each process, in order, executes the current instruction by calling
+** the associated function.
+*/
+
+static void	run_processes(t_env *env)
+{
+	t_list		*lst;
+	t_process	*process;
+
+	lst = env->process;
+	while (lst)
+	{
+		process = (t_process *)lst->content;
+//		(*(env->op_tab[env->arena[process->pc]]))(process, env);
+		lst = lst->next;
+	}
+}
+
+/*
 ** Runs the battle.
 ** First initializes the arena and champions.
+** Then resets the screen.
+** Then runs the battle, running instructions and displaying arena.
 */
 
 /*
@@ -26,19 +47,19 @@
 ** }
 */
 
-void	run(t_env *env)
+void		run(t_env *env)
 {
-	size_t	i;
+	size_t	cycle;
 
-	i = 0;
 	load_champions(env);
 	ft_putstr("\x1b[2J");
-	while (1)
+	cycle = 0;
+	while (env->process)
 	{
-		env->arena[i] += i % 7;
-		env->mask[i] = i % 4 + 1;
-		i += 7;
-		i %= MEM_SIZE;
+		run_processes(env);
 		disp_arena(env, 64);
+		ft_printf("\n\x1b[KCycle = %d\tCycle to die = %d\n",
+				cycle, env->cycle_to_die);
+		cycle++;
 	}
 }
