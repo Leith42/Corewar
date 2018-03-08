@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 22:47:11 by mgonon            #+#    #+#             */
-/*   Updated: 2018/03/08 19:23:29 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/08 19:58:22 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,26 @@ size_t	kill_dead_process(t_env *env)
 	t_list	*lst_cur;
 	t_list	*lst_prev;
 	t_list	**start;
-	size_t	nb_process_killed;
+	size_t	nb_proc_killed;
 
-	nb_process_killed = 0;
+	nb_proc_killed = 0;
 	start = &(env->process);
 	lst_prev = env->process;
 	lst_cur = env->process;
 	while (lst_cur)
 	{
-		if (!((t_process *)lst_cur->content)->is_alive)
+		if (!((t_process *)lst_cur->content)->is_alive && nb_proc_killed++)
 		{
 			if (lst_cur == *start)
 				*start = lst_cur->next;
 			else
 				lst_prev->next = lst_cur->next;
 			free(lst_cur);
-			nb_process_killed++;
 		}
-		lst_prev = lst_cur;
-		lst_cur = lst_cur->next;
+		else
+			((t_process *)lst_cur->content)->is_alive = 0;
+		lst_prev = lst_prev->next;
+		lst_cur = lst_prev->next;
 	}
-	return (nb_process_killed);
+	return (nb_proc_killed);
 }
