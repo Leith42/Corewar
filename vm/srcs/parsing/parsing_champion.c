@@ -99,7 +99,7 @@ static void	parse_champion_program(t_env *env, char *program_path,
 		parse_file(env, program_path);
 		process = init_process(env, champion_id);
 		if (!(tmp = ft_lstnew((void *)process, sizeof(t_process))))
-			exit(EXIT_FAILURE);
+			error_manager(*env, MEMORY_ALLOCATION_FAILED);
 		ft_lstpush_front(&(env->process), tmp);
 	}
 	else
