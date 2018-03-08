@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:21:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 20:40:32 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/08 19:07:57 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_process	*init_process(t_env *env, unsigned int champion_id)
 	size_t		i;
 
 	if ((process = (t_process *)malloc(sizeof(t_process))) == NULL)
-		error_manager(*env, MEMORY_ALLOCATION_FAILED);
+		ft_free_exit(*env, NULL, 1, 0);
 	process->reg[0] = champion_id;
 	i = 1;
 	while (i < REG_NUMBER)

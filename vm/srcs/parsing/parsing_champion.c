@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:54:44 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 20:49:13 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/08 19:31:43 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,25 @@ static void	parse_champion_id(t_env *env, char *custom_champion_id,
 	if (custom_champion_id)
 	{
 		if (is_string_numeric(custom_champion_id) == false)
-			error_manager(*env, INVALID_CHAMPION_ID);
+			ft_free_exit(*env,
+				"Champions numbers must be strictly positive integers.", 0, 1);
 		if ((champion_id = ft_unsigned_atoi(custom_champion_id)) == 0)
-			error_manager(*env, INVALID_CHAMPION_ID);
+			ft_free_exit(*env,
+				"Champions numbers must be strictly positive integers.", 0, 1);
 		if (is_id_unique(champion_id, env->champions) == false)
-			error_manager(*env, CHAMPION_ID_IS_ALREADY_TAKEN);
+			ft_free_exit(*env,
+				"Please make sure that your IDs are unique.", 0, 1);
 		current_champion->id = champion_id;
+		return ;
 	}
+	if (env->nb_of_champions == 0)
+		env->champions[env->nb_of_champions].id = 1;
 	else
 	{
-		if (env->nb_of_champions == 0)
-			env->champions[env->nb_of_champions].id = 1;
-		else
-		{
-			last_champion_id = env->champions[env->nb_of_champions - 1].id + 1;
-			while (is_id_unique(last_champion_id, env->champions) == false)
-				last_champion_id++;
-			current_champion->id = last_champion_id;
-		}
+		last_champion_id = env->champions[env->nb_of_champions - 1].id + 1;
+		while (is_id_unique(last_champion_id, env->champions) == false)
+			last_champion_id++;
+		current_champion->id = last_champion_id;
 	}
 }
 
@@ -98,11 +99,12 @@ static void	parse_champion_program(t_env *env, char *program_path,
 		parse_file(env, program_path);
 		process = init_process(env, champion_id);
 		if (!(tmp = ft_lstnew((void *)process, sizeof(t_process))))
-			error_manager(*env, MEMORY_ALLOCATION_FAILED);
+			ft_free_exit(*env, NULL, 1, 0);
 		ft_lstpush_front(&(env->process), tmp);
 	}
 	else
-		error_manager(*env, INVALID_FILE_EXTENSION);
+		ft_free_exit(*env,
+				"The file extension of the programs must be \".cor\".", 0, 1);
 }
 
 void		parse_champion(t_env *env, char *custom_id, char *program_path)

@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:54:24 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/05 19:03:00 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/08 19:36:19 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ static size_t	get_dump_cycle(char **argv, size_t *pos, t_env *env)
 	unsigned int	cycles;
 
 	if (env->is_dump_cycle_specified == true)
-		error_manager(*env, NB_OF_CYCLES_ALREADY_EXISTS);
+		ft_free_exit(*env,
+				"[-dump nbr_cycles] has already been specified.", 0, 1);
 	if (argv[*pos + 1] == NULL || is_string_numeric(argv[*pos + 1]) == false)
-		error_manager(*env, INVALID_NB_OF_CYCLES);
+		ft_free_exit(*env, "Invalid number of cycles.", 0, 1);
 	cycles = ft_unsigned_atoi(argv[*pos + 1]);
 	*pos += 2;
 	env->is_dump_cycle_specified = true;
@@ -52,14 +53,15 @@ void			parse_argv(t_env *env, char **arguments)
 		if (ft_strequ(arguments[index], "-n") == true)
 		{
 			if ((custom_id = arguments[index + 1]) == NULL)
-				error_manager(*env, INVALID_CHAMPION_ID);
+				ft_free_exit(*env, "Champions numbers must be \
+strictly positive integers.", 0, 1);
 			index += 2;
 		}
 		if (env->nb_of_champions >= MAX_PLAYERS)
-			error_manager(*env, TOO_MANY_CHAMPIONS);
+			ft_free_exit(*env, "Too many champions.", 0, 1);
 		parse_champion(env, custom_id, arguments[index]);
 		index++;
 	}
 	if (env->nb_of_champions == 0)
-		error_manager(*env, NO_CHAMPIONS);
+		ft_free_exit(*env, "No champions specified.", 0, 1);
 }

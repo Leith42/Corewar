@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/08 19:22:41 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/08 19:36:45 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ void					parse_file(t_env *env, char *program_path);
 */
 bool					is_string_numeric(char *s);
 void					free_env(t_env env);
+void					ft_free_exit(t_env env, char *error,
+						bool disp_errno, bool disp_usage);
 unsigned int			swap_uint32(unsigned int x);
 unsigned int			ft_unsigned_atoi(const char *str);
 /*
@@ -149,11 +151,5 @@ void					do_aff(t_process *process, t_env *env);
 */
 t_list					*lstdelnode(t_list *cur, t_list *node);
 size_t					kill_dead_process(t_env *env);
-
-/*
-** Errors
-** error_manager() should have attribute _Noreturn, but the Norm doesn't let it
-*/
-void					error_manager(t_env env, enum e_error signal);
 
 #endif
