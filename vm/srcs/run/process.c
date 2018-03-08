@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 22:47:11 by mgonon            #+#    #+#             */
-/*   Updated: 2018/03/07 00:08:13 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/08 19:23:29 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 /*
 ** call function like this list = lstdelnode(list, node);
+** NOT USING IT ANYMORE. DELETE?
 */
 
 t_list	*lstdelnode(t_list *cur, t_list *node)
@@ -38,35 +39,30 @@ t_list	*lstdelnode(t_list *cur, t_list *node)
 	return (cur);
 }
 
-int		process_are_alive(t_env *env)
+size_t	kill_dead_process(t_env *env)
 {
-	t_process	*process;
+	t_list	*lst_cur;
+	t_list	*lst_prev;
+	t_list	**start;
+	size_t	nb_process_killed;
 
-	process = (t_process *)env->process;
-	while (process)
+	nb_process_killed = 0;
+	start = &(env->process);
+	lst_prev = env->process;
+	lst_cur = env->process;
+	while (lst_cur)
 	{
-		if (!process->is_alive)
-			return (0);
-		process = (t_process *)env->process->next;
-	}
-	return (1);
-}
-
-void	kill_dead_process(t_env *env)
-{
-	t_list	*process;
-	t_list	*start;
-
-	start = env->process;
-	process = env->process;
-	while (process)
-	{
-		if (!((t_process *)process->content)->is_alive)
+		if (!((t_process *)lst_cur->content)->is_alive)
 		{
-			start = lstdelnode(start, process);
-			process = start;
+			if (lst_cur == *start)
+				*start = lst_cur->next;
+			else
+				lst_prev->next = lst_cur->next;
+			free(lst_cur);
+			nb_process_killed++;
 		}
-		else
-			process = env->process->next;
+		lst_prev = lst_cur;
+		lst_cur = lst_cur->next;
 	}
+	return (nb_process_killed);
 }

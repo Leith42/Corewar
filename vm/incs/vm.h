@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 20:24:33 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/08 19:22:41 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,7 @@ void					do_aff(t_process *process, t_env *env);
 ** Utils for process
 */
 t_list					*lstdelnode(t_list *cur, t_list *node);
-int						process_are_alive(t_env *env);
-void					kill_dead_process(t_env *env);
+size_t					kill_dead_process(t_env *env);
 
 /*
 ** Errors
