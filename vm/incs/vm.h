@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/08 19:36:45 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/08 21:27:40 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,18 @@ typedef struct			s_env
 	unsigned int		last_live_id;
 	void				(*op_tab[16]) (t_process *process, struct s_env *env);
 }						t_env;
+
+typedef struct			s_op
+{
+	char				*name;
+	unsigned short		param_nb;
+	unsigned short		param_type[3];
+	unsigned short		opcode;
+	unsigned short		cycle_nb;
+	char				*description;
+	bool				ocp;
+	bool				addr_or_nb;
+}						t_op;
 
 /*
 ** Init & Parsing
