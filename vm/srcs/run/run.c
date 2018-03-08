@@ -19,20 +19,20 @@
 
 static void	run_processes(t_env *env)
 {
-	t_list		*lst;
+	t_list		*list_of_processes;
 	t_process	*process;
 	size_t		opcode;
 
-	lst = env->process;
-	while (lst)
+	list_of_processes = env->process;
+	while (list_of_processes)
 	{
-		process = (t_process *)lst->content;
+		process = (t_process *)list_of_processes->content;
 		opcode = env->arena[process->pc];
 		if (opcode - 1 < 16)
 			(*(env->op_tab[opcode - 1]))(process, env);
 		else
 			debug_actions(process, "bad opcode");
-		lst = lst->next;
+		list_of_processes = list_of_processes->next;
 	}
 }
 
