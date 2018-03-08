@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:15:13 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/08 19:28:11 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/09 00:00:50 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static void		free_process(void *process, size_t size)
 
 void			free_env(t_env env)
 {
-	ft_lstdel(&(env.process), &free_process);
+	if (env.process)
+		ft_lstdel(&(env.process), &free_process);
 }
 
 /*
