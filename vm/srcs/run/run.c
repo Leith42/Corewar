@@ -52,11 +52,6 @@ static void	run_processes(t_env *env)
 ** }
 */
 
-/*
-** DOES NOT DUMP if dump_cycle = 0 ! Needs var saying -dump is in argv
-** kill_all_process() should replace break calls for leaks and sanity
-*/
-
 void		run(t_env *env)
 {
 	size_t	cycle;
