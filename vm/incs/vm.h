@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/08 21:27:40 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/08 21:45:21 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ typedef struct			s_op
 	bool				ocp;
 	bool				addr_or_nb;
 }						t_op;
+
+extern t_op				g_op_tab[17];
 
 /*
 ** Init & Parsing
