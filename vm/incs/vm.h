@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/08 22:44:40 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/08 23:14:16 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ extern t_op				g_op_tab[17];
 ** Init & Parsing
 */
 void					init_env(t_env *env);
-void					add_new_process(t_env *env, unsigned int champion_id);
 void					parse_argv(t_env *env, char **argv);
 void					parse_champion(t_env *env, char *custom_id,
 						char *program_path);
@@ -165,7 +164,7 @@ void					do_aff(t_process *process, t_env *env);
 /*
 ** Utils for process
 */
-t_list					*lstdelnode(t_list *cur, t_list *node);
 size_t					kill_dead_process(t_env *env);
+void					add_new_process(t_env *env, unsigned int champion_id);
 
 #endif

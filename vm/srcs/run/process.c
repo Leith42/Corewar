@@ -6,38 +6,12 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 22:47:11 by mgonon            #+#    #+#             */
-/*   Updated: 2018/03/08 21:54:33 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/08 23:52:41 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <stdlib.h>
-
-/*
-** Not sure about the process_are_alive
-*/
-
-/*
-** call function like this list = lstdelnode(list, node);
-** NOT USING IT ANYMORE. DELETE?
-*/
-
-t_list	*lstdelnode(t_list *cur, t_list *node)
-{
-	t_list *next;
-
-	if (cur == NULL)
-		return (NULL);
-	if (cur == node)
-	{
-		next = cur->next;
-		free(cur);
-		cur = NULL;
-		return (next);
-	}
-	cur->next = lstdelnode(cur->next, node);
-	return (cur);
-}
 
 size_t	kill_dead_process(t_env *env)
 {
@@ -67,4 +41,22 @@ size_t	kill_dead_process(t_env *env)
 		lst_cur = lst_prev->next;
 	}
 	return (nb_proc_killed);
+}
+
+void	add_new_process(t_env *env, unsigned int champion_id)
+{
+	t_process	*process;
+	t_list		*tmp;
+	size_t		i;
+
+	if ((process = (t_process *)malloc(sizeof(t_process))) == NULL)
+		ft_free_exit(*env, NULL, 1, 0);
+	process->reg[0] = champion_id;
+	i = 1;
+	while (i < REG_NUMBER)
+		process->reg[i++] = 0;
+	process->champ_id = champion_id;
+	if (!(tmp = ft_lstnew((void *)process, sizeof(t_process))))
+		ft_free_exit(*env, NULL, 1, 0);
+	ft_lstpush_front(&(env->process), tmp);
 }
