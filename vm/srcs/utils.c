@@ -31,7 +31,6 @@ unsigned int	ft_unsigned_atoi(const char *str)
 	return (sign * result);
 }
 
-
 bool			is_string_numeric(char *string)
 {
 	size_t i;
