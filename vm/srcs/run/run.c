@@ -66,14 +66,11 @@ void		run(t_env *env)
 				cycle, env->cycle_to_die);
 		run_processes(env);
 		cycle++;
-		if (env->is_dump_cycle_specified == true)
+		if (env->is_dump_cycle_specified && env->dump_cycle-- == 0)
 		{
-			if (env->dump_cycle-- == 0)
-			{
-				ft_putstr("\x1b[2J");
-				disp_arena(env, DUMP_LINE_LEN);
-				break ;
-			}
+			ft_putstr("\x1b[2J");
+			disp_arena(env, DUMP_LINE_LEN);
+			break ;
 		}
 	}
 }
