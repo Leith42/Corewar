@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:06:58 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/08 19:58:06 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/09 00:55:56 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,17 @@ void			debug_actions(t_process *process, char *action)
 {
 	ft_printf("Le process appartenant à joueur %d effectue un %s      \n",
 				process->champ_id, action);
+}
+
+unsigned int	ft_lstlen(t_list *lst)
+{
+	unsigned int	len;
+
+	len = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		len++;
+	}
+	return (len);
 }

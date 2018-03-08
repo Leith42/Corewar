@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/08 23:14:16 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/09 00:56:16 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void					ft_free_exit(t_env env, char *error,
 						bool disp_errno, bool disp_usage);
 unsigned int			swap_uint32(unsigned int x);
 unsigned int			ft_unsigned_atoi(const char *str);
+unsigned int			ft_lstlen(t_list *lst);
 /*
 ** Arena runtime
 */
