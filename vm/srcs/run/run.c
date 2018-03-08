@@ -64,19 +64,21 @@ void		run(t_env *env)
 	load_champions(env);
 	ft_putstr("\x1b[2J");
 	cycle = 0;
-	while (env->process)
+	while (env->process != NULL)
 	{
 		disp_arena(env, 64);
 		ft_printf("\n\x1b[KCycle = %d\tCycle to die = %d\n",
 				cycle, env->cycle_to_die);
 		run_processes(env);
 		cycle++;
-		env->dump_cycle--;
-		if (env->dump_cycle == 0)
+		if (env->is_dump_cycle_specified == true)
 		{
-			ft_putstr("\x1b[2J");
-			disp_arena(env, DUMP_LINE_LEN);
-			break ;
+			if (env->dump_cycle-- == 0)
+			{
+				ft_putstr("\x1b[2J");
+				disp_arena(env, DUMP_LINE_LEN);
+				break ;
+			}
 		}
 	}
 }
