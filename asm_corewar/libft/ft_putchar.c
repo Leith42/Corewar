@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm.h                                              :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/15 18:40:17 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/02/15 18:40:23 by lmartin-         ###   ########.fr       */
+/*   Created: 2016/11/16 13:36:27 by mmatime           #+#    #+#             */
+/*   Updated: 2016/11/19 22:45:51 by mmatime          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ASM_H
-# define ASM_H
-# include "libft.h"
-# include <fcntl.h>
+#include "libft.h"
 
-int			main(int ac, char **av);
-
-#endif
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}

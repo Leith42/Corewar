@@ -3,45 +3,38 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: mmatime <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/02/15 18:26:45 by lmartin-          #+#    #+#              #
-#    Updated: 2018/02/15 18:26:47 by lmartin-         ###   ########.fr        #
+#    Created: 2018/03/08 04:01:19 by mmatime           #+#    #+#              #
+#    Updated: 2018/03/08 04:01:21 by mmatime          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = asm
+CC = gcc
+INCLUDE = -Ilibft -Iinclude
+CFLAGS = -Wall -Werror -Wextra $(INCLUDE)
+SRC_ASM = srcs/main.c srcs/read.c srcs/write.c srcs/check_header.c
+LIB_PATH = ./libft/
+LIB_BIN = $(LIB_PATH)libft.a
+SRC_PATH = ./src/
 
-SRC = main.c
-SRC_E = $(addprefix $(SRCDIR)/, $(SRC))
-SRO = $(SRC_E:%.c=$(BUILDDIR)/%.o)
-LIB = ../libft/libft.a
-FLIB = -Llibft -lft
-
-BUILDDIR = object
-SRCDIR = src
-
-FLAGS = -Wall -Wextra -Werror
-ifdef DEBUG
-  FLAGS += -g3 -fsanitize=address
-endif
+OBJ_SRC_ASM = $(SRC_ASM:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(BUILDDIR) $(SRO)
-	gcc $(FLAG) $(SRO) -o $(NAME) $(LIB) $(FLIB)
-
-$(BUILDDIR):
-	mkdir $(BUILDDIR)
-	mkdir $(BUILDDIR)/$(SRCDIR)
-
-$(BUILDDIR)/%.o: %.c
-	gcc $(FLAGS) -I ./incs/ -c $< -o $@
+$(NAME): $(OBJ_SRC_ASM)
+	make -C $(LIB_PATH)
+	$(CC) -o $(NAME) $(SRC_ASM) $(INCLUDE) $(CFLAGS) $(LIB_BIN)
 
 clean:
-	rm -rf ./object
+	make -C $(LIB_PATH) clean
+	/bin/rm -f $(OBJ_SRC_ASM)
 
 fclean: clean
-	rm -f $(NAME)
+	make -C $(LIB_PATH) fclean
+	/bin/rm -f $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re
