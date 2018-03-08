@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/08 20:08:37 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/08 21:46:26 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void		run(t_env *env)
 	nb_checks = 0;
 	while (env->process != NULL)
 	{
-//		disp_arena(env, 64);
+		disp_arena(env, 64);
 		ft_printf("\n\x1b[KCycle = %d\tCycle to die = %d\n\
 \x1b[Knb_live = %d, checks = %d\n",
 				cycle, env->cycle_to_die,
