@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 22:47:11 by mgonon            #+#    #+#             */
-/*   Updated: 2018/03/08 19:58:22 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/08 21:54:33 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ size_t	kill_dead_process(t_env *env)
 		}
 		else
 			((t_process *)lst_cur->content)->is_alive = 0;
-		lst_prev = lst_prev->next;
+		if (!(lst_prev = lst_prev->next))
+			break ;
 		lst_cur = lst_prev->next;
 	}
 	return (nb_proc_killed);
