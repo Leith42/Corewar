@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/08 21:45:21 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/08 22:31:02 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ typedef struct			s_env
 	size_t				cycle_to_die;
 	size_t				nb_live;
 	unsigned int		last_live_id;
-	void				(*op_tab[16]) (t_process *process, struct s_env *env);
+	void				(*exec_inst_tab[17]) (t_process *process,
+						struct s_env *env);
 }						t_env;
 
 typedef struct			s_op
@@ -143,6 +144,7 @@ void					debug_actions(t_process *process, char *action);
 /*
 ** List of actions tht can be performed by the process
 */
+void					do_bad_opc(t_process *process, t_env *env);
 void					do_live(t_process *process, t_env *env);
 void					do_ld(t_process *process, t_env *env);
 void					do_st(t_process *process, t_env *env);

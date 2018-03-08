@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/08 22:11:13 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/08 22:30:45 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static void	run_processes(t_env *env)
 	{
 		process = (t_process *)list_of_processes->content;
 		opcode = env->arena[process->pc];
-		if (opcode - 1 < 16)
-			(*(env->op_tab[opcode - 1]))(process, env);
+		if (opcode <= 16)
+			(*(env->exec_inst_tab[opcode]))(process, env);
 		else
 			debug_actions(process, "bad opcode");
 		list_of_processes = list_of_processes->next;

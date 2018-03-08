@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:21:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/08 19:07:57 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/08 22:24:35 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,25 @@ static void	init_champions(t_env *env)
 	}
 }
 
-static void	init_op_tab(t_env *env)
+static void	init_exec_inst_tab(t_env *env)
 {
-	env->op_tab[0] = do_live;
-	env->op_tab[1] = do_ld;
-	env->op_tab[2] = do_st;
-	env->op_tab[3] = do_zjmp;
-	env->op_tab[4] = do_ldi;
-	env->op_tab[5] = do_add;
-	env->op_tab[6] = do_sub;
-	env->op_tab[7] = do_and;
-	env->op_tab[8] = do_or;
-	env->op_tab[9] = do_xor;
-	env->op_tab[10] = do_sti;
-	env->op_tab[11] = do_fork;
-	env->op_tab[12] = do_lld;
-	env->op_tab[13] = do_lldi;
-	env->op_tab[14] = do_lfork;
-	env->op_tab[15] = do_aff;
+	env->exec_inst_tab[0] = do_bad_opc;
+	env->exec_inst_tab[1] = do_live;
+	env->exec_inst_tab[2] = do_ld;
+	env->exec_inst_tab[3] = do_st;
+	env->exec_inst_tab[4] = do_zjmp;
+	env->exec_inst_tab[5] = do_ldi;
+	env->exec_inst_tab[6] = do_add;
+	env->exec_inst_tab[7] = do_sub;
+	env->exec_inst_tab[8] = do_and;
+	env->exec_inst_tab[9] = do_or;
+	env->exec_inst_tab[10] = do_xor;
+	env->exec_inst_tab[11] = do_sti;
+	env->exec_inst_tab[12] = do_fork;
+	env->exec_inst_tab[13] = do_lld;
+	env->exec_inst_tab[14] = do_lldi;
+	env->exec_inst_tab[15] = do_lfork;
+	env->exec_inst_tab[16] = do_aff;
 }
 
 void		init_env(t_env *env)
@@ -54,7 +55,7 @@ void		init_env(t_env *env)
 	env->cycle_to_die = CYCLE_TO_DIE;
 	env->nb_live = 0;
 	init_champions(env);
-	init_op_tab(env);
+	init_exec_inst_tab(env);
 	ft_bzero(&(env->arena), sizeof(env->arena));
 }
 
