@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:21:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/08 22:24:35 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/08 22:44:10 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,10 @@ void		init_env(t_env *env)
 	ft_bzero(&(env->arena), sizeof(env->arena));
 }
 
-t_process	*init_process(t_env *env, unsigned int champion_id)
+void		add_new_process(t_env *env, unsigned int champion_id)
 {
 	t_process	*process;
+	t_list		*tmp;
 	size_t		i;
 
 	if ((process = (t_process *)malloc(sizeof(t_process))) == NULL)
@@ -71,5 +72,7 @@ t_process	*init_process(t_env *env, unsigned int champion_id)
 	while (i < REG_NUMBER)
 		process->reg[i++] = 0;
 	process->champ_id = champion_id;
-	return (process);
+	if (!(tmp = ft_lstnew((void *)process, sizeof(t_process))))
+		ft_free_exit(*env, NULL, 1, 0);
+	ft_lstpush_front(&(env->process), tmp);
 }

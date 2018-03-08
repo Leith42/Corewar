@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:54:44 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/08 22:18:36 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/08 22:46:00 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,16 +92,10 @@ static int	is_cor_file(char *program_path)
 static void	parse_champion_program(t_env *env, char *program_path,
 		unsigned int champion_id)
 {
-	t_process	*process;
-	t_list		*tmp;
-
 	if (is_cor_file(program_path))
 	{
 		parse_file(env, program_path);
-		process = init_process(env, champion_id);
-		if (!(tmp = ft_lstnew((void *)process, sizeof(t_process))))
-			ft_free_exit(*env, NULL, 1, 0);
-		ft_lstpush_front(&(env->process), tmp);
+		add_new_process(env, champion_id);
 	}
 	else
 		ft_free_exit(*env,
