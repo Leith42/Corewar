@@ -20,7 +20,7 @@ static void	init_champions(t_env *env)
 	i = 0;
 	while (i < MAX_PLAYERS)
 	{
-		env->champions[i].id = 0;
+		ft_memset(&env->champions[i], '\0', sizeof(t_champion));
 		i++;
 	}
 }
