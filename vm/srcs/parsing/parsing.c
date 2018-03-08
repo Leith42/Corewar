@@ -14,7 +14,6 @@
 
 /*
 **	Ensure that the dump cycle is a positive integer and returns it.
-**	Todo: fix overflow, atoi is crap.
 */
 
 static size_t	get_dump_cycle(char **argv, size_t *pos, t_env *env)
@@ -35,7 +34,6 @@ static size_t	get_dump_cycle(char **argv, size_t *pos, t_env *env)
 **	Starting point of the parsing.
 **	Here we make sure that all arguments are valid.
 **	Generates and return the main structure of Corewar (t_env).
-**	Todo: must be factorized, the function is disgusting.
 */
 
 void			parse_argv(t_env *env, char **arguments)
@@ -53,9 +51,8 @@ void			parse_argv(t_env *env, char **arguments)
 			break ;
 		if (ft_strequ(arguments[index], "-n") == true)
 		{
-			if (arguments[index + 1] == NULL)
+			if ((custom_id = arguments[index + 1]) == NULL)
 				error_manager(*env, INVALID_CHAMPION_ID);
-			custom_id = arguments[index + 1];
 			index += 2;
 		}
 		if (env->nb_of_champions >= MAX_PLAYERS)
