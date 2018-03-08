@@ -31,7 +31,6 @@ static bool	is_id_unique(unsigned int id, t_champion *champions)
 
 /*
 **	Add or generates an ID (player's number) for the champion.
-**	Todo: ensure that all ID's are unique. /!\
 */
 
 static void	parse_champion_id(t_env *env, char *custom_champion_id,
@@ -40,7 +39,6 @@ static void	parse_champion_id(t_env *env, char *custom_champion_id,
 	unsigned int	champion_id;
 	unsigned int	last_champion_id;
 
-	last_champion_id = env->champions[env->nb_of_champions - 1].id;
 	if (custom_champion_id)
 	{
 		if (is_string_numeric(custom_champion_id) == false)
@@ -57,6 +55,7 @@ static void	parse_champion_id(t_env *env, char *custom_champion_id,
 			env->champions[env->nb_of_champions].id = 1;
 		else
 		{
+			last_champion_id = env->champions[env->nb_of_champions - 1].id + 1;
 			while (is_id_unique(last_champion_id, env->champions) == false)
 				last_champion_id++;
 			current_champion->id = last_champion_id;
