@@ -19,16 +19,16 @@
 
 static size_t	get_dump_cycle(char **argv, size_t *pos, t_env *env)
 {
-	int	cycles;
+	unsigned int	cycles;
 
 	if (env->is_dump_cycle_specified == true)
 		error_manager(*env, NB_OF_CYCLES_ALREADY_EXISTS);
 	if (argv[*pos + 1] == NULL || is_string_numeric(argv[*pos + 1]) == false)
 		error_manager(*env, INVALID_NB_OF_CYCLES);
-	cycles = ft_atoi(argv[*pos + 1]);
+	cycles = ft_unsigned_atoi(argv[*pos + 1]);
 	*pos += 2;
 	env->is_dump_cycle_specified = true;
-	return ((size_t)cycles);
+	return (cycles);
 }
 
 /*

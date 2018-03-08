@@ -45,7 +45,7 @@ static void	parse_champion_id(t_env *env, char *custom_champion_id,
 	{
 		if (is_string_numeric(custom_champion_id) == false)
 			error_manager(*env, INVALID_CHAMPION_ID);
-		if ((champion_id = (unsigned int)ft_atoi(custom_champion_id)) == 0)
+		if ((champion_id = ft_unsigned_atoi(custom_champion_id)) == 0)
 			error_manager(*env, INVALID_CHAMPION_ID);
 		if (is_id_unique(champion_id, env->champions) == false)
 			error_manager(*env, CHAMPION_ID_IS_ALREADY_TAKEN);

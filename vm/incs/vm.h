@@ -120,7 +120,7 @@ void					parse_file(t_env *env, char *program_path);
 bool					is_string_numeric(char *s);
 void					free_env(t_env env);
 unsigned int			swap_uint32(unsigned int x);
-
+unsigned int			ft_unsigned_atoi(const char *str);
 /*
 ** Arena runtime
 */

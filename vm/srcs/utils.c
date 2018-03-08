@@ -12,6 +12,26 @@
 
 #include <vm.h>
 
+unsigned int	ft_unsigned_atoi(const char *str)
+{
+	unsigned int		result;
+	unsigned int		sign;
+	unsigned int		n;
+
+	result = 0;
+	n = 0;
+	sign = 1;
+	while (ft_isspace(str[n]))
+		n++;
+	while (str[n] && ft_isdigit(str[n]))
+	{
+		result = (result * 10) + (str[n] - '0');
+		n++;
+	}
+	return (sign * result);
+}
+
+
 bool			is_string_numeric(char *string)
 {
 	size_t i;
