@@ -65,10 +65,10 @@ t_process	*init_process(t_env *env, unsigned int champion_id)
 
 	if ((process = (t_process *)malloc(sizeof(t_process))) == NULL)
 		error_manager(*env, MEMORY_ALLOCATION_FAILED);
-	i = 0;
+	process->reg[0] = champion_id;
+	i = 1;
 	while (i < REG_NUMBER)
 		process->reg[i++] = 0;
-	process->reg[0] = champion_id;
 	process->champ_id = champion_id;
 	return (process);
 }
