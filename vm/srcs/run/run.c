@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/08 00:46:16 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/08 20:08:37 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,19 @@ static void	run_processes(t_env *env)
 void		run(t_env *env)
 {
 	size_t	cycle;
+	size_t	nb_checks;
 
 	load_champions(env);
 	ft_putstr("\x1b[2J");
 	cycle = 0;
+	nb_checks = 0;
 	while (env->process != NULL)
 	{
-		disp_arena(env, 64);
-		ft_printf("\n\x1b[KCycle = %d\tCycle to die = %d\n",
-				cycle, env->cycle_to_die);
+//		disp_arena(env, 64);
+		ft_printf("\n\x1b[KCycle = %d\tCycle to die = %d\n\
+\x1b[Knb_live = %d, checks = %d\n",
+				cycle, env->cycle_to_die,
+				env->nb_live, nb_checks);
 		run_processes(env);
 		cycle++;
 		if (env->is_dump_cycle_specified && env->dump_cycle-- == 0)
@@ -71,6 +75,21 @@ void		run(t_env *env)
 			ft_putstr("\x1b[2J");
 			disp_arena(env, DUMP_LINE_LEN);
 			break ;
+		}
+		if (cycle >= env->cycle_to_die)
+		{
+			if (env->nb_live >= NBR_LIVE || nb_checks == MAX_CHECKS)
+			{
+				if (env->cycle_to_die <= CYCLE_DELTA)
+					env->cycle_to_die = 0;
+				else
+					env->cycle_to_die -= CYCLE_DELTA;
+				nb_checks = 0;
+			}
+			else
+				nb_checks++;
+			env->nb_live = 0;
+			cycle = 0;
 		}
 	}
 }
