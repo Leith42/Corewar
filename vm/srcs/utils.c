@@ -25,7 +25,7 @@ unsigned int	ft_unsigned_atoi(const char *str)
 		n++;
 	while (str[n] && ft_isdigit(str[n]))
 	{
-		result = (result * 10) + (str[n] - '0');
+		result = (result * 10) + (unsigned int)(str[n] - '0');
 		n++;
 	}
 	return (sign * result);
