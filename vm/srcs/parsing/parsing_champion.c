@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:54:44 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/08 19:31:43 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/08 22:18:36 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,14 @@ static void	parse_champion_id(t_env *env, char *custom_id, t_champion *champion)
 	else
 	{
 		if (env->nb_of_champions == 0)
-			env->champions[env->nb_of_champions].id = 1;
-		last_champion_id = env->champions[env->nb_of_champions - 1].id + 1;
-		while (is_id_unique(last_champion_id, env->champions) == false)
-			last_champion_id++;
-		champion->id = last_champion_id;
+			champion->id = 1;
+		else
+		{
+			last_champion_id = env->champions[env->nb_of_champions - 1].id + 1;
+			while (is_id_unique(last_champion_id, env->champions) == false)
+				last_champion_id++;
+			champion->id = last_champion_id;
+		}
 	}
 }
 
