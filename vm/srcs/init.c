@@ -48,6 +48,7 @@ static void	init_op_tab(t_env *env)
 void		init_env(t_env *env)
 {
 	env->dump_cycle = 0;
+	env->is_dump_cycle_specified = false;
 	env->nb_of_champions = 0;
 	env->process = NULL;
 	env->cycle_to_die = CYCLE_TO_DIE;

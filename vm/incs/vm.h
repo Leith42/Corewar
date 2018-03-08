@@ -95,8 +95,9 @@ typedef struct			s_env
 	unsigned int		mask[MEM_SIZE];
 	t_champion			champions[MAX_PLAYERS];
 	t_list				*process;
-	size_t				dump_cycle;
 	unsigned short		nb_of_champions;
+	bool				is_dump_cycle_specified;
+	size_t				dump_cycle;
 	size_t				cycle_to_die;
 	size_t				nb_live;
 	unsigned int		last_live_id;

@@ -17,16 +17,17 @@
 **	Todo: fix overflow, atoi is crap.
 */
 
-static size_t	get_dump_cycle(char **argv, size_t *pos, t_env env)
+static size_t	get_dump_cycle(char **argv, size_t *pos, t_env *env)
 {
 	int	cycles;
 
-	if (env.dump_cycle)
-		error_manager(env, NB_OF_CYCLES_ALREADY_EXISTS);
+	if (env->is_dump_cycle_specified == true)
+		error_manager(*env, NB_OF_CYCLES_ALREADY_EXISTS);
 	if (argv[*pos + 1] == NULL || is_string_numeric(argv[*pos + 1]) == false)
-		error_manager(env, INVALID_NB_OF_CYCLES);
+		error_manager(*env, INVALID_NB_OF_CYCLES);
 	cycles = ft_atoi(argv[*pos + 1]);
 	*pos += 2;
+	env->is_dump_cycle_specified = true;
 	return ((size_t)cycles);
 }
 
@@ -47,7 +48,7 @@ void			parse_argv(t_env *env, char **arguments)
 	{
 		custom_id = NULL;
 		if (ft_strequ(arguments[index], "-dump") == true)
-			env->dump_cycle = get_dump_cycle(arguments, &index, *env);
+			env->dump_cycle = get_dump_cycle(arguments, &index, env);
 		if (arguments[index] == NULL)
 			break ;
 		if (ft_strequ(arguments[index], "-n") == true)
