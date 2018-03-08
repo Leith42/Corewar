@@ -33,34 +33,32 @@ static bool	is_id_unique(unsigned int id, t_champion *champions)
 **	Add or generates an ID (player's number) for the champion.
 */
 
-static void	parse_champion_id(t_env *env, char *custom_champion_id,
-		t_champion *current_champion)
+static void	parse_champion_id(t_env *env, char *custom_id, t_champion *champion)
 {
 	unsigned int	champion_id;
 	unsigned int	last_champion_id;
 
-	if (custom_champion_id)
+	if (custom_id)
 	{
-		if (is_string_numeric(custom_champion_id) == false)
+		if (is_string_numeric(custom_id) == false)
 			ft_free_exit(*env,
 				"Champions numbers must be strictly positive integers.", 0, 1);
-		if ((champion_id = ft_unsigned_atoi(custom_champion_id)) == 0)
+		if ((champion_id = ft_unsigned_atoi(custom_id)) == 0)
 			ft_free_exit(*env,
 				"Champions numbers must be strictly positive integers.", 0, 1);
 		if (is_id_unique(champion_id, env->champions) == false)
 			ft_free_exit(*env,
 				"Please make sure that your IDs are unique.", 0, 1);
-		current_champion->id = champion_id;
-		return ;
+		champion->id = champion_id;
 	}
-	if (env->nb_of_champions == 0)
-		env->champions[env->nb_of_champions].id = 1;
 	else
 	{
+		if (env->nb_of_champions == 0)
+			env->champions[env->nb_of_champions].id = 1;
 		last_champion_id = env->champions[env->nb_of_champions - 1].id + 1;
 		while (is_id_unique(last_champion_id, env->champions) == false)
 			last_champion_id++;
-		current_champion->id = last_champion_id;
+		champion->id = last_champion_id;
 	}
 }
 
