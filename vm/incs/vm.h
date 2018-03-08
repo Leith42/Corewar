@@ -62,11 +62,6 @@ enum					e_opcode
 
 };
 
-/*
-** Not sure about the type since we need (REG_NUMBER * REG_SIZE) bytes.
-** add champ_id for the display
-** add is_alive
-*/
 typedef	struct			s_process
 {
 	unsigned int		pc;
@@ -83,12 +78,6 @@ typedef	struct			s_champion
 	unsigned char		program[CHAMP_MAX_SIZE];
 }						t_champion;
 
-/*
-** Todo: Don't know if a structure representing the arena (memory) is relevant,
-** we'll think about it.
-** add cycle_to_die
-** add nb_live;
-*/
 typedef struct			s_env
 {
 	unsigned char		arena[MEM_SIZE];
