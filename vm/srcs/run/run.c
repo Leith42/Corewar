@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/08 21:46:26 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/08 22:11:13 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,60 +36,52 @@ static void	run_processes(t_env *env)
 	}
 }
 
-/*
-** Runs the battle.
-** First initializes the arena and champions.
-** Then resets the screen.
-** Then runs the battle, running instructions and displaying arena.
-*/
+static void	cycle_check(t_env *env)
+{
+	static size_t	nb_checks = 0;
+	static size_t	cycle = 0;
+
+	cycle++;
+	ft_printf("\n\x1b[KCycle = %d\tCycle to die = %d\n\
+\x1b[Knb_live = %d, checks = %d\n",
+			cycle, env->cycle_to_die, env->nb_live, nb_checks);
+	if (cycle >= env->cycle_to_die)
+	{
+		if (env->nb_live >= NBR_LIVE || nb_checks >= MAX_CHECKS)
+		{
+			ft_printf("\x1b[KProcesses killed at last check : %d\n",
+					kill_dead_process(env));
+			if (env->cycle_to_die <= CYCLE_DELTA)
+				env->cycle_to_die = 0;
+			else
+				env->cycle_to_die -= CYCLE_DELTA;
+			nb_checks = 0;
+		}
+		else
+			nb_checks++;
+		env->nb_live = 0;
+		cycle = 0;
+	}
+}
 
 /*
-** while (1)
-** {
-** 	if (i == env->cycle_to_die)
-** 		kill_dead_process(env);
-** 	i++;
-** }
+** Runs the battle.
 */
 
 void		run(t_env *env)
 {
-	size_t	cycle;
-	size_t	nb_checks;
-
 	load_champions(env);
 	ft_putstr("\x1b[2J");
-	cycle = 0;
-	nb_checks = 0;
 	while (env->process != NULL)
 	{
 		disp_arena(env, 64);
-		ft_printf("\n\x1b[KCycle = %d\tCycle to die = %d\n\
-\x1b[Knb_live = %d, checks = %d\n",
-				cycle, env->cycle_to_die,
-				env->nb_live, nb_checks);
 		run_processes(env);
-		cycle++;
+		cycle_check(env);
 		if (env->is_dump_cycle_specified && env->dump_cycle-- == 0)
 		{
 			ft_putstr("\x1b[2J");
 			disp_arena(env, DUMP_LINE_LEN);
 			break ;
-		}
-		if (cycle >= env->cycle_to_die)
-		{
-			if (env->nb_live >= NBR_LIVE || nb_checks == MAX_CHECKS)
-			{
-				if (env->cycle_to_die <= CYCLE_DELTA)
-					env->cycle_to_die = 0;
-				else
-					env->cycle_to_die -= CYCLE_DELTA;
-				nb_checks = 0;
-			}
-			else
-				nb_checks++;
-			env->nb_live = 0;
-			cycle = 0;
 		}
 	}
 }
