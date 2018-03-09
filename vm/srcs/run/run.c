@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/09 02:12:13 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/09 23:52:40 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,16 @@ static void	run_processes(t_env *env)
 	while (list_of_processes)
 	{
 		process = (t_process *)list_of_processes->content;
-		opcode = env->arena[process->pc];
-		if (opcode <= 16)
-			(*(env->exec_inst_tab[opcode]))(process, env);
+		if (process->cycle_to_wait == 0)
+		{
+			opcode = env->arena[process->pc];
+			if (opcode <= 16)
+				(*(env->exec_inst_tab[opcode]))(process, env);
+			else
+				debug_actions(process, "bad opcode");
+		}
 		else
-			debug_actions(process, "bad opcode");
+			process->cycle_to_wait--;
 		list_of_processes = list_of_processes->next;
 	}
 }
