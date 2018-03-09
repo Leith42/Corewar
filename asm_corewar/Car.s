@@ -1,10 +1,10 @@
    #deassembler par msa 1.8, made by joe
-.name "Tching tching(Intercepteur),             Bouh!Bouh!(bruits d'anti-jeu)" #merci
+.name "2111111111111111111111111111111111111111111111111111111111111111111111111111111" #merci
 .comment "salut" #asdjn
 	 fork  %:label00          		# 3,0,281
 	 ld    %-272,r3           		# 7,3,278
 	 live  %10                 		# 5,10,271
-	 fork  %34          		# 3,15,266
+	 fork  %34          			# 3,15,266
 	 ld    %-272,r3           		# 7,18,263
 	 fork  %:label02          		# 3,25,256
 	 ld    %0,r2              		# 7,28,253

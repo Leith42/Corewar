@@ -53,7 +53,7 @@ int		set_name(char *line, t_set *set)
 					i++;
 					j++;
 				}
-				if (line[i] == '"') // on a un nom valide et on le sauvegarde
+				if (line[i] == '"' && j < PROG_NAME_LENGTH) // on a un nom valide et on le sauvegarde
 				{
 					name = ft_strsub(line, tmp, j);
 					set->name = 1;
@@ -104,7 +104,7 @@ int		set_comment(char *line, t_set *set)
 					i++;
 					j++;
 				}
-				if (line[i] == '"') // on a un commentaire valide et on le sauvegarde
+				if (line[i] == '"' && j < COMMENT_LENGTH) // on a un commentaire valide et on le sauvegarde
 				{
 					name = ft_strsub(line, tmp, j);
 					set->comment = 1;
