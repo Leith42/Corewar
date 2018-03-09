@@ -12,15 +12,6 @@
 
 #include "asm.h"
 
-/*int					check_instruc(char *line, unsigned char **tab)
-{
-	static int n = -1; //Pour toujours ecrire à la suite
-	//enregistrer eventuel label ?
-	//verification instruction -> determiner l'opcode
-	//verification argument (et definition de l'octet de codage)
-	//enregistrement de la commande dans tab
-}*/
-
 int					ft_read_file(int fd, char *file_name)
 {
 	//unsigned char	*tab; // Definir comment attribuer une size pour tab
