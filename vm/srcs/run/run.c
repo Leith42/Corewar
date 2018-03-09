@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/08 23:53:16 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/09 01:01:11 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ static void	cycle_check(t_env *env)
 
 	cycle++;
 	ft_printf("\x1b[K\n\x1b[KCycle = %d\tCycle to die = %d\n\
-\x1b[Knb_live = %d, checks = %d\n\x1b[K",
-			cycle, env->cycle_to_die, env->nb_live, nb_checks);
+\x1b[Knb_live = %d, checks = %d\n\x1b[KProcesses : %d\n\x1b[K",
+			cycle, env->cycle_to_die, env->nb_live, nb_checks,
+			ft_lstlen(env->process));
 	if (cycle >= env->cycle_to_die)
 	{
 		if (env->nb_live >= NBR_LIVE || nb_checks >= MAX_CHECKS)
