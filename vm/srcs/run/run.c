@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/09 23:52:40 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 00:54:08 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	run_processes(t_env *env)
 			if (opcode <= 16)
 				(*(env->exec_inst_tab[opcode]))(process, env);
 			else
-				debug_actions(process, "bad opcode");
+				(*(env->exec_inst_tab[0]))(process, env);
 		}
 		else
 			process->cycle_to_wait--;
