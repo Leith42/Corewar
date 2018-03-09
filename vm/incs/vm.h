@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/09 23:51:13 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 00:09:22 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct			s_env
 typedef struct			s_op
 {
 	char				*name;
-	unsigned short		param_nb;
+	unsigned short		nb_of_params;
 	unsigned short		param_type[3];
 	unsigned short		opcode;
 	unsigned short		cycle_nb;
