@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:06:58 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/09 01:05:42 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/09 01:26:19 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,4 @@ unsigned int	ft_lstlen(t_list *lst)
 		len++;
 	}
 	return (len);
-}
-
-void			ft_lstdel_next(t_list *lst, void (*del)(void *, size_t))
-{
-	t_list	*dead;
-
-	if (!(dead = lst->next))
-		return ;
-	lst->next = dead->next;
-	ft_lstdelone(&dead, del);
 }
