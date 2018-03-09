@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/09 01:26:19 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/09 02:00:34 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void					ft_free_exit(t_env env, char *error,
 unsigned int			swap_uint32(unsigned int x);
 unsigned int			ft_unsigned_atoi(const char *str);
 unsigned int			ft_lstlen(t_list *lst);
+char					*get_champ_name(t_env *env, unsigned int id);
 /*
 ** Arena runtime
 */

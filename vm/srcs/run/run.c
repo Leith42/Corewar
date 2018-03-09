@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/09 01:01:11 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/09 02:01:28 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ static void	cycle_check(t_env *env)
 
 void		run(t_env *env)
 {
+	char	*winner;
+
 	load_champions(env);
 	ft_putstr("\x1b[2J");
 	while (env->process != NULL)
@@ -85,4 +87,9 @@ void		run(t_env *env)
 			break ;
 		}
 	}
+	if ((winner = get_champ_name(env, env->last_live_id)))
+		ft_printf("\x1b[2JLe joueur %d(%s) a gagne.\n",
+				env->last_live_id, winner);
+	else
+		ft_printf("\x1b[2JPersonne n'a gagne.\n");
 }

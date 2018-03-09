@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:06:58 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/09 01:26:19 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/09 02:03:12 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,23 @@ unsigned int	ft_lstlen(t_list *lst)
 		len++;
 	}
 	return (len);
+}
+
+char			*get_champ_name(t_env *env, unsigned int id)
+{
+	char	*res;
+	size_t	i;
+
+	res = NULL;
+	i = 0;
+	while (i < env->nb_of_champions)
+	{
+		if (env->champions[i].id == id)
+		{
+			res = env->champions[i].header.prog_name;
+			break ;
+		}
+		i++;
+	}
+	return (res);
 }
