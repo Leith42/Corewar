@@ -15,12 +15,15 @@
 int			get_inst(char **inst)
 {
 	int n;
+	unsigned char 
 
 	n = 0;
 	while (inst[++n])
 	{
-		if (inst[n][0] == '#')
-			continue ;
+		if (inst[n][0] == '#') //Commentaire
+			n++;
+		if (inst[n][ft_strlen(inst[n]) - 1] == ':') //Label en debut de chaine
+		 	n++;
 	}
 }
 
@@ -31,9 +34,10 @@ int			check_inst(char *line, unsigned char **tab)
 
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (split(line)) //Split en fon v
+		if (split(line)) //Split en fonction des espaces, tab et ','
 		{
-			get_inst(inst);
+			if (!(get_inst(inst)))
+				return (0); //Instruction incorrecte
 			free_tab(inst); //Clean double tab
 		}
 		free(line);
