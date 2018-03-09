@@ -27,7 +27,6 @@ typedef struct s_set //ajout d'une petite structure (temporaire?) pour tester si
 int			main(int ac, char **av);
 int			ft_read_file(int fd, char *file_name);
 
-int		line_is_comment(char *line);
 int		char_is_valid(char c);
 int		set_name(char *line, t_set *set);
 int		set_comment(char *line, t_set *set);
