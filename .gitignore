@@ -60,6 +60,9 @@ build/
 libft/object/
 ressources/
 cmake-build-debug/
+
+*.swp
+cmake-build-debug/
 CMakeLists.txt
 corewar
 asm

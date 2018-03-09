@@ -6,7 +6,7 @@
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 18:21:49 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/02/15 18:21:50 by lmartin-         ###   ########.fr       */
+/*   Updated: 2018/03/08 04:04:04 by mmatime          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,7 @@ int		main(int ac, char **av)
 		write(1, "Wrong file\n", 11);
 	else if (!(fd = open(av[1], O_RDONLY)))
 	 	write(1, "Wrong file\n", 11);
+	else
+		ft_read_file(fd, av[1]);
 	return (0);
 }
