@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/09 02:01:28 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/09 02:12:13 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ static void	cycle_check(t_env *env)
 			ft_lstlen(env->process));
 	if (cycle >= env->cycle_to_die)
 	{
+		ft_printf("\x1b[KProcesses killed at last check : %d\n\x1b[K",
+				kill_dead_process(env));
 		if (env->nb_live >= NBR_LIVE || nb_checks >= MAX_CHECKS)
 		{
-			ft_printf("\x1b[KProcesses killed at last check : %d\n\x1b[K",
-					kill_dead_process(env));
 			if (env->cycle_to_die <= CYCLE_DELTA)
 				env->cycle_to_die = 0;
 			else
