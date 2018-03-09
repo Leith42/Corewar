@@ -12,13 +12,6 @@
 
 #include "asm.h"
 
-int		line_is_comment(char *line) //check si une ligne est un commentaire qui commence par COMMENT_CHAR
-{
-	if (*line && *line == COMMENT_CHAR)
-		return (1);
-	return (0);
-}
-
 int		char_is_valid(char c)
 {
 	if (c == ' ' || c == '\t' || c == '#')
@@ -56,9 +49,9 @@ int		set_name(char *line, t_set *set)
 			{
 				tmp = i;
 				while (line[i] && line[i] != '"')
-				{	
-					i++; 
-					j++; 
+				{
+					i++;
+					j++;
 				}
 				if (line[i] == '"') // on a un nom valide et on le sauvegarde
 				{
@@ -107,9 +100,9 @@ int		set_comment(char *line, t_set *set)
 			{
 				tmp = i;
 				while (line[i] && line[i] != '"')
-				{	
-					i++; 
-					j++; 
+				{
+					i++;
+					j++;
 				}
 				if (line[i] == '"') // on a un commentaire valide et on le sauvegarde
 				{
@@ -175,7 +168,7 @@ int					check_header(int fd, char *line)
 	{
 		line = epur_str(line); // supprime les espaces en debut de ligne
 		line_nb++;
-		if (line_is_comment(line)) // si c'est un com, on l'ignore et on passe a la prochaine itération de GNL
+		if (*line == COMMENT_CHAR) // si c'est un com, on l'ignore et on passe a la prochaine itération de GNL
 			continue ;
 		else if (line_is_point(line, &set)) // verifie si c'est .name ou .comment
 			continue ;
