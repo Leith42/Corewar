@@ -6,7 +6,7 @@
 #    By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/08 22:26:50 by mgonon           ###   ########.fr        #
+#    Updated: 2018/03/09 22:21:14 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS_LIST		=	\
 					run/load_champions.c \
 					run/utils.c \
 					run/process.c \
+					run/param_utils.c \
 					op_func/op_bad_opc.c \
 					op_func/op_add.c \
 					op_func/op_aff.c \
