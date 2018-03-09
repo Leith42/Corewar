@@ -32,10 +32,7 @@ int					ft_read_file(int fd, char *file_name)
 	if (check_header(fd, line)) //Verification header, mmatime sur le coup
 		ft_putendl("HEADER OK");
 	else
-	{
-		ft_putendl("HEADER PAS BON");
 		return (0);
-	}
 	while ((n = get_next_line(fd, &line)) != -1)
 	{
 	//	if (!(check_instruc(line, &tab))) //Verification instruction

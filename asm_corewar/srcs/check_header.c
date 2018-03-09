@@ -168,16 +168,23 @@ int		name_comment_set(t_set *set)
 int					check_header(int fd, char *line)
 {
 	t_set set;
+	int		line_nb;
 	//lecture des trois premiere lignes, Verification .name et .comment
+	line_nb = 0;
 	while (get_next_line(fd, &line) > 0 && !name_comment_set(&set)) // cette ft renvoit 1 si .name et .comment sont deja set
 	{
 		line = epur_str(line); // supprime les espaces en debut de ligne
+		line_nb++;
 		if (line_is_comment(line)) // si c'est un com, on l'ignore et on passe a la prochaine itération de GNL
 			continue ;
 		else if (line_is_point(line, &set)) // verifie si c'est .name ou .comment
 			continue ;
 		else
+		{
+			ft_putstr("Lexical error on line ");
+			ft_putnbr_c(line_nb, '\n');
 			return (0);
+		}
 	}
 	return (1);
 }
