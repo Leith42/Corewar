@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
+#    By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/01 18:32:41 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/08 22:26:50 by mgonon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,7 @@
 NAME			=	../corewar
 
 CC				=	clang
-CFLAGS			=	-Wall -Wextra -Werror
-
+CFLAGS			=	-Wall -Wextra -Werror -Weverything -Wno-padded -Wno-missing-noreturn
 LIB_H_DIR		=	../libft/incs
 PROJECT_H_DIR	=	incs/
 IFLAGS			=	-I $(LIB_H_DIR) -I $(PROJECT_H_DIR)
@@ -24,7 +23,7 @@ IFLAGS			=	-I $(LIB_H_DIR) -I $(PROJECT_H_DIR)
 COMPILE.c		=	$(CC) $(CFLAGS) $(IFLAGS)
 
 LIBFT			=	../libft/libft.a
-LFLAGS			=	-lft -Llibft
+LFLAGS			=	-lft -L../libft
 
 SRCS_DIR		=	srcs/
 SRCS_LIST		=	\
@@ -32,8 +31,30 @@ SRCS_LIST		=	\
 					init.c \
 					main.c \
 					op.c \
-					parsing.c \
-					parsing_champion.c \
+					parsing/parsing.c \
+					parsing/parsing_champion.c \
+					parsing/parsing_file.c \
+					run/run.c \
+					run/load_champions.c \
+					run/utils.c \
+					run/process.c \
+					op_func/op_bad_opc.c \
+					op_func/op_add.c \
+					op_func/op_aff.c \
+					op_func/op_and.c \
+					op_func/op_fork.c \
+					op_func/op_ld.c \
+					op_func/op_ldi.c \
+					op_func/op_lfork.c \
+					op_func/op_live.c \
+					op_func/op_lld.c \
+					op_func/op_lldi.c \
+					op_func/op_or.c \
+					op_func/op_st.c \
+					op_func/op_sti.c \
+					op_func/op_sub.c \
+					op_func/op_xor.c \
+					op_func/op_zjmp.c \
 					utils.c
 SRCS			=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 
@@ -80,7 +101,7 @@ $(LIBFT) :
 	@make -C ../libft -j8
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
-	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)/{parsing,run,op_func}
 	@printf "\e[K$(CYAN)Compiling $(BOLD)$(notdir $<)$(END_GRAPHICS)$(CYAN) ...\n\e[A$(END_GRAPHICS)"
 	@$(COMPILE.c) -c $< -o $@
 
@@ -108,4 +129,4 @@ debug : CFLAGS=-Wall -Wextra -g
 debug : all
 	@printf "\e[K$(GREEN)Executable $(BOLD)$(NAME)$(END_GRAPHICS)$(GREEN) has successfully compiled $(YELLOW)(with debug symbols).$(END_GRAPHICS)\n"
 
-debug_re : project_fclean debug
+debug_re : fclean debug
