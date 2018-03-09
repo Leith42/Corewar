@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:54:44 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/08 22:46:00 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/09 02:24:34 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static bool	is_id_unique(unsigned int id, t_champion *champions)
 static void	parse_champion_id(t_env *env, char *custom_id, t_champion *champion)
 {
 	unsigned int	champion_id;
-	unsigned int	last_champion_id;
 
 	if (custom_id)
 	{
@@ -51,17 +50,14 @@ static void	parse_champion_id(t_env *env, char *custom_id, t_champion *champion)
 				"Please make sure that your IDs are unique.", 0, 1);
 		champion->id = champion_id;
 	}
+	else if (env->nb_of_champions == 0)
+		champion->id = 1;
 	else
 	{
-		if (env->nb_of_champions == 0)
-			champion->id = 1;
-		else
-		{
-			last_champion_id = env->champions[env->nb_of_champions - 1].id + 1;
-			while (is_id_unique(last_champion_id, env->champions) == false)
-				last_champion_id++;
-			champion->id = last_champion_id;
-		}
+		champion_id = env->champions[env->nb_of_champions - 1].id + 1;
+		while (is_id_unique(champion_id, env->champions) == false)
+			champion_id++;
+		champion->id = champion_id;
 	}
 }
 
