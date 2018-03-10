@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 04:21:41 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 05:23:34 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,13 +155,13 @@ void					do_bad_opc(t_process *process, t_env *env);
 void					do_live(t_process *process, t_env *env);
 void					do_ld(t_process *process, t_env *env);
 void					do_st(t_process *process, t_env *env);
-void					do_zjmp(t_process *process, t_env *env);
-void					do_ldi(t_process *process, t_env *env);
 void					do_add(t_process *process, t_env *env);
 void					do_sub(t_process *process, t_env *env);
 void					do_and(t_process *process, t_env *env);
 void					do_or(t_process *process, t_env *env);
 void					do_xor(t_process *process, t_env *env);
+void					do_zjmp(t_process *process, t_env *env);
+void					do_ldi(t_process *process, t_env *env);
 void					do_sti(t_process *process, t_env *env);
 void					do_fork(t_process *process, t_env *env);
 void					do_lld(t_process *process, t_env *env);
