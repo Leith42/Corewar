@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:06:58 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 06:30:38 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 06:33:40 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static char		*get_champ_color(t_env *env, unsigned int id)
 		return (COLOR_P3);
 	else if (env->nb_of_champions > 3 && id == env->champions[3].id)
 		return (COLOR_P4);
-	ft_putstr_fd("Bad ID in mask !\n", 2);
-	exit(EXIT_FAILURE);
+	ft_free_exit(*env, "Bad ID in mask !\n", 0, 0);
+	return (NULL);
 }
 
 /*
