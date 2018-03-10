@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:06:58 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 06:26:33 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 06:30:38 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,14 @@ static char		*get_champ_color(t_env *env, unsigned int id)
 }
 
 /*
-** Oscillates between getting back high or low 4 bits of input.
+** Gets back high or low 4 bytes of input in hex format.
 */
 
-static char		get_hex_byte(unsigned char byte)
+static char		get_hex_byte(unsigned char byte, int high)
 {
-	static bool		turn = true;
 	unsigned char	cur;
 
-	if (turn == true)
+	if (high)
 		cur = byte >> 4;
 	else
 		cur = byte & 15;
@@ -46,17 +45,18 @@ static char		get_hex_byte(unsigned char byte)
 		cur += '0';
 	else
 		cur = cur - 10 + 'A';
-	turn = (turn == true) ? false : true;
 	return ((char)cur);
 }
 
 /*
 ** Displays current arena state in lines of line_len bytes in hex format.
+** Very heavy on speed of battle, so may end optimized and less readable.
 */
 
 void			disp_arena(t_env *env, size_t line_len)
 {
 	size_t		i;
+	size_t		len;
 	char		*tmp;
 
 	if (!(tmp = ft_strnew(64)))
@@ -66,8 +66,9 @@ void			disp_arena(t_env *env, size_t line_len)
 	while (i < MEM_SIZE)
 	{
 		tmp = ft_strcat(tmp, get_champ_color(env, env->mask[i]));
-		tmp[ft_strlen(tmp)] = get_hex_byte(env->arena[i]);
-		tmp[ft_strlen(tmp)] = get_hex_byte(env->arena[i]);
+		len = ft_strlen(tmp);
+		tmp[len] = get_hex_byte(env->arena[i], 1);
+		tmp[len + 1] = get_hex_byte(env->arena[i], 0);
 		tmp = ft_strcat(tmp, " \x1b[0m");
 		i++;
 		if ((i % line_len) == 0)
