@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:14:30 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 02:41:08 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 02:49:48 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@
 */
 
 unsigned int	get_param_type(t_env *env, unsigned int pc,
-				unsigned int param_nb)
+				unsigned int opcode, unsigned int param_nb)
 {
 	unsigned int	ocp;
 	unsigned int	ref_type;
 	unsigned int	ocp_type;
 
-	ref_type = g_op_tab[env->arena[pc] - 1].param_type[param_nb];
+	ref_type = g_op_tab[opcode - 1].param_type[param_nb];
+	if (g_op_tab[opcode - 1].ocp == false)
+		return (ref_type);
 	ocp = env->arena[pc + 1];
 	ocp_type = (ocp >> (6 - (2 * param_nb))) & 3;
 	if (!(ref_type & ocp_type))
