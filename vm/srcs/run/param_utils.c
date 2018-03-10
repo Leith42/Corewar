@@ -6,12 +6,31 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:14:30 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 03:21:05 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 03:25:32 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <stdlib.h>
+
+/*
+** Gets the raw (in-arena) value of a parameter.
+** Is not, and needs not to be, protected from bad input.
+*/
+
+unsigned int	get_param_raw_value(t_env *env, unsigned int start,
+				unsigned short param_type, unsigned short opcode)
+{
+	unsigned short param_len;
+
+	if (param_type == T_REG)
+		param_len = 1;
+	else if (param_type == T_IND)
+		param_len = 2;
+	else
+		param_len = (g_op_tab[opcode - 1].addr_or_nb == true) ? 2 : 4;
+	return (get_uintfrom_char(env, start, param_len));
+}
 
 /*
 ** Returns the parameter type (T_DIR, T_REG or T_IND) from an ocp.

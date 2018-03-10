@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 03:21:16 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 03:25:46 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,8 @@ unsigned int			get_uintfrom_char(t_env *env,
 						unsigned int start, unsigned short size);
 unsigned short			get_param_type(t_env *env, unsigned int pc,
 						unsigned short opcode, unsigned int param_nb);
+unsigned int			get_param_raw_value(t_env *env, unsigned int start,
+						unsigned short param_type, unsigned short opcode);
 
 /*
 ** List of actions tht can be performed by the process
