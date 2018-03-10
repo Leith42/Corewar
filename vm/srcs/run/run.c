@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 00:54:08 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 03:57:20 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,34 @@
 /*
 ** For each process, in order, executes the current instruction by calling
 ** the associated function.
+** Sets the generic values it can.
 */
+
+static void	exec_inst(t_env *env, t_process *process)
+{
+	unsigned short	opcode;
+
+	opcode = env->arena[process->pc];
+	if (opcode > 16 || opcode == 0)
+	{
+		(*(env->exec_inst_tab[0]))(process, env);
+		return ;
+	}
+	(*(env->exec_inst_tab[opcode]))(process, env);
+	process->cycle_to_wait = g_op_tab[opcode - 1].cycle_nb;
+}
 
 static void	run_processes(t_env *env)
 {
 	t_list		*list_of_processes;
 	t_process	*process;
-	size_t		opcode;
 
 	list_of_processes = env->process;
 	while (list_of_processes)
 	{
 		process = (t_process *)list_of_processes->content;
 		if (process->cycle_to_wait == 0)
-		{
-			opcode = env->arena[process->pc];
-			if (opcode <= 16)
-				(*(env->exec_inst_tab[opcode]))(process, env);
-			else
-				(*(env->exec_inst_tab[0]))(process, env);
-		}
+			exec_inst(env, process);
 		else
 			process->cycle_to_wait--;
 		list_of_processes = list_of_processes->next;
