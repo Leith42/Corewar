@@ -6,12 +6,27 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:14:30 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/09 22:21:43 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 02:38:14 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <stdlib.h>
+
+unsigned int	get_param_type(t_env *env, unsigned int pc,
+				unsigned int param_nb)
+{
+	unsigned int	ocp;
+	unsigned int	ref_type;
+	unsigned int	ocp_type;
+
+	ref_type = g_op_tab[env->arena[pc] - 1].param_type[param_nb];
+	ocp = env->arena[pc + 1];
+	ocp_type = (ocp >> (6 - (2 * param_nb))) & 3;
+	if (!(ref_type & ocp_type))
+		return (0);
+	return (ocp_type);
+}
 
 unsigned int	get_uintfrom_char(unsigned char *start, size_t size)
 {
