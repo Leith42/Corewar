@@ -6,12 +6,17 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:14:30 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 02:38:14 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 02:41:08 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <stdlib.h>
+
+/*
+** Returns the parameter type (T_DIR, T_REG or T_IND) from an ocp.
+** param_nb goes from 0 to 2.
+*/
 
 unsigned int	get_param_type(t_env *env, unsigned int pc,
 				unsigned int param_nb)
@@ -27,6 +32,11 @@ unsigned int	get_param_type(t_env *env, unsigned int pc,
 		return (0);
 	return (ocp_type);
 }
+
+/*
+** returns a unsigned int from a value stored in 1-4 char.
+** needed for reading an int stored in the arena.
+*/
 
 unsigned int	get_uintfrom_char(unsigned char *start, size_t size)
 {
