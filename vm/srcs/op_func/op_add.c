@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:51:00 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 23:51:14 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 04:04:46 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	do_add(t_process *process, t_env *env)
 {
-	debug_actions(process, "add");
+	(void)process;
 	(void)env;
 }

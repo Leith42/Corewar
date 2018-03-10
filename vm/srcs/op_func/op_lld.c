@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:54:10 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 23:54:19 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 04:06:24 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	do_lld(t_process *process, t_env *env)
 {
-	debug_actions(process, "lld");
+	(void)process;
 	(void)env;
 }

@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 22:25:05 by mgonon            #+#    #+#             */
-/*   Updated: 2018/03/08 22:27:51 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/10 04:06:03 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	do_bad_opc(t_process *process, t_env *env)
 {
-	debug_actions(process, "bad_opc");
+	(void)process;
 	(void)env;
 }

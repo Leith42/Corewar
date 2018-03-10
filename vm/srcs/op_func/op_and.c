@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:51:50 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 23:52:02 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 04:05:34 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	do_and(t_process *process, t_env *env)
 {
-	debug_actions(process, "and");
+	(void)process;
 	(void)env;
 }

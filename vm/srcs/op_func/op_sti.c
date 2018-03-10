@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:53:40 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 23:53:45 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 04:06:30 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	do_sti(t_process *process, t_env *env)
 {
-	debug_actions(process, "sti");
+	(void)process;
 	(void)env;
 }
