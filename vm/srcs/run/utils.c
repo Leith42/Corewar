@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:06:58 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 06:46:25 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 06:51:44 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void			disp_arena(t_env *env, size_t line_len)
 	size_t		i;
 	size_t		len;
 
-	if (tmp == NULL && !(tmp = ft_strnew(14 * 64)))
+	if (tmp == NULL && !(tmp = ft_strnew(16)))
 		ft_free_exit(*env, "Not enough memory", 1, 0);
 	i = 0;
 	ft_putstr("\x1b[H");
@@ -74,9 +74,9 @@ void			disp_arena(t_env *env, size_t line_len)
 		if ((i % line_len) == 0)
 		{
 			tmp = ft_strcat(tmp, "\n");
-			ft_putstr(tmp);
-			ft_strclr(tmp);
 		}
+		ft_putstr(tmp);
+		ft_strclr(tmp);
 	}
 	ft_strdel(&tmp);
 }
