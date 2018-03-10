@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:06:58 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 06:33:40 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 06:36:17 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ static char		get_hex_byte(unsigned char byte, int high)
 
 void			disp_arena(t_env *env, size_t line_len)
 {
+	static char	*tmp = NULL;
 	size_t		i;
 	size_t		len;
-	char		*tmp;
 
-	if (!(tmp = ft_strnew(64)))
+	if (tmp == NULL && !(tmp = ft_strnew(64)))
 		ft_free_exit(*env, "Not enough memory", 1, 0);
 	i = 0;
 	ft_putstr("\x1b[H");
