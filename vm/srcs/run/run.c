@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 04:08:58 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 05:53:41 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static void	exec_inst(t_env *env, t_process *process)
 		(*(env->exec_inst_tab[0]))(process, env);
 		return ;
 	}
-	debug_actions(process, g_op_tab[opcode - 1].name);
+	ft_printf("Le process appartenant à joueur %d effectue un %s      \n",
+				process->champ_id, g_op_tab[opcode - 1].name);
 	(*(env->exec_inst_tab[opcode]))(process, env);
 	process->cycle_to_wait = g_op_tab[opcode - 1].cycle_nb;
 }
@@ -67,7 +68,7 @@ static void	cycle_check(t_env *env)
 			ft_lstlen(env->process));
 	if (cycle >= env->cycle_to_die)
 	{
-		ft_printf("\x1b[KProcesses killed at last check : %d\n\x1b[K",
+		ft_printf("\n\n\n\n\x1b[KProcesses killed at last check : %d\n\x1b[K",
 				kill_dead_process(env));
 		if (env->nb_live >= NBR_LIVE || nb_checks >= MAX_CHECKS)
 		{

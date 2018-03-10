@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:06:58 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/09 02:03:12 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 05:53:42 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,6 @@ void			disp_arena(t_env *env, size_t line_len)
 		if ((i % line_len) == 0)
 			ft_putchar('\n');
 	}
-}
-
-void			debug_actions(t_process *process, char *action)
-{
-	ft_printf("Le process appartenant à joueur %d effectue un %s      \n",
-				process->champ_id, action);
 }
 
 unsigned int	ft_lstlen(t_list *lst)
