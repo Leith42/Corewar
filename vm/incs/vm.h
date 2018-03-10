@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 02:58:04 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 03:21:16 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,8 @@ void					load_champions(t_env *env);
 */
 void					disp_arena(t_env *env, size_t line_len);
 void					debug_actions(t_process *process, char *action);
-unsigned int			get_uintfrom_char(unsigned char *start, size_t size);
+unsigned int			get_uintfrom_char(t_env *env,
+						unsigned int start, unsigned short size);
 unsigned short			get_param_type(t_env *env, unsigned int pc,
 						unsigned short opcode, unsigned int param_nb);
 

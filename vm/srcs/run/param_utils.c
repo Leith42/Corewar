@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:14:30 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 02:58:05 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 03:21:05 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,18 @@ unsigned short	get_param_type(t_env *env, unsigned int pc,
 ** needed for reading an int stored in the arena.
 */
 
-unsigned int	get_uintfrom_char(unsigned char *start, size_t size)
+unsigned int	get_uintfrom_char(t_env *env,
+				unsigned int start, unsigned short size)
 {
 	unsigned int	res;
 	unsigned int	i;
 
-	if (size > 4 || size == 0)
-	{
-		ft_dprintf(2, "Internal error : Bad size !\n");
-		exit(EXIT_FAILURE);
-	}
 	res = 0;
 	i = 0;
 	while (i < size)
 	{
 		res = res << 8;
-		res += (unsigned int)start[i];
+		res += (unsigned int)env->arena[(start + i) % MEM_SIZE];
 		i++;
 	}
 	return (res);
