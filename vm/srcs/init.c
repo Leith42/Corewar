@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:21:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 04:21:41 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 05:06:15 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ static void	init_exec_inst_tab(t_env *env)
 	env->exec_inst_tab[OP_LIVE] = do_live;
 	env->exec_inst_tab[OP_LD] = do_ld;
 	env->exec_inst_tab[OP_ST] = do_st;
-	env->exec_inst_tab[OP_ADD] = do_zjmp;
-	env->exec_inst_tab[OP_SUB] = do_ldi;
-	env->exec_inst_tab[OP_AND] = do_add;
-	env->exec_inst_tab[OP_OR] = do_sub;
-	env->exec_inst_tab[OP_XOR] = do_and;
-	env->exec_inst_tab[OP_ZJMP] = do_or;
-	env->exec_inst_tab[OP_LDI] = do_xor;
+	env->exec_inst_tab[OP_ADD] = do_add;
+	env->exec_inst_tab[OP_SUB] = do_sub;
+	env->exec_inst_tab[OP_AND] = do_and;
+	env->exec_inst_tab[OP_OR] = do_or;
+	env->exec_inst_tab[OP_XOR] = do_xor;
+	env->exec_inst_tab[OP_ZJMP] = do_zjmp;
+	env->exec_inst_tab[OP_LDI] = do_ldi;
 	env->exec_inst_tab[OP_STI] = do_sti;
 	env->exec_inst_tab[OP_FORK] = do_fork;
 	env->exec_inst_tab[OP_LLD] = do_lld;
