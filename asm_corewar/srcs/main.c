@@ -21,7 +21,7 @@ int		main(int ac, char **av)
 	else if (!(ft_strnequ(av[1] + ft_strlen(av[1]) - 2, ".s", 2)))
 		write(1, "Wrong file\n", 11);
 	else if (!(fd = open(av[1], O_RDONLY)))
-	 	write(1, "Wrong file\n", 11);
+		write(1, "Wrong file\n", 11);
 	else
 		ft_read_file(fd, av[1]);
 	return (0);

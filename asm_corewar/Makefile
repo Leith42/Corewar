@@ -30,6 +30,7 @@ SRCS_LIST		=	\
 					check_header.c \
 					main.c \
 					read.c \
+					loop_header.c \
 					write.c
 SRCS			=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 

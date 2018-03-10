@@ -12,6 +12,21 @@
 
 #include "asm.h"
 
+char	*epur_str_beginning(char *line) // supprime les espaces en debut de ligne
+{
+	int i;
+	char *dest;
+
+	i = 0;
+	dest = NULL;
+	while ((line[i] && line[i] == ' ') || (line[i] && line[i] == '\t'))
+		i++;
+	if (line[i])
+		dest = ft_strsub(line, i, ft_strlen(line));
+	free(line);
+	return (dest);
+}
+
 int					ft_read_file(int fd, char *file_name)
 {
 	//unsigned char	*tab; // Definir comment attribuer une size pour tab
