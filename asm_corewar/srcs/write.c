@@ -36,22 +36,6 @@ char		*ft_binary_itoa(unsigned char c, int type) // si type > 0, on aura 0b deva
 	return (nb);
 }
 
-char	*ft_strndup(char *file_name, int nb)
-{
-	int j;
-	char *dest;
-
-	j = 0;
-	dest = malloc(sizeof(char) * (nb + 1));
-	while (j < nb)
-	{
-		dest[j] = file_name[j];
-		j++;
-	}
-	dest[j] = '\0';
-	return (dest);
-}
-
 int		ft_write(char *file_name, unsigned char *tab)
 {
 	int n;

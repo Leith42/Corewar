@@ -24,7 +24,7 @@ int					ft_read_file(int fd, char *file_name)
 		ft_putendl("HEADER OK");
 	else
 		return (0);
-	while ((n = get_next_line(fd, &line)) != -1)
+	while ((n = get_next_line(fd, &line, 100)) != -1)
 	{
 	//	if (!(check_instruc(line, &tab))) //Verification instruction
 			// exit & "erreur instruc"
