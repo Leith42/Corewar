@@ -6,16 +6,12 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:06:58 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 05:53:42 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/10 06:26:33 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "vm.h"
-
-/*
-** Displays current arena state in lines of line_len bytes in hex format.
-*/
 
 static char		*get_champ_color(t_env *env, unsigned int id)
 {
@@ -33,20 +29,53 @@ static char		*get_champ_color(t_env *env, unsigned int id)
 	exit(EXIT_FAILURE);
 }
 
+/*
+** Oscillates between getting back high or low 4 bits of input.
+*/
+
+static char		get_hex_byte(unsigned char byte)
+{
+	static bool		turn = true;
+	unsigned char	cur;
+
+	if (turn == true)
+		cur = byte >> 4;
+	else
+		cur = byte & 15;
+	if (cur < 10)
+		cur += '0';
+	else
+		cur = cur - 10 + 'A';
+	turn = (turn == true) ? false : true;
+	return ((char)cur);
+}
+
+/*
+** Displays current arena state in lines of line_len bytes in hex format.
+*/
+
 void			disp_arena(t_env *env, size_t line_len)
 {
 	size_t		i;
+	char		*tmp;
 
+	if (!(tmp = ft_strnew(64)))
+		ft_free_exit(*env, "Not enough memory", 1, 0);
 	i = 0;
 	ft_putstr("\x1b[H");
 	while (i < MEM_SIZE)
 	{
-		ft_printf("%s%02X \x1b[0m",
-			get_champ_color(env, env->mask[i]), env->arena[i]);
+		tmp = ft_strcat(tmp, get_champ_color(env, env->mask[i]));
+		tmp[ft_strlen(tmp)] = get_hex_byte(env->arena[i]);
+		tmp[ft_strlen(tmp)] = get_hex_byte(env->arena[i]);
+		tmp = ft_strcat(tmp, " \x1b[0m");
 		i++;
 		if ((i % line_len) == 0)
-			ft_putchar('\n');
+			tmp = ft_strcat(tmp, "\n");
+		ft_putstr(tmp);
+		ft_strclr(tmp);
 	}
+	ft_strdel(&tmp);
 }
 
 unsigned int	ft_lstlen(t_list *lst)
