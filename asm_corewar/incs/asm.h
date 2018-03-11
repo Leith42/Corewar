@@ -22,6 +22,8 @@
 # define INVALID_CHAR_NAME 2
 # define WRONG_INPUT 3
 # define COMMENT_NOT_IN_PLACE 4
+# define NAME_TOO_LONG 5
+# define COMMENT_TOO_LONG 6
 
 typedef struct	s_head
 {
@@ -45,5 +47,6 @@ char			*epur_str_beginning(char *line);
 int				name_comment_set(t_head *head);
 void			init_set(t_head *head);
 int				check_header(int fd, char *line);
+int				ft_write(char *file_name, unsigned char *tab);
 
 #endif

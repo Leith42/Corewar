@@ -31,20 +31,21 @@ int					ft_read_file(int fd, char *file_name)
 {
 	//unsigned char	*tab; // Definir comment attribuer une size pour tab
 	char			*line;
-	int				n;
+	//int				n;
+	unsigned char *tab = NULL; // tab crée juste pour tester la fonction
 
-	(void)file_name;
 	line = NULL;
 	if (check_header(fd, line)) //Verification header, mmatime sur le coup
-		ft_putendl("HEADER OK");
+		ft_write(file_name, tab);
 	else
 		return (0);
-	while ((n = get_next_line(fd, &line, 100)) != -1)
+	/*while ((n = get_next_line(fd, &line, 100)) != -1)
 	{
 	//	if (!(check_instruc(line, &tab))) //Verification instruction
 			// exit & "erreur instruc"
 	//	free (line);
 	}
-	//ft_write(File_Name, tab);
+	//ft_write(File_Name, tab);*/
+
 	return (1);
 }

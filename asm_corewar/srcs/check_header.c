@@ -17,12 +17,16 @@ void	header_error(int error, int line_nb, char *str)
 	if (error == QUOTE_MARK)
 		ft_printf("Can't find quote mark on line %d\n", line_nb);
 	else if (error == INVALID_CHAR_NAME)
-		ft_printf("Can't write anything without sh
-			arp sign ('#') on line %d\n", line_nb);
+		ft_printf("Can't write anything without sharp sign ('#') on line %d\n",
+		 line_nb);
 	else if (error == WRONG_INPUT)
 		ft_printf("Wrong input on line %d\n", line_nb);
 	else if (error == COMMENT_NOT_IN_PLACE)
 		ft_printf("Can't comment before %s input on line %d\n", str, line_nb);
+	else if (error == NAME_TOO_LONG)
+		ft_printf("Champion name too long (Max length 128)\n");
+	else if (error == COMMENT_TOO_LONG)
+		ft_printf("Champion comment too long (Max length 2048)\n");
 	exit(1);
 }
 
@@ -57,11 +61,37 @@ void	init_set(t_head *head)
 	head->name = NULL;
 }
 
+char		*ft_binary_itoa(unsigned char c, int type) // si type > 0, on aura 0b devant le resultat
+{
+	int		n;
+	char	*nb;
+	int		tmp;
+
+	type = (type > 0) ? 2 : 0;
+	nb = (char *)malloc(sizeof(char) * 8 + type);
+	n = 8 + type;
+	nb[n--] = '\0';
+	while (n >= type)
+	{
+		tmp = (c >= 2) ? c % 2 : c;
+		nb[n--] = (char)(48 + tmp);
+		c /= 2;
+	}
+	if (type == 2)
+	{
+		nb[1] = 'b';
+		nb[0] = '0';
+	}
+	return (nb);
+}
+
 int		check_header(int fd, char *line)
 {
 	t_head	head;
 	int		line_nb;
+	int i;
 
+	i = 0;
 	init_set(&head);
 	line_nb = 0;
 	while (get_next_line(fd, &line, 100) > 0 && !name_comment_set(&head)) // cette ft renvoit 1 si .name et .comment sont deja set

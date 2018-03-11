@@ -36,7 +36,9 @@ int		loop_name(int *i, char *line, t_head *head)
 			*i += 1;
 		if (line[*i] == '"') // on a un commentaire valide et on le sauvegarde
 		{
-			head->name = ft_strsub(line, tmp, *i - tmp);
+			if ((*i - tmp) > PROG_NAME_LENGTH)
+				header_error(NAME_TOO_LONG, 0, "");
+			head->name = ft_strsub(line, tmp, (*i - tmp));
 			head->name_is_set = 1;
 			return (1);
 		}
@@ -90,6 +92,9 @@ int		loop_comment(int *i, char *line, t_head *head)
 			*i += 1;
 		if (line[*i] == '"') // on a un commentaire valide et on le sauvegarde
 		{
+			
+			if ((*i - tmp) > COMMENT_LENGTH)
+				header_error(COMMENT_TOO_LONG, 0, "");
 			head->comment = ft_strsub(line, tmp, *i - tmp);
 			head->comment_is_set = 1;
 			return (1);
