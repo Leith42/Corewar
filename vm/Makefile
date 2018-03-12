@@ -6,7 +6,7 @@
 #    By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/10 02:55:00 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/12 17:50:37 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -126,7 +126,7 @@ norme :
 		printf "$(RED)Norminette not installed, cannot check norm.\n$(END_GRAPHICS)" ; \
 	fi
 
-debug : CFLAGS=-Wall -Wextra -Weverything -Wno-padded -Wno-missing-noreturn -g
+debug : CFLAGS=-Wall -Wextra -Weverything -Wno-padded -Wno-missing-noreturn -g -fsanitize=address
 debug : all
 	@printf "\e[K$(GREEN)Executable $(BOLD)$(NAME)$(END_GRAPHICS)$(GREEN) has successfully compiled $(YELLOW)(with debug symbols).$(END_GRAPHICS)\n"
 
