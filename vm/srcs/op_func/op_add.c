@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   op_add.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:51:00 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 04:04:46 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/12 22:10:27 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	do_add(t_process *process, t_env *env)
+int	do_add(t_process *process, t_env *env)
 {
 	(void)process;
 	(void)env;
+	return (0);
 }

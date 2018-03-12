@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   op_st.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:55:38 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 04:06:28 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/12 22:11:21 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	do_st(t_process *process, t_env *env)
+int	do_st(t_process *process, t_env *env)
 {
 	(void)process;
 	(void)env;
+	return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:55:03 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/12 20:23:46 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/12 22:11:06 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void		do_live(t_process *process, t_env *env)
+int		do_live(t_process *process, t_env *env)
 {
 	unsigned int	param;
 	char			*champion_name;
@@ -28,4 +28,5 @@ void		do_live(t_process *process, t_env *env)
 	process->pc += 4 + 1;
 	env->last_live_id = param;
 	env->nb_live++;
+	return (0);
 }

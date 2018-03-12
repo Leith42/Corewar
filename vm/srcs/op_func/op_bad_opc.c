@@ -6,14 +6,15 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 22:25:05 by mgonon            #+#    #+#             */
-/*   Updated: 2018/03/10 04:06:03 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/12 22:10:50 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	do_bad_opc(t_process *process, t_env *env)
+int	do_bad_opc(t_process *process, t_env *env)
 {
 	(void)process;
 	(void)env;
+	return (0);
 }

@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:53:50 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 04:06:15 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/12 22:10:53 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	do_fork(t_process *process, t_env *env)
+int	do_fork(t_process *process, t_env *env)
 {
 	(void)process;
 	(void)env;
+	return (0);
 }

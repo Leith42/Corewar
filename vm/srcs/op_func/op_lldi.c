@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   op_lldi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:54:26 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 04:06:25 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/12 22:11:14 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	do_lldi(t_process *process, t_env *env)
+int	do_lldi(t_process *process, t_env *env)
 {
 	(void)process;
 	(void)env;
+	return (0);
 }

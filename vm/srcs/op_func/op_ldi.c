@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   op_ldi.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:56:16 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 04:06:19 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/12 22:10:59 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	do_ldi(t_process *process, t_env *env)
+int	do_ldi(t_process *process, t_env *env)
 {
 	(void)process;
 	(void)env;
+	return (0);
 }

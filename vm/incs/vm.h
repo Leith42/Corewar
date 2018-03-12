@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/12 19:49:58 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/12 22:10:01 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct			s_env
 	size_t				cycle_to_die;
 	size_t				nb_live;
 	unsigned int		last_live_id;
-	void				(*exec_inst_tab[17]) (t_process *process,
+	int					(*exec_inst_tab[17]) (t_process *process,
 						struct s_env *env);
 }						t_env;
 
@@ -152,23 +152,23 @@ unsigned int			get_param_raw_value(t_env *env, unsigned int start,
 /*
 ** List of actions tht can be performed by the process
 */
-void					do_bad_opc(t_process *process, t_env *env);
-void					do_live(t_process *process, t_env *env);
-void					do_ld(t_process *process, t_env *env);
-void					do_st(t_process *process, t_env *env);
-void					do_add(t_process *process, t_env *env);
-void					do_sub(t_process *process, t_env *env);
-void					do_and(t_process *process, t_env *env);
-void					do_or(t_process *process, t_env *env);
-void					do_xor(t_process *process, t_env *env);
-void					do_zjmp(t_process *process, t_env *env);
-void					do_ldi(t_process *process, t_env *env);
-void					do_sti(t_process *process, t_env *env);
-void					do_fork(t_process *process, t_env *env);
-void					do_lld(t_process *process, t_env *env);
-void					do_lldi(t_process *process, t_env *env);
-void					do_lfork(t_process *process, t_env *env);
-void					do_aff(t_process *process, t_env *env);
+int						do_bad_opc(t_process *process, t_env *env);
+int						do_live(t_process *process, t_env *env);
+int						do_ld(t_process *process, t_env *env);
+int						do_st(t_process *process, t_env *env);
+int						do_add(t_process *process, t_env *env);
+int						do_sub(t_process *process, t_env *env);
+int						do_and(t_process *process, t_env *env);
+int						do_or(t_process *process, t_env *env);
+int						do_xor(t_process *process, t_env *env);
+int						do_zjmp(t_process *process, t_env *env);
+int						do_ldi(t_process *process, t_env *env);
+int						do_sti(t_process *process, t_env *env);
+int						do_fork(t_process *process, t_env *env);
+int						do_lld(t_process *process, t_env *env);
+int						do_lldi(t_process *process, t_env *env);
+int						do_lfork(t_process *process, t_env *env);
+int						do_aff(t_process *process, t_env *env);
 
 /*
 ** Utils for process

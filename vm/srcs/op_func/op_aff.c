@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   op_aff.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:56:37 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 04:05:16 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/12 22:10:40 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	do_aff(t_process *process, t_env *env)
+int	do_aff(t_process *process, t_env *env)
 {
 	(void)process;
 	(void)env;
+	return (0);
 }
