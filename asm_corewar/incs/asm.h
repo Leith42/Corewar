@@ -25,6 +25,19 @@
 # define NAME_TOO_LONG 5
 # define COMMENT_TOO_LONG 6
 
+typedef struct		s_op
+{
+	char			*name;
+	unsigned short	param_nb;
+	unsigned short	param_type[3];
+	unsigned short	opcode;
+	unsigned short	cycle_nb;
+	char			*description;
+	bool			ocp;
+	bool			addr_or_nb;
+}					t_op;
+extern t_op			g_op_tab[17];
+
 typedef struct	s_head
 {
 	int			name_is_set;

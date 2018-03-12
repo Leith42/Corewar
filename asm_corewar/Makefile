@@ -31,7 +31,9 @@ SRCS_LIST		=	\
 					main.c \
 					read.c \
 					loop_header.c \
-					write.c
+					write.c \
+					utils.c \
+					op.c \
 SRCS			=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 
 OBJS_DIR		=	./objs/

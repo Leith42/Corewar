@@ -12,10 +12,36 @@
 
 #include "asm.h"
 
-char	*epur_str_beginning(char *line) // supprime les espaces en debut de ligne
+char		**ft_split_inst(char *inst)
 {
-	int i;
-	char *dest;
+	char	**params;
+	int		n;
+	int		i;
+	int		t;
+
+	n = 0;
+	i = 0;
+	t = 0;
+	params = ft_arrnew(5);
+	while (inst[n] && inst[n] != '#')
+	{
+		while (inst[n] == ' ' || inst[n] == '\t' || inst[n] == ',')
+			n++;
+		while (inst[n + i] && inst[n + i] != ' ' && inst[n + i] != '\t'
+		&& inst[n + i] != ',' && inst[n + i] != '#')
+			i++;
+		if (i > 0)
+			params[t++] = ft_strndup(inst + n, i);
+		n += i;
+		i = 0;
+	}
+	return (params);
+}
+
+char		*epur_str_beginning(char *line) // supprime les espaces en debut de ligne
+{
+	int		i;
+	char	*dest;
 
 	i = 0;
 	dest = NULL;

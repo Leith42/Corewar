@@ -75,9 +75,12 @@ int		check_header(int fd, char *line)
 		else
 			header_error(WRONG_INPUT, line_nb, "");
 	}
+	/*
+	** TEST TEMPORAIRE
+	*/
 	if (head.name)
-		ft_printf("name = >%s<\n", head.name); // a retirer, juste pour tests
+		ft_printf("name = >%s<\n", head.name);
 	if (head.comment)
-		ft_printf("comment = >%s<\n", head.comment); // a retirer, juste pour tests
+		ft_printf("comment = >%s<\n", head.comment);
 	return (1);
 }
