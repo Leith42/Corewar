@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/12 19:23:16 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/12 19:49:58 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef	struct			s_process
 	unsigned int		reg[REG_NUMBER];
 	unsigned int		champ_id;
 	unsigned int		cycle_to_wait;
-	unsigned char 		*aff_buffer;
+	unsigned char		*aff_buffer;
 	bool				is_alive;
 	bool				carry;
 }						t_process;
