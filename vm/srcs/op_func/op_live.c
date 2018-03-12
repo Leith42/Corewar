@@ -12,8 +12,19 @@
 
 #include "vm.h"
 
-void	do_live(t_process *process, t_env *env)
+void		do_live(t_process *process, t_env *env)
 {
-	env->nb_live++;
+	unsigned int	param;
+	char			*champion_name;
+
+	param = get_param_raw_value(env, process->pc + 1, T_DIR, OP_LIVE);
+	champion_name = get_champ_name(env, param);
+	if (champion_name != NULL)
+	{
+		ft_printf("A process report that the champion %s (%u) is alive.\n",
+					champion_name, param);
+	}
 	process->is_alive = true;
+	process->pc += 4 + 1;
+	env->nb_live++;
 }
