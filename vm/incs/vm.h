@@ -67,6 +67,7 @@ typedef	struct			s_process
 	unsigned int		reg[REG_NUMBER];
 	unsigned int		champ_id;
 	unsigned int		cycle_to_wait;
+	char 				*aff_buffer;
 	bool				is_alive;
 	bool				carry;
 }						t_process;
