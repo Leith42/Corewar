@@ -6,11 +6,12 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:06:58 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 06:51:44 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/12 19:43:50 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include "vm.h"
 
 static char		*get_champ_color(t_env *env, unsigned int id)
@@ -55,30 +56,40 @@ static char		get_hex_byte(unsigned char byte, int high)
 
 void			disp_arena(t_env *env, size_t line_len)
 {
-	static char	*tmp = NULL;
-	size_t		i;
-	size_t		len;
+	unsigned int	last_id;
+	char			*tmp;
+	size_t			i;
+	size_t			len;
 
-	if (tmp == NULL && !(tmp = ft_strnew(16)))
+	if (!(tmp = ft_strnew(16 * line_len)))
 		ft_free_exit(*env, "Not enough memory", 1, 0);
 	i = 0;
+	len = 0;
+	last_id = env->mask[i] + 1;
 	ft_putstr("\x1b[H");
 	while (i < MEM_SIZE)
 	{
-		tmp = ft_strcat(tmp, get_champ_color(env, env->mask[i]));
-		len = ft_strlen(tmp);
-		tmp[len] = get_hex_byte(env->arena[i], 1);
-		tmp[len + 1] = get_hex_byte(env->arena[i], 0);
-		tmp = ft_strcat(tmp, " \x1b[0m");
-		i++;
-		if ((i % line_len) == 0)
+		if (last_id != env->mask[i])
 		{
-			tmp = ft_strcat(tmp, "\n");
+			last_id = env->mask[i];
+			ft_strcat(tmp + len, get_champ_color(env, last_id));
+			len += ft_strlen(tmp + len);
 		}
-		ft_putstr(tmp);
-		ft_strclr(tmp);
+		tmp[len] = get_hex_byte(env->arena[i], 1);
+		tmp[++len] = get_hex_byte(env->arena[i], 0);
+		tmp[++len] = ' ';
+		if ((++i % line_len) == 0)
+		{
+			tmp[len] = '\n';
+			write(1, tmp, len + 1);
+			ft_strclr(tmp);
+			len = 0;
+		}
+		else
+			len++;
 	}
 	ft_strdel(&tmp);
+	ft_putstr("\x1b[0m");
 }
 
 unsigned int	ft_lstlen(t_list *lst)

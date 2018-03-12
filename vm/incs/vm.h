@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 05:23:34 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/12 19:23:16 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 
 # define DUMP_LINE_LEN	32
 # define NULL_ID 0
-# define COLOR_P1 "\x1b[31m"
-# define COLOR_P2 "\x1b[32m"
-# define COLOR_P3 "\x1b[33m"
-# define COLOR_P4 "\x1b[34m"
+# define COLOR_P1 "\x1b[0;31m"
+# define COLOR_P2 "\x1b[0;32m"
+# define COLOR_P3 "\x1b[0;33m"
+# define COLOR_P4 "\x1b[0;34m"
 
 enum					e_error
 {
