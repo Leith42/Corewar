@@ -45,13 +45,6 @@ int		line_is_point(char *line, t_head *head, int line_nb) //check si une ligne c
 	return (0);
 }
 
-int		name_comment_set(t_head *head)
-{
-	if (head->name_is_set == 1 && head->comment_is_set == 1)
-		return (1);
-	return (0);
-}
-
 void	init_set(t_head *head)
 {
 	head->name_is_set = 0;
@@ -59,30 +52,6 @@ void	init_set(t_head *head)
 	head->head_error = 0;
 	head->comment = NULL;
 	head->name = NULL;
-}
-
-char		*ft_binary_itoa(unsigned char c, int type) // si type > 0, on aura 0b devant le resultat
-{
-	int		n;
-	char	*nb;
-	int		tmp;
-
-	type = (type > 0) ? 2 : 0;
-	nb = (char *)malloc(sizeof(char) * 8 + type);
-	n = 8 + type;
-	nb[n--] = '\0';
-	while (n >= type)
-	{
-		tmp = (c >= 2) ? c % 2 : c;
-		nb[n--] = (char)(48 + tmp);
-		c /= 2;
-	}
-	if (type == 2)
-	{
-		nb[1] = 'b';
-		nb[0] = '0';
-	}
-	return (nb);
 }
 
 int		check_header(int fd, char *line)
@@ -94,7 +63,8 @@ int		check_header(int fd, char *line)
 	i = 0;
 	init_set(&head);
 	line_nb = 0;
-	while (get_next_line(fd, &line, 100) > 0 && !name_comment_set(&head)) // cette ft renvoit 1 si .name et .comment sont deja set
+	while (get_next_line(fd, &line, 100) > 0 && (head->name_is_set != 1
+	|| head->comment_is_set != 1)) // cette ft renvoit 1 si .name et .comment sont deja set
 	{
 		line = epur_str_beginning(line); // supprime les espaces en debut de ligne
 		line_nb++;

@@ -34,19 +34,38 @@ typedef struct	s_head
 	int			head_error;
 }				t_head;
 
+/*
+** FONCTION MAIN
+*/
+
 int				main(int ac, char **av);
 int				ft_read_file(int fd, char *file_name);
-int				char_is_valid(char c);
+
+/*
+** FONCTION HEADER
+*/
+
+int				check_header(int fd, char *line);
 void			header_error(int error, int line_nb, char *str);
 int				loop_name(int *i, char *line, t_head *head);
 int				set_name(char *line, t_head *head, int line_nb);
 int				loop_comment(int *i, char *line, t_head *head);
 int				set_comment(char *line, t_head *head, int line_nb);
 int				line_is_point(char *line, t_head *head, int line_nb);
-char			*epur_str_beginning(char *line);
-int				name_comment_set(t_head *head);
 void			init_set(t_head *head);
-int				check_header(int fd, char *line);
+int				char_is_valid(char c);
+
+/*
+** FONCTION WRITE
+*/
+
 int				ft_write(char *file_name, unsigned char *tab);
+
+/*
+** FONCTION UTILITAIRE
+*/
+
+char			*epur_str_beginning(char *line);
+char			*ft_binary_itoa(unsigned char c, int type);
 
 #endif
