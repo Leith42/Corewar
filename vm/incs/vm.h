@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/12 22:10:01 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/12 22:41:43 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ int						do_aff(t_process *process, t_env *env);
 /*
 ** Utils for process
 */
+t_list					*lstdelnode(t_list *cur, t_list *node);
 size_t					kill_dead_process(t_env *env);
 void					add_new_process(t_env *env, unsigned int champion_id);
 

@@ -6,12 +6,29 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 22:47:11 by mgonon            #+#    #+#             */
-/*   Updated: 2018/03/09 23:49:08 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/12 22:43:59 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <stdlib.h>
+
+t_list	*lstdelnode(t_list *cur, t_list *node)
+{
+	t_list *next;
+
+	if (cur == NULL)
+		return (NULL);
+	if (cur == node)
+	{
+		next = cur->next;
+		free(cur);
+		cur = NULL;
+		return (next);
+	}
+	cur->next = lstdelnode(cur->next, node);
+	return (cur);
+}
 
 void	add_new_process(t_env *env, unsigned int champion_id)
 {
