@@ -6,12 +6,23 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:14:30 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 03:25:32 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 00:06:05 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <stdlib.h>
+
+/*
+** Untested and probably buggy, but would so fucking proud if it works.
+*/
+
+void			write_uint_to_char(t_env *env, unsigned int start,
+				unsigned short size, unsigned int value)
+{
+	while (size-- > 0)
+		env->arena[start++] = (unsigned char)((value >> (8 * size)) % 256);
+}
 
 /*
 ** Gets the raw (in-arena) value of a parameter.
