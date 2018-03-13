@@ -12,18 +12,52 @@
 
 #include "asm.h"
 
-int		ft_write(char *file_name, unsigned char *tab)
+void	print_magic_number(int fd)
 {
-	int n;
+	int i;
+	unsigned char magic_tab[4];
+	int magic_num;
+
+	i = 0;
+	magic_num = COREWAR_EXEC_MAGIC;
+	while (i < 4)
+	{
+		magic_tab[i] = magic_num;
+		magic_num >>= 8;
+		i++;
+	}
+	while (--i >= 0)
+		ft_putchar_fd(magic_tab[i], fd);
+}
+
+void	print_header(int fd, t_header *header)
+{
+	int i;
+	int comment_tag;
+
+	i = 0;
+	comment_tag = 0xe103;
+	while (i < PROG_NAME_LENGTH)
+		ft_putchar_fd(header->prog_name[i++], fd);
+	write(fd, "\0", 8);
+	i = 0;
+	while (i < COMMENT_LENGTH)
+		ft_putchar_fd(header->comment[i++], fd);
+	write(fd, "\0", 4);
+}
+
+int		ft_write(char *file_name, unsigned char *tab, t_header *header)
+{
 	int fd;
 	char *new_file_name;
 
-	n = -1;
+	(void)tab;
 	new_file_name = ft_strjoin(ft_strndup(file_name, ft_strlen(file_name) - 2), ".cor"); // degueulasse mais c'est l'idée :)
-	if ((fd = open(new_file_name, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR)))
+	if ((fd = open(new_file_name, O_WRONLY | O_CREAT | O_TRUNC, 0755)))
 	{	
 		ft_printf("Fichier %s crée avec succès !\n", new_file_name);
-		(void)tab;
+		print_magic_number(fd);
+		print_header(fd, header);
 		//creation file_name
 		/*while (tab[++n])
 		{

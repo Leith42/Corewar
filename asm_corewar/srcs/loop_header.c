@@ -19,14 +19,15 @@ int		char_is_valid(char c)
 	return (0);
 }
 
-int		loop_name(int *i, char *line, t_head *head)
+int		loop_name(int *i, char *line, t_header *header)
 {
 	int tmp;
+	char *name_tmp;
 
 	*i += 1;
 	if (line[*i] && line[*i] == '"')
 	{
-		head->name_is_set = 1; // ca veut dire que name est valide mais ne comporte pas de nom
+		header->name_is_set = 1; // ca veut dire que name est valide mais ne comporte pas de nom
 		return (1);
 	}
 	else
@@ -38,15 +39,17 @@ int		loop_name(int *i, char *line, t_head *head)
 		{
 			if ((*i - tmp) > PROG_NAME_LENGTH)
 				header_error(NAME_TOO_LONG, 0, "");
-			head->name = ft_strsub(line, tmp, (*i - tmp));
-			head->name_is_set = 1;
+			name_tmp = ft_strsub(line, tmp, (*i - tmp));
+			ft_memcpy(header->prog_name, name_tmp, ft_strlen(name_tmp));
+			free(name_tmp);
+			header->name_is_set = 1;
 			return (1);
 		}
 		return (0); // ca veut dire qu'il n'a pas trouvé la guillemet fermante, que le fichier est mauvais
 	}
 }
 
-int		set_name(char *line, t_head *head, int line_nb)
+int		set_name(char *line, t_header *header, int line_nb)
 {
 	int i;
 	int comment;
@@ -55,13 +58,13 @@ int		set_name(char *line, t_head *head, int line_nb)
 	comment = 0;
 	while (line[i])
 	{
-		if (line[i] == '#' && head->name_is_set)
+		if (line[i] == '#' && header->name_is_set)
 			comment = 1;
-		else if (line[i] == '#' && !head->name_is_set)
+		else if (line[i] == '#' && !header->name_is_set)
 			header_error(COMMENT_NOT_IN_PLACE, line_nb, ".name");
-		if (line[i] == '"' && !head->name_is_set)
+		if (line[i] == '"' && !header->name_is_set)
 		{
-			if (loop_name(&i, line, head))
+			if (loop_name(&i, line, header))
 			{
 				i++;
 				continue ;
@@ -75,14 +78,15 @@ int		set_name(char *line, t_head *head, int line_nb)
 	return (1);
 }
 
-int		loop_comment(int *i, char *line, t_head *head)
+int		loop_comment(int *i, char *line, t_header *header)
 {
 	int tmp;
+	char *comment_tmp;
 
 	*i += 1;
 	if (line[*i] && line[*i] == '"')
 	{
-		head->comment_is_set = 1; // ca veut dire que name est valide mais ne comporte pas de nom
+		header->comment_is_set = 1; // ca veut dire que name est valide mais ne comporte pas de nom
 		return (1);
 	}
 	else
@@ -91,19 +95,20 @@ int		loop_comment(int *i, char *line, t_head *head)
 		while (line[*i] && line[*i] != '"')
 			*i += 1;
 		if (line[*i] == '"') // on a un commentaire valide et on le sauvegarde
-		{
-			
+		{	
 			if ((*i - tmp) > COMMENT_LENGTH)
 				header_error(COMMENT_TOO_LONG, 0, "");
-			head->comment = ft_strsub(line, tmp, *i - tmp);
-			head->comment_is_set = 1;
+			comment_tmp = ft_strsub(line, tmp, *i - tmp);
+			ft_memcpy(header->comment, comment_tmp, ft_strlen(comment_tmp));
+			free(comment_tmp);
+			header->comment_is_set = 1;
 			return (1);
 		}
 		return (0); // ca veut dire qu'il n'a pas trouvé la guillemet fermante, que le fichier est mauvais
 	}
 }
 
-int		set_comment(char *line, t_head *head, int line_nb)
+int		set_comment(char *line, t_header *header, int line_nb)
 {
 	int i;
 	int comment;
@@ -112,13 +117,13 @@ int		set_comment(char *line, t_head *head, int line_nb)
 	comment = 0;
 	while (line[i])
 	{
-		if (line[i] == '#' && head->comment_is_set)
+		if (line[i] == '#' && header->comment_is_set)
 			comment = 1;
-		else if (line[i] == '#' && !head->comment_is_set)
+		else if (line[i] == '#' && !header->comment_is_set)
 			header_error(COMMENT_NOT_IN_PLACE, line_nb, ".comment");
-		if (line[i] == '"' && !head->comment_is_set)
+		if (line[i] == '"' && !header->comment_is_set)
 		{
-			if (loop_comment(&i, line, head))
+			if (loop_comment(&i, line, header))
 			{
 				i++;
 				continue ;

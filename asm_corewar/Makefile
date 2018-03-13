@@ -33,8 +33,7 @@ SRCS_LIST		=	\
 					loop_header.c \
 					write.c \
 					utils.c \
-					op.c \
-SRCS			=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
+					#op.c \
 
 OBJS_DIR		=	./objs/
 OBJS_LIST		=	$(patsubst %.c, %.o, $(SRCS_LIST))

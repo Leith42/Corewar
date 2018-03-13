@@ -16,12 +16,13 @@ int					ft_read_file(int fd, char *file_name)
 {
 	//unsigned char	*tab; // Definir comment attribuer une size pour tab
 	char			*line;
+	t_header		header;
 	//int				n;
 	unsigned char *tab = NULL; // tab crée juste pour tester la fonction
 
 	line = NULL;
-	if (check_header(fd, line)) //Verification header, mmatime sur le coup
-		ft_write(file_name, tab);
+	if (check_header(fd, line, &header)) //Verification header, mmatime sur le coup
+		ft_write(file_name, tab, &header);
 	else
 		return (0);
 	/*while ((n = get_next_line(fd, &line, 100)) != -1)

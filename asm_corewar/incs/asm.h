@@ -33,19 +33,29 @@ typedef struct		s_op
 	unsigned short	opcode;
 	unsigned short	cycle_nb;
 	char			*description;
-	bool			ocp;
-	bool			addr_or_nb;
+/*	bool			ocp;
+	bool			addr_or_nb; */
+	 
+/* Mis ces variables en commentaire car impossible de compiler sinon */
+
 }					t_op;
+
 extern t_op			g_op_tab[17];
 
-typedef struct	s_head
+/*
+** HEADER DE OP.H
+*/
+
+typedef struct		s_header
 {
-	int			name_is_set;
-	int			comment_is_set;
-	char		*name;
-	char		*comment;
-	int			head_error;
-}				t_head;
+	unsigned int		magic;
+	char				prog_name[PROG_NAME_LENGTH + 1];
+	unsigned int		prog_size;
+	char				comment[COMMENT_LENGTH + 1];
+	int					name_is_set;
+	int					comment_is_set;
+	int					head_error;
+}					t_header;
 
 /*
 ** FONCTION MAIN
@@ -58,21 +68,21 @@ int				ft_read_file(int fd, char *file_name);
 ** FONCTION HEADER
 */
 
-int				check_header(int fd, char *line);
+int				check_header(int fd, char *line, t_header *header);
 void			header_error(int error, int line_nb, char *str);
-int				loop_name(int *i, char *line, t_head *head);
-int				set_name(char *line, t_head *head, int line_nb);
-int				loop_comment(int *i, char *line, t_head *head);
-int				set_comment(char *line, t_head *head, int line_nb);
-int				line_is_point(char *line, t_head *head, int line_nb);
-void			init_set(t_head *head);
+int				loop_name(int *i, char *line, t_header *header);
+int				set_name(char *line, t_header *header, int line_nb);
+int				loop_comment(int *i, char *line, t_header *header);
+int				set_comment(char *line, t_header *header, int line_nb);
+int				line_is_point(char *line, t_header *header, int line_nb);
+void			init_set(t_header *header);
 int				char_is_valid(char c);
 
 /*
 ** FONCTION WRITE
 */
 
-int				ft_write(char *file_name, unsigned char *tab);
+int				ft_write(char *file_name, unsigned char *tab, t_header *header);
 
 /*
 ** FONCTION UTILITAIRE
