@@ -12,6 +12,17 @@
 
 #include "asm.h"
 
+int					param_type(char *param)
+{
+	if (!param)
+		return (0);
+	if (param[0] == 'r')
+		return (T_REG);
+	if (param[0] == '%')
+		return (T_DIR);
+	return (T_IND);
+}
+
 int					check_params(char **inst, int opcode)
 {
 	int		n;
@@ -22,16 +33,23 @@ int					check_params(char **inst, int opcode)
 	{
 		if (g_op_tab[opcode].param_nb <= n)
 			return (0);
-		if (inst[n][0] == 'r')
-			type = T_REG;
-		if (inst[n][0] == '%')
-			type = T_DIR;
-		else
-			type = T_IND;
+		type = param_type(inst[n]);
 		if (!(type & g_op_tab[opcode].param_type[n]))
 			return (0);
 	}
 	return (1);
+}
+
+unsigned char		get_ocp(char **inst)
+{
+	int type;
+	int i;
+
+	i = 0;
+	while (i++ <= 4)
+	{
+
+	}
 }
 
 int					get_inst(char **inst)
@@ -48,10 +66,9 @@ int					get_inst(char **inst)
 	*/
 	while (i <= 16 && (ft_strcmp(g_op_tab[i].name, inst[n]) != 0))
 		i++;
-	if (i == 16)
+	if (i == 16 || check_params(inst + n, i) == 0)
 		return (0); //Erreur instruct
 	op[n++] = i + 1;
-	check_params(inst + n, i);
 	if (g_op_tab.opc == TRUE)
 	{
 
