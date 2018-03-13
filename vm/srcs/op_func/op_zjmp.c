@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:56:02 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/12 22:11:35 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/13 20:52:54 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 
 int	do_zjmp(t_process *process, t_env *env)
 {
-	(void)process;
-	(void)env;
+	if (process->carry == 1)
+	{
+		process->pc += (get_param_raw_value(env, process->pc + 1,
+					T_DIR, 0x09) % IDX_MOD);
+	}
+	else
+		process->pc += 1 + 2;
+	process->pc %= MEM_SIZE;
 	return (0);
 }
