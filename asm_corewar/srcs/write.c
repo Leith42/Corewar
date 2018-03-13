@@ -33,16 +33,14 @@ void	print_magic_number(int fd)
 void	print_header(int fd, t_header *header)
 {
 	int i;
-	int comment_tag;
 
 	i = 0;
-	comment_tag = 0xe103;
 	while (i < PROG_NAME_LENGTH)
-		ft_putchar_fd(header->prog_name[i++], fd);
+		write(fd, &header->prog_name[i++], 1);
 	write(fd, "\0", 8);
 	i = 0;
 	while (i < COMMENT_LENGTH)
-		ft_putchar_fd(header->comment[i++], fd);
+		write(fd, &header->comment[i++], 1);
 	write(fd, "\0", 4);
 }
 
