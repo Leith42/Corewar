@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:21:39 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/09 21:41:53 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/13 23:03:32 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int			main(int argc, char *argv[])
 		ft_putendl("Usage: ./corewar \
 [-dump nbr_cycles] [[-n number] champion1.cor] ...");
 	}
-	else if (sizeof(int) < 4)
+	else if (sizeof(int) != 4 || sizeof(short) != 2)
 	{
-		ft_dprintf(2, "ERROR : int size is less than 4 bytes on this machine. \
+		ft_dprintf(2, "ERROR : int or short size is not the expected size. \
 Aborting.\n");
 		exit(EXIT_FAILURE);
 	}
