@@ -17,6 +17,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdbool.h>
 
 # define QUOTE_MARK 1
 # define INVALID_CHAR_NAME 2
@@ -33,11 +34,8 @@ typedef struct		s_op
 	unsigned short	opcode;
 	unsigned short	cycle_nb;
 	char			*description;
-/*	bool			ocp;
-	bool			addr_or_nb; */
-	 
-/* Mis ces variables en commentaire car impossible de compiler sinon */
-
+	bool			ocp;
+	bool			addr_or_nb;
 }					t_op;
 
 extern t_op			g_op_tab[17];
