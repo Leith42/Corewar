@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/13 20:36:17 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/13 23:11:40 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	exec_inst(t_env *env, t_process *process)
 	}
 	else if (g_op_tab[opcode - 1].modif_carry == 1)
 		process->carry = (ret == 0) ? 1 : 0;
+	process->pc %= MEM_SIZE;
 	process->cycle_to_wait = g_op_tab[opcode - 1].cycle_nb;
 }
 
