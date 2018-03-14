@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:53:40 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 22:18:24 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 23:28:57 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ int	do_sti(t_process *process, t_env *env)
 	val[1] = get_param_raw_value(env, process->pc + 3, type[1], OP_STI);
 	if (!(get_param_type(env, process->pc, OP_STI, 0) == T_REG && type[1] &
 		g_op_tab[OP_STI - 1].param_type[1] && type[2] &
-		g_op_tab[OP_STI - 1].param_type[2] && val[0] > 0 && val[0] <= REG_NUMBER
-		&& (type[1] != T_REG || (val[1] > 0 && val[1] <= REG_NUMBER))))
+		g_op_tab[OP_STI - 1].param_type[2] && is_reg(val[0])
+		&& (type[1] != T_REG || is_reg(val[1]))))
 		return (0);
 	val[0] = process->reg[val[0] - 1];
 	val[2] = get_param_raw_value(env, process->pc + 3 +
 			((type[1] == T_REG) ? 1 : 2), type[2], OP_STI);
-	if (!(type[2] != T_REG || (val[2] > 0 && val[2] <= REG_NUMBER)))
+	if (!(type[2] != T_REG || is_reg(val[2])))
 		return (0);
 	val[2] = (type[2] == T_REG) ? process->reg[val[2] - 1] : val[2];
 	if (type[1] != T_DIR)

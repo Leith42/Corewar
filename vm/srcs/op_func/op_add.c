@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:51:00 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 21:53:15 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 23:32:26 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	do_add(t_process *process, t_env *env)
 	a = get_param_raw_value(env, process->pc + 2, T_REG, OP_ADD);
 	b = get_param_raw_value(env, process->pc + 3, T_REG, OP_ADD);
 	c = get_param_raw_value(env, process->pc + 4, T_REG, OP_ADD);
-	if (!(tmp < 3 || a < 1 || a > 16 || b < 1 || b > 16 || c < 1 || c > 16))
+	if (!(tmp < 3 || !is_reg(a) || !is_reg(b) || !is_reg(c)))
 	{
 		res = process->reg[a] + process->reg[b];
 		process->reg[c] = res;

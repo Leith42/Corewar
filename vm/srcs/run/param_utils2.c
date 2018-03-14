@@ -6,13 +6,13 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 22:21:38 by mgonon            #+#    #+#             */
-/*   Updated: 2018/03/14 22:25:19 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/14 23:30:07 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-unsigned int	is_reg(int value)
+unsigned int	is_reg(unsigned int value)
 {
 	return (value > 0 && value <= REG_NUMBER);
 }

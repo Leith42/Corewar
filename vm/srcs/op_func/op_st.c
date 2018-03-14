@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:55:38 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 21:53:31 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 23:31:44 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	do_st(t_process *process, t_env *env)
 	if (!(get_param_type(env, process->pc, OP_ST, 0) != T_REG
 		|| get_param_type(env, process->pc, 0x00, 2) != 0
 		|| (type_2 != T_IND && type_2 != T_REG)
-		|| val_1 < 1 || val_1 > REG_NUMBER
-		|| (type_2 == T_REG && (val_2 < 1 || val_2 > REG_NUMBER))))
+		|| !is_reg(val_1)
+		|| (type_2 == T_REG && !is_reg(val_2))))
 	{
 		if (type_2 == T_REG)
 			process->reg[val_2 - 1] = val_1;
