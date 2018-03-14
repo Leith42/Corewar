@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:55:03 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 18:36:16 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 22:38:38 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ int		do_live(t_process *process, t_env *env)
 	}
 	process->is_alive = true;
 	env->nb_live++;
-	process->pc += 1 + 4;
 	return (0);
 }
