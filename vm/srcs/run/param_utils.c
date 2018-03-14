@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:14:30 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 19:08:17 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 19:15:07 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** Advances PC by length of parameters indicated by the OCP.
 */
 
-void		skip_pc(t_env *env, t_process *process)
+void			skip_pc(t_env *env, t_process *process)
 {
 	unsigned int	param_len;
 	unsigned int	cur;
@@ -25,7 +25,7 @@ void		skip_pc(t_env *env, t_process *process)
 
 	param_len = 0;
 	cur = 0;
-	while(cur < 3)
+	while (cur < 3)
 	{
 		cur_type = get_param_type(env, process->pc, 0x00, cur);
 		if (cur_type == T_DIR)
