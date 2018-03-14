@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:54:41 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 20:17:17 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/14 22:43:03 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ int	do_lfork(t_process *process, t_env *env)
 	add_new_process(env, process->champ_id);
 	fork = (t_process *)env->process->content;
 	memcpy(fork, process, sizeof(t_process));
-	fork->pc = process->pc + param;
+	fork->pc = (process->pc + param) % MEM_SIZE;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:14:30 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 21:56:40 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 22:44:54 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void			write_uint_to_char(t_env *env, unsigned int start,
 				unsigned short size, unsigned int value)
 {
 	while (size-- > 0)
-		env->arena[start++] = (unsigned char)((value >> (8 * size)) % 256);
+		env->arena[start++ % MEM_SIZE] =
+			(unsigned char)((value >> (8 * size)) % 256);
 }
 
 /*
@@ -96,7 +97,7 @@ unsigned short	get_param_type(t_env *env, unsigned int pc,
 	}
 	else
 		ref_type = 0;
-	ocp = env->arena[pc + 1];
+	ocp = env->arena[(pc + 1) % MEM_SIZE];
 	ocp_type = (ocp >> (6 - (2 * param_nb))) & 3;
 	if (opcode != 0 && !(ref_type & ocp_type))
 		return (0);
