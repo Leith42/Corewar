@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/13 23:11:40 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 19:21:05 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,7 @@ static void	exec_inst(t_env *env, t_process *process)
 	ft_printf("Le process appartenant à joueur %d effectue un %s      \n",
 				process->champ_id, g_op_tab[opcode - 1].name);
 	ret = (*(env->exec_inst_tab[opcode]))(process, env);
-	if (ret == -1)
-	{
-		(void)process; //Add lstdelnode to kill this process
-		return ;
-	}
-	else if (g_op_tab[opcode - 1].modif_carry == 1)
+	if (g_op_tab[opcode - 1].modif_carry == 1)
 		process->carry = (ret == 0) ? 1 : 0;
 	process->pc %= MEM_SIZE;
 	process->cycle_to_wait = g_op_tab[opcode - 1].cycle_nb;
