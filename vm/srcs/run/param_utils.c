@@ -6,12 +6,37 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:14:30 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 18:59:42 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 19:08:17 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <stdlib.h>
+
+/*
+** Advances PC by length of parameters indicated by the OCP.
+*/
+
+void		skip_pc(t_env *env, t_process *process)
+{
+	unsigned int	param_len;
+	unsigned int	cur;
+	unsigned int	cur_type;
+
+	param_len = 0;
+	cur = 0;
+	while(cur < 3)
+	{
+		cur_type = get_param_type(env, process->pc, 0x00, cur);
+		if (cur_type == T_DIR)
+			param_len += (g_op_tab[env->arena[process->pc] - 1].addr_or_nb
+					== true) ? 2 : 4;
+		else
+			param_len += (cur_type == T_IND) ? 2 : cur_type;
+		cur++;
+	}
+	process->pc += 2 + param_len;
+}
 
 /*
 ** Untested and probably buggy, but would so fucking proud if it works.
