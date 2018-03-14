@@ -23,7 +23,6 @@ t_list	*lstdelnode(t_list *cur, t_list *node)
 	{
 		next = cur->next;
 		free(cur);
-		cur = NULL;
 		return (next);
 	}
 	cur->next = lstdelnode(cur->next, node);
