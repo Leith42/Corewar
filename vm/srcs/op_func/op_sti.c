@@ -6,11 +6,15 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:53:40 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 23:28:57 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/15 00:04:19 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+/*
+** T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG
+*/
 
 int	do_sti(t_process *process, t_env *env)
 {
