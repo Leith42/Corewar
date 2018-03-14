@@ -26,6 +26,22 @@
 # define NAME_TOO_LONG 5
 # define COMMENT_TOO_LONG 6
 
+
+/*
+** LISTE INSTRUCTION
+*/
+
+typedef struct		s_lst_op
+{
+	unsigned char	op[12];
+	int				pos;
+	struct s_lst_op	next;
+}					t_lst_op;
+
+/*
+** STRUCT OP.C
+*/
+
 typedef struct		s_op
 {
 	char			*name;
