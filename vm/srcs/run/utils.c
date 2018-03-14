@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:06:58 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/12 19:43:50 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 23:41:42 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static char		get_hex_byte(unsigned char byte, int high)
 
 void			disp_arena(t_env *env, size_t line_len)
 {
-	unsigned int	last_id;
 	char			*tmp;
 	size_t			i;
 	size_t			len;
@@ -65,28 +64,20 @@ void			disp_arena(t_env *env, size_t line_len)
 		ft_free_exit(*env, "Not enough memory", 1, 0);
 	i = 0;
 	len = 0;
-	last_id = env->mask[i] + 1;
 	ft_putstr("\x1b[H");
 	while (i < MEM_SIZE)
 	{
-		if (last_id != env->mask[i])
-		{
-			last_id = env->mask[i];
-			ft_strcat(tmp + len, get_champ_color(env, last_id));
-			len += ft_strlen(tmp + len);
-		}
+		ft_strcat(tmp + len, get_champ_color(env, env->mask[i]));
+		len += ft_strlen(tmp + len);
 		tmp[len] = get_hex_byte(env->arena[i], 1);
 		tmp[++len] = get_hex_byte(env->arena[i], 0);
 		tmp[++len] = ' ';
-		if ((++i % line_len) == 0)
-		{
-			tmp[len] = '\n';
-			write(1, tmp, len + 1);
-			ft_strclr(tmp);
-			len = 0;
-		}
-		else
-			len++;
+		if ((++i % line_len) != 0 && (len++ || 1))
+			continue ;
+		tmp[len++] = '\n';
+		write(1, tmp, len);
+		ft_strclr(tmp);
+		len = 0;
 	}
 	ft_strdel(&tmp);
 	ft_putstr("\x1b[0m");
