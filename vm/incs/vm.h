@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 22:25:51 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/14 22:47:08 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ unsigned int			get_param_raw_value(t_env *env, unsigned int start,
 void					write_uint_to_char(t_env *env, unsigned int start,
 						unsigned short size, unsigned int value);
 void					skip_pc(t_env *env, t_process *process);
-int						is_reg(int value);
+unsigned int			is_reg(int value);
 /*
 ** List of actions tht can be performed by the process
 */
