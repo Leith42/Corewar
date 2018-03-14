@@ -6,7 +6,7 @@
 #    By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/14 21:57:18 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/14 22:24:22 by mgonon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS_LIST		=	\
 					run/utils.c \
 					run/process.c \
 					run/param_utils.c \
+					run/param_utils2.c \
 					op_func/op_add.c \
 					op_func/op_aff.c \
 					op_func/op_and.c \

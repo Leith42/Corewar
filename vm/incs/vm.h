@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 21:55:16 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 22:25:51 by mgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ unsigned int			swap_uint32(unsigned int x);
 unsigned int			ft_unsigned_atoi(const char *str);
 unsigned int			ft_lstlen(t_list *lst);
 char					*get_champ_name(t_env *env, unsigned int id);
+
 /*
 ** Arena runtime
 */
@@ -152,7 +153,7 @@ unsigned int			get_param_raw_value(t_env *env, unsigned int start,
 void					write_uint_to_char(t_env *env, unsigned int start,
 						unsigned short size, unsigned int value);
 void					skip_pc(t_env *env, t_process *process);
-
+int						is_reg(int value);
 /*
 ** List of actions tht can be performed by the process
 */
