@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 19:21:05 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 21:55:09 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	exec_inst(t_env *env, t_process *process)
 	opcode = env->arena[process->pc];
 	if (opcode > 16 || opcode == 0)
 	{
-		(*(env->exec_inst_tab[0]))(process, env);
+		process->pc++;
 		return ;
 	}
 	ft_printf("Le process appartenant à joueur %d effectue un %s      \n",
@@ -34,7 +34,8 @@ static void	exec_inst(t_env *env, t_process *process)
 	ret = (*(env->exec_inst_tab[opcode]))(process, env);
 	if (g_op_tab[opcode - 1].modif_carry == 1)
 		process->carry = (ret == 0) ? 1 : 0;
-	process->pc %= MEM_SIZE;
+	if (opcode != OP_ZJMP || process->carry == 0)
+		skip_pc(env, process);
 	process->cycle_to_wait = g_op_tab[opcode - 1].cycle_nb;
 }
 

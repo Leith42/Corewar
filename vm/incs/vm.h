@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 19:09:00 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 21:55:16 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,6 @@ void					skip_pc(t_env *env, t_process *process);
 /*
 ** List of actions tht can be performed by the process
 */
-int						do_bad_opc(t_process *process, t_env *env);
 int						do_live(t_process *process, t_env *env);
 int						do_ld(t_process *process, t_env *env);
 int						do_st(t_process *process, t_env *env);

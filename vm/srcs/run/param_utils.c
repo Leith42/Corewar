@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:14:30 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 19:15:07 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 21:56:40 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 /*
 ** Advances PC by length of parameters indicated by the OCP.
+** If no OCP is on the instruction, it advances by T_DIR size.
 */
 
 void			skip_pc(t_env *env, t_process *process)
@@ -23,19 +24,26 @@ void			skip_pc(t_env *env, t_process *process)
 	unsigned int	cur;
 	unsigned int	cur_type;
 
-	param_len = 0;
-	cur = 0;
-	while (cur < 3)
+	if (g_op_tab[env->arena[process->pc] - 1].ocp == true)
 	{
-		cur_type = get_param_type(env, process->pc, 0x00, cur);
-		if (cur_type == T_DIR)
-			param_len += (g_op_tab[env->arena[process->pc] - 1].addr_or_nb
-					== true) ? 2 : 4;
-		else
-			param_len += (cur_type == T_IND) ? 2 : cur_type;
-		cur++;
+		param_len = 0;
+		cur = 0;
+		while (cur < 3)
+		{
+			cur_type = get_param_type(env, process->pc, 0x00, cur);
+			if (cur_type == T_DIR)
+				param_len += (g_op_tab[env->arena[process->pc] - 1].addr_or_nb
+						== true) ? 2 : 4;
+			else
+				param_len += (cur_type == T_IND) ? 2 : cur_type;
+			cur++;
+		}
+		process->pc += 2 + param_len;
 	}
-	process->pc += 2 + param_len;
+	else
+		process->pc += 1 + (
+			(g_op_tab[env->arena[process->pc] - 1].addr_or_nb == true) ? 2 : 4);
+	process->pc %= MEM_SIZE;
 }
 
 /*

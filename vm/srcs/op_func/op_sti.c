@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:53:40 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 20:53:28 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 21:50:34 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	do_sti(t_process *process, t_env *env)
 	val_1 = get_param_raw_value(env, process->pc + 2, T_REG, OP_STI);
 	val_2 = get_param_raw_value(env, process->pc + 3, type_2, OP_STI);
 	if (get_param_type(env, process->pc, OP_STI, 0) == T_REG
-		&& (type_2 & g_op_tab[OP_STI - 1].param_type[1]) != 0
-		&& (type_3 & g_op_tab[OP_STI - 1].param_type[2]) != 0
+		&& type_2 & g_op_tab[OP_STI - 1].param_type[1]
+		&& type_3 & g_op_tab[OP_STI - 1].param_type[2]
 		&& val_1 > 0 && val_1 <= REG_NUMBER
 		&& (type_2 != T_REG || (val_2 > 0 && val_2 <= REG_NUMBER)))
 	{
@@ -46,6 +46,5 @@ int	do_sti(t_process *process, t_env *env)
 				4, val_1);
 		}
 	}
-	skip_pc(env, process);
 	return (0);
 }

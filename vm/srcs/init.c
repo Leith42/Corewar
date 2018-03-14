@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:21:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/10 05:06:15 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 21:55:32 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	init_champions(t_env *env)
 
 static void	init_exec_inst_tab(t_env *env)
 {
-	env->exec_inst_tab[0] = do_bad_opc;
+	env->exec_inst_tab[0] = NULL;
 	env->exec_inst_tab[OP_LIVE] = do_live;
 	env->exec_inst_tab[OP_LD] = do_ld;
 	env->exec_inst_tab[OP_ST] = do_st;

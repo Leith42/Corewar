@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:51:30 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 19:13:57 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 21:53:19 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,5 @@ int	do_sub(t_process *process, t_env *env)
 	}
 	else
 		res = 0;
-	skip_pc(env, process);
 	return ((int)res);
 }

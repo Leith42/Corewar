@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:55:38 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 20:56:52 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 21:53:31 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,5 @@ int	do_st(t_process *process, t_env *env)
 			write_uint_to_char(env, process->pc + ((short)val_2) % IDX_MOD,
 				REG_SIZE, val_1);
 	}
-	skip_pc(env, process);
 	return (0);
 }
