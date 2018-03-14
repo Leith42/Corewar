@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:55:38 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 19:59:58 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 20:56:52 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	do_st(t_process *process, t_env *env)
 		|| (type_2 == T_REG && (val_2 < 1 || val_2 > REG_NUMBER))))
 	{
 		if (type_2 == T_REG)
-			process->reg[val_2] = val_1;
+			process->reg[val_2 - 1] = val_1;
 		else
 			write_uint_to_char(env, process->pc + ((short)val_2) % IDX_MOD,
 				REG_SIZE, val_1);
