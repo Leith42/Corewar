@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:06:58 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 23:41:42 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/15 00:00:56 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,24 @@ static char		*get_champ_color(t_env *env, unsigned int id)
 ** Gets back high or low 4 bytes of input in hex format.
 */
 
-static char		get_hex_byte(unsigned char byte, int high)
+static void		load_hex_byte(char *dst, size_t *len, unsigned char byte)
 {
 	unsigned char	cur;
 
-	if (high)
-		cur = byte >> 4;
-	else
-		cur = byte & 15;
+	cur = byte >> 4;
 	if (cur < 10)
 		cur += '0';
 	else
 		cur = cur - 10 + 'A';
-	return ((char)cur);
+	dst[*len] = (char)cur;
+	cur = byte & 15;
+	if (cur < 10)
+		cur += '0';
+	else
+		cur = cur - 10 + 'A';
+	dst[*len + 1] = (char)cur;
+	dst[*len + 2] = ' ';
+	*len += 2;
 }
 
 /*
@@ -56,22 +61,23 @@ static char		get_hex_byte(unsigned char byte, int high)
 
 void			disp_arena(t_env *env, size_t line_len)
 {
-	char			*tmp;
+	static char		*tmp = NULL;
 	size_t			i;
 	size_t			len;
 
-	if (!(tmp = ft_strnew(16 * line_len)))
+	if (!tmp && !(tmp = ft_strnew(16 * line_len)))
 		ft_free_exit(*env, "Not enough memory", 1, 0);
 	i = 0;
 	len = 0;
 	ft_putstr("\x1b[H");
 	while (i < MEM_SIZE)
 	{
-		ft_strcat(tmp + len, get_champ_color(env, env->mask[i]));
-		len += ft_strlen(tmp + len);
-		tmp[len] = get_hex_byte(env->arena[i], 1);
-		tmp[++len] = get_hex_byte(env->arena[i], 0);
-		tmp[++len] = ' ';
+		if (i == 0 || env->mask[i - 1] != env->mask[i])
+		{
+			ft_strcat(tmp + len, get_champ_color(env, env->mask[i]));
+			len += ft_strlen(tmp + len);
+		}
+		load_hex_byte(tmp, &len, env->arena[i]);
 		if ((++i % line_len) != 0 && (len++ || 1))
 			continue ;
 		tmp[len++] = '\n';
@@ -79,7 +85,6 @@ void			disp_arena(t_env *env, size_t line_len)
 		ft_strclr(tmp);
 		len = 0;
 	}
-	ft_strdel(&tmp);
 	ft_putstr("\x1b[0m");
 }
 
