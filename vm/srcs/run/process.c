@@ -47,6 +47,8 @@ size_t	kill_dead_process(t_env *env)
 		if (((t_process *)(cur->content))->is_alive == false)
 		{
 			*prev_next = cur->next;
+			if (((t_process *)(cur->content))->aff_buffer != NULL)
+				free(((t_process *)(cur->content))->aff_buffer);
 			free(cur->content);
 			free(cur);
 			nb_death++;
