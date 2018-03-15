@@ -12,7 +12,11 @@
 
 #include "asm.h"
 
-int					get_params(char	**inst, unsigned char **op, int opc, int n)
+/*
+** GET_PARAMS - fonction qui ecris les parametres dans le lst->op.
+*/
+
+int					get_params(char	**inst, t_lst_op *lst, int opc)
 {
 	int		dir_size;
 	int		i;
@@ -26,20 +30,25 @@ int					get_params(char	**inst, unsigned char **op, int opc, int n)
 		type = param_type(inst[i]);
 		if (type == T_REG)
 		{
-			nb = ft_atoi(inst + 1);
+			nb = ft_atoi(inst[i] + 1);
 			if (nb > 16 || nb < 1)
 				return (0);
-			op[n++] = nb;
+			lst->op[lst->pos++] = (unsigned char)(nb);
 		}
 		else if (type == T_DIR && inst[i][1] == ':') // CAS D'UN LABEL - PAS GERÉ
-			rmp_param(69, op + n, dir_size]);
+			lst = rmp_param(69, lst, dir_size);
 		else if (type == T_DIR)
-			rmp_param(ft_atoi(inst[i] + 1), op + n, dir_size);
+			lst = rmp_param(ft_atoi(inst[i] + 1), lst, dir_size);
 		else if (type == T_IND)
-			rmp_param(ft_atoi(inst[i]), op + n, 2);
+			lst = rmp_param(ft_atoi(inst[i]), lst, 2);
 	}
 	return (1);
 }
+
+/*
+** CHECK_PARAMS - fonction qui verifie le nombre et le type des parametres
+** en fonction de l'instruction.
+*/
 
 int					check_params(char **inst, int opcode)
 {
@@ -55,77 +64,101 @@ int					check_params(char **inst, int opcode)
 		if (!(type & g_op_tab[opcode].param_type[n]))
 			return (0);
 	}
-	return (1);
+	return ((g_op_tab[opcode].param_nb == n) ? 1 : 0);
 }
+
+/*
+** GET_OCP - fonction qui calcule l'octet de codage des parametres et le
+** stock dans lst->op;
+*/
 
 unsigned char		get_ocp(char **inst)
 {
-	unsigned char	*ocp;
+	unsigned char	ocp;
 	int				type;
 	int				i;
 
-	i = 0;
+	i = -1;
 	ocp = 0;
-	while (i++ <= 3)
+	while (++i != 3)
 	{
 		type = param_type(inst[i]);
 		type = (type == 4) ? 3 : type;
 		ocp += type;
-		ocp <<= 2;
+		ocp <<= (unsigned char)2;
 	}
 	return (ocp);
 }
 
+/*
+** GET_INST - fonction qui renvoie l'instruction et ses params vers les
+** fonctions qui vont les verifier et les stocker dans lst->op.
+*/
+
 int					get_inst(char **inst, t_lst_op *lst)
 {
 	static int	nb_oc = 0;
-	int 		n;
 	int			i;
-	int 		oc;
+	int			nbw;
 
+	lst->pos = 0;
 	i = 0;
-	n = (inst[0][ft_strlen(inst[0]) - 1] == ':') ? 1 : 0;
-	ft_check_label(inst, tab);
+	nbw = (inst[0][ft_strlen(inst[0]) - 1] == ':') ? 1 : 0;
 	/*
-	** Le cas du label en debut de chaine n'est pas gere
+	** Le cas du label en debut de chaine n'est pas gere - ft_check_label(inst, tab);
 	*/
-	while (i <= 16 && (ft_strcmp(g_op_tab[i].name, inst[n]) != 0))
+	while (i <= 16 && (ft_strcmp(g_op_tab[i].name, inst[nbw]) != 0))
 		i++;
-	if (i == 16 || !(check_params(inst + n, i) == 0))
+	if (i == 16 || (check_params(inst + ++nbw, i) == 0))
 		return (0); //Erreur instruct
-	lst->op[n++] = i + 1;
-	if (g_op_tab.opc == TRUE)
-		lst->op[n++] = get_ocp(inst + (n - 2));
-	if (!(get_params(inst + (n - 3), &lst->op, i, n)))
+	lst->op[lst->pos++] = i + 1;
+	if (g_op_tab[i].ocp == 1 && lst->pos++)
+		lst->op[lst->pos - 1] = get_ocp(inst + nbw);
+	if (!(get_params(inst + nbw, lst, i)))
 		return (0);
-	nb_oc += n;
-	lst->pos = nb_oc;
+	nbw = 0;
+
+	/* AFFICHAGE TEMPORAIRE */
+	while (nbw < lst->pos)
+		printf("%02x ", lst->op[nbw++]);
+	printf("\n");
+	nb_oc += lst->pos;
+
+	return (1);
 }
 
-int					check_inst(char *line, t_lst_op *lst)
+/*
+** CHECK_INST - fonction qui lis le fichier ligne par ligne et qui creer **inst
+** et qui renvoie chaque ligne ainsi separer vers get_inst.
+*/
+
+int					check_inst(char *line, t_lst_op *lst, int fd)
 {
-//	t_label	*label;
-	char		*line;
+	//t_label	*label;
 	char		**inst;
 	t_lst_op	*tmp;
 
 	tmp = lst;
-	while (get_next_line(fd, &line) > 0, 16)
+	while ((get_next_line(fd, &line, 16)) > 0)
 	{
-		if (ft_split_inst(line))
+		//printf("line = %s\n", line);
+		if ((inst = ft_split_inst(line)) != NULL)
 		{
-//			ft_check_label(inst, label); //stock labels in lists.
+			//ft_check_label(inst, label); //stock labels in lists.
 			if (!(get_inst(inst, tmp)))
+			{
+				ft_free_arr(inst);
 				return (0); //Instruction incorrecte
+			}
 			ft_free_arr(inst);
-			tmp = tmp->next;
-			if (!(tmp = malloc(sizeof(t_lst_op))))
+			if (!(tmp->next = malloc(sizeof(t_lst_op))))
 				return (0);
+			tmp = tmp->next;
 		}
-		free(line);
 	}
-//	if (ft_double_check_label(label) == -1) //checks label calls for adequate declaration.
-//		return (0);
+	free(line);
+	//if (ft_double_check_label(label) == -1) //checks label calls for adequate declaration.
+	//return (0);
 	tmp = NULL;
 	return (1);
 }

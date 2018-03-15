@@ -12,20 +12,28 @@
 
 #include "asm.h"
 
-void		rmp_param(int param, unsigned char **op, int dir_size)
+/*
+** RMP_PARAM - Remplie lst->op avec les parametres en fonction de la taille des
+** dir (differente en fonction de l'instruction).
+*/
+
+t_lst_op	*rmp_param(int param, t_lst_op *lst, int dir_size)
 {
-	int n;
 	int d;
 
 	d = (dir_size - 1) * 8;
-	n = 0;
 	while (dir_size > 0)
 	{
-		op[n++] = param >> d;
+		lst->op[lst->pos++] = (unsigned char)(param >> d);
 		param <<= 8;
 		dir_size--;
 	}
+	return (lst);
 }
+
+/*
+** PARAM_TYPE - Renvoie 0, T_REG, T_DIR ou T_IND en fonction du type du param.
+*/
 
 int			param_type(char *param)
 {
@@ -37,6 +45,11 @@ int			param_type(char *param)
 		return (T_DIR);
 	return (T_IND);
 }
+
+/*
+** FT_SPLIT_INST - Separe une ligne d'instruction par "mot" en fonction des
+** tabulations, espaces et virgules.
+*/
 
 char		**ft_split_inst(char *inst)
 {
@@ -64,7 +77,11 @@ char		**ft_split_inst(char *inst)
 	return (params);
 }
 
-char		*epur_str_beginning(char *line) // supprime les espaces en debut de ligne
+/*
+** EPUR_STR_BEGINNING - Enleve les espaces en debut de ligne dans un char*.
+*/
+
+char		*epur_str_beginning(char *line)
 {
 	int		i;
 	char	*dest;
@@ -78,6 +95,11 @@ char		*epur_str_beginning(char *line) // supprime les espaces en debut de ligne
 	free(line);
 	return (dest);
 }
+
+/*
+** FT_BINARY_ITOA - Convertie la valeur unsigned char* en sa valeur binaire
+** dans un char*. FONCTION INUTILE.
+*/
 
 char		*ft_binary_itoa(unsigned char c, int type) // si type > 0, on aura 0b devant le resultat
 {

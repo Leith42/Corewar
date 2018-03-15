@@ -46,22 +46,24 @@ void	print_header(int fd, t_header *header)
 
 int		ft_write(char *file_name, unsigned char *tab, t_header *header)
 {
-	int fd;
+	//int fd;
 	char *new_file_name;
 
 	(void)tab;
+	if (header)
+		write (1, "header exist\n", 13);
 	new_file_name = ft_strjoin(ft_strndup(file_name, ft_strlen(file_name) - 2), ".cor"); // degueulasse mais c'est l'idée :)
-	if ((fd = open(new_file_name, O_WRONLY | O_CREAT | O_TRUNC, 0755)))
-	{	
+	/*if ((fd = open(new_file_name, O_WRONLY | O_CREAT | O_TRUNC, 0755)))
+	{
 		ft_printf("Fichier %s crée avec succès !\n", new_file_name);
 		print_magic_number(fd);
 		print_header(fd, header);
 		//creation file_name
-		/*while (tab[++n])
+		while (tab[++n])
 		{
 			//convertir unsigned char en binaire
 			//write binaire dans file_name
-		}*/
-	}
+		}
+	}*/
 	return (0);
 }

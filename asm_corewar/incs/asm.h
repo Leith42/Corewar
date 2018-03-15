@@ -35,7 +35,7 @@ typedef struct		s_lst_op
 {
 	unsigned char	op[12];
 	int				pos;
-	struct s_lst_op	next;
+	struct s_lst_op	*next;
 }					t_lst_op;
 
 /*
@@ -74,13 +74,13 @@ typedef struct		s_label
 
 typedef struct		s_header
 {
-	unsigned int		magic;
-	char				prog_name[PROG_NAME_LENGTH + 1];
-	unsigned int		prog_size;
-	char				comment[COMMENT_LENGTH + 1];
-	int					name_is_set;
-	int					comment_is_set;
-	int					head_error;
+	unsigned int	magic;
+	char			prog_name[PROG_NAME_LENGTH + 1];
+	unsigned int	prog_size;
+	char			comment[COMMENT_LENGTH + 1];
+	int				name_is_set;
+	int				comment_is_set;
+	int				head_error;
 }					t_header;
 
 /*
@@ -108,11 +108,11 @@ int				char_is_valid(char c);
 ** FONCTION INSTRUCTION
 */
 
-int					get_params(char	**inst, unsigned char **op, int opc, int n)
-int					check_params(char **inst, int opcode)
-unsigned char		get_ocp(char **inst)
-int					get_inst(char **inst, t_lst_op *lst)
-int					check_inst(char *line, t_lst_op *lst)
+int					get_params(char	**inst, t_lst_op *lst, int opc);
+int					check_params(char **inst, int opcode);
+unsigned char		get_ocp(char **inst);
+int					get_inst(char **inst, t_lst_op *lst);
+int					check_inst(char *line, t_lst_op *lst, int fd);
 
 
 /*
@@ -125,9 +125,9 @@ int				ft_write(char *file_name, unsigned char *tab, t_header *header);
 ** FONCTION UTILITAIRE
 */
 
-void			rmp_param(int param, unsigned char **op, int dir_size)
-int				param_type(char *param)
-char			**ft_split_inst(char *inst)
+t_lst_op	*rmp_param(int param, t_lst_op *lst, int dir_size);
+int				param_type(char *param);
+char			**ft_split_inst(char *inst);
 char			*epur_str_beginning(char *line);
 char			*ft_binary_itoa(unsigned char c, int type);
 
