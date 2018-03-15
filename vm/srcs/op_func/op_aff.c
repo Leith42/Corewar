@@ -13,22 +13,30 @@
 #include "vm.h"
 #include <stdlib.h>
 
-static void	add_to_buffer(unsigned int param, t_process *process, t_env *env)
-{
-	unsigned char	*new_buffer;
-	unsigned char	reg_value[2];
+#include "vm.h"
+#include <stdlib.h>
 
-	reg_value[0] = (unsigned char)param;
-	reg_value[1] = '\0';
-	new_buffer = (unsigned char *)ft_strjoin(
-			(const char *)process->aff_buffer,
-			(const char *)reg_value);
-	if (new_buffer == NULL)
+static void	add_to_buffer(char param, t_process *process, t_env *env)
+{
+	char			tmp[2];
+	char			*new;
+
+	tmp[0] = param;
+	tmp[1] = '\0';
+	if (process->aff_buffer != NULL)
 	{
-		ft_free_exit(*env, NULL, 1, 0);
+		if ((new = ft_strjoin(process->aff_buffer, tmp)) == NULL)
+			ft_free_exit(*env, NULL, 1, 0);
+		free(process->aff_buffer);
+		process->aff_buffer = new;
 	}
-	free(process->aff_buffer);
-	process->aff_buffer = new_buffer;
+	else
+	{
+		if (!(process->aff_buffer = malloc(sizeof(char) * 2)))
+			ft_free_exit(*env, NULL, 1, 0);
+		process->aff_buffer[0] = tmp[0];
+		process->aff_buffer[1] = '\0';
+	}
 }
 
 int			do_aff(t_process *process, t_env *env)
@@ -42,17 +50,20 @@ int			do_aff(t_process *process, t_env *env)
 		reg_value = process->reg[reg_number - 1] % 256;
 		if (reg_value != '\0')
 		{
-			add_to_buffer(reg_value, process, env);
+			if (reg_value >= 32 && reg_value <= 126)
+				add_to_buffer((char)reg_value, process, env);
 		}
 		else
 		{
 			if (process->aff_buffer != NULL)
 			{
 				ft_printf("%s\n", process->aff_buffer);
-				ft_memdel((void **)&process->aff_buffer);
+				free(process->aff_buffer);
+				process->aff_buffer = NULL;
 			}
 		}
-		return (reg_value);
+		return ((int)reg_value);
 	}
 	return (0);
 }
+
