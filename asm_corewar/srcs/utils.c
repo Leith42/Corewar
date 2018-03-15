@@ -12,6 +12,32 @@
 
 #include "asm.h"
 
+void				rmp_param(int param, unsigned char **op, int dir_size)
+{
+	int n;
+	int d;
+
+	d = (dir_size - 1) * 8;
+	n = 0;
+	while (dir_size > 0)
+	{
+		op[n++] = param >> d;
+		param <<= 8;
+		dir_size--;
+	}
+}
+
+int					param_type(char *param)
+{
+	if (!param)
+		return (0);
+	if (param[0] == 'r')
+		return (T_REG);
+	if (param[0] == '%')
+		return (T_DIR);
+	return (T_IND);
+}
+
 char		**ft_split_inst(char *inst)
 {
 	char	**params;

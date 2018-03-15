@@ -17,6 +17,10 @@ int					ft_read_file(int fd, char *file_name)
 	//unsigned char	*tab; // Definir comment attribuer une size pour tab
 	char			*line;
 	t_header		header;
+	t_lst_op		*lst; //liste des instructions
+
+	if (!(lst = malloc(sizeof(t_lst_op))))
+		return (0);
 	//int				n;
 	unsigned char *tab = NULL; // tab crée juste pour tester la fonction
 
@@ -25,13 +29,8 @@ int					ft_read_file(int fd, char *file_name)
 		ft_write(file_name, tab, &header);
 	else
 		return (0);
-	/*while ((n = get_next_line(fd, &line, 100)) != -1)
-	{
-	//	if (!(check_instruc(line, &tab))) //Verification instruction
-			// exit & "erreur instruc"
-	//	free (line);
-	}
+	//if (!(check_inst(line, &tab, ))) //Verification instruction
+		// exit & "erreur instruc"
 	//ft_write(File_Name, tab);*/
-
 	return (1);
 }
