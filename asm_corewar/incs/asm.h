@@ -56,6 +56,10 @@ typedef struct		s_op
 
 extern t_op			g_op_tab[17];
 
+/*
+** LISTE LABEL
+*/
+
 typedef struct		s_label
 {
 	char			*name;
@@ -101,6 +105,17 @@ void			init_set(t_header *header);
 int				char_is_valid(char c);
 
 /*
+** FONCTION INSTRUCTION
+*/
+
+int					get_params(char	**inst, unsigned char **op, int opc, int n)
+int					check_params(char **inst, int opcode)
+unsigned char		get_ocp(char **inst)
+int					get_inst(char **inst, t_lst_op *lst)
+int					check_inst(char *line, t_lst_op *lst)
+
+
+/*
 ** FONCTION WRITE
 */
 
@@ -110,6 +125,9 @@ int				ft_write(char *file_name, unsigned char *tab, t_header *header);
 ** FONCTION UTILITAIRE
 */
 
+void			rmp_param(int param, unsigned char **op, int dir_size)
+int				param_type(char *param)
+char			**ft_split_inst(char *inst)
 char			*epur_str_beginning(char *line);
 char			*ft_binary_itoa(unsigned char c, int type);
 

@@ -31,12 +31,14 @@ int					get_params(char	**inst, unsigned char **op, int opc, int n)
 				return (0);
 			op[n++] = nb;
 		}
+		else if (type == T_DIR && inst[i][1] == ':') // CAS D'UN LABEL - PAS GERÉ
+			rmp_param(69, op + n, dir_size]);
 		else if (type == T_DIR)
-		{
-			if (inst[i][1] == ':') // CAS D'UN LABEL - PAS GERÉ
-				
-		}
+			rmp_param(ft_atoi(inst[i] + 1), op + n, dir_size);
+		else if (type == T_IND)
+			rmp_param(ft_atoi(inst[i]), op + n, 2);
 	}
+	return (1);
 }
 
 int					check_params(char **inst, int opcode)
@@ -102,27 +104,18 @@ int					get_inst(char **inst, t_lst_op *lst)
 
 int					check_inst(char *line, t_lst_op *lst)
 {
-<<<<<<< HEAD
-	char	*line;
-	char	**inst;
 //	t_label	*label;
-=======
 	char		*line;
 	char		**inst;
 	t_lst_op	*tmp;
->>>>>>> f4c54acc64efaf95957371e3df5435da10220316
 
 	tmp = lst;
 	while (get_next_line(fd, &line) > 0, 16)
 	{
 		if (ft_split_inst(line))
 		{
-<<<<<<< HEAD
 //			ft_check_label(inst, label); //stock labels in lists.
-			if (!(get_inst(inst)))
-=======
 			if (!(get_inst(inst, tmp)))
->>>>>>> f4c54acc64efaf95957371e3df5435da10220316
 				return (0); //Instruction incorrecte
 			ft_free_arr(inst);
 			tmp = tmp->next;
@@ -131,11 +124,8 @@ int					check_inst(char *line, t_lst_op *lst)
 		}
 		free(line);
 	}
-<<<<<<< HEAD
 //	if (ft_double_check_label(label) == -1) //checks label calls for adequate declaration.
 //		return (0);
-=======
 	tmp = NULL;
->>>>>>> f4c54acc64efaf95957371e3df5435da10220316
 	return (1);
 }

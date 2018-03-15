@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-void				rmp_param(int param, unsigned char **op, int dir_size)
+void		rmp_param(int param, unsigned char **op, int dir_size)
 {
 	int n;
 	int d;
@@ -27,7 +27,7 @@ void				rmp_param(int param, unsigned char **op, int dir_size)
 	}
 }
 
-int					param_type(char *param)
+int			param_type(char *param)
 {
 	if (!param)
 		return (0);
