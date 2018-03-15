@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:52:13 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/12 22:11:17 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/15 20:08:01 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	do_or(t_process *process, t_env *env)
 		if (is_reg(param_value[2]))
 		{
 			process->reg[param_value[2] - 1] = param_value[0] | param_value[1];
-			return (process->reg[param_value[2] - 1]);
+			return ((process->reg[param_value[2] - 1] == 0) ? 0 : 1);
 		}
 	}
 	return (0);
