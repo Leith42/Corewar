@@ -6,7 +6,7 @@
 /*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 18:44:39 by mmatime           #+#    #+#             */
-/*   Updated: 2018/03/10 18:49:30 by mmatime          ###   ########.fr       */
+/*   Updated: 2018/03/14 21:09:44 by lgraham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ typedef struct		s_op
 }					t_op;
 
 extern t_op			g_op_tab[17];
+
+typedef struct		s_label
+{
+	char			*name;
+	int				pos;
+	int				type; // 1 for a call, 0 for a declaration.
+	struct s_label	*next;
+}					t_label;
 
 /*
 ** HEADER DE OP.H
