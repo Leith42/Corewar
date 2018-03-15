@@ -33,14 +33,12 @@ int			do_aff(t_process *process, t_env *env)
 {
 	unsigned int	reg_number;
 	unsigned int	reg_value;
-	bool			carry;
 
 	reg_number = get_param_raw_value(env, process->pc + 2, T_REG, OP_AFF);
 	reg_value = process->reg[reg_number - 1] % 256;
 	if (reg_value != '\0')
 	{
 		add_to_buffer(reg_value, process, env);
-		carry = false;
 	}
 	else
 	{
@@ -49,8 +47,6 @@ int			do_aff(t_process *process, t_env *env)
 			ft_printf("%s\n", process->aff_buffer);
 			ft_memdel((void **)&process->aff_buffer);
 		}
-		carry = true;
 	}
-	process->pc += 2 + 1;
-	return (carry);
+	return (reg_value);
 }
