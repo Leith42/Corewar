@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 22:21:38 by mgonon            #+#    #+#             */
-/*   Updated: 2018/03/15 17:53:38 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/15 20:10:50 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void			skip_pc(t_env *env, t_process *process)
 
 	if (g_op_tab[env->arena[process->pc] - 1].ocp == true)
 	{
-		param_len = 0;
+		param_len = 2;
 		cur = 0;
 		while (cur < 3)
 		{
@@ -47,7 +47,6 @@ void			skip_pc(t_env *env, t_process *process)
 				param_len += (cur_type == T_IND) ? 2 : cur_type;
 			cur++;
 		}
-		param_len += 2;
 	}
 	else
 		param_len = 1 + (
