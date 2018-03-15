@@ -34,7 +34,7 @@ int	do_or(t_process *process, t_env *env)
 		if (is_reg(param_value[2]))
 		{
 			process->reg[param_value[2] - 1] = param_value[0] | param_value[1];
-			return (process->reg[param_value[2] - 1] == 0);
+			return (process->reg[param_value[2] - 1]);
 		}
 	}
 	return (0);
