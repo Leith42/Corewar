@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 21:55:09 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/15 16:53:28 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ static void	exec_inst(t_env *env, t_process *process)
 	unsigned short	opcode;
 	int				ret;
 
+	process->pc %= MEM_SIZE;
 	opcode = env->arena[process->pc];
 	if (opcode > 16 || opcode == 0)
 	{
 		process->pc++;
+		process->pc %= MEM_SIZE;
 		return ;
 	}
 	ft_printf("Le process appartenant à joueur %d effectue un %s      \n",
