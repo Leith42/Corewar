@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-int			do_and(t_process *process, t_env *env)
+int	do_and(t_process *process, t_env *env)
 {
 	unsigned short	param_type[3];
 	unsigned int	param_value[3];
