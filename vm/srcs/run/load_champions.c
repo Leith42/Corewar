@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 09:57:28 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 19:38:12 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/16 00:27:56 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void				load_champions(t_env *env)
 	while (champ_nb < env->nb_of_champions)
 	{
 		process = (t_process *)lst_process->content;
-		entry_point = ((MEM_SIZE / env->nb_of_champions) * champ_nb);
+		entry_point = ((MEM_SIZE / env->nb_of_champions) *
+				(env->nb_of_champions - champ_nb - 1));
 		process->pc = entry_point;
 		end_point = entry_point + env->champions[champ_nb].header.prog_size;
 		ft_memcpy(env->arena + entry_point,
