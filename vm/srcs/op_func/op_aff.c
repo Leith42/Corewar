@@ -24,7 +24,9 @@ static void	add_to_buffer(unsigned int param, t_process *process, t_env *env)
 			(const char *)process->aff_buffer,
 			(const char *)reg_value);
 	if (new_buffer == NULL)
+	{
 		ft_free_exit(*env, NULL, 1, 0);
+	}
 	free(process->aff_buffer);
 	process->aff_buffer = new_buffer;
 }
@@ -35,18 +37,22 @@ int			do_aff(t_process *process, t_env *env)
 	unsigned int	reg_value;
 
 	reg_number = get_param_raw_value(env, process->pc + 2, T_REG, OP_AFF);
-	reg_value = process->reg[reg_number - 1] % 256;
-	if (reg_value != '\0')
+	if (is_reg(reg_number))
 	{
-		add_to_buffer(reg_value, process, env);
-	}
-	else
-	{
-		if (process->aff_buffer != NULL)
+		reg_value = process->reg[reg_number - 1] % 256;
+		if (reg_value != '\0')
 		{
-			ft_printf("%s\n", process->aff_buffer);
-			ft_memdel((void **)&process->aff_buffer);
+			add_to_buffer(reg_value, process, env);
 		}
+		else
+		{
+			if (process->aff_buffer != NULL)
+			{
+				ft_printf("%s\n", process->aff_buffer);
+				ft_memdel((void **)&process->aff_buffer);
+			}
+		}
+		return (reg_value);
 	}
-	return (reg_value);
+	return (0);
 }
