@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:53:40 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/15 00:04:19 by mgonon           ###   ########.fr       */
+/*   Updated: 2018/03/15 18:03:23 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	do_sti(t_process *process, t_env *env)
 {
 	unsigned short	type[3];
 	unsigned int	val[3];
+	unsigned int	write_pc;
 
 	type[1] = get_param_type(env, process->pc, OP_STI, 1);
 	type[2] = get_param_type(env, process->pc, OP_STI, 2);
@@ -40,7 +41,11 @@ int	do_sti(t_process *process, t_env *env)
 		val[1] = (type[1] == T_REG) ? process->reg[val[1] - 1]
 			: get_uintfrom_char(env, (process->pc +
 			(((short)(val[1])) % IDX_MOD)) % MEM_SIZE, 4);
-	write_uint_to_char(env, (process->pc + (((short)(val[1] + val[2]))
-		% IDX_MOD)) % MEM_SIZE, 4, val[0]);
+	write_uint_to_char(env, write_pc = ((process->pc + (((short)(val[1] + val[2]))
+		% IDX_MOD)) % MEM_SIZE), 4, val[0]);
+	env->mask[(write_pc + 0) % MEM_SIZE] = process->champ_id;
+	env->mask[(write_pc + 1) % MEM_SIZE] = process->champ_id;
+	env->mask[(write_pc + 2) % MEM_SIZE] = process->champ_id;
+	env->mask[(write_pc + 3) % MEM_SIZE] = process->champ_id;
 	return (0);
 }
