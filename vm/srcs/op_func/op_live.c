@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:55:03 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/15 19:17:10 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/17 00:45:32 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,15 @@ int		do_live(t_process *process, t_env *env)
 	if ((champion_name = get_champ_name(env, param)))
 	{
 		env->last_live_id = param;
-		env->mask[(process->pc + 1) % MEM_SIZE] = param;
 		ft_printf("A process report that the champion %s (%u) is alive.\n",
-					champion_name, param);
+				champion_name, param);
 	}
+	else
+		param = 0;
+	env->mask[(process->pc + 1) % MEM_SIZE] = param;
+	env->mask[(process->pc + 2) % MEM_SIZE] = param;
+	env->mask[(process->pc + 3) % MEM_SIZE] = param;
+	env->mask[(process->pc + 4) % MEM_SIZE] = param;
 	env->mask[process->pc] = process->champ_id;
 	process->is_alive = true;
 	env->nb_live++;
