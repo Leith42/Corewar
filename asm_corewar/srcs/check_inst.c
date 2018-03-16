@@ -120,7 +120,7 @@ int					get_inst(char **inst, t_lst_op *lst)
 
 	/* AFFICHAGE TEMPORAIRE */
 	while (nbw < lst->pos)
-		printf("%02x ", lst->op[nbw++]);
+		printf("%x ", lst->op[nbw++]);
 	printf("\n");
 	nb_oc += lst->pos;
 
@@ -134,19 +134,20 @@ int					get_inst(char **inst, t_lst_op *lst)
 
 int					check_inst(char *line, t_lst_op *lst, int fd)
 {
-	t_label		*label;
+	t_label		*label_lst;
 	char		**inst;
 	t_lst_op	*tmp;
 
 	tmp = lst;
-	label = NULL;
+	label_lst = NULL;
 	while ((get_next_line(fd, &line, 16)) > 0)
 	{
-		//printf("line = %s\n", line);
+		printf("line = %s\n", line);
 		if ((inst = ft_split_inst(line)) != NULL)
 		{
-			check_label(inst, label); //stock labels in lists.
-			if (!(get_inst(inst, tmp)))
+			ft_putarr(inst);
+			ft_putchar('\n'); 
+			if (!get_inst(inst, tmp) || !check_label(inst, label_lst)) //stock labels in lists.
 			{
 				ft_free_arr(inst);
 				return (0); //Instruction incorrecte
@@ -158,7 +159,7 @@ int					check_inst(char *line, t_lst_op *lst, int fd)
 		}
 	}
 	free(line);
-	if (double_check_label(label) == -1) //checks label calls for adequate declaration.
+	if (!double_check_label(label_lst)) //checks label calls for adequate declaration.
 		return (0);
 	tmp = NULL;
 	return (1);

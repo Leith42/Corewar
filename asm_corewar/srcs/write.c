@@ -27,7 +27,7 @@ void	print_magic_number(int fd)
 		i++;
 	}
 	while (--i >= 0)
-		ft_putchar_fd(magic_tab[i], fd);
+		write(fd, &magic_tab[i], 1);
 }
 
 void	print_header(int fd, t_header *header)

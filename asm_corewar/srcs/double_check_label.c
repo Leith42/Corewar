@@ -12,42 +12,34 @@
 
 #include "asm.h"
 
-int		find_match(t_label *label, char *str)
+int		find_match(t_label *label_list, char *str)
 {
 	t_label	*tmp;
 
-	tmp = NULL;
+	/*tmp = NULL;
 	if ((tmp = create_lab(tmp)) == NULL)
 		return (0);
-	tmp = label;
-	while (tmp->next != NULL)
+	tmp = label;*/
+	tmp = label_list; // Juste besoin de faire ça
+	while (tmp)
 	{
 		if (tmp->type == 0 && ft_strcmp(tmp->name, str) == 0)
-		{
-			free(tmp);
 			return (1);
-		}
 		tmp = tmp->next;
 	}
-	free(tmp);
 	return (0);
 }
 
-int		double_check_label(t_label *label)
+int		double_check_label(t_label *label_list)
 {
-	t_label	*src;
+	t_label	*tmp;
 
-	src = label;
-	while (label->next != NULL)
+	tmp = label_list;
+	while (tmp)
 	{
-		if (label->type == 1 && find_match(src, label->name) == 0)
-		{
-			free(src);
+		if (tmp->type == 1 && find_match(tmp, tmp->name) == 0)
 			return (0);
-		}
-		label = label->next;
+		tmp = tmp->next;
 	}
-	label = src;
-	free(src);
 	return (1);
 }

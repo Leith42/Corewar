@@ -67,6 +67,7 @@ int		check_header(int fd, char *line, t_header *header)
 	{
 		line = epur_str_beginning(line); // supprime les espaces en debut de ligne
 		line_nb++;
+
 		if (*line == COMMENT_CHAR) // si c'est un com, on l'ignore et on passe a la prochaine itération de GNL
 			continue ;
 		else if (line_is_point(line, header, line_nb)) // verifie si c'est .name ou .comment

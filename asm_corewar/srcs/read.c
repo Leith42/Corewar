@@ -18,15 +18,16 @@ int					ft_read_file(int fd, char *file_name)
 	char			*line;
 //	t_header		header;
 	t_lst_op		*lst; //liste des instructions
+	t_header		header;
 
 	printf("file_name = %s\n", file_name);
 	if (!(lst = malloc(sizeof(t_lst_op))))
 		return (0);
 	line = NULL;
-	/*if (check_header(fd, line, &header)) //Verification header, mmatime sur le coup
-		ft_write(file_name, tab, &header);
+	if (check_header(fd, line, &header)) //Verification header, mmatime sur le coup
+		;
 	else
-		return (0);*/
+		return (0);
 	if (!(check_inst(line, lst, fd))) //Verification instruction
 		 return (0);
 	//ft_write(File_Name, tab);*/
