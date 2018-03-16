@@ -6,7 +6,7 @@
 /*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 18:44:39 by mmatime           #+#    #+#             */
-/*   Updated: 2018/03/14 21:09:44 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/03/16 01:05:23 by lgraham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct		s_label
 {
 	char			*name;
 	int				pos;
-	int				type; // 1 for a call, 0 for a declaration.
+	int				type; // 0 for a declaration, anything else for a call;
 	struct s_label	*next;
 }					t_label;
 
@@ -114,6 +114,17 @@ unsigned char		get_ocp(char **inst);
 int					get_inst(char **inst, t_lst_op *lst);
 int					check_inst(char *line, t_lst_op *lst, int fd);
 
+
+/*
+** FONCTION LABEL
+*/
+
+int				double_check_label(t_label *label);
+int				find_match(t_label *label, char *str);
+int				check_label(char **inst, t_label *label);
+t_label			*create_lab(t_label *label);
+void			add_list(t_label **label, t_label *tmp);
+t_label			*clean_inst(t_label *tmp, char *src);
 
 /*
 ** FONCTION WRITE

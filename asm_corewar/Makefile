@@ -6,7 +6,7 @@
 #    By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/10 18:26:37 by mmatime          ###   ########.fr        #
+#    Updated: 2018/03/16 01:08:24 by lgraham          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,9 @@ SRCS_LIST		=	\
 					write.c \
 					utils.c \
 					op.c \
-					check_inst.c
+					check_inst.c \
+					check_label.c \
+					double_check_label.c
 
 OBJS_DIR		=	./objs/
 OBJS_LIST		=	$(patsubst %.c, %.o, $(SRCS_LIST))

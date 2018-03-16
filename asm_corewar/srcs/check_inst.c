@@ -6,7 +6,7 @@
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:54:16 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/03/15 08:32:22 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/03/16 01:12:34 by lgraham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,17 +134,18 @@ int					get_inst(char **inst, t_lst_op *lst)
 
 int					check_inst(char *line, t_lst_op *lst, int fd)
 {
-	//t_label	*label;
+	t_label		*label;
 	char		**inst;
 	t_lst_op	*tmp;
 
 	tmp = lst;
+	label = NULL;
 	while ((get_next_line(fd, &line, 16)) > 0)
 	{
 		//printf("line = %s\n", line);
 		if ((inst = ft_split_inst(line)) != NULL)
 		{
-			//ft_check_label(inst, label); //stock labels in lists.
+			check_label(inst, label); //stock labels in lists.
 			if (!(get_inst(inst, tmp)))
 			{
 				ft_free_arr(inst);
@@ -157,8 +158,8 @@ int					check_inst(char *line, t_lst_op *lst, int fd)
 		}
 	}
 	free(line);
-	//if (ft_double_check_label(label) == -1) //checks label calls for adequate declaration.
-	//return (0);
+	if (double_check_label(label) == -1) //checks label calls for adequate declaration.
+		return (0);
 	tmp = NULL;
 	return (1);
 }
