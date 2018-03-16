@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:55:38 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/15 21:49:39 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/16 20:33:23 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	do_st(t_process *process, t_env *env)
 	unsigned short	type_2;
 	unsigned int	write_pc;
 
-	val[0] = get_param_raw_value(env, process->pc + 1, T_REG, OP_ST);
+	val[0] = get_param_raw_value(env, process->pc + 2, T_REG, OP_ST);
 	type_2 = get_param_type(env, process->pc, OP_ST, 1);
-	val[1] = get_param_raw_value(env, process->pc + 2, type_2, OP_ST);
+	val[1] = get_param_raw_value(env, process->pc + 3, type_2, OP_ST);
 	if (get_param_type(env, process->pc, OP_ST, 0) != T_REG
 		|| get_param_type(env, process->pc, 0x00, 2) != 0
 		|| (type_2 != T_IND && type_2 != T_REG)
