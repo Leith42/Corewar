@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:51:30 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 23:33:04 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/16 20:06:58 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	do_sub(t_process *process, t_env *env)
 	c = get_param_raw_value(env, process->pc + 4, T_REG, OP_ADD);
 	if (!(tmp < 3 || !is_reg(a) || !is_reg(b) || !is_reg(c)))
 	{
-		res = process->reg[a] - process->reg[b];
-		process->reg[c] = res;
+		res = process->reg[a - 1] - process->reg[b - 1];
+		process->reg[c - 1] = res;
 	}
 	else
 		res = 0;
