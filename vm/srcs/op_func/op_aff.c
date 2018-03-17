@@ -13,9 +13,6 @@
 #include "vm.h"
 #include <stdlib.h>
 
-#include "vm.h"
-#include <stdlib.h>
-
 static void	add_to_buffer(char param, t_process *process, t_env *env)
 {
 	char			tmp[2];
@@ -26,16 +23,37 @@ static void	add_to_buffer(char param, t_process *process, t_env *env)
 	if (process->aff_buffer != NULL)
 	{
 		if ((new = ft_strjoin(process->aff_buffer, tmp)) == NULL)
+		{
 			ft_free_exit(*env, NULL, 1, 0);
+		}
 		free(process->aff_buffer);
 		process->aff_buffer = new;
 	}
 	else
 	{
 		if (!(process->aff_buffer = malloc(sizeof(char) * 2)))
+		{
 			ft_free_exit(*env, NULL, 1, 0);
+		}
 		process->aff_buffer[0] = tmp[0];
 		process->aff_buffer[1] = '\0';
+	}
+}
+
+static void	print_buffer(t_env *env, t_process *process)
+{
+	char *champion_name;
+
+	champion_name = get_champ_name(env, process->reg[0]);
+	if (champion_name != NULL)
+	{
+		ft_printf("A process belonging to %s says: %s\n",
+					champion_name, process->aff_buffer);
+	}
+	else
+	{
+		ft_printf("A process (%d) says: %s\n",
+					process->reg[0], process->aff_buffer);
 	}
 }
 
@@ -57,7 +75,7 @@ int			do_aff(t_process *process, t_env *env)
 		{
 			if (process->aff_buffer != NULL)
 			{
-				ft_printf("%s\n", process->aff_buffer);
+				print_buffer(env, process);
 				free(process->aff_buffer);
 				process->aff_buffer = NULL;
 			}
