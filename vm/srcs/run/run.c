@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/17 01:11:57 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/17 01:26:25 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static void	exec_inst(t_env *env, t_process *process)
 		process->cycle_to_wait = 0;
 		return ;
 	}
-	ft_printf("Le process appartenant à joueur %d effectue un %s \
+	ft_printf("\x1b[KLe process appartenant à joueur %d effectue un %s \
 au pc %d  \x1b[500D",
-			process->champ_id, g_op_tab[opcode - 1].name, process->pc);
+		process->champ_id, g_op_tab[opcode - 1].name, process->pc);
 	ret = (*(env->exec_inst_tab[opcode]))(process, env);
 	if (g_op_tab[opcode - 1].modif_carry == 1)
 		process->carry = (ret == 0) ? 1 : 0;
@@ -60,10 +60,10 @@ static void	run_processes(t_env *env)
 			exec_inst(env, process);
 		else
 		{
-			process->cycle_to_wait--;
 			ft_printf("\x1b[KLe process appartenant à joueur %d doit encore \
 attendre %d cycles. pc = %d   \x1b[500D",
 			process->champ_id, process->cycle_to_wait, process->pc);
+			process->cycle_to_wait--;
 		}
 		list_of_processes = list_of_processes->next;
 	}
@@ -77,7 +77,7 @@ static void	cycle_check(t_env *env)
 
 	cycle++;
 	global_cycle++;
-	ft_printf("\n\x1b[KTotal cycles = %d\tCycles = %d\tCycle to die = %d\n\
+	ft_printf("\n\n\x1b[KTotal cycles = %d\tCycles = %d\tCycle to die = %d\n\
 \x1b[Knb_live = %d, checks = %d\n\x1b[KProcesses : %d\n\x1b[K",
 			global_cycle, cycle, env->cycle_to_die, env->nb_live, nb_checks,
 			ft_lstlen(env->process));
@@ -122,12 +122,12 @@ void		run(t_env *env)
 
 	load_champions(env);
 	init_processes_waits_and_opcodes(env);
-	ft_putstr("\x1b[2J");
+	ft_putstr("\x1b[2J\x1b[65;0H");
 	while (env->process != NULL)
 	{
-		disp_arena(env, 64);
 		run_processes(env);
 		cycle_check(env);
+		disp_arena(env, 64);
 		if (env->is_dump_cycle_specified && env->dump_cycle-- == 0)
 		{
 			ft_putstr("\x1b[2J");

@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:55:03 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/17 01:13:40 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/17 01:27:03 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int		do_live(t_process *process, t_env *env)
 	if ((champion_name = get_champ_name(env, param)))
 	{
 		env->last_live_id = param;
-		ft_printf("A process reports the champion %s (%u) as alive.\x1b[500D",
-				champion_name, param);
+		ft_printf("\n\x1b[KA process reports the champion %s\
+(%u) as alive.\x1b[500D\x1b[A", champion_name, param);
 	}
 	else
 		param = 0;
