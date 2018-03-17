@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/16 00:41:58 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/17 01:04:46 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,26 @@ static void	exec_inst(t_env *env, t_process *process)
 	int				ret;
 
 	process->pc %= MEM_SIZE;
-	opcode = env->arena[process->pc];
+	opcode = process->cur_opcode;
 	if (opcode > 16 || opcode == 0)
 	{
 		process->pc++;
 		process->pc %= MEM_SIZE;
+		process->cur_opcode = env->arena[process->pc];
+		process->cycle_to_wait = 0;
 		return ;
 	}
-	ft_printf("Le process appartenant à joueur %d effectue un %s      \n",
-				process->champ_id, g_op_tab[opcode - 1].name);
+	ft_printf("Le process appartenant à joueur %d effectue un %s au pc %d  \n",
+			process->champ_id, g_op_tab[opcode - 1].name, process->pc);
 	ret = (*(env->exec_inst_tab[opcode]))(process, env);
 	if (g_op_tab[opcode - 1].modif_carry == 1)
 		process->carry = (ret == 0) ? 1 : 0;
 	if (opcode != OP_ZJMP || process->carry == 0)
 		skip_pc(env, process);
-	process->cycle_to_wait = g_op_tab[opcode - 1].cycle_nb;
+	if ((process->cur_opcode = env->arena[process->pc]) - 1 < 16)
+		process->cycle_to_wait = g_op_tab[process->cur_opcode - 1].cycle_nb;
+	else
+		process->cycle_to_wait = 0;
 }
 
 static void	run_processes(t_env *env)
@@ -56,8 +61,8 @@ static void	run_processes(t_env *env)
 		{
 			process->cycle_to_wait--;
 			ft_printf("\x1b[KLe process appartenant à joueur %d doit encore \
-attendre %d cycles.   \n",
-				process->champ_id, process->cycle_to_wait);
+attendre %d cycles. pc = %d   \n",
+			process->champ_id, process->cycle_to_wait, process->pc);
 		}
 		list_of_processes = list_of_processes->next;
 	}
@@ -91,6 +96,21 @@ static void	cycle_check(t_env *env)
 	cycle = 0;
 }
 
+static void	init_processes_waits_and_opcodes(t_env *env)
+{
+	t_list		*proc_lst;
+	t_process	*proc;
+
+	proc_lst = env->process;
+	while (proc_lst)
+	{
+		proc = (t_process *)proc_lst->content;
+		proc->cycle_to_wait = g_op_tab[env->arena[proc->pc] - 1].cycle_nb;
+		proc->cur_opcode = env->arena[proc->pc];
+		proc_lst = proc_lst->next;
+	}
+}
+
 /*
 ** Runs the battle.
 */
@@ -100,6 +120,7 @@ void		run(t_env *env)
 	char	*winner;
 
 	load_champions(env);
+	init_processes_waits_and_opcodes(env);
 	ft_putstr("\x1b[2J");
 	while (env->process != NULL)
 	{

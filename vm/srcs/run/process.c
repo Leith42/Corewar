@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 22:47:11 by mgonon            #+#    #+#             */
-/*   Updated: 2018/03/14 19:21:40 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/17 01:00:06 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	add_new_process(t_env *env, unsigned int champion_id)
 		process->reg[i++] = 0;
 	process->champ_id = champion_id;
 	process->cycle_to_wait = 0;
+	process->cur_opcode = 0;
 	process->aff_buffer = NULL;
 	if (!(tmp = ft_lstnew((void *)process, sizeof(t_process))))
 		ft_free_exit(*env, NULL, 1, 0);

@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 23:30:20 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/17 01:00:06 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef	struct			s_process
 	char				*aff_buffer;
 	bool				is_alive;
 	bool				carry;
+	unsigned short		cur_opcode;
 }						t_process;
 
 typedef	struct			s_champion
