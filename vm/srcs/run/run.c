@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/17 01:04:46 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/17 01:11:57 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static void	exec_inst(t_env *env, t_process *process)
 		process->cycle_to_wait = 0;
 		return ;
 	}
-	ft_printf("Le process appartenant à joueur %d effectue un %s au pc %d  \n",
+	ft_printf("Le process appartenant à joueur %d effectue un %s \
+au pc %d  \x1b[500D",
 			process->champ_id, g_op_tab[opcode - 1].name, process->pc);
 	ret = (*(env->exec_inst_tab[opcode]))(process, env);
 	if (g_op_tab[opcode - 1].modif_carry == 1)
@@ -61,7 +62,7 @@ static void	run_processes(t_env *env)
 		{
 			process->cycle_to_wait--;
 			ft_printf("\x1b[KLe process appartenant à joueur %d doit encore \
-attendre %d cycles. pc = %d   \n",
+attendre %d cycles. pc = %d   \x1b[500D",
 			process->champ_id, process->cycle_to_wait, process->pc);
 		}
 		list_of_processes = list_of_processes->next;
@@ -76,13 +77,13 @@ static void	cycle_check(t_env *env)
 
 	cycle++;
 	global_cycle++;
-	ft_printf("\x1b[K\n\x1b[KCycle = %d\tCycle to die = %d\n\
+	ft_printf("\n\x1b[KTotal cycles = %d\tCycles = %d\tCycle to die = %d\n\
 \x1b[Knb_live = %d, checks = %d\n\x1b[KProcesses : %d\n\x1b[K",
-			global_cycle, env->cycle_to_die, env->nb_live, nb_checks,
+			global_cycle, cycle, env->cycle_to_die, env->nb_live, nb_checks,
 			ft_lstlen(env->process));
 	if (!(cycle >= env->cycle_to_die))
 		return ;
-	ft_printf("\n\n\n\n\x1b[KProcesses killed at last check : %d\n\x1b[K",
+	ft_printf("\n\x1b[KProcesses killed at last check : %d\n\x1b[K",
 			kill_dead_process(env));
 	if (env->nb_live >= NBR_LIVE || nb_checks >= MAX_CHECKS)
 	{
