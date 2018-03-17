@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/17 01:26:25 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/17 01:52:09 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void	exec_inst(t_env *env, t_process *process)
 	unsigned short	opcode;
 	int				ret;
 
-	process->pc %= MEM_SIZE;
 	opcode = process->cur_opcode;
 	if (opcode > 16 || opcode == 0)
 	{
@@ -77,7 +76,7 @@ static void	cycle_check(t_env *env)
 
 	cycle++;
 	global_cycle++;
-	ft_printf("\n\n\x1b[KTotal cycles = %d\tCycles = %d\tCycle to die = %d\n\
+	ft_printf("\n\n\n\x1b[KTotal cycles = %d\tCycles = %d\tCycle to die = %d\n\
 \x1b[Knb_live = %d, checks = %d\n\x1b[KProcesses : %d\n\x1b[K",
 			global_cycle, cycle, env->cycle_to_die, env->nb_live, nb_checks,
 			ft_lstlen(env->process));
@@ -122,7 +121,7 @@ void		run(t_env *env)
 
 	load_champions(env);
 	init_processes_waits_and_opcodes(env);
-	ft_putstr("\x1b[2J\x1b[65;0H");
+	ft_putstr("\x1b[2J\x1b[66;0H");
 	while (env->process != NULL)
 	{
 		run_processes(env);
