@@ -64,7 +64,7 @@ typedef struct		s_label
 {
 	char			*name;
 	int				pos;
-	int				type; // 0 for a declaration, anything else for a call;
+	int				type; // 0 for a declaration, 1 for a call;
 	struct s_label	*next;
 }					t_label;
 
@@ -94,7 +94,7 @@ int				ft_read_file(int fd, char *file_name);
 ** FONCTION HEADER
 */
 
-int				check_header(int fd, char *line, t_header *header);
+int				check_header(int fd, t_header *header);
 void			header_error(int error, int line_nb, char *str);
 int				loop_name(int *i, char *line, t_header *header);
 int				set_name(char *line, t_header *header, int line_nb);
@@ -112,7 +112,7 @@ int					get_params(char	**inst, t_lst_op *lst, int opc);
 int					check_params(char **inst, int opcode);
 unsigned char		get_ocp(char **inst);
 int					get_inst(char **inst, t_lst_op *lst);
-int					check_inst(char *line, t_lst_op *lst, int fd);
+int					check_inst(t_lst_op *lst, int fd);
 
 
 /*
@@ -121,10 +121,11 @@ int					check_inst(char *line, t_lst_op *lst, int fd);
 
 int				double_check_label(t_label *label);
 int				find_match(t_label *label, char *str);
-int				check_label(char **inst, t_label *label);
+t_label			*check_label(char **inst, t_label *label);
 t_label			*create_lab(t_label *label);
 void			add_list(t_label **label, t_label *tmp);
 t_label			*clean_inst(t_label *tmp, char *src);
+void			aff_label(t_label *label_lst);
 
 /*
 ** FONCTION WRITE

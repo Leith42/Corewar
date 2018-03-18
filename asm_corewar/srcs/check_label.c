@@ -12,30 +12,62 @@
 
 #include "asm.h"
 
-void	set_label_name(t_label *new, char *src)
+/*
+** AFF_LABEL - fonction utilitaire servant juste à afficher la totalité des labels (pour tests)
+*/
+
+void		aff_label(t_label *label_lst)
 {
-	if (src[0] == DIRECT_CHAR) 
-		new->name = ft_strsub(src, 2, ft_strlen(src) - 2);
-	else
-		new->name = ft_strsub(src, 0, ft_strlen(src - 1));
+	t_label *tmp;
+
+	tmp = label_lst;
+	while (tmp)
+	{
+		ft_putendl(tmp->name);
+		tmp = tmp->next;
+	}
 }
 
-void	add_to_lst(t_label *label_list, t_label *new)
+/*
+** SET_LABEL_NAME - assigne le nom du label dans la structure
+*/
+
+void		set_label_name(t_label *new, char *src)
+{
+	if (src[0] == DIRECT_CHAR) 
+	{
+		new->name = ft_strsub(src, 2, ft_strlen(src) - 2);
+		new->type = 1;
+	}
+	else
+		new->name = ft_strsub(src, 0, ft_strlen(src) - 1);
+}
+
+/*
+** ADD_TO_LST - ajoute le maillon en fin de liste chainée
+*/
+
+t_label		*add_to_lst(t_label *label_list, t_label *new)
 {
 	t_label *tmp;
 
 	tmp = label_list;
-	if (tmp)
+	if (!label_list)
+		label_list = new;
+	else
 	{
-		while (tmp->next != NULL)
+		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
 	}
-	else
-		label_list = new;
+	return (label_list);
 }
 
-int		check_label_char(char *str)
+/*
+** CHECK_LABEL_CHAR - Check si l'argument reçu est un label
+*/
+
+int			check_label_char(char *str)
 {
 	int i;
 
@@ -51,7 +83,11 @@ int		check_label_char(char *str)
 	return (0);
 }
 
-int		check_label(char **inst, t_label *label_list)
+/*
+** CHECK_LABEL - Créer ou MAJ une liste chainée t_label et la renvoit
+*/
+
+t_label		*check_label(char **inst, t_label *label_list)
 {
 	int			i;
 	t_label		*new;
@@ -60,15 +96,14 @@ int		check_label(char **inst, t_label *label_list)
 	new = NULL;
 	while (inst[i])
 	{
-		if (check_label_char(inst[i])) 
+		if (check_label_char(inst[i]))
 		{
 			if (!(new = ft_memalloc(sizeof(t_label)))) 
-				return (0);
+				return (NULL);
 			set_label_name(new, inst[i]);
-			new->type = i;
-			add_to_lst(label_list, new);
+			label_list = add_to_lst(label_list, new);
 		}
 		i++;
 	}
-	return (1);
+	return (label_list);
 }

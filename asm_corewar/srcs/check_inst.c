@@ -36,7 +36,7 @@ int					get_params(char	**inst, t_lst_op *lst, int opc)
 			lst->op[lst->pos++] = (unsigned char)(nb);
 		}
 		else if (type == T_DIR && inst[i][1] == ':') // CAS D'UN LABEL - PAS GERÉ
-			lst = rmp_param(69, lst, dir_size);
+			lst = rmp_param(0, lst, dir_size);
 		else if (type == T_DIR)
 			lst = rmp_param(ft_atoi(inst[i] + 1), lst, dir_size);
 		else if (type == T_IND)
@@ -120,10 +120,25 @@ int					get_inst(char **inst, t_lst_op *lst)
 
 	/* AFFICHAGE TEMPORAIRE */
 	while (nbw < lst->pos)
-		printf("%x ", lst->op[nbw++]);
+		printf("%02x ", lst->op[nbw++]);
 	printf("\n");
 	nb_oc += lst->pos;
+	return (1);
+}
 
+int 				line_no_chars(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i])
+	{
+	//	ft_putendl(&line[i]);
+		if (line[i] == ' ' || line[i] == '\t')
+			i++;
+		else
+			return (0);
+	}
 	return (1);
 }
 
@@ -132,22 +147,28 @@ int					get_inst(char **inst, t_lst_op *lst)
 ** et qui renvoie chaque ligne ainsi separer vers get_inst.
 */
 
-int					check_inst(char *line, t_lst_op *lst, int fd)
+int					check_inst(t_lst_op *lst, int fd)
 {
 	t_label		*label_lst;
+	char 		*line;
 	char		**inst;
 	t_lst_op	*tmp;
+	int i;
 
+	i = 0;
 	tmp = lst;
 	label_lst = NULL;
-	while ((get_next_line(fd, &line, 16)) > 0)
+	line = NULL;
+	while ((get_next_line(fd, &line, 50)) > 0)
 	{
-		printf("line = %s\n", line);
-		if ((inst = ft_split_inst(line)) != NULL)
+		if (line == NULL || line_no_chars(line)) 
+			continue ;
+		/* On passe a la prochaine itération si on rencontre une ligne vide ou 
+			sans chars (n'a pas l'air de marcher cela dit, 
+		donc je pense que c'est le GNL à ce stade) */
+		if ((inst = ft_split_inst(line)) != NULL) 
 		{
-			ft_putarr(inst);
-			ft_putchar('\n'); 
-			if (!get_inst(inst, tmp) || !check_label(inst, label_lst)) //stock labels in lists.
+			if (!get_inst(inst, tmp) || (!(label_lst = check_label(inst, label_lst)))) //stock labels in lists.
 			{
 				ft_free_arr(inst);
 				return (0); //Instruction incorrecte
@@ -159,8 +180,9 @@ int					check_inst(char *line, t_lst_op *lst, int fd)
 		}
 	}
 	free(line);
-	if (!double_check_label(label_lst)) //checks label calls for adequate declaration.
-		return (0);
+	/* AFFICHAGE TEMPORAIRE DES LABELS */
+	aff_label(label_lst);
 	tmp = NULL;
+	label_lst = NULL;
 	return (1);
 }

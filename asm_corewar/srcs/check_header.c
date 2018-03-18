@@ -54,16 +54,24 @@ void	init_set(t_header *header)
 	memset(header->comment, 0, COMMENT_LENGTH + 1);
 }
 
-int		check_header(int fd, char *line, t_header *header)
+int		header_is_set(t_header *header)
+{
+	if (!header->name_is_set || !header->comment_is_set)
+		return (0);
+	return (1);
+}
+
+int		check_header(int fd, t_header *header)
 {
 	int		line_nb;
 	int i;
+	char *line;
 
 	i = 0;
 	init_set(header);
 	line_nb = 0;
-	while (get_next_line(fd, &line, 100) > 0 && (header->name_is_set != 1
-	|| header->comment_is_set != 1)) // cette ft renvoit 1 si .name et .comment sont deja set
+	line = NULL;
+	while (!header_is_set(header) && get_next_line(fd, &line, 100) > 0) // cette ft renvoit 1 si .name et .comment sont deja set
 	{
 		line = epur_str_beginning(line); // supprime les espaces en debut de ligne
 		line_nb++;
