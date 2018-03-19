@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:14:30 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/15 17:53:44 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/19 23:09:30 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ unsigned short	get_param_type(t_env *env, unsigned int pc,
 		ref_type = 0;
 	ocp = env->arena[(pc + 1) % MEM_SIZE];
 	ocp_type = (ocp >> (6 - (2 * param_nb))) & 3;
+	if (ocp_type == IND_CODE)
+		ocp_type = T_IND;
 	if (opcode != 0 && !(ref_type & ocp_type))
 		return (0);
 	return (ocp_type);
