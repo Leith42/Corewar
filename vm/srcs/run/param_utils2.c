@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 22:21:38 by mgonon            #+#    #+#             */
-/*   Updated: 2018/03/15 20:10:50 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/20 00:08:04 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void		set_mask_id(t_env *env, t_process *process,
 ** If no OCP is on the instruction, it advances by T_DIR size.
 */
 
-void			skip_pc(t_env *env, t_process *process)
+unsigned int	skip_pc(t_env *env, t_process *process)
 {
 	unsigned int	param_len;
 	unsigned int	cur;
@@ -52,8 +52,7 @@ void			skip_pc(t_env *env, t_process *process)
 		param_len = 1 + (
 			(g_op_tab[env->arena[process->pc] - 1].addr_or_nb == true) ? 2 : 4);
 	set_mask_id(env, process, param_len);
-	process->pc += param_len;
-	process->pc %= MEM_SIZE;
+	return ((process->pc + param_len) % MEM_SIZE);
 }
 
 unsigned int	is_reg(unsigned int value)
