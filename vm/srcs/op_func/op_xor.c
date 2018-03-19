@@ -6,11 +6,22 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:52:29 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/19 18:54:47 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/19 19:06:17 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+static unsigned int	get_skip(unsigned short param_type)
+{
+	if (param_type == T_REG)
+		return (1);
+	else if (param_type == T_IND)
+		return (2);
+	else if (param_type == T_DIR)
+		return (4);
+	return (0);
+}
 
 static unsigned int	get_value(unsigned short param_type, unsigned int skip,
 					t_process *process, t_env *env)
@@ -42,9 +53,9 @@ int					do_xor(t_process *process, t_env *env)
 	if (!(param_type[0] != 0 && param_type[1] != 0 && param_type[2] == T_REG))
 		return (0);
 	param_value[0] = get_value(param_type[0], skip, process, env);
-	skip += param_type[0];
+	skip += get_skip(param_type[0]);
 	param_value[1] = get_value(param_type[1], skip, process, env);
-	skip += param_type[1];
+	skip += get_skip(param_type[1]);
 	param_value[2] = get_param_raw_value(
 			env, process->pc + skip, param_type[2], OP_XOR);
 	if (!(is_reg(param_value[2])
