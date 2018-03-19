@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:53:50 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/14 23:02:15 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/19 17:06:59 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ int	do_fork(t_process *process, t_env *env)
 	fork = (t_process *)env->process->content;
 	memcpy(fork, process, sizeof(t_process));
 	fork->pc = (process->pc + (param % IDX_MOD)) % MEM_SIZE;
-	fork->cycle_to_wait = g_op_tab[OP_FORK - 1].cycle_nb;
+	fork->cycle_to_wait = 0;
 	return (0);
 }
