@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/19 16:35:29 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/19 16:36:24 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void		run(t_env *env)
 
 	load_champions(env);
 	init_processes_waits_and_opcodes(env);
-	ft_putstr("\x1b[2J\x1b[66;0H");
+	ft_putstr("\x1b[2J\x1b[67;0H");
 	while (env->process != NULL)
 	{
 		run_processes(env);
