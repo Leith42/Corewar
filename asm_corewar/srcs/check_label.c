@@ -6,7 +6,7 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 01:10:03 by lgraham           #+#    #+#             */
-/*   Updated: 2018/03/17 03:48:57 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/03/19 01:06:17 by lgraham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void		set_label_name(t_label *new, char *src)
 	}
 	else
 		new->name = ft_strsub(src, 0, ft_strlen(src) - 1);
+	new->oct = -1;
 }
 
 /*
@@ -58,6 +59,7 @@ t_label		*add_to_lst(t_label *label_list, t_label *new)
 	{
 		while (tmp->next)
 			tmp = tmp->next;
+		new->oct_tmp = tmp->oct_tmp;
 		tmp->next = new;
 	}
 	return (label_list);
@@ -87,11 +89,13 @@ int			check_label_char(char *str)
 ** CHECK_LABEL - Créer ou MAJ une liste chainée t_label et la renvoit
 */
 
-t_label		*check_label(char **inst, t_label *label_list)
+t_label		*check_label(char **inst, t_label *label_list, int pos)
 {
 	int			i;
 	t_label		*new;
+	int			nb;
 
+	nb = pos;
 	i = 0;
 	new = NULL;
 	while (inst[i])
@@ -105,5 +109,6 @@ t_label		*check_label(char **inst, t_label *label_list)
 		}
 		i++;
 	}
+	oct_count(inst, pos, label_list);
 	return (label_list);
 }

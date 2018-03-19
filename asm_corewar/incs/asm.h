@@ -6,7 +6,7 @@
 /*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 18:44:39 by mmatime           #+#    #+#             */
-/*   Updated: 2018/03/16 01:05:23 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/03/19 01:13:21 by lgraham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ typedef struct		s_label
 {
 	char			*name;
 	int				pos;
+	int				oct;
+	int				oct_tmp;
 	int				type; // 0 for a declaration, 1 for a call;
 	struct s_label	*next;
 }					t_label;
@@ -121,11 +123,13 @@ int					check_inst(t_lst_op *lst, int fd);
 
 int				double_check_label(t_label *label);
 int				find_match(t_label *label, char *str);
-t_label			*check_label(char **inst, t_label *label);
-t_label			*create_lab(t_label *label);
-void			add_list(t_label **label, t_label *tmp);
-t_label			*clean_inst(t_label *tmp, char *src);
+t_label			*check_label(char **inst, t_label *label, int pos);
+int				check_label_char(char *str);
+t_label			*add_to_lst(t_label *label_list, t_label *new);
+void			set_label_name(t_label *new, char *src);
 void			aff_label(t_label *label_lst);
+void			oct_count(char **inst, int pos, t_label *label);
+int				oct_prec(int pos, char **str, int nb);
 
 /*
 ** FONCTION WRITE
