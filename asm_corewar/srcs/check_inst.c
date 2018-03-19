@@ -6,7 +6,7 @@
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:54:16 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/03/19 01:09:17 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/03/19 02:46:41 by lgraham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ int					check_inst(t_lst_op *lst, int fd)
 			tmp = tmp->next;
 		}
 	}
+	calc_dist_label(label_lst);
 	free(line);
 	/* AFFICHAGE TEMPORAIRE DES LABELS */
 	aff_label(label_lst);

@@ -6,7 +6,7 @@
 /*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 18:44:39 by mmatime           #+#    #+#             */
-/*   Updated: 2018/03/19 01:13:21 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/03/19 02:50:13 by lgraham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct		s_label
 	int				pos;
 	int				oct;
 	int				oct_tmp;
+	int				res;
 	int				type; // 0 for a declaration, 1 for a call;
 	struct s_label	*next;
 }					t_label;
@@ -130,6 +131,7 @@ void			set_label_name(t_label *new, char *src);
 void			aff_label(t_label *label_lst);
 void			oct_count(char **inst, int pos, t_label *label);
 int				oct_prec(int pos, char **str, int nb);
+void			calc_dist_label(t_label *label);
 
 /*
 ** FONCTION WRITE

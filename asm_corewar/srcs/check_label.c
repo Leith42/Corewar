@@ -6,14 +6,15 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 01:10:03 by lgraham           #+#    #+#             */
-/*   Updated: 2018/03/19 02:24:56 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/03/19 02:54:47 by lgraham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
 /*
-** AFF_LABEL - fonction utilitaire servant juste à afficher la totalité des labels (pour tests)
+** AFF_LABEL - fonction utilitaire servant juste à afficher la totalité des \
+labels (pour tests)
 */
 
 void		aff_label(t_label *label_lst)
@@ -34,7 +35,7 @@ void		aff_label(t_label *label_lst)
 
 void		set_label_name(t_label *new, char *src)
 {
-	if (src[0] == DIRECT_CHAR) 
+	if (src[0] == DIRECT_CHAR)
 	{
 		new->name = ft_strsub(src, 2, ft_strlen(src) - 2);
 		new->type = 1;
@@ -42,6 +43,7 @@ void		set_label_name(t_label *new, char *src)
 	else
 		new->name = ft_strsub(src, 0, ft_strlen(src) - 1);
 	new->oct = -1;
+	new->res = -1;
 }
 
 /*
@@ -102,7 +104,7 @@ t_label		*check_label(char **inst, t_label *label_list, int pos)
 	{
 		if (check_label_char(inst[i]))
 		{
-			if (!(new = ft_memalloc(sizeof(t_label)))) 
+			if (!(new = ft_memalloc(sizeof(t_label))))
 				return (NULL);
 			set_label_name(new, inst[i]);
 			label_list = add_to_lst(label_list, new);
