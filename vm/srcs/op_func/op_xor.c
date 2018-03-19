@@ -12,28 +12,54 @@
 
 #include "vm.h"
 
+#include "vm.h"
+
+static unsigned int	get_skip(unsigned int param_type)
+{
+	if (param_type == T_DIR)
+		return (4);
+	else if (param_type == T_IND)
+		return (2);
+	else if (param_type == T_REG)
+		return (1);
+	return (0);
+}
+
+static unsigned int get_value(unsigned short param_type, unsigned int skip, t_process *process, t_env *env)
+{
+	unsigned int value;
+
+	value = get_param_raw_value(env, process->pc + skip, param_type, OP_XOR);
+	if (param_type == T_REG && is_reg(value))
+		return (process->reg[value - 1]);
+	else if (param_type == T_DIR)
+		return (value);
+	else if (param_type == T_IND)
+		return ((short)value % IDX_MOD);
+	return 0;
+}
+
 int	do_xor(t_process *process, t_env *env)
 {
+	unsigned int	skip;
 	unsigned short	param_type[3];
 	unsigned int	param_value[3];
-	unsigned int	skip;
 
+	skip = 2;
 	param_type[0] = get_param_type(env, process->pc, OP_XOR, 0);
 	param_type[1] = get_param_type(env, process->pc, OP_XOR, 1);
 	param_type[2] = get_param_type(env, process->pc, OP_XOR, 2);
-	if (param_type[2] == T_REG)
+	if (param_type[0] != 0 && param_type[1] != 0 && param_type[2] == T_REG)
 	{
-		param_value[0] = get_param_raw_value(
-				env, process->pc + 2, param_type[0], OP_XOR);
-		skip = (param_type[0] == T_DIR || param_type[0] == T_IND) ? 5 : 3;
-		param_value[1] = get_param_raw_value(
-				env, process->pc + skip, param_type[1], OP_XOR);
-		skip += (param_type[1] == T_DIR || param_type[1] == T_IND) ? 4 : 2;
+		param_value[0] = get_value(param_type[0], skip, process, env);
+		skip += get_skip(param_type[0]);
+		param_value[1] = get_value(param_type[1], skip, process, env);
+		skip += get_skip(param_type[1]);
 		param_value[2] = get_param_raw_value(
 				env, process->pc + skip, param_type[2], OP_XOR);
 		if (is_reg(param_value[2]))
 		{
-			process->reg[param_value[2] - 1] = param_value[0] ^ param_value[1];
+			process->reg[param_value[2] - 1] = (param_value[0] ^ param_value[1]);
 			return ((process->reg[param_value[2] - 1] == 0) ? 0 : 1);
 		}
 	}
