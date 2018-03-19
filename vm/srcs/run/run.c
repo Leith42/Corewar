@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/17 01:52:09 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/19 16:35:29 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	exec_inst(t_env *env, t_process *process)
 		return ;
 	}
 	ft_printf("\x1b[KLe process appartenant à joueur %d effectue un %s \
-au pc %d  \x1b[500D",
+au pc %d  \n",//\x1b[500D",
 		process->champ_id, g_op_tab[opcode - 1].name, process->pc);
 	ret = (*(env->exec_inst_tab[opcode]))(process, env);
 	if (g_op_tab[opcode - 1].modif_carry == 1)
@@ -60,8 +60,13 @@ static void	run_processes(t_env *env)
 		else
 		{
 			ft_printf("\x1b[KLe process appartenant à joueur %d doit encore \
-attendre %d cycles. pc = %d   \x1b[500D",
-			process->champ_id, process->cycle_to_wait, process->pc);
+attendre %d cycles. pc = %d reg = {%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d}  \n",//\x1b[500D",
+			process->champ_id, process->cycle_to_wait, process->pc,
+			process->reg[0], process->reg[1], process->reg[2], process->reg[3],
+			process->reg[4], process->reg[5], process->reg[6], process->reg[7],
+			process->reg[8], process->reg[9], process->reg[10], process->reg[11],
+			process->reg[12], process->reg[13], process->reg[14],
+			process->reg[15]);
 			process->cycle_to_wait--;
 		}
 		list_of_processes = list_of_processes->next;
@@ -133,6 +138,7 @@ void		run(t_env *env)
 			disp_arena(env, DUMP_LINE_LEN);
 			break ;
 		}
+		getchar(); // REMOVE AFTER DEBUG
 	}
 	if ((winner = get_champ_name(env, env->last_live_id)))
 		ft_printf("\x1b[2JLe joueur %d(%s) a gagne.\n",

@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:06:58 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/15 00:00:56 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/19 16:26:33 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,10 @@ void			disp_arena(t_env *env, size_t line_len)
 	i = 0;
 	len = 0;
 	ft_putstr("\x1b[H");
+	size_t j= 0;
+	while (j < line_len)
+		ft_printf("%2d ", j++);
+	ft_putendl("");
 	while (i < MEM_SIZE)
 	{
 		if (i == 0 || env->mask[i - 1] != env->mask[i])
