@@ -84,7 +84,7 @@ int		check_header(int fd, t_header *header)
 			header_error(WRONG_INPUT, line_nb, "");
 	}
 	/*
-	** TEST TEMPORAIRE
+	** TEST AFFICHAGE TEMPORAIRE
 	*/
 	if (header->prog_name[0])
 		ft_printf("name = >%s<\n", header->prog_name);

@@ -179,7 +179,7 @@ int					check_inst(t_lst_op *lst, int fd)
 			tmp = tmp->next;
 		}
 	}
-	calc_dist_label(label_lst);
+//	calc_dist_label(label_lst);
 	free(line);
 	/* AFFICHAGE TEMPORAIRE DES LABELS */
 	aff_label(label_lst);

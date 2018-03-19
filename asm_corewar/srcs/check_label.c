@@ -111,6 +111,6 @@ t_label		*check_label(char **inst, t_label *label_list, int pos)
 		}
 		i++;
 	}
-	oct_count(inst, pos, label_list);
+	//oct_count(inst, pos, label_list);
 	return (label_list);
 }
