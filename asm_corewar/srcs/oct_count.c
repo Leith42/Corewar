@@ -6,7 +6,7 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 03:49:24 by lgraham           #+#    #+#             */
-/*   Updated: 2018/03/19 01:25:29 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/03/19 02:25:18 by lgraham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		oct_prec(int pos, char **inst, int nb)
 	i = nb;
 	if (nb == 0)
 		return (0);
-	while (inst[i] && (type = param_type(inst[i])) >= 1)
+	while (inst[i] && (type = param_type(inst[i])) != 0)
 	{
 		if (type == T_REG && i > nb)
 			pos -= 1;
