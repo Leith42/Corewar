@@ -6,7 +6,7 @@
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:54:16 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/03/19 02:46:41 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/03/20 08:14:03 by lgraham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,8 @@ int					check_inst(t_lst_op *lst, int fd)
 		donc je pense que c'est le GNL à ce stade) */
 		if ((inst = ft_split_inst(line)) != NULL) 
 		{
-			if (!get_inst(inst, tmp) || (!(label_lst = check_label(inst, label_lst, lst->pos)))) //stock labels in lists.
+			i++;
+			if (!get_inst(inst, tmp) || (!(label_lst = check_label(inst, label_lst, lst->pos, i))))
 			{
 				ft_free_arr(inst);
 				return (0); //Instruction incorrecte
@@ -179,7 +180,8 @@ int					check_inst(t_lst_op *lst, int fd)
 			tmp = tmp->next;
 		}
 	}
-//	calc_dist_label(label_lst);
+	tmp = lst;
+	calc_dist_label(label_lst, tmp);
 	free(line);
 	/* AFFICHAGE TEMPORAIRE DES LABELS */
 	aff_label(label_lst);

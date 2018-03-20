@@ -6,7 +6,7 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 01:10:03 by lgraham           #+#    #+#             */
-/*   Updated: 2018/03/19 02:54:47 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/03/20 08:21:03 by lgraham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		aff_label(t_label *label_lst)
 ** SET_LABEL_NAME - assigne le nom du label dans la structure
 */
 
-void		set_label_name(t_label *new, char *src)
+void		set_label_name(t_label *new, char *src, int p)
 {
 	if (src[0] == DIRECT_CHAR)
 	{
@@ -43,6 +43,7 @@ void		set_label_name(t_label *new, char *src)
 	else
 		new->name = ft_strsub(src, 0, ft_strlen(src) - 1);
 	new->oct = -1;
+	new->line = p;
 	new->res = -1;
 }
 
@@ -91,7 +92,7 @@ int			check_label_char(char *str)
 ** CHECK_LABEL - Créer ou MAJ une liste chainée t_label et la renvoit
 */
 
-t_label		*check_label(char **inst, t_label *label_list, int pos)
+t_label		*check_label(char **inst, t_label *label_list, int pos, int p)
 {
 	int			i;
 	t_label		*new;
@@ -106,7 +107,7 @@ t_label		*check_label(char **inst, t_label *label_list, int pos)
 		{
 			if (!(new = ft_memalloc(sizeof(t_label))))
 				return (NULL);
-			set_label_name(new, inst[i]);
+			set_label_name(new, inst[i], p);
 			label_list = add_to_lst(label_list, new);
 		}
 		i++;
