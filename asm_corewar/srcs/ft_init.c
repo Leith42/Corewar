@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read.c                                             :+:      :+:    :+:   */
+/*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/06 15:21:13 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/03/19 00:15:43 by lgraham          ###   ########.fr       */
+/*   Created: 2018/03/20 18:04:23 by lmartin-          #+#    #+#             */
+/*   Updated: 2018/03/20 18:04:37 by lmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int					ft_read_file(int fd, char *file_name)
+void	init_set(t_header *header)
 {
-	t_lst_op		*lst; //liste des instructions
-	int				lnbr;
-	//t_header		header;
+	header->name_is_set = 0;
+	header->comment_is_set = 0;
+	header->head_error = 0;
+	memset(header->prog_name, 0, PROG_NAME_LENGTH + 1);
+	memset(header->comment, 0, COMMENT_LENGTH + 1);
+}
 
-	lnbr = 0;
-	printf("file_name = %s\n", file_name);
-	if (!(lst = malloc(sizeof(t_lst_op))))
+int		init_lst(t_lst_op *lst, int nb)
+{
+	if (!lst || !(lst = malloc(sizeof(t_lst_op))))
 		return (0);
-	if (/*(lnbr = check_header(fd, &header)) != 0 && */check_inst(lst, fd, lnbr))
-		;//ft_write(File_Name, tab);*/
-	else
-		return (0);
+	lst->pos = 0;
+	lst->line_nb = nb;
 	return (1);
 }

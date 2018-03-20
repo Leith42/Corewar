@@ -32,7 +32,7 @@ int					get_params(char	**inst, t_lst_op *lst, int opc)
 		{
 			nb = ft_atoi(inst[i] + 1);
 			if (nb > 16 || nb < 1)
-				return (0);
+				return (inst_error(WRONG_REGISTER, lst->line_nb, inst[i] + 1));
 			lst->op[lst->pos++] = (unsigned char)(nb);
 		}
 		else if (type == T_DIR && inst[i][1] == ':') // CAS D'UN LABEL - PAS GERÉ
@@ -50,7 +50,7 @@ int					get_params(char	**inst, t_lst_op *lst, int opc)
 ** en fonction de l'instruction.
 */
 
-int					check_params(char **inst, int opcode)
+int					check_params(char **inst, int opcode, int line_nb)
 {
 	int		n;
 	int		type;
@@ -59,10 +59,10 @@ int					check_params(char **inst, int opcode)
 	while (inst[++n])
 	{
 		if (g_op_tab[opcode].param_nb <= n)
-			return (0);
+			return (inst_error(TOO_MANY_PARAMS, line_nb, ""));
 		type = param_type(inst[n]);
 		if (!(type & g_op_tab[opcode].param_type[n]))
-			return (0);
+			return (inst_error(INVALID_PARAMS, line_nb, ""));
 	}
 	return ((g_op_tab[opcode].param_nb == n) ? 1 : 0);
 }
@@ -104,13 +104,14 @@ int					get_inst(char **inst, t_lst_op *lst)
 	lst->pos = 0;
 	i = 0;
 	nbw = (inst[0][ft_strlen(inst[0]) - 1] == ':') ? 1 : 0;
-	/*
-	** Le cas du label en debut de chaine n'est pas gere - ft_check_label(inst, tab);
-	*/
-	while (i <= 16 && (ft_strcmp(g_op_tab[i].name, inst[nbw]) != 0))
+	while (i < 16 && (ft_strcmp(g_op_tab[i].name, inst[nbw]) != 0))
 		i++;
-	if (i == 16 || (check_params(inst + ++nbw, i) == 0))
-		return (0); //Erreur instruct
+	printf("inst = %s, i = %d\n", inst[1], i);
+	if (i == 16)
+		return (inst_error(INVALID_INST, lst->line_nb, inst[nbw])); //Erreur instruct
+	if (!(check_params(inst + ++nbw, i, lst->line_nb)))
+		return (0);
+	printf("inst = %s, i = %d\n", inst[1], i);
 	lst->op[lst->pos++] = i + 1;
 	if (g_op_tab[i].ocp == 1 && lst->pos++)
 		lst->op[lst->pos - 1] = get_ocp(inst + nbw);
@@ -147,45 +148,43 @@ int 				line_no_chars(char *line)
 ** et qui renvoie chaque ligne ainsi separer vers get_inst.
 */
 
-int					check_inst(t_lst_op *lst, int fd)
+int					check_inst(t_lst_op *lst, int fd, int lnbr)
 {
 	t_label		*label_lst;
 	char 		*line;
 	char		**inst;
 	t_lst_op	*tmp;
-	int i;
+	int 		 i;
 
 	i = 0;
 	tmp = lst;
+	tmp->line_nb = lnbr + 1;
 	label_lst = NULL;
-	line = NULL;
+	printf("check_inst\n");
 	while ((get_next_line(fd, &line, 50)) > 0)
 	{
-		if (line == NULL || line_no_chars(line)) 
-			continue ;
-		/* On passe a la prochaine itération si on rencontre une ligne vide ou 
-			sans chars (n'a pas l'air de marcher cela dit, 
+		lnbr++;
+		printf("%d : %s\n", i, line);
+		/* On passe a la prochaine itération si on rencontre une ligne vide ou
+			sans chars (n'a pas l'air de marcher cela dit,
 		donc je pense que c'est le GNL à ce stade) */
-		if ((inst = ft_split_inst(line)) != NULL) 
+		if (line && !(line_no_chars(line)) && (inst = ft_split_inst(line)))
 		{
 			i++;
-			if (!get_inst(inst, tmp) || (!(label_lst = check_label(inst, label_lst, lst->pos, i))))
+			if (!get_inst(inst, tmp)/* || (!(label_lst = check_label(inst, label_lst, tmp->pos, i)))*/)
 			{
 				ft_free_arr(inst);
 				return (0); //Instruction incorrecte
 			}
 			ft_free_arr(inst);
-			if (!(tmp->next = malloc(sizeof(t_lst_op))))
+			if (init_lst(tmp->next, lnbr) && (tmp = tmp->next))
 				return (0);
-			tmp = tmp->next;
 		}
 	}
 	tmp = lst;
-	calc_dist_label(label_lst, tmp);
+	//calc_dist_label(label_lst, tmp);
 	free(line);
 	/* AFFICHAGE TEMPORAIRE DES LABELS */
-	aff_label(label_lst);
-	tmp = NULL;
-	label_lst = NULL;
+	/*aff_label(label_lst);*/
 	return (1);
 }

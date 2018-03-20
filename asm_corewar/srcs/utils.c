@@ -61,8 +61,8 @@ char		**ft_split_inst(char *inst)
 	n = 0;
 	i = 0;
 	t = 0;
-	params = ft_arrnew(5);
-	while (inst[n] && inst[n] != '#')
+	params = ft_arrnew(7);
+	while (inst[n] && inst[n] != '#' && t < 7)
 	{
 		while (inst[n] == ' ' || inst[n] == '\t' || inst[n] == ',')
 			n++;

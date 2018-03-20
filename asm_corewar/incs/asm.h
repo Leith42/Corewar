@@ -19,13 +19,20 @@
 # include <stdlib.h>
 # include <stdbool.h>
 
-# define QUOTE_MARK 1
-# define INVALID_CHAR_NAME 2
-# define WRONG_INPUT 3
-# define COMMENT_NOT_IN_PLACE 4
-# define NAME_TOO_LONG 5
-# define COMMENT_TOO_LONG 6
 
+enum				e_error
+{
+	QUOTE_MARK,
+	INVALID_CHAR_NAME,
+	WRONG_INPUT,
+	COMMENT_NOT_IN_PLACE,
+	NAME_TOO_LONG,
+	COMMENT_TOO_LONG,
+	INVALID_INST,
+	INVALID_PARAMS,
+	TOO_MANY_PARAMS,
+	WRONG_REGISTER
+};
 
 /*
 ** LISTE INSTRUCTION
@@ -35,6 +42,7 @@ typedef struct		s_lst_op
 {
 	unsigned char	op[12];
 	int				pos;
+	int				line_nb;
 	struct s_lst_op	*next;
 }					t_lst_op;
 
@@ -49,7 +57,7 @@ typedef struct		s_op
 	unsigned short	param_type[3];
 	unsigned short	opcode;
 	unsigned short	cycle_nb;
-	char			*description; 
+	char			*description;
 	bool			ocp;
 	bool			addr_or_nb;
 }					t_op;
@@ -100,7 +108,7 @@ int				ft_read_file(int fd, char *file_name);
 */
 
 int				check_header(int fd, t_header *header);
-void			header_error(int error, int line_nb, char *str);
+void			header_error(enum e_error error, int line_nb, char *str);
 int				loop_name(int *i, char *line, t_header *header);
 int				set_name(char *line, t_header *header, int line_nb);
 int				loop_comment(int *i, char *line, t_header *header);
@@ -113,11 +121,13 @@ int				char_is_valid(char c);
 ** FONCTION INSTRUCTION
 */
 
+int					init_lst(t_lst_op *lst, int nb);
+int					inst_error(enum e_error error, int line_nb, char *str);
 int					get_params(char	**inst, t_lst_op *lst, int opc);
-int					check_params(char **inst, int opcode);
+int					check_params(char **inst, int opcode, int line_nb);
 unsigned char		get_ocp(char **inst);
 int					get_inst(char **inst, t_lst_op *lst);
-int					check_inst(t_lst_op *lst, int fd);
+int					check_inst(t_lst_op *lst, int fd, int lnbr);
 
 
 /*

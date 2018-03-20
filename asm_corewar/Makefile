@@ -38,6 +38,8 @@ SRCS_LIST		=	\
 					check_label.c \
 					double_check_label.c \
 					oct_count.c \
+					ft_error.c \
+					ft_init.c \
 
 OBJS_DIR		=	./objs/
 OBJS_LIST		=	$(patsubst %.c, %.o, $(SRCS_LIST))
