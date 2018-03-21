@@ -6,11 +6,12 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/21 23:52:31 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/22 00:22:45 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+#include <stdlib.h>
 
 /*
 ** For each process, in order, executes the current instruction by calling
@@ -83,8 +84,9 @@ static void	cycle_check(t_env *env)
 
 	cycle++;
 	global_cycle++;
-	ft_printf("\n\x1b[K\n\x1b[K\n\x1b[K\x1b[KTotal cycles = %d\tCycles = %d\tCycle to die = %d\n\
-\x1b[Knb_live = %d, checks = %d\n\x1b[KProcesses : %d\n\x1b[K",
+	ft_printf("\n\x1b[K\n\x1b[K\n\x1b[K\x1b[KTotal cycles = %d\tCycles = %d\t\
+Cycle to die = %d\n\x1b[Knb_live = %d, checks = %d\n\x1b[K\
+Processes : %d\n\x1b[K",
 			global_cycle, cycle, env->cycle_to_die, env->nb_live, nb_checks,
 			ft_lstlen(env->process));
 	if (!(cycle >= env->cycle_to_die))

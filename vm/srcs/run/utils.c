@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:06:58 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/19 16:26:33 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/22 00:21:47 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,29 @@
 #include <unistd.h>
 #include "vm.h"
 
-static char		*get_champ_color(t_env *env, unsigned int id)
+static char		*get_champ_color(t_env *env, unsigned int id, size_t i)
 {
+	int		is_pc;
+	t_list	*lst;
+
 	if (id == NULL_ID)
 		return ("\x1b[2;37m");
-	else if (id == env->champions[0].id)
-		return (COLOR_P1);
+	lst = env->process;
+	while (lst)
+	{
+		if (((t_process *)lst->content)->pc == i)
+			break ;
+		lst = lst->next;
+	}
+	is_pc = (lst != NULL) ? 1 : 0;
+	if (id == env->champions[0].id)
+		return ((is_pc) ? COLOR_P1_PC : COLOR_P1);
 	else if (env->nb_of_champions > 1 && id == env->champions[1].id)
-		return (COLOR_P2);
+		return ((is_pc) ? COLOR_P2_PC : COLOR_P2);
 	else if (env->nb_of_champions > 2 && id == env->champions[2].id)
-		return (COLOR_P3);
+		return ((is_pc) ? COLOR_P3_PC : COLOR_P3);
 	else if (env->nb_of_champions > 3 && id == env->champions[3].id)
-		return (COLOR_P4);
+		return ((is_pc) ? COLOR_P4_PC : COLOR_P4);
 	ft_free_exit(*env, "Bad ID in mask !\n", 0, 0);
 	return (NULL);
 }
@@ -64,23 +75,20 @@ void			disp_arena(t_env *env, size_t line_len)
 	static char		*tmp = NULL;
 	size_t			i;
 	size_t			len;
+	size_t			j = 0;//For displaying number row on top.
 
 	if (!tmp && !(tmp = ft_strnew(16 * line_len)))
 		ft_free_exit(*env, "Not enough memory", 1, 0);
 	i = 0;
 	len = 0;
 	ft_putstr("\x1b[H");
-	size_t j= 0;
 	while (j < line_len)
 		ft_printf("%2d ", j++);
-	ft_putendl("");
+	ft_putchar('\n');
 	while (i < MEM_SIZE)
 	{
-		if (i == 0 || env->mask[i - 1] != env->mask[i])
-		{
-			ft_strcat(tmp + len, get_champ_color(env, env->mask[i]));
-			len += ft_strlen(tmp + len);
-		}
+		ft_strcat(tmp + len, get_champ_color(env, env->mask[i], i));
+		len += ft_strlen(tmp + len);
 		load_hex_byte(tmp, &len, env->arena[i]);
 		if ((++i % line_len) != 0 && (len++ || 1))
 			continue ;
