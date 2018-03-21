@@ -6,14 +6,13 @@
 /*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 18:44:39 by mmatime           #+#    #+#             */
-/*   Updated: 2018/03/20 08:46:12 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/03/21 21:45:08 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
 # include "libft.h"
-# include "get_next_line.h"
 # include "op.h"
 # include <fcntl.h>
 # include <unistd.h>

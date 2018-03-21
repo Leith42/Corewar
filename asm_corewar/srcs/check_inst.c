@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_instruct.c                                   :+:      :+:    :+:   */
+/*   check_inst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:54:16 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/03/20 08:14:03 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/03/21 21:45:43 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 	label_lst = NULL;
 	line = NULL;
 	printf("check_inst\n");
-	while ((i = gnl(fd, &line)) > 0)
+	while ((i = get_next_line(fd, &line, 64)) > 0)
 	{
 		lnbr++;
 		printf("%d : %s\n", i, line);
