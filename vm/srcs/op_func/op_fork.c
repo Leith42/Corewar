@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:53:50 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/21 20:42:06 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/21 21:07:18 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	do_fork(t_process *process, t_env *env)
 	}
 	fork->pc = (process->pc + (param % IDX_MOD)) % MEM_SIZE;
 	fork->cur_opcode = env->arena[fork->pc];
-	if (fork->cur_opcode - 1 < 16)
-		fork->cycle_to_wait = g_op_tab[fork->cur_opcode - 1].cycle_nb;
-	else
+	if (fork->cur_opcode > 16 || fork->cur_opcode == 0)
 		fork->cycle_to_wait = 0;
+	else
+		fork->cycle_to_wait = g_op_tab[fork->cur_opcode - 1].cycle_nb;
 	return (0);
 }
