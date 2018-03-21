@@ -6,7 +6,7 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/18 01:13:53 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/01 18:30:29 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/21 22:24:19 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -242,7 +242,7 @@ norme :
 	fi
 
 
-debug : CFLAGS=-Wall -Wextra -g
+debug : CFLAGS=-Wall -Wextra -Weverything -Wno-cast-qual -g -fsanitize=address
 debug : all
 	@printf "\e[K$(GREEN)Library $(BOLD)$(NAME)$(END_GRAPHICS)$(GREEN) has successfully compiled $(YELLOW)(with debug symbols).$(END_GRAPHICS)\n"
 
