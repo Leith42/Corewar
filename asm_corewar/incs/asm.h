@@ -13,6 +13,7 @@
 #ifndef ASM_H
 # define ASM_H
 # include "libft.h"
+# include "get_next_line.h"
 # include "op.h"
 # include <fcntl.h>
 # include <unistd.h>
@@ -100,28 +101,28 @@ typedef struct		s_header
 ** FONCTION MAIN
 */
 
-int				main(int ac, char **av);
-int				ft_read_file(int fd, char *file_name);
+int					main(int ac, char **av);
+int					ft_read_file(int fd, char *file_name);
 
 /*
 ** FONCTION HEADER
 */
 
-int				check_header(int fd, t_header *header);
-void			header_error(enum e_error error, int line_nb, char *str);
-int				loop_name(int *i, char *line, t_header *header);
-int				set_name(char *line, t_header *header, int line_nb);
-int				loop_comment(int *i, char *line, t_header *header);
-int				set_comment(char *line, t_header *header, int line_nb);
-int				line_is_point(char *line, t_header *header, int line_nb);
-void			init_set(t_header *header);
-int				char_is_valid(char c);
+int					check_header(int fd, t_header *header);
+void				header_error(enum e_error error, int line_nb, char *str);
+int					loop_name(int *i, char *line, t_header *header);
+int					set_name(char *line, t_header *header, int line_nb);
+int					loop_comment(int *i, char *line, t_header *header);
+int					set_comment(char *line, t_header *header, int line_nb);
+int					line_is_point(char *line, t_header *header, int line_nb);
+void				init_set(t_header *header);
+int					char_is_valid(char c);
 
 /*
 ** FONCTION INSTRUCTION
 */
 
-int					init_lst(t_lst_op *lst, int nb);
+t_lst_op			*init_lst(int nb);
 int					inst_error(enum e_error error, int line_nb, char *str);
 int					get_params(char	**inst, t_lst_op *lst, int opc);
 int					check_params(char **inst, int opcode, int line_nb);
@@ -134,32 +135,32 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr);
 ** FONCTION LABEL
 */
 
-int				double_check_label(t_label *label);
-int				find_match(t_label *label, char *str);
-t_label			*check_label(char **inst, t_label *label, int pos, int p);
-int				check_label_char(char *str);
-t_label			*add_to_lst(t_label *label_list, t_label *new);
-void			set_label_name(t_label *new, char *src, int p);
-void			aff_label(t_label *label_lst);
-void			oct_count(char **inst, int pos, t_label *label);
-int				oct_prec(int pos, char **str, int nb);
-void			calc_dist_label(t_label *label, t_lst_op *lst);
-void			replace_dist(t_label *label, t_lst_op *lst);
+int					double_check_label(t_label *label);
+int					find_match(t_label *label, char *str);
+t_label				*check_label(char **inst, t_label *label, int pos, int p);
+int					check_label_char(char *str);
+t_label				*add_to_lst(t_label *label_list, t_label *new);
+void				set_label_name(t_label *new, char *src, int p);
+void				aff_label(t_label *label_lst);
+void				oct_count(char **inst, int pos, t_label *label);
+int					oct_prec(int pos, char **str, int nb);
+void				calc_dist_label(t_label *label, t_lst_op *lst);
+void				replace_dist(t_label *label, t_lst_op *lst);
 
 /*
 ** FONCTION WRITE
 */
 
-int				ft_write(char *file_name, unsigned char *tab, t_header *header);
+int					ft_write(char *file_name, unsigned char *tab, t_header *header);
 
 /*
 ** FONCTION UTILITAIRE
 */
 
-t_lst_op		*rmp_param(int param, t_lst_op *lst, int dir_size);
-int				param_type(char *param);
-char			**ft_split_inst(char *inst);
-char			*epur_str_beginning(char *line);
-char			*ft_binary_itoa(unsigned char c, int type);
+t_lst_op			*rmp_param(int param, t_lst_op *lst, int dir_size);
+int					param_type(char *param);
+char				**ft_split_inst(char *inst);
+char				*epur_str_beginning(char *line);
+char				*ft_binary_itoa(unsigned char c, int type);
 
 #endif

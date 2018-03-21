@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-void	init_set(t_header *header)
+void			init_set(t_header *header)
 {
 	header->name_is_set = 0;
 	header->comment_is_set = 0;
@@ -21,11 +21,14 @@ void	init_set(t_header *header)
 	memset(header->comment, 0, COMMENT_LENGTH + 1);
 }
 
-int		init_lst(t_lst_op *lst, int nb)
+t_lst_op		*init_lst(int nb)
 {
-	if (!lst || !(lst = malloc(sizeof(t_lst_op))))
-		return (0);
-	lst->pos = 0;
-	lst->line_nb = nb;
-	return (1);
+	t_lst_op	*new;
+	if (!(new = malloc(sizeof(t_lst_op))))
+		return (NULL);
+	new->pos = 0;
+	new->line_nb = nb;
+	new->next = NULL;
+	printf("new = %p\n", new);
+	return (new);
 }

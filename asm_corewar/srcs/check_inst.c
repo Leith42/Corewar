@@ -105,7 +105,7 @@ int					get_inst(char **inst, t_lst_op *lst)
 	i = 0;
 	nbw = (inst[0][ft_strlen(inst[0]) - 1] == ':') ? 1 : 0;
 	while (i < 16 && (ft_strcmp(g_op_tab[i].name, inst[nbw]) != 0))
-		i++;
+		++i;
 	printf("inst = %s, i = %d\n", inst[1], i);
 	if (i == 16)
 		return (inst_error(INVALID_INST, lst->line_nb, inst[nbw])); //Erreur instruct
@@ -146,13 +146,10 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 	label_lst = NULL;
 	line = NULL;
 	printf("check_inst\n");
-	while ((get_next_line(fd, &line, 50)) > 0)
+	while ((i = gnl(fd, &line)) > 0)
 	{
 		lnbr++;
 		printf("%d : %s\n", i, line);
-		/* On passe a la prochaine itération si on rencontre une ligne vide ou
-			sans chars (n'a pas l'air de marcher cela dit,
-		donc je pense que c'est le GNL à ce stade) */
 		if (line && (inst = ft_split_inst(line)) != NULL)
 		{
 			i++;
@@ -162,11 +159,12 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 				return (0); //Instruction incorrecte
 			}
 			ft_free_arr(inst);
-			if (init_lst(tmp->next, lnbr) && (tmp = tmp->next))
+			if ((tmp->next = init_lst(lnbr)) == NULL)
 				return (0);
+			tmp = tmp->next;
 		}
+		free(line);
 	}
-	tmp = lst;
 	//calc_dist_label(label_lst, tmp);
 	free(line);
 	/* AFFICHAGE TEMPORAIRE DES LABELS */

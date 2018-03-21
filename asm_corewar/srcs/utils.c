@@ -65,18 +65,16 @@ char		**ft_split_inst(char *inst)
 	while (inst[n] && inst[n] != '#' && t < 7)
 	{
 		while (inst[n] == ' ' || inst[n] == '\t' || inst[n] == ',')
-			n++;
-		if (t == 0 && (inst[n] == '\0' || inst[n] == '#'))
-			return (NULL);
+			++n;
 		while (inst[n + i] && inst[n + i] != ' ' && inst[n + i] != '\t'
 		&& inst[n + i] != ',' && inst[n + i] != '#')
-			i++;
+			++i;
 		if (i > 0)
 			params[t++] = ft_strndup(inst + n, i);
 		n += i;
 		i = 0;
 	}
-	return (params);
+	return ((t > 0) ? params : NULL);
 }
 
 /*
@@ -91,7 +89,7 @@ char		*epur_str_beginning(char *line)
 	i = 0;
 	dest = NULL;
 	while ((line[i] && line[i] == ' ') || (line[i] && line[i] == '\t'))
-		i++;
+		++i;
 	if (line[i])
 		dest = ft_strsub(line, i, ft_strlen(line));
 	free(line);
