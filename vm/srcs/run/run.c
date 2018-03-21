@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/20 00:16:45 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/21 23:52:31 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,10 @@
 
 static void	exec_inst(t_env *env, t_process *process)
 {
-	unsigned short	opcode;
 	unsigned int	new_pc;
 	int				ret;
 
-	opcode = process->cur_opcode;
-	if (opcode > 16 || opcode == 0)
+	if (process->cur_opcode > 16 || process->cur_opcode == 0)
 	{
 		process->pc++;
 		process->pc %= MEM_SIZE;
@@ -34,17 +32,18 @@ static void	exec_inst(t_env *env, t_process *process)
 		return ;
 	}
 	ft_printf("\x1b[KLe process appartenant à joueur %d effectue un %s \
-au pc %d  \n", process->champ_id, g_op_tab[opcode - 1].name, process->pc);
+au pc %d  \n\x1b[K", process->champ_id, g_op_tab[process->cur_opcode - 1].name,
+		process->pc);
 	new_pc = skip_pc(env, process);
-	ret = (*(env->exec_inst_tab[opcode]))(process, env);
-	if (opcode != OP_ZJMP || process->carry == 0)
+	ret = (*(env->exec_inst_tab[process->cur_opcode]))(process, env);
+	if (process->cur_opcode != OP_ZJMP || process->carry == 0)
 		process->pc = new_pc;
-	if (g_op_tab[opcode - 1].modif_carry == 1)
+	if (g_op_tab[process->cur_opcode - 1].modif_carry == 1)
 		process->carry = (ret == 0) ? 1 : 0;
-	if ((process->cur_opcode = env->arena[process->pc]) - 1 < 16)
+	process->cur_opcode = env->arena[process->pc];
+	process->cycle_to_wait = 0;
+	if (process->cur_opcode < 16 && process->cur_opcode > 0)
 		process->cycle_to_wait = g_op_tab[process->cur_opcode - 1].cycle_nb;
-	else
-		process->cycle_to_wait = 0;
 }
 
 static void	run_processes(t_env *env)
@@ -62,12 +61,14 @@ static void	run_processes(t_env *env)
 		{
 			ft_printf("\x1b[KLe process appartenant à joueur %d doit encore \
 attendre %d cycles. pc = %d reg = {%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,\
-%x,%x}  \n", process->champ_id, process->cycle_to_wait, process->pc,
+%x,%x}  \n\x1b[K", process->champ_id, process->cycle_to_wait, process->pc,
 			process->reg[0], process->reg[1], process->reg[2], process->reg[3],
 			process->reg[4], process->reg[5], process->reg[6], process->reg[7],
 			process->reg[8], process->reg[9], process->reg[10],
 			process->reg[11], process->reg[12], process->reg[13],
 			process->reg[14], process->reg[15]);
+			if (process->cycle_to_wait > 1000)
+				exit(1);
 			process->cycle_to_wait--;
 		}
 		list_of_processes = list_of_processes->next;
@@ -82,7 +83,7 @@ static void	cycle_check(t_env *env)
 
 	cycle++;
 	global_cycle++;
-	ft_printf("\n\n\n\x1b[KTotal cycles = %d\tCycles = %d\tCycle to die = %d\n\
+	ft_printf("\n\x1b[K\n\x1b[K\n\x1b[K\x1b[KTotal cycles = %d\tCycles = %d\tCycle to die = %d\n\
 \x1b[Knb_live = %d, checks = %d\n\x1b[KProcesses : %d\n\x1b[K",
 			global_cycle, cycle, env->cycle_to_die, env->nb_live, nb_checks,
 			ft_lstlen(env->process));
