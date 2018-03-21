@@ -127,22 +127,6 @@ int					get_inst(char **inst, t_lst_op *lst)
 	return (1);
 }
 
-int 				line_no_chars(char *line)
-{
-	int i;
-
-	i = 0;
-	while (line[i])
-	{
-	//	ft_putendl(&line[i]);
-		if (line[i] == ' ' || line[i] == '\t')
-			i++;
-		else
-			return (0);
-	}
-	return (1);
-}
-
 /*
 ** CHECK_INST - fonction qui lis le fichier ligne par ligne et qui creer **inst
 ** et qui renvoie chaque ligne ainsi separer vers get_inst.
@@ -160,6 +144,7 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 	tmp = lst;
 	tmp->line_nb = lnbr + 1;
 	label_lst = NULL;
+	line = NULL;
 	printf("check_inst\n");
 	while ((get_next_line(fd, &line, 50)) > 0)
 	{
@@ -168,7 +153,7 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 		/* On passe a la prochaine itération si on rencontre une ligne vide ou
 			sans chars (n'a pas l'air de marcher cela dit,
 		donc je pense que c'est le GNL à ce stade) */
-		if (line && !(line_no_chars(line)) && (inst = ft_split_inst(line)))
+		if (line && (inst = ft_split_inst(line)) != NULL)
 		{
 			i++;
 			if (!get_inst(inst, tmp)/* || (!(label_lst = check_label(inst, label_lst, tmp->pos, i)))*/)

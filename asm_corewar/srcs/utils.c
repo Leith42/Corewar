@@ -66,6 +66,8 @@ char		**ft_split_inst(char *inst)
 	{
 		while (inst[n] == ' ' || inst[n] == '\t' || inst[n] == ',')
 			n++;
+		if (t == 0 && (inst[n] == '\0' || inst[n] == '#'))
+			return (NULL);
 		while (inst[n + i] && inst[n + i] != ' ' && inst[n + i] != '\t'
 		&& inst[n + i] != ',' && inst[n + i] != '#')
 			i++;
