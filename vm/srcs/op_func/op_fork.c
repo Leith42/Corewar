@@ -21,6 +21,13 @@ int	do_fork(t_process *process, t_env *env)
 	add_new_process(env, process->champ_id);
 	fork = (t_process *)env->process->content;
 	memcpy(fork, process, sizeof(t_process));
+	if (process->aff_buffer != NULL)
+	{
+		if ((fork->aff_buffer = ft_strdup(process->aff_buffer)) == NULL)
+		{
+			ft_free_exit(*env, NULL, true, false);
+		}
+	}
 	fork->pc = (process->pc + (param % IDX_MOD)) % MEM_SIZE;
 	fork->cur_opcode = env->arena[fork->pc];
 	fork->cycle_to_wait = g_op_tab[fork->cur_opcode - 1].cycle_nb;
