@@ -13,6 +13,17 @@
 #include "vm.h"
 #include <stdlib.h>
 
+void		release_aff_buffer(t_process *process)
+{
+	if (process->aff_buffer != NULL)
+	{
+		ft_printf("A process (%d) in agony says: %s\n",
+					process->reg[0], process->aff_buffer);
+		free(process->aff_buffer);
+	}
+	getchar();
+}
+
 static void	add_to_buffer(char param, t_process *process, t_env *env)
 {
 	char			tmp[2];

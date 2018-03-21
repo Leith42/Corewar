@@ -181,5 +181,6 @@ int						do_aff(t_process *process, t_env *env);
 t_list					*lstdelnode(t_list *cur, t_list *node);
 size_t					kill_dead_process(t_env *env);
 void					add_new_process(t_env *env, unsigned int champion_id);
+void					release_aff_buffer(t_process *process);
 
 #endif
