@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 22:21:38 by mgonon            #+#    #+#             */
-/*   Updated: 2018/03/20 00:08:04 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/21 20:38:31 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ unsigned int	skip_pc(t_env *env, t_process *process)
 	unsigned int	cur;
 	unsigned int	cur_type;
 
-	if (g_op_tab[env->arena[process->pc] - 1].ocp == true)
+	if (g_op_tab[process->cur_opcode - 1].ocp == true)
 	{
 		param_len = 2;
 		cur = 0;

@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:56:37 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/15 21:47:28 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/21 20:45:53 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void		release_aff_buffer(t_process *process)
 					process->reg[0], process->aff_buffer);
 		free(process->aff_buffer);
 	}
-	getchar();
 }
 
 static void	add_to_buffer(char param, t_process *process, t_env *env)
