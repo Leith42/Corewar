@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/22 00:22:45 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/22 18:21:14 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ static void	init_processes_waits_and_opcodes(t_env *env)
 void		run(t_env *env)
 {
 	char	*winner;
+	t_list	*lst;//
 
 	load_champions(env);
 	init_processes_waits_and_opcodes(env);
@@ -142,7 +143,15 @@ void		run(t_env *env)
 			disp_arena(env, DUMP_LINE_LEN);
 			break ;
 		}
-		getchar(); // REMOVE AFTER DEBUG
+		lst = env->process; //To skip unused cycles
+		while (lst)
+		{
+			if (((t_process *)lst->content)->cycle_to_wait < 1)
+				break ;
+			lst = lst->next;
+		} //
+		if (lst)
+			getchar(); // REMOVE AFTER DEBUG
 	}
 	if ((winner = get_champ_name(env, env->last_live_id)))
 		ft_printf("\x1b[2JLe joueur %d(%s) a gagne.\n",
