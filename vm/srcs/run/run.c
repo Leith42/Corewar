@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/22 21:36:09 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/22 23:25:30 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,44 @@ attendre %d cycles. pc = %d reg = {%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,\
 	}
 }
 
+/*
+** Temporary function to skip unused cycles
+*/
+
+static unsigned int	skip_cycles(t_env *env)
+{
+	t_list			*lst;
+	unsigned int	min_wait;
+
+	min_wait = 1000;
+	lst = env->process;
+	while (lst)
+	{
+		if (((t_process *)lst->content)->cycle_to_wait < min_wait)
+			min_wait = ((t_process *)lst->content)->cycle_to_wait;
+		if (min_wait < 3)
+			return (0);
+		lst = lst->next;
+	}
+	lst = env->process;
+	while (lst)
+	{
+		((t_process *)lst->content)->cycle_to_wait -= (min_wait - 1);
+		lst = lst->next;
+	}
+	return (min_wait - 1);
+}
+
 static void	cycle_check(t_env *env)
 {
 	static size_t	nb_checks = 0;
 	static size_t	cycle = 0;
 	static size_t	global_cycle = 0;
+	unsigned int	cycles_skipped; //
 
-	cycle++;
-	global_cycle++;
+	cycles_skipped = skip_cycles(env);
+	cycle += 1 + cycles_skipped;
+	global_cycle += 1 + cycles_skipped;
 	ft_printf("\n\x1b[K\n\x1b[K\n\x1b[K\x1b[KTotal cycles = %d\tCycles = %d\t\
 Cycle to die = %d\n\x1b[Knb_live = %d, checks = %d\n\x1b[K\
 Processes : %d\n\x1b[K",
@@ -125,7 +155,6 @@ static void	init_processes_waits_and_opcodes(t_env *env)
 void		run(t_env *env)
 {
 	char	*winner;
-	t_list	*lst;//
 
 	load_champions(env);
 	init_processes_waits_and_opcodes(env);
@@ -141,15 +170,7 @@ void		run(t_env *env)
 			disp_arena(env, DUMP_LINE_LEN);
 			break ;
 		}
-		lst = env->process; //To skip unused cycles
-		while (lst)
-		{
-			if (((t_process *)lst->content)->cycle_to_wait < 1)
-				break ;
-			lst = lst->next;
-		} //
-		if (lst)
-			getchar(); // REMOVE AFTER DEBUG
+		getchar();//REMOVE AFTER DEBUG
 	}
 	if ((winner = get_champ_name(env, env->last_live_id)))
 		ft_printf("\x1b[2JLe joueur %d(%s) a gagne.\n",
