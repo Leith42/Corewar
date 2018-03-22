@@ -50,7 +50,7 @@ unsigned int	skip_pc(t_env *env, t_process *process)
 	}
 	else
 		param_len = 1 + (
-			(g_op_tab[env->arena[process->pc] - 1].addr_or_nb == true) ? 2 : 4);
+			(g_op_tab[process->cur_opcode - 1].addr_or_nb == true) ? 2 : 4);
 	set_mask_id(env, process, param_len);
 	return ((process->pc + param_len) % MEM_SIZE);
 }
