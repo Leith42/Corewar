@@ -156,7 +156,7 @@ int					ft_write(char *file_name, unsigned char *tab, t_header *header);
 ** FONCTION UTILITAIRE
 */
 
-t_lst_op			*rmp_param(int param, t_lst_op *lst, int dir_size);
+t_lst_op			*rmp_param(int param, t_lst_op *lst, int dir_size, int res);
 int					param_type(char *param);
 char				**ft_split_inst(char *inst);
 char				*epur_str_beginning(char *line);

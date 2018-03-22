@@ -36,11 +36,11 @@ int					get_params(char	**inst, t_lst_op *lst, int opc)
 			lst->op[lst->pos++] = (unsigned char)(nb);
 		}
 		else if (type == T_DIR && inst[i][1] == ':') // CAS D'UN LABEL - PAS GERÉ
-			lst = rmp_param(0, lst, dir_size);
+			lst = rmp_param(0, lst, dir_size, -1);
 		else if (type == T_DIR)
-			lst = rmp_param(ft_atoi(inst[i] + 1), lst, dir_size);
+			lst = rmp_param(ft_atoi(inst[i] + 1), lst, dir_size, -1);
 		else if (type == T_IND)
-			lst = rmp_param(ft_atoi(inst[i]), lst, 2);
+			lst = rmp_param(ft_atoi(inst[i]), lst, 2, -1);
 	}
 	return (1);
 }
@@ -120,9 +120,9 @@ int					get_inst(char **inst, t_lst_op *lst)
 	nbw = 0;
 
 	/* AFFICHAGE TEMPORAIRE */
-//	while (nbw < lst->pos)
-//		printf("%02x ", lst->op[nbw++]);
-//	printf("\n");
+	while (nbw < lst->pos)
+		printf("%02x ", lst->op[nbw++]);
+	printf("\n");
 	nb_oc += lst->pos;
 	return (1);
 }
@@ -166,8 +166,20 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 //		free(line);
 	}
 	calc_dist_label(label_lst, tmp);
+	replace_dist(label_lst, lst);
 	free(line);
-	/* AFFICHAGE TEMPORAIRE DES LABELS */
-	/*aff_label(label_lst);*/
+	 //AFFICHAGE TEMPORAIRE DES LABELS 
+	aff_label(label_lst);
+	i = 0;
+	while (lst)
+	{
+		while (i < lst->pos)
+		{
+			ft_printf("%02x ", lst->op[i++]);
+		}
+		ft_putchar('\n');
+		i = 0;
+		lst = lst->next;
+	}
 	return (1);
 }
