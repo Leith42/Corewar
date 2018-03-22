@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:55:03 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/17 01:27:03 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/22 23:53:49 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		do_live(t_process *process, t_env *env)
 (%u) as alive.\x1b[500D\x1b[A", champion_name, param);
 	}
 	else
-		param = 0;
+		param = NULL_ID;
 	env->mask[(process->pc + 1) % MEM_SIZE] = param;
 	env->mask[(process->pc + 2) % MEM_SIZE] = param;
 	env->mask[(process->pc + 3) % MEM_SIZE] = param;
