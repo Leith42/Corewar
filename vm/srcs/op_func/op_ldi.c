@@ -6,11 +6,15 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:56:16 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/15 17:32:47 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/22 21:14:49 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+/*
+** T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG
+*/
 
 int	do_ldi(t_process *process, t_env *env)
 {
@@ -24,10 +28,11 @@ int	do_ldi(t_process *process, t_env *env)
 			process->pc + 2 + ((type[0] == T_REG) ? 1 : 2), type[1], OP_LDI);
 	val[2] = get_param_raw_value(env,
 			process->pc + 2 + ((type[0] == T_REG) ? 1 : 2) +
-			((type[1] == T_REG) ? 1 : 2), type[1], OP_LDI);
-	if (!(get_param_type(env, process->pc, OP_LDI, 2) == T_REG && type[0] &
-		g_op_tab[OP_LDI - 1].param_type[0] && type[1] &
-		g_op_tab[OP_LDI - 1].param_type[1] && is_reg(val[2])
+			((type[1] == T_REG) ? 1 : 2), T_REG, OP_LDI);
+	if (!(get_param_type(env, process->pc, OP_LDI, 2) == T_REG
+		&& type[0] & g_op_tab[OP_LDI - 1].param_type[0]
+		&& type[1] & g_op_tab[OP_LDI - 1].param_type[1]
+		&& is_reg(val[2])
 		&& (type[0] != T_REG || is_reg(val[0]))))
 		return (0);
 	val[1] = (type[1] == T_REG) ? process->reg[val[1] - 1] : val[1];
