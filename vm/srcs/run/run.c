@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/22 18:21:14 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/22 21:36:09 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ attendre %d cycles. pc = %d reg = {%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,\
 			process->reg[8], process->reg[9], process->reg[10],
 			process->reg[11], process->reg[12], process->reg[13],
 			process->reg[14], process->reg[15]);
-			if (process->cycle_to_wait > 1000)
-				exit(1);
 			process->cycle_to_wait--;
 		}
 		list_of_processes = list_of_processes->next;
