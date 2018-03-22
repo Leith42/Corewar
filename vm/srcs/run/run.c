@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/22 23:25:30 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/22 23:46:35 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ static void	exec_inst(t_env *env, t_process *process)
 	unsigned int	new_pc;
 	int				ret;
 
+	ft_printf("\x1b[KLe process appartenant à joueur %d effectue un %s au pc = \
+%d; reg = {%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x, %x,%x}  \n\x1b[K",
+	process->champ_id, (process->cur_opcode > 16 || process->cur_opcode == 0) ?
+	"bad opcode" : g_op_tab[process->cur_opcode - 1].name, process->pc,
+	process->reg[0], process->reg[1], process->reg[2], process->reg[3],
+	process->reg[4], process->reg[5], process->reg[6], process->reg[7],
+	process->reg[8], process->reg[9], process->reg[10], process->reg[11],
+	process->reg[12], process->reg[13], process->reg[14], process->reg[15]);
 	if (process->cur_opcode > 16 || process->cur_opcode == 0)
 	{
 		process->pc++;
@@ -32,9 +40,6 @@ static void	exec_inst(t_env *env, t_process *process)
 		process->cycle_to_wait = 0;
 		return ;
 	}
-	ft_printf("\x1b[KLe process appartenant à joueur %d effectue un %s \
-au pc %d  \n\x1b[K", process->champ_id, g_op_tab[process->cur_opcode - 1].name,
-		process->pc);
 	new_pc = skip_pc(env, process);
 	ret = (*(env->exec_inst_tab[process->cur_opcode]))(process, env);
 	if (process->cur_opcode != OP_ZJMP || process->carry == 0)
