@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/23 00:27:59 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/23 00:32:11 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ static void	exec_inst(t_env *env, t_process *process)
 	unsigned int	new_pc;
 	int				ret;
 
-	ft_printf("\x1b[KLe process appartenant à joueur %d effectue un %s au pc = \
-%d; reg = {%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x, %x,%x}  \n\x1b[K",
+	ft_printf("\x1b[KLe process appartenant à joueur %d effectue un \x1b[31m%s\
+\x1b[0m au pc = %d; reg = {%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x,%x, %x,%x}  \
+\n\x1b[K",
 	process->champ_id, (process->cur_opcode > 16 || process->cur_opcode == 0) ?
 	"bad opcode" : g_op_tab[process->cur_opcode - 1].name, process->pc,
 	process->reg[0], process->reg[1], process->reg[2], process->reg[3],
