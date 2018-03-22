@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:06:58 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/22 21:50:24 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/22 23:54:30 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ static char		*get_champ_color(t_env *env, unsigned int id, size_t i)
 	int		is_pc;
 	t_list	*lst;
 
-	if (id == NULL_ID)
-		return ("\x1b[2;37m");
 	lst = env->process;
 	while (lst)
 	{
@@ -29,7 +27,9 @@ static char		*get_champ_color(t_env *env, unsigned int id, size_t i)
 		lst = lst->next;
 	}
 	is_pc = (lst != NULL) ? 1 : 0;
-	if (id == env->champions[0].id)
+	if (id == NULL_ID)
+		return ((is_pc) ? "\x1b[7;37m" : "\x1b[0m\x1b[2;37m");
+	else if (id == env->champions[0].id)
 		return ((is_pc) ? COLOR_P1_PC : COLOR_P1);
 	else if (env->nb_of_champions > 1 && id == env->champions[1].id)
 		return ((is_pc) ? COLOR_P2_PC : COLOR_P2);
@@ -96,7 +96,7 @@ void			disp_arena(t_env *env, size_t line_len)
 		ft_strclr(tmp);
 		len = 0;
 	}
-	ft_putstr("\x1b[0m");
+	ft_putstr("\x1b[0m\x1b[K");
 }
 
 unsigned int	ft_lstlen(t_list *lst)
