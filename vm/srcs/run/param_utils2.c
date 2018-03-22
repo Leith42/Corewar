@@ -41,7 +41,7 @@ unsigned int	skip_pc(t_env *env, t_process *process)
 		{
 			cur_type = get_param_type(env, process->pc, 0x00, cur);
 			if (cur_type == T_DIR)
-				param_len += (g_op_tab[env->arena[process->pc] - 1].addr_or_nb
+				param_len += (g_op_tab[process->cur_opcode - 1].addr_or_nb
 						== true) ? 2 : 4;
 			else
 				param_len += (cur_type == T_IND) ? 2 : cur_type;
