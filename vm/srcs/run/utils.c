@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:06:58 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/22 23:54:30 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/23 00:27:32 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void		load_hex_byte(char *dst, size_t *len, unsigned char byte)
 {
 	unsigned char	cur;
 
+	*len += ft_strlen(dst + *len);
 	cur = byte >> 4;
 	if (cur < 10)
 		cur += '0';
@@ -78,25 +79,25 @@ void			disp_arena(t_env *env, size_t line_len)
 
 	if (!tmp && !(tmp = ft_strnew(16 * line_len)))
 		ft_free_exit(*env, "Not enough memory", 1, 0);
-	len = 0;
-	ft_printf("\x1b[H     ", i = 0);
-	while (i < line_len)
+	ft_printf("\x1b[H\x1b[0;3;47m     ", i = 0);
+	while (i < line_len || (len = 0))
 		ft_printf("%-3d", i++);
-	ft_printf("\n", i = 0);
+	ft_printf("  \n", i = 0);
 	while (i < MEM_SIZE)
 	{
-		(len == 0) ? (void)ft_printf("\x1b[0m%-5d", i) : (void)len;
+		(len == 0) ? (void)ft_printf("\x1b[0;3;47m%-5d", i) : (void)len;
 		ft_strcat(tmp + len, get_champ_color(env, env->mask[i], i));
-		len += ft_strlen(tmp + len);
 		load_hex_byte(tmp, &len, env->arena[i]);
 		if ((++i % line_len) != 0 && (len++ || 1))
 			continue ;
-		tmp[len++] = '\n';
-		write(1, tmp, len);
+		ft_strcat(tmp + len, "\x1b[0;47m  \n");
+		write(1, tmp, len + 11);
 		ft_strclr(tmp);
 		len = 0;
 	}
-	ft_putstr("\x1b[0m\x1b[K");
+	ft_printf("\x1b[0;47m     ", i = 0);
+	while (i <= line_len)
+		ft_printf((i++ < line_len) ? "   " : "  \n\x1b[0m\x1b[K");
 }
 
 unsigned int	ft_lstlen(t_list *lst)
