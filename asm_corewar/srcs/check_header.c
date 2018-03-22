@@ -6,7 +6,7 @@
 /*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 09:38:17 by mmatime           #+#    #+#             */
-/*   Updated: 2018/03/10 18:56:18 by mmatime          ###   ########.fr       */
+/*   Updated: 2018/03/22 10:08:48 by lgraham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		check_header(int fd, t_header *header)
 		line = epur_str_beginning(line); // supprime les espaces en debut de ligne
 		line_nb++;
 
-		printf("%d : %s\n", line_nb, line);
+//		printf("%d : %s\n", line_nb, line);
 		if (*line == COMMENT_CHAR) // si c'est un com, on l'ignore et on passe a la prochaine itération de GNL
 			continue ;
 		else if (line_is_point(line, header, line_nb)) // verifie si c'est .name ou .comment
@@ -60,9 +60,9 @@ int		check_header(int fd, t_header *header)
 	/*
 	** TEST AFFICHAGE TEMPORAIRE
 	*/
-	if (header->prog_name[0])
-		ft_printf("name = >%s<\n", header->prog_name);
-	if (header->comment[0])
-		ft_printf("comment = >%s<\n", header->comment);
+//	if (header->prog_name[0])
+//		ft_printf("name = >%s<\n", header->prog_name);
+//	if (header->comment[0])
+//		ft_printf("comment = >%s<\n", header->comment);
 	return (line_nb);
 }

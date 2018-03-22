@@ -6,7 +6,7 @@
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:54:16 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/03/21 21:45:43 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/22 10:06:17 by lgraham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,12 @@ int					get_inst(char **inst, t_lst_op *lst)
 	nbw = (inst[0][ft_strlen(inst[0]) - 1] == ':') ? 1 : 0;
 	while (i < 16 && (ft_strcmp(g_op_tab[i].name, inst[nbw]) != 0))
 		++i;
-	printf("inst = %s, i = %d\n", inst[1], i);
+//	printf("inst = %s, i = %d\n", inst[1], i);
 	if (i == 16)
 		return (inst_error(INVALID_INST, lst->line_nb, inst[nbw])); //Erreur instruct
 	if (!(check_params(inst + ++nbw, i, lst->line_nb)))
 		return (0);
-	printf("inst = %s, i = %d\n", inst[1], i);
+//	printf("inst = %s, i = %d\n", inst[1], i);
 	lst->op[lst->pos++] = i + 1;
 	if (g_op_tab[i].ocp == 1 && lst->pos++)
 		lst->op[lst->pos - 1] = get_ocp(inst + nbw);
@@ -120,9 +120,9 @@ int					get_inst(char **inst, t_lst_op *lst)
 	nbw = 0;
 
 	/* AFFICHAGE TEMPORAIRE */
-	while (nbw < lst->pos)
-		printf("%02x ", lst->op[nbw++]);
-	printf("\n");
+//	while (nbw < lst->pos)
+//		printf("%02x ", lst->op[nbw++]);
+//	printf("\n");
 	nb_oc += lst->pos;
 	return (1);
 }
@@ -145,15 +145,15 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 	tmp->line_nb = lnbr + 1;
 	label_lst = NULL;
 	line = NULL;
-	printf("check_inst\n");
+//	printf("check_inst\n");
 	while ((i = get_next_line(fd, &line, 64)) > 0)
 	{
 		lnbr++;
-		printf("%d : %s\n", i, line);
+//		printf("%d : %s\n", i, line);
 		if (line && (inst = ft_split_inst(line)) != NULL)
 		{
 			i++;
-			if (!get_inst(inst, tmp)/* || (!(label_lst = check_label(inst, label_lst, tmp->pos, i)))*/)
+			if (!get_inst(inst, tmp) || (!(label_lst = check_label(inst, label_lst, tmp->pos, i))))
 			{
 				ft_free_arr(inst);
 				return (0); //Instruction incorrecte
@@ -163,9 +163,9 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 				return (0);
 			tmp = tmp->next;
 		}
-		free(line);
+//		free(line);
 	}
-	//calc_dist_label(label_lst, tmp);
+	calc_dist_label(label_lst, tmp);
 	free(line);
 	/* AFFICHAGE TEMPORAIRE DES LABELS */
 	/*aff_label(label_lst);*/

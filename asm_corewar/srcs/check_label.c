@@ -6,7 +6,7 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 01:10:03 by lgraham           #+#    #+#             */
-/*   Updated: 2018/03/20 08:21:03 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/03/22 10:11:56 by lgraham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,6 @@ t_label		*check_label(char **inst, t_label *label_list, int pos, int p)
 		}
 		i++;
 	}
-	//oct_count(inst, pos, label_list);
+	oct_count(inst, pos, label_list);
 	return (label_list);
 }

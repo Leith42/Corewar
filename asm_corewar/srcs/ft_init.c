@@ -6,7 +6,7 @@
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 18:04:23 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/03/20 18:04:37 by lmartin-         ###   ########.fr       */
+/*   Updated: 2018/03/22 10:09:06 by lgraham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ t_lst_op		*init_lst(int nb)
 	new->pos = 0;
 	new->line_nb = nb;
 	new->next = NULL;
-	printf("new = %p\n", new);
+//	printf("new = %p\n", new);
 	return (new);
 }

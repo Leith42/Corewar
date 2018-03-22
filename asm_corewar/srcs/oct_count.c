@@ -6,7 +6,7 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 03:49:24 by lgraham           #+#    #+#             */
-/*   Updated: 2018/03/20 08:47:44 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/03/22 10:11:54 by lgraham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,18 +89,24 @@ void	oct_count(char **inst, int pos, t_label *label)
 	t_label		*tmp;
 
 	nb = 0;
+	ft_putendl("lol");
 	tmp = label;
 	while (tmp->next && tmp->next->oct != -1)
 		tmp = tmp->next;
+	ft_putendl("lol2");
 	while (inst[nb])
 	{
 		if (check_label_char(inst[nb]) == 1)
 		{
+			ft_putendl("lol3");
 			tmp->oct = tmp->oct_tmp;
-			tmp->place = oct_prec(pos, inst, nb - 1);
-			tmp = tmp->next;
+			//tmp->place = oct_prec(pos, inst, nb - 1);
+			if (tmp != NULL)
+				tmp = tmp->next;
 		}
 		nb++;
 	}
+	ft_putendl("lol4");
 	tmp->oct_tmp += pos;
+	ft_printf("pos_tmp = %d\n", tmp->oct_tmp);
 }
