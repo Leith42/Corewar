@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:06:58 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/23 00:27:32 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/23 17:55:36 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,13 @@ void			disp_arena(t_env *env, size_t line_len)
 
 	if (!tmp && !(tmp = ft_strnew(16 * line_len)))
 		ft_free_exit(*env, "Not enough memory", 1, 0);
-	ft_printf("\x1b[H\x1b[0;3;47m     ", i = 0);
+	ft_printf("\x1b[H\x1b[0;3;30;47m     ", i = 0);
 	while (i < line_len || (len = 0))
 		ft_printf("%-3d", i++);
 	ft_printf("  \n", i = 0);
 	while (i < MEM_SIZE)
 	{
-		(len == 0) ? (void)ft_printf("\x1b[0;3;47m%-5d", i) : (void)len;
+		(len == 0) ? (void)ft_printf("\x1b[0;3;30;47m%-5d", i) : (void)len;
 		ft_strcat(tmp + len, get_champ_color(env, env->mask[i], i));
 		load_hex_byte(tmp, &len, env->arena[i]);
 		if ((++i % line_len) != 0 && (len++ || 1))
