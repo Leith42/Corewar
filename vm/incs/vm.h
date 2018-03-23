@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/23 00:13:07 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/23 18:34:11 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,8 @@ void					write_uint_to_char(t_env *env, unsigned int start,
 						unsigned short size, unsigned int value);
 unsigned int			skip_pc(t_env *env, t_process *process);
 unsigned int			is_reg(unsigned int value);
+void					disp_process_state(t_env *env, t_process *proc);
+
 /*
 ** List of actions tht can be performed by the process
 */
