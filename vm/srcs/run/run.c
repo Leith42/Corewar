@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/23 21:06:38 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/23 21:23:56 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static void		exec_inst(t_env *env, t_process *process)
 		process->pc %= MEM_SIZE;
 		process->cur_opcode = env->arena[process->pc];
 		process->cycle_to_wait = 1;
+		if (process->cur_opcode < 16 && process->cur_opcode > 0)
+			process->cycle_to_wait = g_op_tab[process->cur_opcode - 1].cycle_nb;
 		return ;
 	}
 	new_pc = skip_pc(env, process);
