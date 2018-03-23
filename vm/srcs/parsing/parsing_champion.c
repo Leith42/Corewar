@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:54:44 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/09 02:24:34 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/23 18:54:09 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	parse_champion_id(t_env *env, char *custom_id, t_champion *champion)
 			ft_free_exit(*env, "Champions IDs can't be 0.", 0, 1);
 		if (is_id_unique(champion_id, env->champions) == false)
 			ft_free_exit(*env,
-						 "Please make sure that your IDs are unique.", 0, 1);
+					"Please make sure that your IDs are unique.", 0, 1);
 		champion->id = champion_id;
 	}
 	else if (env->nb_of_champions == 0)
