@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/23 19:27:09 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/23 19:36:43 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		exec_inst(t_env *env, t_process *process)
 		process->pc++;
 		process->pc %= MEM_SIZE;
 		process->cur_opcode = env->arena[process->pc];
-		process->cycle_to_wait = 0;
+		process->cycle_to_wait = 1;
 		return ;
 	}
 	new_pc = skip_pc(env, process);
@@ -39,7 +39,7 @@ static void		exec_inst(t_env *env, t_process *process)
 	if (g_op_tab[process->cur_opcode - 1].modif_carry == 1)
 		process->carry = (ret == 0) ? 1 : 0;
 	process->cur_opcode = env->arena[process->pc];
-	process->cycle_to_wait = 0;
+	process->cycle_to_wait = 1;
 	if (process->cur_opcode < 16 && process->cur_opcode > 0)
 		process->cycle_to_wait = g_op_tab[process->cur_opcode - 1].cycle_nb;
 }
@@ -53,11 +53,10 @@ static void		run_processes(t_env *env)
 	while (list_of_processes)
 	{
 		process = (t_process *)list_of_processes->content;
+		process->cycle_to_wait--;
 		disp_process_state(env, process);
 		if (process->cycle_to_wait == 0)
 			exec_inst(env, process);
-		else
-			process->cycle_to_wait--;
 		list_of_processes = list_of_processes->next;
 	}
 }
