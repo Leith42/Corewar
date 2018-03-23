@@ -20,7 +20,7 @@ int			main(int argc, char *argv[])
 	if (argc < 2)
 	{
 		ft_putendl("Usage: ./corewar \
-[-dump nbr_cycles] [[-n number] champion1.cor] ...");
+[-dump nbr_cycles] [-v] [-i] [[-n number] champion1.cor] ...");
 	}
 	else if (sizeof(int) != 4 || sizeof(short) != 2)
 	{

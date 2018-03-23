@@ -31,6 +31,25 @@ static size_t	get_dump_cycle(char **argv, size_t *pos, t_env *env)
 	return (cycles);
 }
 
+static void		parse_options(char **arguments, size_t *index, t_env *env)
+{
+	if (ft_strequ(arguments[*index], "-dump") == true)
+	{
+		env->dump_cycle = get_dump_cycle(arguments, index, env);
+	}
+	else if (ft_strequ(arguments[*index], "-i") == true)
+	{
+		env->verbose = true;
+		env->interactive = true;
+		(*index)++;
+	}
+	else if (ft_strequ(arguments[*index], "-v") == true)
+	{
+		env->verbose = true;
+		(*index)++;
+	}
+}
+
 /*
 **	Starting point of the parsing.
 **	Here we make sure that all arguments are valid.
@@ -46,15 +65,14 @@ void			parse_argv(t_env *env, char **arguments)
 	while (arguments[index])
 	{
 		custom_id = NULL;
-		if (ft_strequ(arguments[index], "-dump") == true)
-			env->dump_cycle = get_dump_cycle(arguments, &index, env);
+		parse_options(arguments, &index, env);
 		if (arguments[index] == NULL)
 			break ;
 		if (ft_strequ(arguments[index], "-n") == true)
 		{
 			if ((custom_id = arguments[index + 1]) == NULL)
-				ft_free_exit(*env, "Champions numbers must be \
-strictly positive integers.", 0, 1);
+				ft_free_exit(*env, "No ID specified after \
+the \"-n\" option.", 0, 1);
 			index += 2;
 		}
 		if (env->nb_of_champions >= MAX_PLAYERS)
