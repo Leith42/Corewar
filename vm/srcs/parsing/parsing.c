@@ -39,15 +39,24 @@ static void		parse_options(char **arguments, size_t *index, t_env *env)
 	}
 	else if (ft_strequ(arguments[*index], "-i") == true)
 	{
-		env->verbose = true;
+		env->visual = true;
 		env->interactive = true;
 		(*index)++;
 	}
 	else if (ft_strequ(arguments[*index], "-v") == true)
 	{
-		env->verbose = true;
+		env->visual = true;
 		(*index)++;
 	}
+	else if (ft_strequ(arguments[*index], "-d") == true)
+	{
+		env->debug = true;
+		(*index)++;
+	}
+	else
+		return ;
+	if (arguments[*index] != NULL)
+		parse_options(arguments, index, env);
 }
 
 /*

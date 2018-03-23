@@ -54,8 +54,9 @@ void		init_env(t_env *env)
 	env->process = NULL;
 	env->cycle_to_die = CYCLE_TO_DIE;
 	env->nb_live = 0;
-	env->verbose = false;
+	env->debug = false;
 	env->interactive = false;
+	env->visual = false;
 	init_champions(env);
 	init_exec_inst_tab(env);
 	ft_bzero(&(env->arena), sizeof(env->arena));

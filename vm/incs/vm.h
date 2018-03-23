@@ -93,8 +93,9 @@ typedef struct			s_env
 	t_list				*process;
 	unsigned short		nb_of_champions;
 	bool				is_dump_cycle_specified;
-	bool				verbose;
+	bool				debug;
 	bool				interactive;
+	bool				visual;
 	size_t				dump_cycle;
 	size_t				cycle_to_die;
 	size_t				nb_live;
