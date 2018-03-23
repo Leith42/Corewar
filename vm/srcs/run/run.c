@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/23 18:34:11 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/23 19:09:30 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** Sets the generic values it can.
 */
 
-static void	exec_inst(t_env *env, t_process *process)
+static void		exec_inst(t_env *env, t_process *process)
 {
 	unsigned int	new_pc;
 	int				ret;
@@ -44,7 +44,7 @@ static void	exec_inst(t_env *env, t_process *process)
 		process->cycle_to_wait = g_op_tab[process->cur_opcode - 1].cycle_nb;
 }
 
-static void	run_processes(t_env *env)
+static void		run_processes(t_env *env)
 {
 	t_list		*list_of_processes;
 	t_process	*process;
@@ -66,12 +66,12 @@ static void	run_processes(t_env *env)
 ** Temporary function to skip unused cycles
 */
 
-static unsigned int	skip_cycles(t_env *env)
+static size_t	skip_cycles(t_env *env, size_t max_skip)
 {
-	t_list			*lst;
-	unsigned int	min_wait;
+	t_list		*lst;
+	size_t		min_wait;
 
-	min_wait = 1000;
+	min_wait = max_skip;
 	lst = env->process;
 	while (lst)
 	{
@@ -90,14 +90,14 @@ static unsigned int	skip_cycles(t_env *env)
 	return (min_wait - 1);
 }
 
-static void	cycle_check(t_env *env)
+static void		cycle_check(t_env *env)
 {
 	static size_t	nb_checks = 0;
 	static size_t	cycle = 0;
 	static size_t	global_cycle = 0;
-	unsigned int	cycles_skipped; //
+	size_t			cycles_skipped; //
 
-	cycles_skipped = skip_cycles(env);
+	cycles_skipped = skip_cycles(env, env->cycle_to_die - cycle);
 	cycle += 1 + cycles_skipped;
 	global_cycle += 1 + cycles_skipped;
 	ft_printf("\n\x1b[K\n\x1b[K\n\x1b[K\x1b[KTotal cycles = %d\tCycles = %d\t\
@@ -109,19 +109,17 @@ Processes : %d\n\x1b[K",
 		return ;
 	ft_printf("\n\x1b[KProcesses killed at last check : %d\n\x1b[K",
 			kill_dead_process(env));
-	if (env->nb_live >= NBR_LIVE || nb_checks >= MAX_CHECKS)
-	{
+	if ((env->nb_live >= NBR_LIVE || nb_checks >= MAX_CHECKS)
+		&& !(nb_checks = 0))
 		env->cycle_to_die -= (env->cycle_to_die <= CYCLE_DELTA) ?
 			env->cycle_to_die : CYCLE_DELTA;
-		nb_checks = 0;
-	}
 	else
 		nb_checks++;
 	env->nb_live = 0;
 	cycle = 0;
 }
 
-static void	init_processes_waits_and_opcodes(t_env *env)
+static void		init_processes_waits_and_opcodes(t_env *env)
 {
 	t_list		*proc_lst;
 	t_process	*proc;
@@ -140,7 +138,7 @@ static void	init_processes_waits_and_opcodes(t_env *env)
 ** Runs the battle.
 */
 
-void		run(t_env *env)
+void			run(t_env *env)
 {
 	char	*winner;
 
