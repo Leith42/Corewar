@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/23 19:09:30 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/23 19:27:09 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static void		cycle_check(t_env *env)
 	static size_t	nb_checks = 0;
 	static size_t	cycle = 0;
 	static size_t	global_cycle = 0;
-	size_t			cycles_skipped; //
+	size_t			cycles_skipped;
 
 	cycles_skipped = skip_cycles(env, env->cycle_to_die - cycle);
 	cycle += 1 + cycles_skipped;
@@ -119,21 +119,6 @@ Processes : %d\n\x1b[K",
 	cycle = 0;
 }
 
-static void		init_processes_waits_and_opcodes(t_env *env)
-{
-	t_list		*proc_lst;
-	t_process	*proc;
-
-	proc_lst = env->process;
-	while (proc_lst)
-	{
-		proc = (t_process *)proc_lst->content;
-		proc->cycle_to_wait = g_op_tab[env->arena[proc->pc] - 1].cycle_nb;
-		proc->cur_opcode = env->arena[proc->pc];
-		proc_lst = proc_lst->next;
-	}
-}
-
 /*
 ** Runs the battle.
 */
@@ -143,7 +128,6 @@ void			run(t_env *env)
 	char	*winner;
 
 	load_champions(env);
-	init_processes_waits_and_opcodes(env);
 	ft_putstr("\x1b[2J\x1b[68;0H");
 	while (env->process != NULL)
 	{
@@ -156,7 +140,7 @@ void			run(t_env *env)
 			disp_arena(env, DUMP_LINE_LEN);
 			break ;
 		}
-		getchar();//REMOVE AFTER DEBUG
+		getchar();//Until ft_getchar
 	}
 	if ((winner = get_champ_name(env, env->last_live_id)))
 		ft_printf("\x1b[2JLe joueur %d(%s) a gagne.\n",

@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 09:57:28 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/16 23:02:32 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/23 19:26:37 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,21 @@ static t_process	*get_next_proc_backwards(t_env *env, unsigned int champ_nb)
 		champ_nb++;
 	}
 	return ((t_process *)ret->content);
+}
+
+static void			init_processes_waits_and_opcodes(t_env *env)
+{
+	t_list		*proc_lst;
+	t_process	*proc;
+
+	proc_lst = env->process;
+	while (proc_lst)
+	{
+		proc = (t_process *)proc_lst->content;
+		proc->cycle_to_wait = g_op_tab[env->arena[proc->pc] - 1].cycle_nb;
+		proc->cur_opcode = env->arena[proc->pc];
+		proc_lst = proc_lst->next;
+	}
 }
 
 void				load_champions(t_env *env)
@@ -56,4 +71,5 @@ void				load_champions(t_env *env)
 			env->mask[entry_point++] = env->champions[champ_nb].id;
 		champ_nb++;
 	}
+	init_processes_waits_and_opcodes(env);
 }
