@@ -13,20 +13,24 @@
 #include "vm.h"
 #include <stdlib.h>
 
+void		print_usage()
+{
+	ft_putendl("Usage: ./corewar \
+[-dump nbr_cycles] [-v] [-i] [-d] [[-n number] champion1.cor] ...");
+	ft_putendl("-dump\t : Dumps memory after N cycles then exits");
+	ft_putendl("-n\t : Specify a custom champion ID.");
+	ft_putendl("-v\t : Graphic mode.");
+	ft_putendl("-i\t : Interactive mode.");
+	ft_putendl("-d\t : Debug mode.");
+}
+
 int			main(int argc, char *argv[])
 {
 	t_env		env;
 
 	if (argc < 2)
 	{
-		ft_putendl("Usage: ./corewar \
-[-dump nbr_cycles] [-v] [-i] [-d] [[-n number] champion1.cor] ...");
-		ft_putendl("-dump\t : Dumps memory after N cycles then exits");
-		ft_putendl("-n\t : Specify a custom champion ID.");
-		ft_putendl("-v\t : Graphic mode.");
-		ft_putendl("-i\t : Interactive mode.");
-		ft_putendl("-d\t : Debug mode.");
-
+		print_usage();
 	}
 	else if (sizeof(int) != 4 || sizeof(short) != 2)
 	{
