@@ -13,7 +13,7 @@
 #include "vm.h"
 #include <stdlib.h>
 
-void		print_usage()
+void		print_usage(void)
 {
 	ft_putendl("Usage: ./corewar \
 [-dump nbr_cycles] [-v] [-i] [-d] [[-n number] champion1.cor] ...");

@@ -139,7 +139,7 @@ unsigned int			swap_uint32(unsigned int x);
 unsigned int			ft_unsigned_atoi(const char *str);
 unsigned int			ft_lstlen(t_list *lst);
 char					*get_champ_name(t_env *env, unsigned int id);
-
+void					print_usage(void);
 /*
 ** Arena runtime
 */
