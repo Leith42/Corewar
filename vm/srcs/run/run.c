@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/23 19:36:43 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/23 21:06:38 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ static void		run_processes(t_env *env)
 	{
 		process = (t_process *)list_of_processes->content;
 		process->cycle_to_wait--;
-		disp_process_state(env, process);
+		if (env->debug)
+			disp_process_state(env, process);
 		if (process->cycle_to_wait == 0)
 			exec_inst(env, process);
 		list_of_processes = list_of_processes->next;
@@ -127,19 +128,22 @@ void			run(t_env *env)
 	char	*winner;
 
 	load_champions(env);
-	ft_putstr("\x1b[2J\x1b[68;0H");
+	if (env->visual)
+		ft_putstr("\x1b[2J\x1b[68;0H");
 	while (env->process != NULL)
 	{
 		run_processes(env);
 		cycle_check(env);
-		disp_arena(env, 64);
+		if (env->visual)
+			disp_arena(env, 64);
 		if (env->is_dump_cycle_specified && env->dump_cycle-- == 0)
 		{
 			ft_putstr("\x1b[2J");
 			disp_arena(env, DUMP_LINE_LEN);
 			break ;
 		}
-		getchar();//Until ft_getchar
+		if (env->interactive)
+			getchar();//Until ft_getchar
 	}
 	if ((winner = get_champ_name(env, env->last_live_id)))
 		ft_printf("\x1b[2JLe joueur %d(%s) a gagne.\n",
