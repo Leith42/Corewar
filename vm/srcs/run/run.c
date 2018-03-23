@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/23 21:23:56 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/23 23:42:34 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void			run(t_env *env)
 			break ;
 		}
 		if (env->interactive)
-			getchar();//Until ft_getchar
+			ft_pause(env);
 	}
 	if ((winner = get_champ_name(env, env->last_live_id)))
 		ft_printf("\x1b[2JLe joueur %d(%s) a gagne.\n",

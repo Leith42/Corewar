@@ -6,11 +6,25 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 17:59:15 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/23 18:51:33 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/23 23:41:13 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+#include <unistd.h>
+
+void			ft_pause(t_env *env)
+{
+	ssize_t	ret;
+	char	*buf;
+
+	if (!(buf = ft_strnew(1)))
+		ft_free_exit(*env, "Malloc error", 1, 0);
+	*buf = '\0';
+	while (*buf != '\n')
+		if ((ret = read(0, buf, 1)) != 1)
+			ft_free_exit(*env, "Read error", 1, 0);
+}
 
 static char		*get_champ_color(t_env *env, unsigned int id)
 {
