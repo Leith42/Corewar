@@ -40,23 +40,23 @@ static void	parse_champion_id(t_env *env, char *custom_id, t_champion *champion)
 	if (custom_id)
 	{
 		if (is_string_numeric(custom_id) == false)
-			ft_free_exit(*env,
-				"Champions numbers must be strictly positive integers.", 0, 1);
-		if ((champion_id = ft_unsigned_atoi(custom_id)) == 0)
-			ft_free_exit(*env,
-				"Champions numbers must be strictly positive integers.", 0, 1);
+			ft_free_exit(*env, "Champions IDs must be integers.", 0, 1);
+		if ((champion_id = (unsigned int)ft_atoi(custom_id)) == 0)
+			ft_free_exit(*env, "Champions IDs can't be 0.", 0, 1);
 		if (is_id_unique(champion_id, env->champions) == false)
 			ft_free_exit(*env,
-				"Please make sure that your IDs are unique.", 0, 1);
+						 "Please make sure that your IDs are unique.", 0, 1);
 		champion->id = champion_id;
 	}
 	else if (env->nb_of_champions == 0)
-		champion->id = 1;
+	{
+		champion->id = (unsigned int)-1;
+	}
 	else
 	{
-		champion_id = env->champions[env->nb_of_champions - 1].id + 1;
-		while (is_id_unique(champion_id, env->champions) == false)
-			champion_id++;
+		champion_id = env->champions[env->nb_of_champions - 1].id - 1;
+		while (!champion_id || !is_id_unique(champion_id, env->champions))
+			champion_id--;
 		champion->id = champion_id;
 	}
 }
