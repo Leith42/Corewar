@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:52:13 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/19 19:07:46 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/23 21:32:21 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static unsigned int	get_value(unsigned short param_type, unsigned int skip,
 	else if (param_type == T_DIR)
 		return (value);
 	else if (param_type == T_IND)
-		return ((process->pc +
-				((short)env->arena[value] % IDX_MOD)) % MEM_SIZE);
+		return (get_uintfrom_char(env, (process->pc +
+			(((short)(value)) % IDX_MOD)) % MEM_SIZE, 4));
 	else
 		return (0);
 }
