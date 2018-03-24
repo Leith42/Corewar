@@ -18,7 +18,7 @@
 ** gnl.
 ** label->oct sauve la valeur octale finale de la position du label.
 */
-
+/*
 void	replace_dist(t_label *label, t_lst_op *lst)
 {
 	int			i;
@@ -71,39 +71,6 @@ int		oct_prec(int pos, char **inst, int nb)
 	return (pos);
 }
 
-void	calc_dist_label(t_label *label, t_lst_op *lst)
-{
-	t_label	*dec;
-	t_label	*app;
-
-	dec = label;
-	app = label;
-	lst = NULL;
-	while (app)
-	{
-		if (app->type > 0)
-		{
-			ft_putstr("Hello\n");
-			while (dec && (ft_strcmp(app->name, dec->name) != 0 || \
-					dec->type > 0))
-				dec = dec->next;
-			if (!ft_strcmp(app->name, dec->name))
-			{
-				app->res = (dec->oct + 65531 - app->oct) % MEM_SIZE;
-				ft_printf("app->res1 = %d\n", app->res);
-			}
-		}
-	/*	ft_printf("app->name = %s\n", app->name);
-		ft_printf("dec->name = %s\n", dec->name);
-		ft_printf("app->res = %d\n", app->res);
-		ft_printf("app->oct = %d\n", app->oct);
-		ft_printf("dec->oct = %d\n", dec->oct);
-	*/	ft_putchar('\n');
-		app = app->next;
-		dec = label;
-	}
-}
-
 void	oct_count(char **inst, int pos, t_label *label)
 {
 	int			nb;
@@ -125,4 +92,22 @@ void	oct_count(char **inst, int pos, t_label *label)
 		nb++;
 	}
 	tmp->oct_tmp += pos;
+}
+*/
+
+void	calc_dist_label(t_label *label, t_lst_op *lst)
+{
+	t_label *tmp_label;
+	int res;
+	t_lst_op *tmp_lst;
+
+	tmp_label = label;
+	tmp_lst = lst;
+	res = 0;
+	while (lst)
+	{
+		if (tmp->name == 1)
+			
+	}
+
 }

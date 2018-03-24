@@ -12,6 +12,16 @@
 
 #include "asm.h"
 
+void				fill_label_pos(int *tab, int pos)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	tab[i] = pos;
+}
+
 /*
 ** GET_PARAMS - fonction qui ecris les parametres dans le lst->op.
 */
@@ -36,7 +46,10 @@ int					get_params(char	**inst, t_lst_op *lst, int opc)
 			lst->op[lst->pos++] = (unsigned char)(nb);
 		}
 		else if (type == T_DIR && inst[i][1] == ':') // CAS D'UN LABEL - PAS GERÉ
+		{
+			fill_label_pos(lst->label_pos, lst->pos);
 			lst = rmp_param(0, lst, dir_size, -1);
+		}
 		else if (type == T_DIR)
 			lst = rmp_param(ft_atoi(inst[i] + 1), lst, dir_size, -1);
 		else if (type == T_IND)
@@ -138,22 +151,19 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 	char 		*line;
 	char		**inst;
 	t_lst_op	*tmp;
-	int 		 i;
 
-	i = 0;
 	tmp = lst;
 	tmp->line_nb = lnbr + 1;
 	label_lst = NULL;
 	line = NULL;
 //	printf("check_inst\n");
-	while ((i = get_next_line(fd, &line, 64)) > 0)
+	while ((get_next_line(fd, &line, 64)) > 0)
 	{
 		lnbr++;
 //		printf("%d : %s\n", i, line);
 		if (line && (inst = ft_split_inst(line)) != NULL)
 		{
-			i++;
-			if (!get_inst(inst, tmp) || (!(label_lst = check_label(inst, label_lst, tmp->pos, i))))
+			if (!get_inst(inst, tmp) || (!(label_lst = check_label(inst, label_lst, tmp->pos))))
 			{
 				ft_free_arr(inst);
 				return (0); //Instruction incorrecte
@@ -165,21 +175,10 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 		}
 //		free(line);
 	}
-	calc_dist_label(label_lst, tmp);
-	replace_dist(label_lst, lst);
+	calc_dist_label(label_lst, lst);
+	//replace_dist(label_lst, lst);
 	free(line);
 	 //AFFICHAGE TEMPORAIRE DES LABELS 
 	aff_label(label_lst);
-	i = 0;
-	while (lst)
-	{
-		while (i < lst->pos)
-		{
-			ft_printf("%02x ", lst->op[i++]);
-		}
-		ft_putchar('\n');
-		i = 0;
-		lst = lst->next;
-	}
 	return (1);
 }
