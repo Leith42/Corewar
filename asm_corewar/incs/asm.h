@@ -42,6 +42,7 @@ typedef struct		s_lst_op
 {
 	unsigned char	op[12];
 	int				*label_pos;
+	int				label_nb;
 	int				pos;
 	int				line_nb;
 	struct s_lst_op	*next;

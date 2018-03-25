@@ -95,19 +95,79 @@ void	oct_count(char **inst, int pos, t_label *label)
 }
 */
 
+void	add_value_to_inst(int res, t_lst_op *lst_node, int pos_tmp)
+{
+	int i;
+	int final_place = lst_node->label_pos[pos_tmp];
+
+	i = 0;
+	printf("final_place = %d\n", final_place);
+	final_place++;
+	while (i < 2)
+	{
+		lst_node->op[final_place] = res;
+		final_place--;
+		res >>= 8;
+		i++;
+	}
+	i = 0;
+	while (i < lst_node->pos)
+		printf("%02x ,", lst_node->op[i++]);
+	printf("\n");
+}
+
 void	calc_dist_label(t_label *label, t_lst_op *lst)
 {
 	t_label *tmp_label;
 	int res;
+	char *to_search = NULL;
+	int i;
+	int pos_tmp;
+	pos_tmp = 0;
 	t_lst_op *tmp_lst;
 
 	tmp_label = label;
+	t_lst_op *tmp_to_keep = NULL;
 	tmp_lst = lst;
 	res = 0;
-	while (lst)
+	while (tmp_lst)
 	{
-		if (tmp->name == 1)
-			
+		i = 0;
+		while (i < tmp_lst->label_nb)
+		{
+			if (to_search && tmp_label->type == 0 && !ft_strcmp(to_search, tmp_label->name))
+			{
+			//	printf("pos_tmp = %d\n", pos_tmp);
+				add_value_to_inst(res, tmp_to_keep, pos_tmp);
+				to_search = NULL;
+				pos_tmp = 0;
+				tmp_to_keep = NULL;
+				break ;
+			}
+			else if ((!to_search && tmp_label->type == 0) || (to_search && tmp_label->type == 0 && ft_strcmp(to_search, tmp_label->name)))
+				tmp_label = tmp_label->next;
+			if (!to_search && tmp_label->type == 1 && tmp_label->is_set == 0)
+			{
+			//	printf("on rentre la et la name est %s\n", tmp->name)
+				printf("i = %d\n", i);
+				to_search = ft_strdup(tmp_label->name);
+				tmp_to_keep = tmp_lst;
+				pos_tmp = i;
+				printf("pos_tmp = %d\n", pos_tmp);
+			//	printf("pos_tmp = %d\n", pos_tmp);
+			}
+			i++;
+			tmp_label = tmp_label->next;
+		}
+		if (to_search)
+		{
+			res += tmp_lst->pos;
+			tmp_lst = tmp_lst->next;
+		}
+		else
+		{
+			tmp_lst = lst;
+			tmp_label = label;
+		}
 	}
-
 }

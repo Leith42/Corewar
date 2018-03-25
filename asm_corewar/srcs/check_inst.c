@@ -47,6 +47,7 @@ int					get_params(char	**inst, t_lst_op *lst, int opc)
 		}
 		else if (type == T_DIR && inst[i][1] == ':') // CAS D'UN LABEL - PAS GERÉ
 		{
+			lst->label_nb++;
 			fill_label_pos(lst->label_pos, lst->pos);
 			lst = rmp_param(0, lst, dir_size, -1);
 		}
@@ -134,8 +135,8 @@ int					get_inst(char **inst, t_lst_op *lst)
 
 	/* AFFICHAGE TEMPORAIRE */
 	while (nbw < lst->pos)
-		printf("%02x ", lst->op[nbw++]);
-	printf("\n");
+		printf("%02x ,", lst->op[nbw++]);
+	printf("\nnombre de label sur cette ligne est de %d\n", lst->label_nb);
 	nb_oc += lst->pos;
 	return (1);
 }
