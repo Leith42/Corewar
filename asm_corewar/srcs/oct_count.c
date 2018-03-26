@@ -122,35 +122,46 @@ void	calc_dist_label(t_label *label, t_lst_op *lst)
 	int res;
 	char *to_search = NULL;
 	int i;
+	int print;
+	print = 0;
+	int reset;
 	int pos_tmp;
 	pos_tmp = 0;
 	t_lst_op *tmp_lst;
 
 	tmp_label = label;
 	t_lst_op *tmp_to_keep = NULL;
+	t_label *is_set_to_keep = NULL;
 	tmp_lst = lst;
 	res = 0;
+	reset = 0;
 	while (tmp_lst)
 	{
 		i = 0;
 		while (i < tmp_lst->label_nb)
 		{
+		//	printf("le label traversé est %s et est de type %d\n", tmp_label->name, tmp_label->type);
+			if ((!to_search && tmp_label->type == 0) || (to_search && tmp_label->type == 0 && ft_strcmp(to_search, tmp_label->name)))
+			{
+			//	printf("on outrepasse le call %s\n", tmp_label->name);
+				tmp_label = tmp_label->next;
+			}
 			if (to_search && tmp_label->type == 0 && !ft_strcmp(to_search, tmp_label->name))
 			{
-			//	printf("pos_tmp = %d\n", pos_tmp);
+				printf("on cherchait le label %s et il correspond avec le %s\n", to_search, tmp_label->name);
 				add_value_to_inst(res, tmp_to_keep, pos_tmp);
+				is_set_to_keep->is_set++;
 				to_search = NULL;
-				pos_tmp = 0;
-				tmp_to_keep = NULL;
+				pos_tmp = 0;;
+				reset = 1;
 				break ;
 			}
-			else if ((!to_search && tmp_label->type == 0) || (to_search && tmp_label->type == 0 && ft_strcmp(to_search, tmp_label->name)))
-				tmp_label = tmp_label->next;
 			if (!to_search && tmp_label->type == 1 && tmp_label->is_set == 0)
 			{
-			//	printf("on rentre la et la name est %s\n", tmp->name)
 				printf("i = %d\n", i);
 				to_search = ft_strdup(tmp_label->name);
+				printf("on rentre la et ce quon cherche desormais est %s\n", to_search);
+				is_set_to_keep = tmp_label;
 				tmp_to_keep = tmp_lst;
 				pos_tmp = i;
 				printf("pos_tmp = %d\n", pos_tmp);
@@ -159,15 +170,29 @@ void	calc_dist_label(t_label *label, t_lst_op *lst)
 			i++;
 			tmp_label = tmp_label->next;
 		}
-		if (to_search)
+		if (reset)
+		{
+			tmp_lst = tmp_to_keep;
+			tmp_label = is_set_to_keep;
+			is_set_to_keep = NULL;
+			tmp_to_keep = NULL;
+			reset = 0;
+		}
+		else if (to_search)
 		{
 			res += tmp_lst->pos;
+			while (print < tmp_lst->pos)
+				printf("%02x ,", tmp_lst->op[print++]);
+			printf("\n");
+			print = 0;
+			printf("on prend cette ligne %s et res = %d\n", to_search, res);
 			tmp_lst = tmp_lst->next;
 		}
 		else
 		{
-			tmp_lst = lst;
-			tmp_label = label;
+			printf("on cherche rien pour l'instant\n");
+			res = 0;
+			tmp_lst = tmp_lst->next;
 		}
 	}
 }

@@ -135,8 +135,8 @@ int					get_inst(char **inst, t_lst_op *lst)
 
 	/* AFFICHAGE TEMPORAIRE */
 	while (nbw < lst->pos)
-		printf("%02x ,", lst->op[nbw++]);
-	printf("\nnombre de label sur cette ligne est de %d\n", lst->label_nb);
+		printf("%02x ", lst->op[nbw++]);
+	printf("\n");
 	nb_oc += lst->pos;
 	return (1);
 }
@@ -176,10 +176,10 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 		}
 //		free(line);
 	}
-	calc_dist_label(label_lst, lst);
+	//calc_dist_label(label_lst, lst);
 	//replace_dist(label_lst, lst);
 	free(line);
 	 //AFFICHAGE TEMPORAIRE DES LABELS 
-	aff_label(label_lst);
+	//aff_label(label_lst);
 	return (1);
 }
