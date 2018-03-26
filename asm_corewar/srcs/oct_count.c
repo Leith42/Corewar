@@ -152,7 +152,7 @@ void	calc_dist_label(t_label *label, t_lst_op *lst)
 				add_value_to_inst(res, tmp_to_keep, pos_tmp);
 				is_set_to_keep->is_set++;
 				to_search = NULL;
-				pos_tmp = 0;;
+				pos_tmp = 0;
 				reset = 1;
 				break ;
 			}
