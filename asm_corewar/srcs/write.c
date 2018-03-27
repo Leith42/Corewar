@@ -19,7 +19,6 @@ void	print_inst(int fd, t_lst_op *inst)
 	while (inst)
 	{
 		n = 0;
-		printf("go here ?\n");
 		while (n != inst->pos)
 			write(fd, &inst->op[n++], 1);
 		inst = inst->next;
