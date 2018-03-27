@@ -108,6 +108,8 @@ int					get_inst(char **inst, t_lst_op *lst)
 	lst->pos = 0;
 	i = 0;
 	nbw = (inst[0][ft_strlen(inst[0]) - 1] == ':') ? 1 : 0;
+	if (nbw == 1 && inst[nbw + 1] == NULL)
+		return (1);
 	while (i < 16 && (ft_strcmp(g_op_tab[i].name, inst[nbw]) != 0))
 		++i;
 	if (i == 16)

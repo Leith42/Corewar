@@ -143,6 +143,7 @@ void				oct_count(char **inst, int pos, t_label *label);
 int					oct_prec(int pos, char **str);
 void				calc_dist_label(t_label *label, t_lst_op *lst);
 void				replace_dist(t_label *label, t_lst_op *lst);
+void				fill_label_pos(int *tab, int pos);
 
 /*
 ** FONCTION WRITE
@@ -158,6 +159,5 @@ t_lst_op			*rmp_param(int param, t_lst_op *lst, int dir_size, int res);
 int					param_type(char *param);
 char				**ft_split_inst(char *inst);
 char				*epur_str_beginning(char *line);
-char				*ft_binary_itoa(unsigned char c, int type);
 
 #endif

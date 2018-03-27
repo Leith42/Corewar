@@ -80,8 +80,9 @@ char		**ft_split_inst(char *inst)
 		while (inst[n] == ' ' || inst[n] == '\t' || inst[n] == ',')
 			++n;
 		while (inst[n + i] && inst[n + i] != ' ' && inst[n + i] != '\t'
-		&& inst[n + i] != ',' && inst[n + i] != '#')
+&& inst[n + i] != ',' && inst[n + i] != '#' && (t != 0 || inst[n + i] != ':'))
 			++i;
+		i += (inst[n + i] == ':') ? 1 : 0;
 		if (i > 0)
 			params[t++] = ft_strndup(inst + n, i);
 		n += i;
@@ -107,33 +108,4 @@ char		*epur_str_beginning(char *line)
 		dest = ft_strsub(line, i, ft_strlen(line));
 	free(line);
 	return (dest);
-}
-
-/*
-** FT_BINARY_ITOA - Convertie la valeur unsigned char* en sa valeur binaire
-** dans un char*. FONCTION INUTILE.
-*/
-
-char		*ft_binary_itoa(unsigned char c, int type) // si type > 0, on aura 0b devant le resultat
-{
-	int		n;
-	char	*nb;
-	int		tmp;
-
-	type = (type > 0) ? 2 : 0;
-	nb = (char *)malloc(sizeof(char) * 8 + type);
-	n = 8 + type;
-	nb[n--] = '\0';
-	while (n >= type)
-	{
-		tmp = (c >= 2) ? c % 2 : c;
-		nb[n--] = (char)(48 + tmp);
-		c /= 2;
-	}
-	if (type == 2)
-	{
-		nb[1] = 'b';
-		nb[0] = '0';
-	}
-	return (nb);
 }
