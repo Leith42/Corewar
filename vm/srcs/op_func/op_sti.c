@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:53:40 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/19 23:58:46 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/27 02:42:35 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void		do_sti_bis(t_env *env, t_process *process,
 			: get_uintfrom_char(env, (process->pc +
 			(((short)(val[1])) % IDX_MOD)) % MEM_SIZE, 4);
 	write_uint_to_char(env, start = ((process->pc +
-			(((int)(val[1] + val[2])) % IDX_MOD)) % MEM_SIZE), 4, val[0]);
+			(((short)(val[1] + val[2])) % IDX_MOD)) % MEM_SIZE), 4, val[0]);
 	env->mask[(start + 0) % MEM_SIZE] = process->champ_id;
 	env->mask[(start + 1) % MEM_SIZE] = process->champ_id;
 	env->mask[(start + 2) % MEM_SIZE] = process->champ_id;
