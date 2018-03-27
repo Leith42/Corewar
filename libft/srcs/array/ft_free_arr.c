@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include "libft.h"
 
-void		ft_free_arr(char **ar)
+int			ft_free_arr(char **ar)
 {
 	size_t	i;
 
@@ -23,4 +23,5 @@ void		ft_free_arr(char **ar)
 	while (ar[i])
 		ft_strdel((ar + i++));
 	free(ar);
+	return (1);
 }
