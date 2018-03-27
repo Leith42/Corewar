@@ -150,7 +150,7 @@ void				replace_dist(t_label *label, t_lst_op *lst);
 ** FONCTION WRITE
 */
 
-int					ft_write(char *file_name, unsigned char *tab, t_header *header);
+int					ft_write(char *file_name, t_lst_op *lst, t_header *header);
 
 /*
 ** FONCTION UTILITAIRE
