@@ -120,3 +120,13 @@ t_label		*check_label(char **inst, t_label *label_list, int pos)
 	free(label_tmp);
 	return (label_list);
 }
+
+void				fill_label_pos(int *tab, int pos)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	tab[i] = pos;
+}
