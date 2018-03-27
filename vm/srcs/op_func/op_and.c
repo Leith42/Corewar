@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:51:50 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/27 11:28:30 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/27 18:58:24 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int					do_and(t_process *process, t_env *env)
 	if (!(is_reg(param_value[2])
 		&& (param_type[0] != T_REG || is_reg(param_value[0]))
 		&& (param_type[1] != T_REG || is_reg(param_value[1]))))
-		return (0);
+		return (1);
 	param_value[0] = get_value(param_type[0], param_value[0], process, env);
 	param_value[1] = get_value(param_type[1], param_value[1], process, env);
 	process->reg[param_value[2] - 1] =

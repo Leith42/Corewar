@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:51:30 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/16 20:06:58 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/27 18:55:26 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ int	do_sub(t_process *process, t_env *env)
 		process->reg[c - 1] = res;
 	}
 	else
-		res = 0;
+		res = 1;
 	return ((int)res);
 }
