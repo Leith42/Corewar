@@ -6,7 +6,7 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/27 03:39:52 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/27 08:09:01 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/27 08:45:59 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ elif [ -z $3 ] ; then
 fi
 printf "\e[2J\e[H"
 echo "\t---=== Corewar Dump Testing ===---"
-echo "\tFrom $1 to $3 with step = $2\n"
+echo "\tFrom $1 to $3 with step = $2"
+printf "\e[32m.\e[0m = OK ; \e[32mE\e[0m = Fight ended ; \e[31mF\e[0m = Bad diff ; \e[35mW\e[0m = Fight ended on one VM only\n"
 mkdir -p $TESTS_DIR
 for champ in $CHAMPS_DIR/*.cor
 do
@@ -40,10 +41,12 @@ do
 	hpos=24
 	for i in `seq $1 $2 $3`
 	do
-		if [[ (`basename $champ` = "car.cor" \
+		if [ `basename $champ` = "42.cor" ] \
+			|| [ `basename $champ` = "barriere.cor" ] \
+			|| ( [[ (`basename $champ` = "car.cor" \
 			|| `basename $champ` = "bee_gees.cor" \
 			|| `basename $champ` = "mandragore.cor") ]] \
-			&& [ $i -gt 5000 ] ; then
+			&& [ $i -gt 5000 ] ); then
 			break
 		fi
 		(exec 0>&-
@@ -53,7 +56,15 @@ do
 		./$VM $champ -dump $i 2>/dev/null | tail -n 64 > $FILE_VM &
 		./$REF_VM $champ -d $i 2>/dev/null | tail -n 64 > $FILE_REF_VM &
 		wait
-		diff $FILE_VM $FILE_REF_VM &>/dev/null && res="\e[32m." || res="\e[31mF" ;
+		if [ `cat $FILE_VM $FILE_REF_VM | grep -c ^0x0 ` -lt 128 ] ; then
+			if [ `cat $FILE_VM $FILE_REF_VM | grep -c ^0x0 ` -ge 64 ] ; then
+				res="\e[35mW"
+			else
+				res="\e[32mE"
+		fi
+		else
+			diff $FILE_VM $FILE_REF_VM &>/dev/null && res="\e[32m." || res="\e[31mF" ;
+		fi
 		rm $FILE_VM $FILE_REF_VM 2>/dev/null
 		printf "\e[s\e[$vpos;${hpos}H$res\e[0m\e[u") &
 		let "hpos+=1"
