@@ -6,11 +6,13 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/27 03:39:52 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/27 14:19:55 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/27 14:24:01 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #!/bin/bash
+PID=$$
+
 DISP_OK="\e[32m.\e[0m"
 DISP_END="\e[32me\e[0m"
 DISP_BAD="\e[31mF\e[0m"
