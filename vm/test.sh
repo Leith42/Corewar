@@ -6,7 +6,7 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/27 03:39:52 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/27 08:45:59 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/27 09:27:33 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,11 @@ VM="corewar"
 REF_VM="ressource/zaz_vm"
 CHAMPS_DIR="ressource/champs/COR"
 TESTS_DIR="test_dumps"
+
+DISP_OK="\e[32m.\e[0m"
+DISP_END="\e[32me\e[0m"
+DISP_BAD="\e[31mF\e[0m"
+DISP_ONE_END="\e[35mW\e[0m"
 
 if [ `tput lines` -le $((`ls -1 $CHAMPS_DIR/*.cor | wc -l` + 3)) ] ; then
 	printf "Abort : not enough rows.\n"
@@ -26,10 +31,12 @@ elif [ -z $3 ] ; then
 	printf "Usage : ./vm/test.sh low step high\n"
 	exit 1
 fi
+exec 0>&-
+exec 2>&-
 printf "\e[2J\e[H"
 echo "\t---=== Corewar Dump Testing ===---"
 echo "\tFrom $1 to $3 with step = $2"
-printf "\e[32m.\e[0m = OK ; \e[32mE\e[0m = Fight ended ; \e[31mF\e[0m = Bad diff ; \e[35mW\e[0m = Fight ended on one VM only\n"
+printf "$DISP_OK = OK ; $DISP_END = Fight ended ; $DISP_BAD = Bad diff ; $DISP_ONE_END = Fight ended on one VM only\n"
 mkdir -p $TESTS_DIR
 for champ in $CHAMPS_DIR/*.cor
 do
@@ -49,26 +56,29 @@ do
 			&& [ $i -gt 5000 ] ); then
 			break
 		fi
-		(exec 0>&-
-		exec 2>&-
-		FILE_VM="$TESTS_DIR/vm_dump_`basename $champ`_$i.log"
+		(FILE_VM="$TESTS_DIR/vm_dump_`basename $champ`_$i.log"
 		FILE_REF_VM="$TESTS_DIR/ref_vm_dump_`basename $champ`_$i.log"
 		./$VM $champ -dump $i 2>/dev/null | tail -n 64 > $FILE_VM &
 		./$REF_VM $champ -d $i 2>/dev/null | tail -n 64 > $FILE_REF_VM &
 		wait
 		if [ `cat $FILE_VM $FILE_REF_VM | grep -c ^0x0 ` -lt 128 ] ; then
 			if [ `cat $FILE_VM $FILE_REF_VM | grep -c ^0x0 ` -ge 64 ] ; then
-				res="\e[35mW"
+				res=$DISP_ONE_END
 			else
-				res="\e[32mE"
+				res=$DISP_END
 		fi
 		else
-			diff $FILE_VM $FILE_REF_VM &>/dev/null && res="\e[32m." || res="\e[31mF" ;
+			diff $FILE_VM $FILE_REF_VM &>/dev/null && res=$DISP_OK || res=$DISP_BAD ;
 		fi
 		rm $FILE_VM $FILE_REF_VM 2>/dev/null
-		printf "\e[s\e[$vpos;${hpos}H$res\e[0m\e[u") &
+		printf "\e[s\e[$vpos;${hpos}H$res\e[u"
+		exec 3>&-
+		exec 4>&-
+		exec 1>&-
+		) &
 		let "hpos+=1"
 	done
+	wait
 	let "vpos++"
 done
 wait
