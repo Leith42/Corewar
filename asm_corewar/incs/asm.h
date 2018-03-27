@@ -150,6 +150,9 @@ void				fill_label_pos(int *tab, int pos);
 */
 
 int					ft_write(char *file_name, t_lst_op *lst, t_header *header);
+void				print_inst(int fd, t_lst_op *inst);
+void				print_magic_number(int fd);
+void				print_header(int fd, t_header *header);
 
 /*
 ** FONCTION UTILITAIRE

@@ -12,10 +12,19 @@
 
 #include "asm.h"
 
-/*void	print_inst(int fd, t_lst_op *inst)
+void	print_inst(int fd, t_lst_op *inst)
 {
+	int n;
 
-}*/
+	while (inst)
+	{
+		n = 0;
+		printf("go here ?\n");
+		while (n != inst->pos)
+			write(fd, &inst->op[n++], 1);
+		inst = inst->next;
+	}
+}
 
 void	print_magic_number(int fd)
 {
@@ -51,24 +60,19 @@ void	print_header(int fd, t_header *header)
 
 int		ft_write(char *file_name, t_lst_op *lst, t_header *header)
 {
-	//int fd;
+	int fd;
 	char *new_file_name;
 
 	(void)lst;
 	if (header)
 		write (1, "header exist\n", 13);
 	new_file_name = ft_strjoin(ft_strndup(file_name, ft_strlen(file_name) - 2), ".cor"); // degueulasse mais c'est l'idée :)
-	/*if ((fd = open(new_file_name, O_WRONLY | O_CREAT | O_TRUNC, 0755)))
+	if ((fd = open(new_file_name, O_WRONLY | O_CREAT | O_TRUNC, 0755)))
 	{
 		ft_printf("Fichier %s crée avec succès !\n", new_file_name);
 		print_magic_number(fd);
 		print_header(fd, header);
-		//creation file_name
-		while (tab[++n])
-		{
-			//convertir unsigned char en binaire
-			//write binaire dans file_name
-		}
-	}*/
+		print_inst(fd, lst);
+	}
 	return (0);
 }
