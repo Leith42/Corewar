@@ -6,7 +6,7 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/27 03:39:52 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/27 07:44:44 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/27 08:09:01 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,16 +37,15 @@ done
 vpos=4
 for champ in $CHAMPS_DIR/*.cor
 do
-	if [ `basename $champ` = "car.cor" ] \
-		|| [ `basename $champ` = "bee_gees.cor" ] \
-		|| [ `basename $champ` = "mandragore.cor" ] \
-		; then
-		let "vpos++"
-		continue
-	fi
 	hpos=24
 	for i in `seq $1 $2 $3`
 	do
+		if [[ (`basename $champ` = "car.cor" \
+			|| `basename $champ` = "bee_gees.cor" \
+			|| `basename $champ` = "mandragore.cor") ]] \
+			&& [ $i -gt 5000 ] ; then
+			break
+		fi
 		(exec 0>&-
 		exec 2>&-
 		FILE_VM="$TESTS_DIR/vm_dump_`basename $champ`_$i.log"
