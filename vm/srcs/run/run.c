@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/23 23:42:34 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/27 03:34:42 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,18 +99,18 @@ static void		cycle_check(t_env *env)
 	static size_t	global_cycle = 0;
 	size_t			cycles_skipped;
 
-	cycles_skipped = skip_cycles(env, env->cycle_to_die - cycle);
+	cycles_skipped = 0;//skip_cycles(env, env->cycle_to_die - cycle);
 	cycle += 1 + cycles_skipped;
 	global_cycle += 1 + cycles_skipped;
-	ft_printf("\n\x1b[K\n\x1b[K\n\x1b[K\x1b[KTotal cycles = %d\tCycles = %d\t\
+	if (env->visual)
+		ft_printf("\n\x1b[K\n\x1b[K\n\x1b[K\x1b[KTotal cycles = %d\tCycles = %d\t\
 Cycle to die = %d\n\x1b[Knb_live = %d, checks = %d\n\x1b[K\
-Processes : %d\n\x1b[K",
-			global_cycle, cycle, env->cycle_to_die, env->nb_live, nb_checks,
-			ft_lstlen(env->process));
+Processes : %d\n\x1b[K", global_cycle, cycle, env->cycle_to_die, env->nb_live,
+			nb_checks, ft_lstlen(env->process));
 	if (!(cycle >= env->cycle_to_die))
 		return ;
-	ft_printf("\n\x1b[KProcesses killed at last check : %d\n\x1b[K",
-			kill_dead_process(env));
+	ft_printf((env->visual) ? "\n\x1b[KProcesses killed at last check : %d\n\
+\x1b[K" : " ", kill_dead_process(env));
 	if ((env->nb_live >= NBR_LIVE || nb_checks >= MAX_CHECKS)
 		&& !(nb_checks = 0))
 		env->cycle_to_die -= (env->cycle_to_die <= CYCLE_DELTA) ?
@@ -138,11 +138,11 @@ void			run(t_env *env)
 		cycle_check(env);
 		if (env->visual)
 			disp_arena(env, 64);
-		if (env->is_dump_cycle_specified && env->dump_cycle-- == 0)
+		if (env->is_dump_cycle_specified && --env->dump_cycle == 0)
 		{
 			ft_putstr("\x1b[2J");
-			disp_arena(env, DUMP_LINE_LEN);
-			break ;
+			dump_memory(env, 64);
+			return ;
 		}
 		if (env->interactive)
 			ft_pause(env);

@@ -6,12 +6,46 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 17:59:15 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/23 23:41:13 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/27 03:32:40 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <unistd.h>
+
+static void		disp_hex_byte(unsigned char byte)
+{
+	unsigned char	cur;
+
+	ft_putchar(' ');
+	cur = byte >> 4;
+	if (cur < 10)
+		ft_putchar((char)(cur + '0'));
+	else
+		ft_putchar((char)(cur - 10 + 'a'));
+	cur = byte & 15;
+	if (cur < 10)
+		ft_putchar((char)(cur + '0'));
+	else
+		ft_putchar((char)(cur - 10 + 'a'));
+}
+
+void			dump_memory(t_env *env, size_t line_len)
+{
+	size_t		i;
+	size_t		j;
+
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		ft_printf("%#.4x :", i);
+		j = 0;
+		while (j < line_len)
+			disp_hex_byte(env->arena[i + j++]);
+		ft_putchar('\n');
+		i += j;
+	}
+}
 
 void			ft_pause(t_env *env)
 {
