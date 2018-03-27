@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 17:59:15 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/27 04:06:26 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/27 18:33:12 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void			dump_memory(t_env *env, size_t line_len)
 	size_t		i;
 	size_t		j;
 
+	ft_putchar('\n');
 	i = 0;
 	while (i < MEM_SIZE)
 	{
