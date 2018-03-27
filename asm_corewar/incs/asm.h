@@ -41,6 +41,8 @@ enum				e_error
 typedef struct		s_lst_op
 {
 	unsigned char	op[12];
+	int				*label_pos;
+	int				label_nb;
 	int				pos;
 	int				line_nb;
 	struct s_lst_op	*next;
@@ -71,13 +73,9 @@ extern t_op			g_op_tab[17];
 typedef struct		s_label
 {
 	char			*name;
-	int				pos;
 	int				oct;
-	int				oct_tmp;
-	int				line;
-	int				place;
-	int				res;
 	int				type; // 0 for a declaration, 1 for a call;
+	int				is_set;
 	struct s_label	*next;
 }					t_label;
 
@@ -136,13 +134,13 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr);
 
 int					double_check_label(t_label *label);
 int					find_match(t_label *label, char *str);
-t_label				*check_label(char **inst, t_label *label, int pos, int p);
+t_label				*check_label(char **inst, t_label *label, int pos);
 int					check_label_char(char *str);
 t_label				*add_to_lst(t_label *label_list, t_label *new);
-void				set_label_name(t_label *new, char *src, int p);
+void				set_label_name(t_label *new, char *src);
 void				aff_label(t_label *label_lst);
 void				oct_count(char **inst, int pos, t_label *label);
-int					oct_prec(int pos, char **str, int nb);
+int					oct_prec(int pos, char **str);
 void				calc_dist_label(t_label *label, t_lst_op *lst);
 void				replace_dist(t_label *label, t_lst_op *lst);
 

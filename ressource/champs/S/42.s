@@ -12,7 +12,7 @@ tir:	sti	r1,%:tirb,%1
 	ld	%0,r11
 
 	ld	%4,r3
-tirf:	live	%42
+tirf:	live	%42n
 	fork	%:tirop
 	live	%742
 	sub	r3,r5,r3

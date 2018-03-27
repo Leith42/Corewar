@@ -24,7 +24,7 @@ void		aff_label(t_label *label_lst)
 	tmp = label_lst;
 	while (tmp)
 	{
-		ft_putendl(tmp->name);
+		ft_printf("label = %s, de type %d, et d'octet %d\n", tmp->name, tmp->type, tmp->oct);
 		tmp = tmp->next;
 	}
 }
@@ -33,7 +33,7 @@ void		aff_label(t_label *label_lst)
 ** SET_LABEL_NAME - assigne le nom du label dans la structure
 */
 
-void		set_label_name(t_label *new, char *src, int p)
+void		set_label_name(t_label *new, char *src)
 {
 	if (src[0] == DIRECT_CHAR)
 	{
@@ -42,9 +42,6 @@ void		set_label_name(t_label *new, char *src, int p)
 	}
 	else
 		new->name = ft_strsub(src, 0, ft_strlen(src) - 1);
-	new->oct = -1;
-	new->line = p;
-	new->res = -1;
 }
 
 /*
@@ -62,7 +59,6 @@ t_label		*add_to_lst(t_label *label_list, t_label *new)
 	{
 		while (tmp->next)
 			tmp = tmp->next;
-		new->oct_tmp = tmp->oct_tmp;
 		tmp->next = new;
 	}
 	return (label_list);
@@ -92,26 +88,35 @@ int			check_label_char(char *str)
 ** CHECK_LABEL - Créer ou MAJ une liste chainée t_label et la renvoit
 */
 
-t_label		*check_label(char **inst, t_label *label_list, int pos, int p)
+t_label		*check_label(char **inst, t_label *label_list, int pos)
 {
 	int			i;
+	char		*label_tmp;
 	t_label		*new;
-	int			nb;
 
-	nb = pos;
 	i = 0;
 	new = NULL;
+	label_tmp = NULL;
 	while (inst[i])
 	{
 		if (check_label_char(inst[i]))
 		{
 			if (!(new = ft_memalloc(sizeof(t_label))))
 				return (NULL);
-			set_label_name(new, inst[i], p);
+			set_label_name(new, inst[i]);
+			if (new->type == 0)
+				label_tmp = ft_strdup(new->name);
+			if (label_tmp && new->type && !ft_strcmp(label_tmp, new->name))
+			{
+				new->oct = 0;
+				new->is_set = 1;
+			}
+			else
+				new->oct = pos;
 			label_list = add_to_lst(label_list, new);
 		}
 		i++;
 	}
-	oct_count(inst, pos, label_list);
+	free(label_tmp);
 	return (label_list);
 }

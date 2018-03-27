@@ -12,6 +12,11 @@
 
 #include "asm.h"
 
+/*void	print_inst(int fd, t_lst_op *inst)
+{
+
+}*/
+
 void	print_magic_number(int fd)
 {
 	int i;
@@ -44,12 +49,12 @@ void	print_header(int fd, t_header *header)
 	write(fd, "\0", 4);
 }
 
-int		ft_write(char *file_name, unsigned char *tab, t_header *header)
+int		ft_write(char *file_name, t_lst_op *lst, t_header *header)
 {
 	//int fd;
 	char *new_file_name;
 
-	(void)tab;
+	(void)lst;
 	if (header)
 		write (1, "header exist\n", 13);
 	new_file_name = ft_strjoin(ft_strndup(file_name, ft_strlen(file_name) - 2), ".cor"); // degueulasse mais c'est l'idée :)

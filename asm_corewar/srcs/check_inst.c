@@ -12,6 +12,16 @@
 
 #include "asm.h"
 
+void				fill_label_pos(int *tab, int pos)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	tab[i] = pos;
+}
+
 /*
 ** GET_PARAMS - fonction qui ecris les parametres dans le lst->op.
 */
@@ -36,7 +46,11 @@ int					get_params(char	**inst, t_lst_op *lst, int opc)
 			lst->op[lst->pos++] = (unsigned char)(nb);
 		}
 		else if (type == T_DIR && inst[i][1] == ':') // CAS D'UN LABEL - PAS GERÉ
+		{
+			lst->label_nb++;
+			fill_label_pos(lst->label_pos, lst->pos);
 			lst = rmp_param(0, lst, dir_size, -1);
+		}
 		else if (type == T_DIR)
 			lst = rmp_param(ft_atoi(inst[i] + 1), lst, dir_size, -1);
 		else if (type == T_IND)
@@ -119,8 +133,8 @@ int					get_inst(char **inst, t_lst_op *lst)
 
 	/* AFFICHAGE TEMPORAIRE */
 	while (nbw < lst->pos)
-		printf("%02x ", lst->op[nbw++]);
-	printf("\n");
+		printf("%02x ,", lst->op[nbw++]);
+	printf("\nnombre de label sur cette ligne est de %d\n", lst->label_nb);
 	nb_oc += lst->pos;
 	return (1);
 }
@@ -136,21 +150,19 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 	char 		*line;
 	char		**inst;
 	t_lst_op	*tmp;
-	int 		 i;
 
-	i = 0;
 	tmp = lst;
 	tmp->line_nb = lnbr + 1;
 	label_lst = NULL;
 	line = NULL;
+//	printf("check_inst\n");
 	while ((get_next_line(fd, &line, 64)) > 0)
 	{
 		printf("gnl : %s\n", line);
 		lnbr++;
 		if (line && (inst = ft_split_inst(line)) != NULL)
 		{
-			i++;
-			if (!get_inst(inst, tmp)/* || (!(label_lst = check_label(inst, label_lst, tmp->pos, i)))*/)
+			if (!get_inst(inst, tmp) || (!(label_lst = check_label(inst, label_lst, tmp->pos))))
 			{
 				ft_free_arr(inst);
 				return (0); //Instruction incorrecte
@@ -161,21 +173,12 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 			tmp = tmp->next;
 		}
 	}
+	calc_dist_label(label_lst, lst);
+	//replace_dist(label_lst, lst);
 	free(line);
 	/*calc_dist_label(label_lst, tmp);
 	replace_dist(label_lst, lst);
 	 //AFFICHAGE TEMPORAIRE DES LABELS
 	aff_label(label_lst);
-	i = 0;
-	while (lst)
-	{
-		while (i < lst->pos)
-		{
-			ft_printf("%02x ", lst->op[i++]);
-		}
-		ft_putchar('\n');
-		i = 0;
-		lst = lst->next;
-	}*/
-	return (1);
+	return (1);*/
 }

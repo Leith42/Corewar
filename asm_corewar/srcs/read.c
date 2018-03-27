@@ -24,9 +24,8 @@ int					ft_read_file(int fd, char *file_name)
 	n = 0;
 	printf("file_name = %s\n", file_name);
 	lst = init_lst(0);
-	printf("lst = %p\n", lst);
 	if ((lnbr = check_header(fd, &header)) != 0 && check_inst(lst, fd, lnbr))
-		(void)i;//ft_write(File_Name, tab);*/
+		(void)i;//ft_write(File_Name, lst, &header);*/
 	else
 		return (0);
 	return (1);
