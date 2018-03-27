@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 22:21:38 by mgonon            #+#    #+#             */
-/*   Updated: 2018/03/21 20:38:31 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/27 10:48:40 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,15 @@ unsigned int	skip_pc(t_env *env, t_process *process)
 	{
 		param_len = 2;
 		cur = 0;
-		while (cur < 3)
+		while (cur < g_op_tab[process->cur_opcode - 1].nb_of_params)
 		{
 			cur_type = get_param_type(env, process->pc, 0x00, cur);
-			if (cur_type == T_DIR)
+			if (!(cur_type & g_op_tab[process->cur_opcode - 1].param_type[cur]))
+			{
+				param_len = 2;
+				cur = 3;
+			}
+			else if (cur_type == T_DIR)
 				param_len += (g_op_tab[process->cur_opcode - 1].addr_or_nb
 						== true) ? 2 : 4;
 			else
