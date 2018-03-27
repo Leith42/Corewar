@@ -6,7 +6,7 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/27 03:39:52 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/27 14:24:01 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/27 14:36:02 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ if [ `tput lines` -le $((`ls -1 $CHAMPS_DIR/*.cor | wc -l` + 3)) ] ; then
 elif [ -z $3 ] ; then
 	printf "Usage : ./vm/test.sh low step high\n"
 	exit 1
-elif [ `tput cols` -le $(( ($3 / $2) + 1 + 24 )) ] \
+elif [ `tput cols` -le $(( (($3 - $1) / $2) + 1 + 24 )) ] \
 	|| [ `tput cols` -le 72 ] ; then
 printf "Abort : not enough rows.\n"
 exit 1
