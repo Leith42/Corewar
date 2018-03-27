@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/27 04:18:42 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/27 19:29:57 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,6 @@ static void		exec_inst(t_env *env, t_process *process)
 		process->pc = new_pc;
 	if (g_op_tab[process->cur_opcode - 1].modif_carry == 1)
 		process->carry = (ret == 0) ? 1 : 0;
-	process->cur_opcode = env->arena[process->pc];
-	process->cycle_to_wait = 1;
-	if (process->cur_opcode < 16 && process->cur_opcode > 0)
-		process->cycle_to_wait = g_op_tab[process->cur_opcode - 1].cycle_nb;
 }
 
 static void		run_processes(t_env *env)
@@ -60,6 +56,19 @@ static void		run_processes(t_env *env)
 			disp_process_state(env, process);
 		if (process->cycle_to_wait == 0)
 			exec_inst(env, process);
+		list_of_processes = list_of_processes->next;
+	}
+	list_of_processes = env->process;
+	while (list_of_processes)
+	{
+		process = (t_process *)list_of_processes->content;
+		if (process->cycle_to_wait == 0)
+		{
+			process->cur_opcode = env->arena[process->pc];
+			process->cycle_to_wait = 1;
+			if (process->cur_opcode < 16 && process->cur_opcode > 0)
+				process->cycle_to_wait = g_op_tab[process->cur_opcode - 1].cycle_nb;
+		}
 		list_of_processes = list_of_processes->next;
 	}
 }
