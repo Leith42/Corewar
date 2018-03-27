@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/27 03:34:42 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/27 04:18:42 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ static void		cycle_check(t_env *env)
 	static size_t	cycle = 0;
 	static size_t	global_cycle = 0;
 	size_t			cycles_skipped;
+	size_t			killed_processes;
 
 	cycles_skipped = 0;//skip_cycles(env, env->cycle_to_die - cycle);
 	cycle += 1 + cycles_skipped;
@@ -109,8 +110,10 @@ Processes : %d\n\x1b[K", global_cycle, cycle, env->cycle_to_die, env->nb_live,
 			nb_checks, ft_lstlen(env->process));
 	if (!(cycle >= env->cycle_to_die))
 		return ;
-	ft_printf((env->visual) ? "\n\x1b[KProcesses killed at last check : %d\n\
-\x1b[K" : " ", kill_dead_process(env));
+	killed_processes = kill_dead_process(env);
+	if (env->visual)
+		ft_printf("\n\x1b[KProcesses killed at last check : %d\n\x1b[K",
+				killed_processes);
 	if ((env->nb_live >= NBR_LIVE || nb_checks >= MAX_CHECKS)
 		&& !(nb_checks = 0))
 		env->cycle_to_die -= (env->cycle_to_die <= CYCLE_DELTA) ?
@@ -134,22 +137,21 @@ void			run(t_env *env)
 		ft_putstr("\x1b[2J\x1b[68;0H");
 	while (env->process != NULL)
 	{
+		if (env->is_dump_cycle_specified && env->dump_cycle-- == 0)
+		{
+			dump_memory(env, 64);
+			return ;
+		}
 		run_processes(env);
 		cycle_check(env);
 		if (env->visual)
 			disp_arena(env, 64);
-		if (env->is_dump_cycle_specified && --env->dump_cycle == 0)
-		{
-			ft_putstr("\x1b[2J");
-			dump_memory(env, 64);
-			return ;
-		}
 		if (env->interactive)
 			ft_pause(env);
 	}
 	if ((winner = get_champ_name(env, env->last_live_id)))
-		ft_printf("\x1b[2JLe joueur %d(%s) a gagne.\n",
+		ft_printf("Le joueur %d(%s) a gagne.\n",
 				env->last_live_id, winner);
 	else
-		ft_printf("\x1b[2JPersonne n'a gagne.\n");
+		ft_printf("Personne n'a gagne.\n");
 }
