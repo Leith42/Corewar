@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:56:37 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/21 20:45:53 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/28 18:43:47 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,19 @@ static void	print_buffer(t_env *env, t_process *process)
 {
 	char *champion_name;
 
-	champion_name = get_champ_name(env, process->reg[0]);
-	if (champion_name != NULL)
+	if (env->visual)
 	{
-		ft_printf("A process belonging to %s says: %s\n",
-					champion_name, process->aff_buffer);
-	}
-	else
-	{
-		ft_printf("A process (%d) says: %s\n",
-					process->reg[0], process->aff_buffer);
+		champion_name = get_champ_name(env, process->reg[0]);
+		if (champion_name != NULL)
+		{
+			ft_printf("A process belonging to %s says: %s\n",
+						champion_name, process->aff_buffer);
+		}
+		else
+		{
+			ft_printf("A process (%d) says: %s\n",
+						process->reg[0], process->aff_buffer);
+		}
 	}
 }
 
