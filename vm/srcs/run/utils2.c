@@ -6,34 +6,18 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 17:59:15 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/27 18:33:12 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/28 14:42:34 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <unistd.h>
 
-static void		disp_hex_byte(unsigned char byte)
-{
-	unsigned char	cur;
-
-	cur = byte >> 4;
-	if (cur < 10)
-		ft_putchar((char)(cur + '0'));
-	else
-		ft_putchar((char)(cur - 10 + 'a'));
-	cur = byte & 15;
-	if (cur < 10)
-		ft_putchar((char)(cur + '0'));
-	else
-		ft_putchar((char)(cur - 10 + 'a'));
-	ft_putchar(' ');
-}
-
 void			dump_memory(t_env *env, size_t line_len)
 {
-	size_t		i;
-	size_t		j;
+	size_t			i;
+	size_t			j;
+	unsigned char	cur;
 
 	ft_putchar('\n');
 	i = 0;
@@ -42,7 +26,17 @@ void			dump_memory(t_env *env, size_t line_len)
 		ft_printf("%#.4x : ", i);
 		j = 0;
 		while (j < line_len)
-			disp_hex_byte(env->arena[i + j++]);
+		{
+			if ((cur = env->arena[i + j] >> 4) < 10)
+				ft_putchar((char)(cur + '0'));
+			else
+				ft_putchar((char)(cur - 10 + 'a'));
+			if ((cur = env->arena[i + j++] & 15) < 10)
+				ft_putchar((char)(cur + '0'));
+			else
+				ft_putchar((char)(cur - 10 + 'a'));
+			ft_putchar(' ');
+		}
 		ft_putchar('\n');
 		i += j;
 	}
@@ -101,4 +95,14 @@ effectue un \x1b[1;32m%-4s (%#-.2hx)\x1b[0m au pc \x1b[1;36m%-4d\x1b[0m ",
 		i++;
 	}
 	ft_putstr("\n\x1b[K");
+}
+
+void			disp_cycle_data(t_env *env, size_t cycle,
+				size_t global_cycle, size_t nb_checks)
+{
+	ft_printf("\n\x1b[K\n\x1b[K\n\x1b[K\x1b[K\
+Total cycles = %d\tCycles = %d\t Cycle to die = %d\n\x1b[K\
+nb_live = %d, checks = %d\n\x1b[K Processes : %d\n\x1b[K",
+		global_cycle, cycle, env->cycle_to_die, env->nb_live,
+		nb_checks, ft_lstlen(env->process));
 }

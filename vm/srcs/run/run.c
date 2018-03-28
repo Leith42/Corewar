@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/27 19:29:57 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/28 14:44:47 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,32 +44,30 @@ static void		exec_inst(t_env *env, t_process *process)
 
 static void		run_processes(t_env *env)
 {
-	t_list		*list_of_processes;
-	t_process	*process;
+	t_list		*proc_lst;
+	t_process	*proc;
 
-	list_of_processes = env->process;
-	while (list_of_processes)
+	proc_lst = env->process;
+	while (proc_lst && (proc = (t_process *)proc_lst->content))
 	{
-		process = (t_process *)list_of_processes->content;
-		process->cycle_to_wait--;
+		proc->cycle_to_wait--;
 		if (env->debug)
-			disp_process_state(env, process);
-		if (process->cycle_to_wait == 0)
-			exec_inst(env, process);
-		list_of_processes = list_of_processes->next;
+			disp_process_state(env, proc);
+		if (proc->cycle_to_wait == 0)
+			exec_inst(env, proc);
+		proc_lst = proc_lst->next;
 	}
-	list_of_processes = env->process;
-	while (list_of_processes)
+	proc_lst = env->process;
+	while (proc_lst && (proc = (t_process *)proc_lst->content))
 	{
-		process = (t_process *)list_of_processes->content;
-		if (process->cycle_to_wait == 0)
+		if (proc->cycle_to_wait == 0)
 		{
-			process->cur_opcode = env->arena[process->pc];
-			process->cycle_to_wait = 1;
-			if (process->cur_opcode < 16 && process->cur_opcode > 0)
-				process->cycle_to_wait = g_op_tab[process->cur_opcode - 1].cycle_nb;
+			proc->cur_opcode = env->arena[proc->pc];
+			proc->cycle_to_wait = 1;
+			if (proc->cur_opcode < 16 && proc->cur_opcode > 0)
+				proc->cycle_to_wait = g_op_tab[proc->cur_opcode - 1].cycle_nb;
 		}
-		list_of_processes = list_of_processes->next;
+		proc_lst = proc_lst->next;
 	}
 }
 
@@ -107,22 +105,19 @@ static void		cycle_check(t_env *env)
 	static size_t	cycle = 0;
 	static size_t	global_cycle = 0;
 	size_t			cycles_skipped;
-	size_t			killed_processes;
+	size_t			kill_proc;
 
 	cycles_skipped = 0;//skip_cycles(env, env->cycle_to_die - cycle);
 	cycle += 1 + cycles_skipped;
 	global_cycle += 1 + cycles_skipped;
 	if (env->visual)
-		ft_printf("\n\x1b[K\n\x1b[K\n\x1b[K\x1b[KTotal cycles = %d\tCycles = %d\t\
-Cycle to die = %d\n\x1b[Knb_live = %d, checks = %d\n\x1b[K\
-Processes : %d\n\x1b[K", global_cycle, cycle, env->cycle_to_die, env->nb_live,
-			nb_checks, ft_lstlen(env->process));
+		disp_cycle_data(env, cycle, global_cycle, nb_checks);
 	if (!(cycle >= env->cycle_to_die))
 		return ;
-	killed_processes = kill_dead_process(env);
+	kill_proc = kill_dead_process(env);
 	if (env->visual)
 		ft_printf("\n\x1b[KProcesses killed at last check : %d\n\x1b[K",
-				killed_processes);
+				kill_proc);
 	if ((env->nb_live >= NBR_LIVE || nb_checks >= MAX_CHECKS)
 		&& !(nb_checks = 0))
 		env->cycle_to_die -= (env->cycle_to_die <= CYCLE_DELTA) ?

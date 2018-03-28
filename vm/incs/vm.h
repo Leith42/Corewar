@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/27 03:25:57 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/28 14:42:34 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,8 @@ unsigned int			is_reg(unsigned int value);
 void					disp_process_state(t_env *env, t_process *proc);
 void					ft_pause(t_env *env);
 void					dump_memory(t_env *env, size_t line_len);
+void					disp_cycle_data(t_env *env, size_t cycle,
+						size_t global_cycle, size_t nb_checks);
 
 /*
 ** List of actions tht can be performed by the process
