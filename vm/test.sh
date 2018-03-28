@@ -6,7 +6,7 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/27 03:39:52 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/28 12:23:26 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/28 17:38:43 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ DISP_OK="\e[32m.\e[0m"
 DISP_END="\e[32me\e[0m"
 DISP_BAD="\e[31mF\e[0m"
 DISP_ONE_END="\e[35mW\e[0m"
+DISP_SKIP="\e[33mS\e[0m"
 
 #Modify your variables here
 VM="corewar"
@@ -28,28 +29,22 @@ TESTS_DIR="test_dumps_$PID"
 if [ `tput lines` -le $((`ls -1 $CHAMPS_DIR/*.cor | wc -l` + 3)) ] ; then
 	printf "Abort : not enough rows.\n"
 	exit 1
-elif [ -z $3 ] ; then
-	printf "Usage : ./vm/test.sh low step high\n"
+elif [ -z $1 ] ; then
+	printf "Usage : ./vm/test.sh [low step high | duels]\n"
 	exit 1
+elif [ $1 = "duels" ] ; then
+	break
 elif [ `tput cols` -le $(( (($3 - $1) / $2) + 1 + 24 )) ] \
 	|| [ `tput cols` -le 72 ] ; then
 printf "Abort : not enough columns.\n"
 exit 1
 fi
 
-exec 0>&- && exec 2>&-
-printf "\e[2J\e[H"
-echo "\t---=== Corewar Dump Testing ===---"
-echo "\tFrom $1 to $3 with step = $2"
-printf "$DISP_OK = OK ; $DISP_END = Fight ended ; $DISP_BAD = Bad diff ; $DISP_ONE_END = Fight ended on one VM only\n"
-mkdir -p $TESTS_DIR
-for champ in $CHAMPS_DIR/*.cor
-do
-	printf "\e[36m`basename $champ | rev | cut -c 5- | rev`\n"
-done
-vpos=4
-for champ in $CHAMPS_DIR/*.cor
-do
+#individual champion dump test. {low, step, high, champ, vpos}
+run_individual_check()
+{
+	champ=$4
+	vpos=$5
 	if [[ (`basename $champ` = "car.cor" \
 		|| `basename $champ` = "bee_gees.cor" \
 		|| `basename $champ` = "mandragore.cor") ]] ; then
@@ -69,6 +64,7 @@ do
 		fi
 		(FILE_VM="$TESTS_DIR/vm_dump_`basename $champ`_$i.log"
 		FILE_REF_VM="$TESTS_DIR/ref_vm_dump_`basename $champ`_$i.log"
+		touch $FILE_VM $FILE_REF_VM
 		./$VM $champ -dump $i 2>/dev/null | tail -n 64 > $FILE_VM &
 		./$REF_VM $champ -d $i 2>/dev/null | tail -n 64 > $FILE_REF_VM &
 		wait
@@ -89,7 +85,75 @@ do
 		fi
 		let "hpos+=1"
 	done
-	let "vpos++"
+}
+
+#duel test. {champ, vpos, CHAMPS_DIR}
+run_duel_checks()
+{
+	champ=$1
+	vpos=$2
+	CHAMPS_DIR=$3
+	hpos=24
+	for opponent in $CHAMPS_DIR/*.cor
+	do
+		if [[ (`basename $champ` = "car.cor" \
+			|| `basename $champ` = "bee_gees.cor" \
+			|| `basename $champ` = "42.cor" \
+			|| `basename $champ` = "barriere.cor" \
+			|| `basename $champ` = "mandragore.cor" \
+			|| `basename $opponent` = "car.cor" \
+			|| `basename $opponent` = "bee_gees.cor" \
+			|| `basename $opponent` = "42.cor" \
+			|| `basename $opponent` = "barriere.cor" \
+			|| `basename $opponent` = "mandragore.cor") ]] ; then
+			printf "\e[s\e[$vpos;${hpos}H$DISP_SKIP\e[u"
+			let "hpos+=1"
+			continue
+		fi
+		( ref_win=$(./$REF_VM $champ $opponent 2>/dev/null | tail -n 1 | grep -e "\".*\"" -o | cut -c 2- | rev | cut -c 2- | rev)
+		win=$(./$VM $champ $opponent 2>/dev/null | tail -n 1 | grep -e "(.*)" -o | cut -c 2- | rev | cut -c 2- | rev)
+		if [ $ref_win = $win -o $win = $ref_win ] ; then
+			res=$DISP_OK
+		else
+			res=$DISP_BAD
+		fi
+		printf "\e[s\e[$vpos;${hpos}H$res\e[u" ) &
+		let "hpos+=1"
+	done
+	wait
+}
+
+exec 0>&- && exec 2>&-
+printf "\e[2J\e[H"
+echo "\t---=== Corewar Tester ===---"
+if [ $1 = "duels" ] ; then
+	echo "\t\tDuel mode"
+	printf "$DISP_OK = OK ; $DISP_BAD = Bad diff ; $DISP_SKIP = Skip\n"
+	printf "\x1b[23C"
+	for champ in $CHAMPS_DIR/*.cor
+	do
+		printf "\e[36m`basename $champ | cut -c 1`"
+	done
+	echo ""
+	vpos=5
+else
+	echo "\tFrom $1 to $3 with step = $2"
+	printf "$DISP_OK = OK ; $DISP_END = Fight ended ; $DISP_BAD = Bad diff ; $DISP_ONE_END = Fight ended on one VM only\n"
+	vpos=4
+fi
+mkdir -p $TESTS_DIR
+for champ in $CHAMPS_DIR/*.cor
+do
+	printf "\e[36m`basename $champ | rev | cut -c 5- | rev`\n"
+done
+for champ in $CHAMPS_DIR/*.cor
+do
+	if [ $1 = "duels" ] ; then
+		run_duel_checks $champ $vpos $CHAMPS_DIR
+	else
+		run_individual_check $1 $2 $3 $champ $vpos
+	fi
+	(( vpos++ ))
 done
 wait
 rm -rf $TESTS_DIR 2>/dev/null
