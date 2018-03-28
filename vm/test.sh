@@ -6,7 +6,7 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/27 03:39:52 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/27 14:36:02 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/27 19:24:25 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ do
 		maxcycles=5000
 	elif [[ (`basename $champ` = "ultimate-surrender.cor" \
 		|| `basename $champ` = "mise_a_jour_windows95.cor") ]] ; then
-		maxcycles=50000
+		maxcycles=25000
 	else
 		maxcycles=`$REF_VM -v 2 $champ 2>/dev/null | grep cycle | tail -n 1 | cut -d ' ' -f 5`
 	fi
