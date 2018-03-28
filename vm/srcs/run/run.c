@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/28 14:44:47 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/28 20:11:09 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ static void		exec_inst(t_env *env, t_process *process)
 			process->cycle_to_wait = g_op_tab[process->cur_opcode - 1].cycle_nb;
 		return ;
 	}
-	new_pc = skip_pc(env, process);
+	new_pc = 0;
+	if (process->cur_opcode != OP_ZJMP || process->carry == 0)
+		new_pc = skip_pc(env, process);
 	ret = (*(env->exec_inst_tab[process->cur_opcode]))(process, env);
 	if (process->cur_opcode != OP_ZJMP || process->carry == 0)
 		process->pc = new_pc;
@@ -58,9 +60,9 @@ static void		run_processes(t_env *env)
 		proc_lst = proc_lst->next;
 	}
 	proc_lst = env->process;
-	while (proc_lst && (proc = (t_process *)proc_lst->content))
+	while (proc_lst && proc_lst->content)
 	{
-		if (proc->cycle_to_wait == 0)
+		if ((proc = ((t_process *)proc_lst->content))->cycle_to_wait == 0)
 		{
 			proc->cur_opcode = env->arena[proc->pc];
 			proc->cycle_to_wait = 1;
@@ -81,6 +83,10 @@ static size_t	skip_cycles(t_env *env, size_t max_skip)
 	size_t		min_wait;
 
 	min_wait = max_skip;
+	if (env->is_dump_cycle_specified && env->dump_cycle < max_skip)
+		min_wait = env->dump_cycle;
+	if (min_wait < 3)
+		return (0);
 	lst = env->process;
 	while (lst)
 	{
@@ -96,6 +102,7 @@ static size_t	skip_cycles(t_env *env, size_t max_skip)
 		((t_process *)lst->content)->cycle_to_wait -= (min_wait - 1);
 		lst = lst->next;
 	}
+	env->dump_cycle -= (min_wait - 1);
 	return (min_wait - 1);
 }
 
@@ -107,7 +114,8 @@ static void		cycle_check(t_env *env)
 	size_t			cycles_skipped;
 	size_t			kill_proc;
 
-	cycles_skipped = 0;//skip_cycles(env, env->cycle_to_die - cycle);
+	cycles_skipped = (env->debug) ? 0 :
+		skip_cycles(env, env->cycle_to_die - cycle - 1);
 	cycle += 1 + cycles_skipped;
 	global_cycle += 1 + cycles_skipped;
 	if (env->visual)
@@ -115,9 +123,8 @@ static void		cycle_check(t_env *env)
 	if (!(cycle >= env->cycle_to_die))
 		return ;
 	kill_proc = kill_dead_process(env);
-	if (env->visual)
-		ft_printf("\n\x1b[KProcesses killed at last check : %d\n\x1b[K",
-				kill_proc);
+	(env->visual) ? (void)ft_printf("\n\x1b[KProcesses killed at last check : \
+%d\n\x1b[K", kill_proc) : (void)env;
 	if ((env->nb_live >= NBR_LIVE || nb_checks >= MAX_CHECKS)
 		&& !(nb_checks = 0))
 		env->cycle_to_die -= (env->cycle_to_die <= CYCLE_DELTA) ?
