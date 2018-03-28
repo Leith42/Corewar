@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:56:16 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/27 17:58:46 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/28 14:17:36 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,9 @@ int	do_ldi(t_process *process, t_env *env)
 	val[2] = get_param_raw_value(env,
 			process->pc + 2 + ((type[0] == T_REG) ? 1 : 2) +
 			((type[1] == T_REG) ? 1 : 2), T_REG, OP_LDI);
-	if (!(get_param_type(env, process->pc, OP_LDI, 2) == T_REG
-		&& type[0] & g_op_tab[OP_LDI - 1].param_type[0]
-		&& type[1] & g_op_tab[OP_LDI - 1].param_type[1]
-		&& is_reg(val[2])
+	if (!(get_param_type(env, process->pc, OP_LDI, 2) == T_REG && type[0]
+		& g_op_tab[OP_LDI - 1].param_type[0] && type[1] &
+		g_op_tab[OP_LDI - 1].param_type[1] && is_reg(val[2])
 		&& (type[0] != T_REG || is_reg(val[0]))))
 		return (0);
 	val[1] = (type[1] == T_REG) ? process->reg[val[1] - 1] : val[1];
@@ -40,11 +39,8 @@ int	do_ldi(t_process *process, t_env *env)
 		val[0] = (type[0] == T_REG) ? process->reg[val[0] - 1]
 			: get_uintfrom_char(env, (process->pc +
 			(((short)(val[0])) % IDX_MOD)) % MEM_SIZE, 4);
-	if (type[0] == T_REG && type[1] == T_REG)
-		process->reg[val[2] - 1] = get_uintfrom_char(env, (process->pc +
-			(((int)(val[0] + val[1])) % IDX_MOD)) % MEM_SIZE, 4);
-	else
-		process->reg[val[2] - 1] = get_uintfrom_char(env, (process->pc +
-			(((short)(val[0] + val[1])) % IDX_MOD)) % MEM_SIZE, 4);
+	process->reg[val[2] - 1] = get_uintfrom_char(env, (process->pc +
+		(((type[0] == T_REG && type[1] == T_REG) ? (int)(val[0] + val[1])
+		: (short)(val[0] + val[1])) % IDX_MOD)) % MEM_SIZE, 4);
 	return (0);
 }
