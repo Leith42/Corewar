@@ -6,7 +6,7 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/27 03:39:52 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/28 17:49:30 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/28 20:54:11 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,6 +101,8 @@ run_duel_checks()
 			|| `basename $champ` = "42.cor" \
 			|| `basename $champ` = "barriere.cor" \
 			|| `basename $champ` = "mandragore.cor" \
+			|| `basename $champ` = "mise_a_jour_windows95.cor" \
+			|| `basename $opponent` = "mise_a_jour_windows95.cor"  \
 			|| `basename $opponent` = "car.cor" \
 			|| `basename $opponent` = "bee_gees.cor" \
 			|| `basename $opponent` = "42.cor" \
