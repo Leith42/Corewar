@@ -6,7 +6,7 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/27 03:39:52 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/28 17:38:43 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/28 17:49:30 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,7 @@ run_individual_check()
 				res=$DISP_END
 			fi
 		else
-			diff $FILE_VM $FILE_REF_VM &>/dev/null && res=$DISP_OK || res=$DISP_BAD ;
+			diff $FILE_VM $FILE_REF_VM &>/dev/null && res=$DISP_OK || res=$DISP_BAD
 		fi
 		rm $FILE_VM $FILE_REF_VM 2>/dev/null
 		printf "\e[s\e[$vpos;${hpos}H$res\e[u"
@@ -110,14 +110,15 @@ run_duel_checks()
 			let "hpos+=1"
 			continue
 		fi
-		( ref_win=$(./$REF_VM $champ $opponent 2>/dev/null | tail -n 1 | grep -e "\".*\"" -o | cut -c 2- | rev | cut -c 2- | rev)
-		win=$(./$VM $champ $opponent 2>/dev/null | tail -n 1 | grep -e "(.*)" -o | cut -c 2- | rev | cut -c 2- | rev)
-		if [ $ref_win = $win -o $win = $ref_win ] ; then
-			res=$DISP_OK
-		else
-			res=$DISP_BAD
-		fi
-		printf "\e[s\e[$vpos;${hpos}H$res\e[u" ) &
+		(FILE_VM="$TESTS_DIR/vm_duel_winner_`basename $champ`_vs_`basename $opponent`.log"
+		FILE_REF_VM="$TESTS_DIR/ref_vm_duel_winner_`basename $champ`_vs_`basename $opponent`.log"
+		touch $FILE_VM $FILE_REF_VM
+		./$REF_VM $champ $opponent 2>/dev/null | tail -n 1 | grep -e "\".*\"" -o | cut -c 2- | rev | cut -c 2- | rev > $FILE_REF_VM &
+		./$VM $champ $opponent 2>/dev/null | tail -n 1 | grep -e "(.*)" -o | cut -c 2- | rev | cut -c 2- | rev > $FILE_VM &
+		wait
+		diff $FILE_VM $FILE_REF_VM &>/dev/null && res=$DISP_OK || res=$DISP_BAD
+		printf "\e[s\e[$vpos;${hpos}H$res\e[u"
+		rm $FILE_VM $FILE_REF_VM 2>/dev/null) &
 		let "hpos+=1"
 	done
 	wait
