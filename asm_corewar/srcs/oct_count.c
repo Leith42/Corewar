@@ -13,10 +13,7 @@
 #include "asm.h"
 
 /*
-** label->oct_tmp sauve la valeur totale courante d'octet depuis le debut du fichier
-** dans la fonction add_to_lst() du check_label.c jusqu'au debut de la ligne lue par
-** gnl.
-** label->oct sauve la valeur octale finale de la position du label.
+** Ajoute la value au bon endroit dans la liste d'instructions
 */
 
 void	add_value_to_inst(int res, t_lst_op *lst_node, int pos_tmp)
@@ -38,6 +35,10 @@ void	add_value_to_inst(int res, t_lst_op *lst_node, int pos_tmp)
 		printf("%02x ,", lst_node->op[i++]);
 	printf("\n");
 }
+
+/*
+** Calcule et renvoi la valeur entre le call et sa déclaration
+*/
 
 int		set_to_call(t_label *tmp_label, t_lst_op *tmp_lst, char *to_search, int i)
 {
@@ -84,6 +85,11 @@ int		set_to_call(t_label *tmp_label, t_lst_op *tmp_lst, char *to_search, int i)
 	return (0);
 }
 
+/*
+** Repart au début du fichier et cherche les appels 
+** correspondants à la déclaration (to_search)
+*/
+
 void	ft_label(char *to_search, t_label *label, t_lst_op *lst)
 {
 	int i;
@@ -129,6 +135,10 @@ void	ft_label(char *to_search, t_label *label, t_lst_op *lst)
 		tmp_lst = tmp_lst->next;
 	}
 }
+
+/*
+** Cherche un label (déclaration) 
+*/
 
 void	calc_dist_label(t_label *label, t_lst_op *lst)
 {
