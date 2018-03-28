@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 22:47:11 by mgonon            #+#    #+#             */
-/*   Updated: 2018/03/17 01:00:06 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/28 18:34:48 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ size_t	kill_dead_process(t_env *env)
 		if (((t_process *)(cur->content))->is_alive == false)
 		{
 			*prev_next = cur->next;
-			release_aff_buffer(cur->content);
+			if (env->visual)
+				release_aff_buffer(cur->content);
 			free(cur->content);
 			free(cur);
 			nb_death++;
