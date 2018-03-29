@@ -21,10 +21,11 @@ int					ft_read_file(int fd, char *file_name)
 
 	lnbr = 0;
 	n = 0;
+	(void)file_name;
 	//printf("file_name = %s\n", file_name);
-	lst = init_lst(0);
+	lst = init_lst();
 	if ((lnbr = check_header(fd, &header)) != 0 && check_inst(lst, fd, lnbr))
-		ft_write(file_name, lst, &header);
+		;//ft_write(file_name, lst, &header);
 	else
 		return (0);
 	//print_inst(1, lst);

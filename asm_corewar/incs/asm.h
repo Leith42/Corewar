@@ -74,6 +74,7 @@ typedef struct		s_label
 {
 	char			*name;
 	int				oct;
+	int 			line;
 	int				type; // 0 for a declaration, 1 for a call;
 	int				is_set;
 	struct s_label	*next;
@@ -119,12 +120,12 @@ int					char_is_valid(char c);
 ** FONCTION INSTRUCTION
 */
 
-t_lst_op			*init_lst(int nb);
+t_lst_op			*init_lst(void);
 int					inst_error(enum e_error error, int line_nb, char *str);
 int					get_params(char	**inst, t_lst_op *lst, int opc);
 int					check_params(char **inst, int opcode, int line_nb);
 unsigned char		get_ocp(char **inst);
-int					get_inst(char **inst, t_lst_op *lst);
+int                 get_inst(char **inst, t_lst_op *lst, int *line);
 int					check_inst(t_lst_op *lst, int fd, int lnbr);
 
 
@@ -134,10 +135,10 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr);
 
 int					double_check_label(t_label *label);
 int					find_match(t_label *label, char *str);
-t_label				*check_label(char **inst, t_label *label, int pos);
+t_label		*check_label(char **inst, t_label *label_list, int pos, int line);
 int					check_label_char(char *str);
 t_label				*add_to_lst(t_label *label_list, t_label *new);
-void				set_label_name(t_label *new, char *src);
+void		set_label_name(t_label *new, char *src, char *src_next, int line);
 void				aff_label(t_label *label_lst);
 void				oct_count(char **inst, int pos, t_label *label);
 int					oct_prec(int pos, char **str);

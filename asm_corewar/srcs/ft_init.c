@@ -33,15 +33,12 @@ void			init_set(t_header *header)
 	memset(header->comment, 0, COMMENT_LENGTH + 1);
 }
 
-t_lst_op		*init_lst(int nb)
+t_lst_op		*init_lst(void)
 {
 	t_lst_op	*new;
 	if (!(new = ft_memalloc(sizeof(t_lst_op))))
 		return (NULL);
 	if (!(new->label_pos = ft_memalloc(sizeof(int) * 4)))
-		return (NULL);
-	new->line_nb = nb;
-
-//	printf("new = %p\n", new);
+		return (NULL);;
 	return (new);
 }

@@ -99,7 +99,7 @@ unsigned char		get_ocp(char **inst)
 ** fonctions qui vont les verifier et les stocker dans lst->op.
 */
 
-int					get_inst(char **inst, t_lst_op *lst)
+int					get_inst(char **inst, t_lst_op *lst, int *line)
 {
 	static int	nb_oc = 0;
 	int			i;
@@ -109,7 +109,10 @@ int					get_inst(char **inst, t_lst_op *lst)
 	i = 0;
 	nbw = (inst[0][ft_strlen(inst[0]) - 1] == ':') ? 1 : 0;
 	if (nbw == 1 && inst[nbw + 1] == NULL)
+	{
+		*line -= 1;
 		return (1);
+	}
 	while (i < 16 && (ft_strcmp(g_op_tab[i].name, inst[nbw]) != 0))
 		++i;
 	if (i == 16)
@@ -124,10 +127,10 @@ int					get_inst(char **inst, t_lst_op *lst)
 	nbw = 0;
 
 	/* AFFICHAGE TEMPORAIRE */
-	while (nbw < lst->pos)
+/*	while (nbw < lst->pos)
 		printf("%02x ", lst->op[nbw++]);
 	if (lst->label_nb)
-	printf("\nnombre de label sur cette ligne est de %d\n", lst->label_nb);
+	printf("\nnombre de label sur cette ligne est de %d\n", lst->label_nb);*/
 
 	nb_oc += lst->pos;
 	return (1);
@@ -144,26 +147,29 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 	char 		*line;
 	char		**inst;
 	t_lst_op	*tmp;
+	int i;
 
 	tmp = lst;
 	tmp->line_nb = lnbr + 1;
 	label_lst = NULL;
 	line = NULL;
+	i = 0;
 //	printf("check_inst\n");
 	while ((get_next_line(fd, &line, 64)) > 0)
 	{
-		printf("gnl : %s\n", line);
 		lnbr++;
 		if (line && (inst = ft_split_inst(line)) != NULL)
 		{
-			if ((!get_inst(inst, tmp) ||
-(!(label_lst = check_label(inst, label_lst, tmp->pos)))) && ft_free_arr(inst))
+			i++;
+			if ((!get_inst(inst, tmp, &i) ||
+(!(label_lst = check_label(inst, label_lst, tmp->pos, i)))) && ft_free_arr(inst))
 				return (0); //Instruction incorrecte
 			if ((tmp->next = init_lst(lnbr)) == NULL)
 				return (0);
 			tmp = tmp->next;
 		}
 	}
+	aff_label(label_lst);
 	calc_dist_label(label_lst, lst);
 	//replace_dist(label_lst, lst);
 	free(line);
