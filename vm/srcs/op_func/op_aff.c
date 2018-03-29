@@ -81,7 +81,7 @@ int			do_aff(t_process *process, t_env *env)
 		reg_value = process->reg[reg_number - 1] % 256;
 		if (reg_value != '\0')
 		{
-			if (reg_value >= 32 && reg_value <= 126)
+			if ((env->aff) && (reg_value >= 32 && reg_value <= 126))
 				add_to_buffer((char)reg_value, process, env);
 		}
 		else

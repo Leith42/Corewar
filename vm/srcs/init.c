@@ -57,6 +57,7 @@ void		init_env(t_env *env)
 	env->debug = false;
 	env->interactive = false;
 	env->visual = false;
+	env->aff = false;
 	init_champions(env);
 	init_exec_inst_tab(env);
 	ft_bzero(&(env->arena), sizeof(env->arena));

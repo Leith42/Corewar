@@ -34,27 +34,24 @@ static size_t	get_dump_cycle(char **argv, size_t *pos, t_env *env)
 static void		parse_options(char **arguments, size_t *index, t_env *env)
 {
 	if (ft_strequ(arguments[*index], "-dump") == true)
-	{
 		env->dump_cycle = get_dump_cycle(arguments, index, env);
-	}
-	else if (ft_strequ(arguments[*index], "-i") == true)
-	{
-		env->visual = true;
-		env->interactive = true;
-		(*index)++;
-	}
-	else if (ft_strequ(arguments[*index], "-v") == true)
-	{
-		env->visual = true;
-		(*index)++;
-	}
-	else if (ft_strequ(arguments[*index], "-d") == true)
-	{
-		env->debug = true;
-		(*index)++;
-	}
 	else
-		return ;
+	{
+		if (ft_strequ(arguments[*index], "-i") == true)
+		{
+			env->visual = true;
+			env->interactive = true;
+		}
+		else if (ft_strequ(arguments[*index], "-v") == true)
+			env->visual = true;
+		else if (ft_strequ(arguments[*index], "-d") == true)
+			env->debug = true;
+		else if (ft_strequ(arguments[*index], "-a") == true)
+			env->aff = true;
+		else
+			return ;
+		(*index)++;
+	}
 	if (arguments[*index] != NULL)
 		parse_options(arguments, index, env);
 }

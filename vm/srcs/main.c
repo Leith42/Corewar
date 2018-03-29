@@ -17,8 +17,9 @@ void		print_usage(void)
 {
 	ft_putendl("Usage: ./corewar \
 [-dump nbr_cycles] [-v] [-i] [-d] [[-n number] champion1.cor] ...");
-	ft_putendl("-dump\t : Dumps memory after N cycles then exits");
+	ft_putendl("-dump\t : Dumps memory after N cycles then exits.");
 	ft_putendl("-n\t : Specify a custom champion ID.");
+	ft_putendl("-a\t : Prints output from \"aff\" (default is to hide it).");
 	ft_putendl("-v\t : Graphic mode.");
 	ft_putendl("-i\t : Interactive mode.");
 	ft_putendl("-d\t : Debug mode.");
