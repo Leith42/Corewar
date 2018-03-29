@@ -114,8 +114,8 @@ static void		cycle_check(t_env *env)
 	size_t			cycles_skipped;
 	size_t			kill_proc;
 
-	cycles_skipped = (env->debug) ? 0 :
-		skip_cycles(env, env->cycle_to_die - cycle - 1);
+	cycles_skipped = (env->skip_cycle == false) ? 0 :
+				skip_cycles(env, env->cycle_to_die - cycle - 1);
 	cycle += 1 + cycles_skipped;
 	global_cycle += 1 + cycles_skipped;
 	if (env->visual)

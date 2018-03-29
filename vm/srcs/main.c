@@ -22,7 +22,9 @@ void		print_usage(void)
 	ft_putendl("-a\t : Prints output from \"aff\" (default is to hide it).");
 	ft_putendl("-v\t : Graphic mode.");
 	ft_putendl("-i\t : Interactive mode.");
-	ft_putendl("-d\t : Debug mode.");
+	ft_putendl("-d\t : Debug mode.\n");
+	ft_putendl("/!\\ TEMPORARY DEBUG OPTIONS /!\\");
+	ft_putendl("--no-skip: Disable skip of unused cycles.");
 }
 
 int			main(int argc, char *argv[])

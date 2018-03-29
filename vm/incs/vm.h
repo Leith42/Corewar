@@ -97,6 +97,7 @@ typedef struct			s_env
 	bool				interactive;
 	bool				visual;
 	bool				aff;
+	bool				skip_cycle;
 	size_t				dump_cycle;
 	size_t				cycle_to_die;
 	size_t				nb_live;
