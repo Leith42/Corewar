@@ -164,7 +164,7 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 			if ((!get_inst(inst, tmp, &i) ||
 (!(label_lst = check_label(inst, label_lst, tmp->pos, i)))) && ft_free_arr(inst))
 				return (0); //Instruction incorrecte
-			if ((tmp->next = init_lst(lnbr)) == NULL)
+			if ((tmp->next = init_lst()) == NULL)
 				return (0);
 			tmp = tmp->next;
 		}

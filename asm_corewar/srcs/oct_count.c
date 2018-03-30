@@ -47,18 +47,19 @@ int		set_to_call(t_label *tmp_label, t_lst_op *tmp_lst, int line, int i)
 
 	res = tmp_lst->pos;
 	nb = 0;
-	printf("AU TOUT DEBUT ON est sur %02x avec un res de %d\n", tmp_lst->op[0], res);
+	printf("AU TOUT DEBUT ON est sur %02x avec un res de %d\n sur un pos de %d\n", tmp_lst->op[0], res, tmp_lst->pos);
 	while (i < tmp_lst->label_nb)
 	{
 		i++;
 		tmp_label = tmp_label->next;
 	}
 	tmp_lst = tmp_lst->next;
-	printf("line recu dans set_to_call est %d\n", line);
-	printf("on rentre dans set_to_call et le pos_tmp = %d et le label oú on se trouve est %s et type %d\n", res, tmp_label->name, tmp_label->type);
+//	printf("line recu dans set_to_call est %d\n", line);
+//	printf("on rentre dans set_to_call et le pos_tmp = %d et le label oú on se trouve est %s et type %d\n", res, tmp_label->name, tmp_label->type);
 	i = 0;
-	while (i < line)
+	while (i < line - 1)
 	{
+		nb = 0;
 		printf("maillon rentré est %02x\n", tmp_lst->op[0]);
 		while (tmp_label->type == -1 || tmp_label->type == 0)
 			tmp_label = tmp_label->next;
@@ -69,11 +70,43 @@ int		set_to_call(t_label *tmp_label, t_lst_op *tmp_lst, int line, int i)
 			tmp_label = tmp_label->next;
 		}
 		res += tmp_lst->pos;
-		printf("res dans la boucle de line = %d\n", res);
+		printf("res dans la boucle de line = %d sur un pos de %d\n", res, tmp_lst->pos);
 		tmp_lst = tmp_lst->next;
 		i++;
 	}
 	return (res);
+}
+
+void	ft_after(char *to_search, t_label *tmp_label, t_lst_op *tmp_lst)
+{
+	int res;
+	int i;
+
+	res = 0;
+	while (tmp_label->type == 0 || tmp_label->type == -1)
+		tmp_label = tmp_label->next;
+	printf(" on est pret est paré dans le after avec > %02x < et label %s de type %d\n", tmp_lst->op[0], tmp_label->name, tmp_label->type);
+	while (tmp_lst)
+	{
+		i = 0;
+		res += tmp_lst->pos;
+		printf("res = %d, pos = %d, cumul de res est de %d\n", tmp_lst->pos - res, tmp_lst->pos, res);
+		while (tmp_label && (tmp_label->type == 0 || tmp_label->type == -1))
+			tmp_label = tmp_label->next;
+		if (tmp_label)
+			printf("label de type %d est celui la > %s\n", tmp_label->type, tmp_label->name);
+		while (i < tmp_lst->label_nb)
+		{
+			if (ft_strcmp(tmp_label->name, to_search) == 0)
+			{
+				printf("ca correspond (after) !!\n");
+				add_value_to_inst(65536 - res, tmp_lst, i);
+			}
+			i++;
+			tmp_label = tmp_label->next;
+		}
+		tmp_lst = tmp_lst->next;
+	}
 }
 
 /*
@@ -96,20 +129,23 @@ void	ft_label(char *to_search, t_label *label, t_lst_op *lst, int line)
 	{
 		i = 0;
 		line_diff++;
+		res += tmp_lst->pos;
 		while (tmp_label->type == 0 || tmp_label->type == -1)
 		{
-			if (ft_strcmp(tmp_label->name, to_search) == 0 && before == 0)
+			if (ft_strcmp(tmp_label->name, to_search) == 0)
 			{
-				before = 1;
-				printf("on arrive AU CALL et on active BEFORE et le call est %s\n", tmp_label->name);
-				res = 0;
-				tmp_lst = tmp_lst->next;
-				continue ;
+				printf("on sort de before et on change de FT\n");
+				while (line_diff < line)
+				{
+					
+					tmp_lst = tmp_lst->next;
+					line_diff++;
+				}
+				ft_after(to_search, tmp_label, tmp_lst->next);
+				return ;
 			}
 			tmp_label = tmp_label->next;
 		}
-		if (before == 1)
-			printf("pos APRES COUP = %d\n", res);
 		while (i < tmp_lst->label_nb)
 		{
 			
@@ -118,23 +154,13 @@ void	ft_label(char *to_search, t_label *label, t_lst_op *lst, int line)
 			if (!ft_strcmp(to_search, tmp_label->name) && tmp_label->is_set == 0)
 			{
 				printf("ca correspond !! avec %s\n", tmp_label->name);
-				if (before == 0)
-				{
-					res = set_to_call(tmp_label, tmp_lst, line - line_diff, i);
-					printf("res BEFORe = %d\n", res);
-					add_value_to_inst(res, tmp_lst, i);
-				}
-				else
-				{
-					printf("res = %d\n", res);
-					printf("res AFTER = %d\n", 65536 - res);
-					add_value_to_inst(65536 - res, tmp_lst, i);
-				}
+				res = set_to_call(tmp_label, tmp_lst, line - line_diff, i);
+				printf("res BEFORe = %d\n", res);
+				add_value_to_inst(res, tmp_lst, i);
 			}
 			i++;
 			tmp_label = tmp_label->next;
 		}
-		res += tmp_lst->pos;
 		tmp_lst = tmp_lst->next;
 		if (tmp_lst && !tmp_label) // a corriger ? maillon en trop dans la chaine
 			return ;
@@ -155,7 +181,7 @@ void	calc_dist_label(t_label *label, t_lst_op *lst)
 	{
 		if (tmp_label->type == 0 || tmp_label->type == -1)
 		{
-			printf("ok on cherche %s<<<<<<<<<<<<<<<\n,", tmp_label->name);
+			printf("ok on cherche %s<<<<<<<<<<<<<<< line = %d\n,", tmp_label->name, tmp_label->line);
 			ft_label(tmp_label->name, label, lst, tmp_label->line);
 			tmp_label->is_set = 1;
 			printf("on est sorti avec %s géré!\n", tmp_label->name);
