@@ -46,28 +46,15 @@ void	print_magic_number(int fd)
 void	print_header(int fd, t_header *header) // refaire cette ft plus propre
 {
 	int i;
-	int gap;
 
 	i = 0;
-	gap = 8;
 	while (i < PROG_NAME_LENGTH)
 		write(fd, &header->prog_name[i++], 1);
-	i = 0;
-	while (i < gap)
-	{
-		write(fd, "\0", 1);
-		i++;
-	}
-	gap = 4;
+	write(fd, "\0\0\0\0\0\0\0\0", 8);
 	i = 0;
 	while (i < COMMENT_LENGTH)
 		write(fd, &header->comment[i++], 1);
-	i = 0;
-	while (i < gap)
-	{
-		write(fd, "\0", 1);
-		i++;
-	}
+	write(fd, "\0\0\0\0", 4);
 }
 
 int		ft_write(char *file_name, t_lst_op *lst, t_header *header)
