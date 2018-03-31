@@ -20,102 +20,80 @@ void	add_value_to_inst(int res, t_lst_op *lst_node, int pos_tmp)
 {
 	int i;
 	int final_place;
+	int dir_size;
 
-	final_place = lst_node->label_pos[pos_tmp];
 	i = 0;
-	final_place++;
-	while (i < 2)
+	dir_size = (g_op_tab[lst_node->op[0] - 1].addr_or_nb == 1) ? 2 : 4;
+	final_place = lst_node->label_pos[pos_tmp];
+	if (dir_size == 2)
+		final_place++;
+	else
+		final_place += 3;
+	while (i < dir_size)
 	{
 		lst_node->op[final_place] = res;
 		final_place--;
 		res >>= 8;
 		i++;
 	}
-	i = 0;
-	while (i < lst_node->pos)
-		printf("%02x ,", lst_node->op[i++]);
-	printf("\n");
 }
 
 /*
 ** Calcule et renvoi la valeur entre le call et sa déclaration
 */
 
-int		set_to_call(t_label *tmp_label, t_lst_op *tmp_lst, int line, int i)
+int		calculate_res(t_lst_op *tmp_lst, t_label *tmp_label, int line)
 {
 	int res;
-	int nb;
+	int i;
 
-	res = tmp_lst->pos;
-	nb = 0;
-	printf("AU TOUT DEBUT ON est sur %02x avec un res de %d\n sur un pos de %d\n", tmp_lst->op[0], res, tmp_lst->pos);
-	while (i < tmp_lst->label_nb)
-	{
-		i++;
-		tmp_label = tmp_label->next;
-	}
-	tmp_lst = tmp_lst->next;
-//	printf("line recu dans set_to_call est %d\n", line);
-//	printf("on rentre dans set_to_call et le pos_tmp = %d et le label oú on se trouve est %s et type %d\n", res, tmp_label->name, tmp_label->type);
 	i = 0;
-	while (i < line - 1)
+	res = 0;
+	while (i < line)
 	{
-		nb = 0;
-		printf("maillon rentré est %02x\n", tmp_lst->op[0]);
-		while (tmp_label->type == -1 || tmp_label->type == 0)
-			tmp_label = tmp_label->next;
-		while (nb < tmp_lst->label_nb)
-		{
-			nb++;
-			printf("on outrepasse la label %s\n", tmp_label->name);
-			tmp_label = tmp_label->next;
-		}
 		res += tmp_lst->pos;
-		printf("res dans la boucle de line = %d sur un pos de %d\n", res, tmp_lst->pos);
 		tmp_lst = tmp_lst->next;
 		i++;
 	}
+	tmp_label->is_set = 1;
 	return (res);
 }
 
-void	ft_after(char *to_search, t_label *tmp_label, t_lst_op *tmp_lst)
+/*
+** Parcours tous les labels qui sont APRÈS la déclaration et y ajoute la valeur négative
+*/
+
+void	search_label_call_after(char *to_search, t_label *tmp_label, t_lst_op *tmp_lst)
 {
 	int res;
 	int i;
 
 	res = 0;
-	while (tmp_label->type == 0 || tmp_label->type == -1)
+	while (tmp_label && (tmp_label->type == 0 || tmp_label->type == -1))
 		tmp_label = tmp_label->next;
-	printf(" on est pret est paré dans le after avec > %02x < et label %s de type %d\n", tmp_lst->op[0], tmp_label->name, tmp_label->type);
 	while (tmp_lst)
 	{
 		i = 0;
-		res += tmp_lst->pos;
-		printf("res = %d, pos = %d, cumul de res est de %d\n", tmp_lst->pos - res, tmp_lst->pos, res);
 		while (tmp_label && (tmp_label->type == 0 || tmp_label->type == -1))
 			tmp_label = tmp_label->next;
-		if (tmp_label)
-			printf("label de type %d est celui la > %s\n", tmp_label->type, tmp_label->name);
 		while (i < tmp_lst->label_nb)
 		{
 			if (ft_strcmp(tmp_label->name, to_search) == 0)
-			{
-				printf("ca correspond (after) !!\n");
-				add_value_to_inst(65536 - res, tmp_lst, i);
-			}
-			i++;
+				add_value_to_inst(0 - res, tmp_lst, i);
 			tmp_label = tmp_label->next;
+			i++;
 		}
+		res += tmp_lst->pos;
 		tmp_lst = tmp_lst->next;
 	}
 }
 
 /*
 ** Repart au début du fichier et cherche les appels
-** correspondants à la déclaration (to_search)
+** correspondants à la déclaration (to_search) FONCTION A NORMER
 */
 
-void	ft_label(char *to_search, t_label *label, t_lst_op *lst, int line)
+void	search_label_call(char *to_search, t_label *label, t_lst_op *lst, int line)
 {
 	int			i;
 	int			res;
@@ -126,38 +104,32 @@ void	ft_label(char *to_search, t_label *label, t_lst_op *lst, int line)
 
 	res = 0;
 	line_diff = 0;
-	*tmp_label = label;
-	*tmp_lst = lst;
+	tmp_label = label;
+	tmp_lst = lst;
 	before = 0;
 	while (tmp_lst)
 	{
 		i = 0;
 		line_diff++;
-		res += tmp_lst->pos;
 		while (tmp_label->type == 0 || tmp_label->type == -1)
 		{
 			if (ft_strcmp(tmp_label->name, to_search) == 0)
 			{
-				printf("on sort de before et on change de FT\n");
 				while (line_diff < line)
 				{
 					tmp_lst = tmp_lst->next;
 					line_diff++;
 				}
-				ft_after(to_search, tmp_label, tmp_lst->next);
+				search_label_call_after(to_search, tmp_label, tmp_lst);
 				return ;
 			}
 			tmp_label = tmp_label->next;
 		}
 		while (i < tmp_lst->label_nb)
 		{
-			printf("AU TOUT DEBUT ON est sur %02x avec un res de %d\n", tmp_lst->op[0], res);
-			printf("on rentre ici une %de fois et le label est %s\n", i + 1, tmp_label->name);
 			if (!ft_strcmp(to_search, tmp_label->name) && tmp_label->is_set == 0)
 			{
-				printf("ca correspond !! avec %s\n", tmp_label->name);
-				res = set_to_call(tmp_label, tmp_lst, line - line_diff, i);
-				printf("res BEFORe = %d\n", res);
+				res = calculate_res(tmp_lst, tmp_label, line - line_diff);
 				add_value_to_inst(res, tmp_lst, i);
 			}
 			i++;
@@ -170,25 +142,20 @@ void	ft_label(char *to_search, t_label *label, t_lst_op *lst, int line)
 }
 
 /*
-** Cherche un label (déclaration)
+** Cherche un label déclaré
 */
 
-void	calc_dist_label(t_label *label, t_lst_op *lst)
+void	fill_label(t_label *label, t_lst_op *lst)
 {
-	t_label	*tmp_label;
 	int		nbw;
+	t_label	*tmp_label;
 
 	tmp_label = label;
 	nbw = 0;
 	while (tmp_label)
 	{
 		if (tmp_label->type == 0 || tmp_label->type == -1)
-		{
-			printf("ok on cherche %s<<<<<<<<<<<<<<< line = %d\n,", tmp_label->name, tmp_label->line);
-			ft_label(tmp_label->name, label, lst, tmp_label->line);
-			tmp_label->is_set = 1;
-			printf("on est sorti avec %s géré!\n", tmp_label->name);
-		}
+			search_label_call(tmp_label->name, label, lst, tmp_label->line);
 		tmp_label = tmp_label->next;
 	}
 	while (lst)

@@ -6,7 +6,7 @@
 #    By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/21 21:48:15 by gudemare         ###   ########.fr        #
+#    Updated: 2018/03/31 20:31:00 by mmatime          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,6 @@ SRCS_LIST		=	\
 					op.c \
 					check_inst.c \
 					check_label.c \
-					double_check_label.c \
 					oct_count.c \
 					ft_error.c \
 					ft_init.c \

@@ -39,12 +39,12 @@ int					get_params(char	**inst, t_lst_op *lst, int opc)
 		{
 			lst->label_nb++;
 			fill_label_pos(lst->label_pos, lst->pos);
-			lst = rmp_param(0, lst, dir_size, -1);
+			lst = rmp_param(0, lst, dir_size);
 		}
 		else if (type == T_DIR)
-			lst = rmp_param(ft_atoi(inst[i] + 1), lst, dir_size, -1);
+			lst = rmp_param(ft_atoi(inst[i] + 1), lst, dir_size);
 		else if (type == T_IND)
-			lst = rmp_param(ft_atoi(inst[i]), lst, 2, -1);
+			lst = rmp_param(ft_atoi(inst[i]), lst, 2);
 	}
 	return (1);
 }
@@ -124,14 +124,6 @@ int					get_inst(char **inst, t_lst_op *lst, int *line)
 		lst->op[lst->pos - 1] = get_ocp(inst + nbw);
 	if (!(get_params(inst + nbw, lst, i)))
 		return (0);
-	nbw = 0;
-
-	/* AFFICHAGE TEMPORAIRE */
-/*	while (nbw < lst->pos)
-		printf("%02x ", lst->op[nbw++]);
-	if (lst->label_nb)
-	printf("\nnombre de label sur cette ligne est de %d\n", lst->label_nb);*/
-
 	nb_oc += lst->pos;
 	return (1);
 }
@@ -169,13 +161,8 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 			tmp = tmp->next;
 		}
 	}
-	aff_label(label_lst);
-	calc_dist_label(label_lst, lst);
-	//replace_dist(label_lst, lst);
+	//aff_label(label_lst);
+	fill_label(label_lst, lst);
 	free(line);
-	/*calc_dist_label(label_lst, tmp);
-	replace_dist(label_lst, lst);
-	 //AFFICHAGE TEMPORAIRE DES LABELS
-	aff_label(label_lst);*/
 	return (1);
 }

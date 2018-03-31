@@ -135,16 +135,21 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr);
 
 int					double_check_label(t_label *label);
 int					find_match(t_label *label, char *str);
-t_label		*check_label(char **inst, t_label *label_list, int pos, int line);
+t_label				*check_label(char **inst, t_label *label_list, int pos, int line);
 int					check_label_char(char *str);
 t_label				*add_to_lst(t_label *label_list, t_label *new);
-void		set_label_name(t_label *new, char *src, char *src_next, int line);
+void				set_label_name(t_label *new, char *src, char *src_next, int line);
 void				aff_label(t_label *label_lst);
 void				oct_count(char **inst, int pos, t_label *label);
 int					oct_prec(int pos, char **str);
 void				calc_dist_label(t_label *label, t_lst_op *lst);
 void				replace_dist(t_label *label, t_lst_op *lst);
 void				fill_label_pos(int *tab, int pos);
+void				add_value_to_inst(int res, t_lst_op *lst_node, int pos_tmp);
+int					calculate_res(t_lst_op *tmp_lst, t_label *tmp_label, int line);
+void				search_label_call_after(char *to_search, t_label *tmp_label, t_lst_op *tmp_lst);
+void				search_label_call(char *to_search, t_label *label, t_lst_op *lst, int line);
+void				fill_label(t_label *label, t_lst_op *lst);
 
 /*
 ** FONCTION WRITE
@@ -159,7 +164,7 @@ void				print_header(int fd, t_header *header);
 ** FONCTION UTILITAIRE
 */
 
-t_lst_op			*rmp_param(int param, t_lst_op *lst, int dir_size, int res);
+t_lst_op			*rmp_param(int param, t_lst_op *lst, int dir_size);
 int					param_type(char *param);
 char				**ft_split_inst(char *inst);
 char				*epur_str_beginning(char *line);

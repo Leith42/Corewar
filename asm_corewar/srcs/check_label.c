@@ -25,8 +25,7 @@ void		aff_label(t_label *label_lst)
 	while (tmp)
 	{
 		if (tmp->type <= 0)
-			ft_printf("label = %s, de type %d, et d'octet %d et est a la
-				ligne numero %d\n", tmp->name, tmp->type, tmp->oct, tmp->line);
+			ft_printf("label = %s, de type %d, et d'octet %d et est a la ligne numero %d\n", tmp->name, tmp->type, tmp->oct, tmp->line);
 		tmp = tmp->next;
 	}
 }

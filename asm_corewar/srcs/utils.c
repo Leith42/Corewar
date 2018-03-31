@@ -17,29 +17,16 @@
 ** dir (differente en fonction de l'instruction).
 */
 
-t_lst_op	*rmp_param(int param, t_lst_op *lst, int dir_size, int res)
+t_lst_op	*rmp_param(int param, t_lst_op *lst, int dir_size)
 {
 	int d;
 
-	if (res != -1)
+	d = (dir_size - 1) * 8;
+	while (dir_size > 0)
 	{
-		d = (dir_size - 1) * 8;
-		while (dir_size > 0)
-		{
-			lst->op[res++] = (unsigned char)(param >> d);
-			param <<= 8;
-			dir_size--;
-		}
-	}
-	else
-	{
-		d = (dir_size - 1) * 8;
-		while (dir_size > 0)
-		{
-			lst->op[lst->pos++] = (unsigned char)(param >> d);
-			param <<= 8;
-			dir_size--;
-		}
+		lst->op[lst->pos++] = (unsigned char)(param >> d);
+		param <<= 8;
+		dir_size--;
 	}
 	return (lst);
 }

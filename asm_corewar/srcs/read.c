@@ -24,7 +24,7 @@ int					ft_read_file(int fd, char *file_name)
 	(void)file_name;
 	lst = init_lst();
 	if ((lnbr = check_header(fd, &header)) != 0 && check_inst(lst, fd, lnbr))
-		;
+		ft_write(file_name, lst, &header);
 	else
 		return (0);
 	return (1);
