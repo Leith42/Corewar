@@ -18,7 +18,7 @@ void	header_error(enum e_error error, int line_nb, char *str)
 		ft_printf("Can't find quote mark on line %d\n", line_nb);
 	else if (error == INVALID_CHAR_NAME)
 		ft_printf("Can't write anything without sharp sign ('#') on line %d\n",
-		 line_nb);
+		line_nb);
 	else if (error == WRONG_INPUT)
 		ft_printf("Wrong input on line %d\n", line_nb);
 	else if (error == COMMENT_NOT_IN_PLACE)
@@ -42,5 +42,3 @@ int		inst_error(enum e_error error, int line_nb, char *str)
 		ft_printf("Register can't be \"%s\" on line %d\n", str, line_nb);
 	return (0);
 }
-
-//void	clean_inst(char **inst, )

@@ -14,7 +14,7 @@
 
 /*
 ** AFF_LABEL - fonction utilitaire servant juste à afficher la totalité des \
-labels (pour tests)
+** labels (pour tests)
 */
 
 void		aff_label(t_label *label_lst)
@@ -25,7 +25,8 @@ void		aff_label(t_label *label_lst)
 	while (tmp)
 	{
 		if (tmp->type <= 0)
-			ft_printf("label = %s, de type %d, et d'octet %d et est a la ligne numero %d\n", tmp->name, tmp->type, tmp->oct, tmp->line);
+			ft_printf("label = %s, de type %d, et d'octet %d et est a la
+				ligne numero %d\n", tmp->name, tmp->type, tmp->oct, tmp->line);
 		tmp = tmp->next;
 	}
 }
@@ -115,13 +116,10 @@ t_label		*check_label(char **inst, t_label *label_list, int pos, int line)
 			set_label_name(new, inst[i], inst[i + 1], line);
 			if (new->type == 0)
 				label_tmp = ft_strdup(new->name);
+			new->oct = (label_tmp && new->type == 1 && !ft_strcmp(\
+				label_tmp, new->name)) ? 0 : pos;
 			if (label_tmp && new->type == 1 && !ft_strcmp(label_tmp, new->name))
-			{
-				new->oct = 0;
 				new->is_set = 1;
-			}
-			else
-				new->oct = pos;
 			label_list = add_to_lst(label_list, new);
 		}
 		i++;
@@ -130,7 +128,7 @@ t_label		*check_label(char **inst, t_label *label_list, int pos, int line)
 	return (label_list);
 }
 
-void				fill_label_pos(int *tab, int pos)
+void		fill_label_pos(int *tab, int pos)
 {
 	int i;
 

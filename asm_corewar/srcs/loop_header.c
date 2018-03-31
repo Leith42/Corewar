@@ -21,21 +21,18 @@ int		char_is_valid(char c)
 
 int		loop_name(int *i, char *line, t_header *header)
 {
-	int tmp;
-	char *name_tmp;
+	int		tmp;
+	char	*name_tmp;
 
 	*i += 1;
 	if (line[*i] && line[*i] == '"')
-	{
-		header->name_is_set = 1; // ca veut dire que name est valide mais ne comporte pas de nom
-		return (1);
-	}
+		header->name_is_set = 1;
 	else
 	{
 		tmp = *i;
 		while (line[*i] && line[*i] != '"')
 			*i += 1;
-		if (line[*i] == '"') // on a un commentaire valide et on le sauvegarde
+		if (line[*i] == '"')
 		{
 			if ((*i - tmp) > PROG_NAME_LENGTH)
 				header_error(NAME_TOO_LONG, 0, "");
@@ -43,10 +40,11 @@ int		loop_name(int *i, char *line, t_header *header)
 			ft_memcpy(header->prog_name, name_tmp, ft_strlen(name_tmp));
 			free(name_tmp);
 			header->name_is_set = 1;
-			return (1);
 		}
-		return (0); // ca veut dire qu'il n'a pas trouvé la guillemet fermante, que le fichier est mauvais
 	}
+	if (header->name_is_set == 1)
+		return (1);
+	return (0);
 }
 
 int		set_name(char *line, t_header *header, int line_nb)
@@ -80,32 +78,30 @@ int		set_name(char *line, t_header *header, int line_nb)
 
 int		loop_comment(int *i, char *line, t_header *header)
 {
-	int tmp;
-	char *comment_tmp;
+	int		tmp;
+	char	*comment_tmp;
 
 	*i += 1;
 	if (line[*i] && line[*i] == '"')
-	{
-		header->comment_is_set = 1; // ca veut dire que name est valide mais ne comporte pas de nom
-		return (1);
-	}
+		header->comment_is_set = 1;
 	else
 	{
 		tmp = *i;
 		while (line[*i] && line[*i] != '"')
 			*i += 1;
-		if (line[*i] == '"') // on a un commentaire valide et on le sauvegarde
-		{	
+		if (line[*i] == '"')
+		{
 			if ((*i - tmp) > COMMENT_LENGTH)
 				header_error(COMMENT_TOO_LONG, 0, "");
 			comment_tmp = ft_strsub(line, tmp, *i - tmp);
 			ft_memcpy(header->comment, comment_tmp, ft_strlen(comment_tmp));
 			free(comment_tmp);
 			header->comment_is_set = 1;
-			return (1);
 		}
-		return (0); // ca veut dire qu'il n'a pas trouvé la guillemet fermante, que le fichier est mauvais
 	}
+	if (header->comment_is_set == 1)
+		return (1);
+	return (0);
 }
 
 int		set_comment(char *line, t_header *header, int line_nb)

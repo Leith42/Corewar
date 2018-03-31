@@ -36,6 +36,7 @@ void			init_set(t_header *header)
 t_lst_op		*init_lst(void)
 {
 	t_lst_op	*new;
+
 	if (!(new = ft_memalloc(sizeof(t_lst_op))))
 		return (NULL);
 	if (!(new->label_pos = ft_memalloc(sizeof(int) * 4)))

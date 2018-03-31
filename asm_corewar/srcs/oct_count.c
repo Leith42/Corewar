@@ -19,8 +19,9 @@
 void	add_value_to_inst(int res, t_lst_op *lst_node, int pos_tmp)
 {
 	int i;
-	int final_place = lst_node->label_pos[pos_tmp];
+	int final_place;
 
+	final_place = lst_node->label_pos[pos_tmp];
 	i = 0;
 	final_place++;
 	while (i < 2)
@@ -110,20 +111,23 @@ void	ft_after(char *to_search, t_label *tmp_label, t_lst_op *tmp_lst)
 }
 
 /*
-** Repart au début du fichier et cherche les appels 
+** Repart au début du fichier et cherche les appels
 ** correspondants à la déclaration (to_search)
 */
 
 void	ft_label(char *to_search, t_label *label, t_lst_op *lst, int line)
 {
-	int i;
-	int res;
-	int before;
-	int	line_diff = 0;
-	t_label *tmp_label = label;
-	t_lst_op *tmp_lst = lst;
+	int			i;
+	int			res;
+	int			before;
+	int			line_diff;
+	t_label		*tmp_label;
+	t_lst_op	*tmp_lst;
 
 	res = 0;
+	line_diff = 0;
+	*tmp_label = label;
+	*tmp_lst = lst;
 	before = 0;
 	while (tmp_lst)
 	{
@@ -137,7 +141,6 @@ void	ft_label(char *to_search, t_label *label, t_lst_op *lst, int line)
 				printf("on sort de before et on change de FT\n");
 				while (line_diff < line)
 				{
-					
 					tmp_lst = tmp_lst->next;
 					line_diff++;
 				}
@@ -148,9 +151,8 @@ void	ft_label(char *to_search, t_label *label, t_lst_op *lst, int line)
 		}
 		while (i < tmp_lst->label_nb)
 		{
-			
 			printf("AU TOUT DEBUT ON est sur %02x avec un res de %d\n", tmp_lst->op[0], res);
-			printf("on rentre ici une %de fois et le label est %s\n", i+1, tmp_label->name);
+			printf("on rentre ici une %de fois et le label est %s\n", i + 1, tmp_label->name);
 			if (!ft_strcmp(to_search, tmp_label->name) && tmp_label->is_set == 0)
 			{
 				printf("ca correspond !! avec %s\n", tmp_label->name);
@@ -162,21 +164,22 @@ void	ft_label(char *to_search, t_label *label, t_lst_op *lst, int line)
 			tmp_label = tmp_label->next;
 		}
 		tmp_lst = tmp_lst->next;
-		if (tmp_lst && !tmp_label) // a corriger ? maillon en trop dans la chaine
+		if (tmp_lst && !tmp_label)// a corriger ? maillon en trop dans la chaine
 			return ;
 	}
-	
 }
 
 /*
-** Cherche un label (déclaration) 
+** Cherche un label (déclaration)
 */
 
 void	calc_dist_label(t_label *label, t_lst_op *lst)
 {
-	t_label *tmp_label;
+	t_label	*tmp_label;
+	int		nbw;
+
 	tmp_label = label;
-	int nbw = 0;
+	nbw = 0;
 	while (tmp_label)
 	{
 		if (tmp_label->type == 0 || tmp_label->type == -1)

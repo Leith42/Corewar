@@ -35,7 +35,7 @@ int					get_params(char	**inst, t_lst_op *lst, int opc)
 				return (inst_error(WRONG_REGISTER, lst->line_nb, inst[i] + 1));
 			lst->op[lst->pos++] = (unsigned char)(nb);
 		}
-		else if (type == T_DIR && inst[i][1] == ':') // CAS D'UN LABEL - PAS GERÉ
+		else if (type == T_DIR && inst[i][1] == ':')
 		{
 			lst->label_nb++;
 			fill_label_pos(lst->label_pos, lst->pos);
