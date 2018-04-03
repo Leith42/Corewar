@@ -158,7 +158,7 @@ int					fill_label(t_label *label, t_lst_op *lst);
 int					ft_write(char *file_name, t_lst_op *lst, t_header *header);
 void				print_inst(int fd, t_lst_op *inst);
 void				print_magic_number(int fd);
-void				print_header(int fd, t_header *header);
+void				print_header(int fd, t_header *header, t_lst_op *lst);
 
 /*
 ** FONCTION UTILITAIRE

@@ -43,14 +43,39 @@ void	print_magic_number(int fd)
 		write(fd, &magic_tab[i], 1);
 }
 
-void	print_header(int fd, t_header *header)
+int		file_size(t_lst_op *lst)
+{
+	int champion;
+
+	champion = 0;
+	while (lst)
+	{
+		champion += lst->pos;
+		lst = lst->next;
+	}
+	return (champion);
+}
+
+void	print_header(int fd, t_header *header, t_lst_op *lst)
 {
 	int i;
+	int champion;
+	char champion_size[4];
 
 	i = 0;
+	champion = file_size(lst);
 	while (i < PROG_NAME_LENGTH)
 		write(fd, &header->prog_name[i++], 1);
-	write(fd, "\0\0\0\0\0\0\0\0", 8);
+	write(fd, "\0\0\0\0", 4);
+	i = 0;
+	while (i < 4)
+	{
+		champion_size[i] = champion;
+		champion >>= 8;
+		i++;
+	}
+	while (--i >= 0)
+		write(fd, &champion_size[i], 1);
 	i = 0;
 	while (i < COMMENT_LENGTH)
 		write(fd, &header->comment[i++], 1);
@@ -67,7 +92,7 @@ int		ft_write(char *file_name, t_lst_op *lst, t_header *header)
 	{
 		ft_printf("Fichier %s crée avec succès !\n", new_file_name);
 		print_magic_number(fd);
-		print_header(fd, header);
+		print_header(fd, header, lst);
 		print_inst(fd, lst);
 	}
 	return (0);
