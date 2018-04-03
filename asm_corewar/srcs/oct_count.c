@@ -79,7 +79,10 @@ void	search_label_call_after(char *to_search, t_label *tmp_label, t_lst_op *tmp_
 		while (i < tmp_lst->label_nb)
 		{
 			if (ft_strcmp(tmp_label->name, to_search) == 0)
+			{
 				add_value_to_inst(0 - res, tmp_lst, i);
+				tmp_label->is_set = 1;
+			}
 			tmp_label = tmp_label->next;
 			i++;
 		}
@@ -131,6 +134,7 @@ void	search_label_call(char *to_search, t_label *label, t_lst_op *lst, int line)
 			{
 				res = calculate_res(tmp_lst, tmp_label, line - line_diff);
 				add_value_to_inst(res, tmp_lst, i);
+				tmp_label->is_set = 1;
 			}
 			i++;
 			tmp_label = tmp_label->next;
@@ -142,22 +146,45 @@ void	search_label_call(char *to_search, t_label *label, t_lst_op *lst, int line)
 }
 
 /*
+** Check si un label appellé trouve bien son parent
+*/
+
+char		*check_label_match(t_label *label)
+{
+	while (label)
+	{
+		if (label->type == 1 && label->is_set == 0)
+			return (label->name);
+		label = label->next;
+	}
+	return (NULL);
+}
+
+/*
 ** Cherche un label déclaré
 */
 
-void	fill_label(t_label *label, t_lst_op *lst)
+int		fill_label(t_label *label, t_lst_op *lst)
 {
 	int		nbw;
+	char	*label_error;
 	t_label	*tmp_label;
 
 	tmp_label = label;
 	nbw = 0;
+	label_error = NULL;
 	while (tmp_label)
 	{
 		if (tmp_label->type == 0 || tmp_label->type == -1)
 			search_label_call(tmp_label->name, label, lst, tmp_label->line);
 		tmp_label = tmp_label->next;
 	}
+	if ((label_error = check_label_match(label)))
+	{
+		printf("No such label reference > %s < found in the file\n", label_error);
+		return (0);
+	}
+	// Affichage >>
 	while (lst)
 	{
 		nbw = 0;
@@ -166,4 +193,6 @@ void	fill_label(t_label *label, t_lst_op *lst)
 		printf("\n");
 		lst = lst->next;
 	}
+	// << temporaire
+	return (1);
 }

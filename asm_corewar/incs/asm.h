@@ -149,7 +149,7 @@ void				add_value_to_inst(int res, t_lst_op *lst_node, int pos_tmp);
 int					calculate_res(t_lst_op *tmp_lst, t_label *tmp_label, int line);
 void				search_label_call_after(char *to_search, t_label *tmp_label, t_lst_op *tmp_lst);
 void				search_label_call(char *to_search, t_label *label, t_lst_op *lst, int line);
-void				fill_label(t_label *label, t_lst_op *lst);
+int					fill_label(t_label *label, t_lst_op *lst);
 
 /*
 ** FONCTION WRITE

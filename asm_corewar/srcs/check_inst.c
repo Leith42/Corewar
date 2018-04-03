@@ -146,7 +146,6 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 	label_lst = NULL;
 	line = NULL;
 	i = 0;
-//	printf("check_inst\n");
 	while ((get_next_line(fd, &line, 64)) > 0)
 	{
 		lnbr++;
@@ -161,8 +160,8 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 			tmp = tmp->next;
 		}
 	}
-	//aff_label(label_lst);
-	fill_label(label_lst, lst);
+	if (!fill_label(label_lst, lst))
+		return (0);
 	free(line);
 	return (1);
 }

@@ -43,7 +43,7 @@ void	print_magic_number(int fd)
 		write(fd, &magic_tab[i], 1);
 }
 
-void	print_header(int fd, t_header *header) // refaire cette ft plus propre
+void	print_header(int fd, t_header *header)
 {
 	int i;
 
@@ -62,8 +62,6 @@ int		ft_write(char *file_name, t_lst_op *lst, t_header *header)
 	int		fd;
 	char	*new_file_name;
 
-	if (header)
-		write(1, "header exist\n", 13);
 	new_file_name = ft_strjoin(ft_strndup(file_name, ft_strlen(file_name) - 2), ".cor");
 	if ((fd = open(new_file_name, O_WRONLY | O_CREAT | O_TRUNC, 0755)))
 	{
