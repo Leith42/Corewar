@@ -20,6 +20,9 @@
 # define DUMP_LINE_LEN	32
 # define NULL_ID 0
 
+/*
+**	ANSI escape sequences for colors.
+*/
 # define COLOR_P1 "\x1b[0;31m"
 # define COLOR_P1_PC "\x1b[0;1;7;31m"
 # define COLOR_P2 "\x1b[0;32m"
@@ -28,23 +31,6 @@
 # define COLOR_P3_PC "\x1b[0;1;7;33m"
 # define COLOR_P4 "\x1b[0;34m"
 # define COLOR_P4_PC "\x1b[0;1;7;34m"
-
-enum					e_error
-{
-	INVALID_NB_OF_CYCLES,
-	NB_OF_CYCLES_ALREADY_EXISTS,
-	TOO_MANY_CHAMPIONS,
-	NO_CHAMPIONS,
-	INVALID_CHAMPION_ID,
-	CHAMPION_ID_IS_ALREADY_TAKEN,
-	OPEN_FILE_FAILED,
-	CLOSE_FILE_FAILED,
-	READ_FILE_FAILED,
-	INVALID_FILE_EXTENSION,
-	MEMORY_ALLOCATION_FAILED,
-	NOT_A_CHAMPION_FILE,
-	FILE_IS_TOO_BIG,
-};
 
 enum					e_opcode
 {
@@ -65,7 +51,7 @@ enum					e_opcode
 	OP_LFORK = 0x0F,
 	OP_AFF = 0x10,
 };
-
+g
 typedef	struct			s_process
 {
 	unsigned int		pc;
