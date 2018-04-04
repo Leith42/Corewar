@@ -128,6 +128,20 @@ int					get_inst(char **inst, t_lst_op *lst, int *line)
 	return (1);
 }
 
+int					check_label(char **inst)
+{
+	int i;
+
+	i = 0;
+	while (inst[i])
+	{
+		if (check_label_char(inst[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 /*
 ** CHECK_INST - fonction qui lis le fichier ligne par ligne et qui creer **inst
 ** et qui renvoie chaque ligne ainsi separer vers get_inst.
@@ -152,8 +166,8 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 		if (line && (inst = ft_split_inst(line)) != NULL)
 		{
 			i++;
-			if ((!get_inst(inst, tmp, &i) ||
-(!(label_lst = check_label(inst, label_lst, tmp->pos, i)))) && ft_free_arr(inst))
+			if ((!get_inst(inst, tmp, &i) || (check_label(inst) &&
+(!(label_lst = set_label(inst, label_lst, tmp->pos, i))))) && ft_free_arr(inst))
 				return (0); //Instruction incorrecte
 			if ((tmp->next = init_lst()) == NULL)
 				return (0);

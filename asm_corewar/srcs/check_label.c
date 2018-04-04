@@ -97,7 +97,7 @@ int			check_label_char(char *str)
 ** CHECK_LABEL - Créer ou MAJ une liste chainée t_label et la renvoit
 */
 
-t_label		*check_label(char **inst, t_label *label_list, int pos, int line)
+t_label		*set_label(char **inst, t_label *label_list, int pos, int line)
 {
 	int			i;
 	char		*label_tmp;

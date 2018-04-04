@@ -135,7 +135,7 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr);
 
 int					double_check_label(t_label *label);
 int					find_match(t_label *label, char *str);
-t_label				*check_label(char **inst, t_label *label_list, int pos, int line);
+t_label				*set_label(char **inst, t_label *label_list, int pos, int line);
 int					check_label_char(char *str);
 t_label				*add_to_lst(t_label *label_list, t_label *new);
 void				set_label_name(t_label *new, char *src, char *src_next, int line);
