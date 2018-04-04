@@ -12,6 +12,10 @@
 
 #include "asm.h"
 
+/*
+**	print_inst - Ecrit dans le fd la totalité des octets d'instructions
+*/
+
 void	print_inst(int fd, t_lst_op *inst)
 {
 	int n;
@@ -24,6 +28,10 @@ void	print_inst(int fd, t_lst_op *inst)
 		inst = inst->next;
 	}
 }
+
+/*
+**	print_magic_number - Ecrit dans le fd le magic number
+*/
 
 void	print_magic_number(int fd)
 {
@@ -43,6 +51,10 @@ void	print_magic_number(int fd)
 		write(fd, &magic_tab[i], 1);
 }
 
+/*
+**	file_size - Calcule et renvoit le nb d'octet du fichier entier
+*/
+
 int		file_size(t_lst_op *lst)
 {
 	int champion;
@@ -55,6 +67,10 @@ int		file_size(t_lst_op *lst)
 	}
 	return (champion);
 }
+
+/*
+**	print_header - Ecrit dans le fd sous forme d'octet .name, .comment, et la taille du fichier
+*/
 
 void	print_header(int fd, t_header *header, t_lst_op *lst)
 {
@@ -82,12 +98,18 @@ void	print_header(int fd, t_header *header, t_lst_op *lst)
 	write(fd, "\0\0\0\0", 4);
 }
 
+/*
+**	ft_write - Ecrit dans le fd la totalité du fichier
+*/
+
 int		ft_write(char *file_name, t_lst_op *lst, t_header *header)
 {
 	int		fd;
 	char	*new_file_name;
+	char	*file_name_tmp;
 
-	new_file_name = ft_strjoin(ft_strndup(file_name, ft_strlen(file_name) - 2), ".cor");
+	file_name_tmp = ft_strndup(file_name, ft_strlen(file_name) - 2);
+	new_file_name = ft_strjoin(file_name_tmp, ".cor");
 	if ((fd = open(new_file_name, O_WRONLY | O_CREAT | O_TRUNC, 0755)))
 	{
 		ft_printf("Fichier %s crée avec succès !\n", new_file_name);
@@ -95,5 +117,8 @@ int		ft_write(char *file_name, t_lst_op *lst, t_header *header)
 		print_header(fd, header, lst);
 		print_inst(fd, lst);
 	}
+	free(file_name_tmp);
+	free(new_file_name);
+	//free(file_name);
 	return (0);
 }

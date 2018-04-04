@@ -41,7 +41,7 @@ enum				e_error
 typedef struct		s_lst_op
 {
 	unsigned char	op[12];
-	int				*label_pos;
+	int				label_pos[4];
 	int				label_nb;
 	int				pos;
 	int				line_nb;
@@ -126,7 +126,7 @@ int					get_params(char	**inst, t_lst_op *lst, int opc);
 int					check_params(char **inst, int opcode, int line_nb);
 unsigned char		get_ocp(char **inst);
 int                 get_inst(char **inst, t_lst_op *lst, int *line);
-int					check_inst(t_lst_op *lst, int fd, int lnbr);
+int					check_inst(t_lst_op *lst, int fd);
 
 
 /*
@@ -137,6 +137,7 @@ int					double_check_label(t_label *label);
 int					find_match(t_label *label, char *str);
 t_label				*set_label(char **inst, t_label *label_list, int pos, int line);
 int					check_label_char(char *str);
+int					check_label(char **inst);
 t_label				*add_to_lst(t_label *label_list, t_label *new);
 void				set_label_name(t_label *new, char *src, char *src_next, int line);
 void				aff_label(t_label *label_lst);
@@ -164,7 +165,7 @@ void				print_header(int fd, t_header *header, t_lst_op *lst);
 ** FONCTION UTILITAIRE
 */
 
-t_lst_op			*rmp_param(int param, t_lst_op *lst, int dir_size);
+t_lst_op			*rmp_param(int param, t_lst_op *lst, int dir_size, int label);
 int					param_type(char *param);
 char				**ft_split_inst(char *inst);
 char				*epur_str_beginning(char *line);

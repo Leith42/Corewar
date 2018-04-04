@@ -12,6 +12,10 @@
 
 #include "asm.h"
 
+/*
+**	line_is_point - si la ligne commence par (.), traitement des données du header
+*/
+
 int		line_is_point(char *line, t_header *header, int line_nb)
 {
 	int i;
@@ -29,12 +33,22 @@ int		line_is_point(char *line, t_header *header, int line_nb)
 	return (0);
 }
 
+/*
+** header_is_set - fonction qui vérifie a chaque GNL si ce que l'on recherche est set
+*/
+
+
 int		header_is_set(t_header *header)
 {
 	if (!header->name_is_set || !header->comment_is_set)
 		return (0);
 	return (1);
 }
+
+/*
+** CHECK_HEADER - fonction qui lis le fichier ligne par ligne pour y trouver et set un header
+*/
+
 
 int		check_header(int fd, t_header *header)
 {
@@ -54,8 +68,7 @@ int		check_header(int fd, t_header *header)
 			continue ;
 		else if (line_is_point(line, header, line_nb))
 			continue ;
-		else
-			header_error(WRONG_INPUT, line_nb, "");
+		header_error(WRONG_INPUT, line_nb, "");
 	}
-	return (line_nb);
+	return (1);
 }

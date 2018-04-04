@@ -73,6 +73,7 @@ int		set_name(char *line, t_header *header, int line_nb)
 			header_error(INVALID_CHAR_NAME, line_nb, ".name");
 		i++;
 	}
+//	free(line);
 	return (1);
 }
 
@@ -130,5 +131,6 @@ int		set_comment(char *line, t_header *header, int line_nb)
 			header_error(INVALID_CHAR_NAME, line_nb, ".comment");
 		i++;
 	}
+	//free(line);
 	return (1);
 }

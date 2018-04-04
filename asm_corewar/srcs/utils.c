@@ -17,11 +17,16 @@
 ** dir (differente en fonction de l'instruction).
 */
 
-t_lst_op	*rmp_param(int param, t_lst_op *lst, int dir_size)
+t_lst_op	*rmp_param(int param, t_lst_op *lst, int dir_size, int label)
 {
 	int d;
 
 	d = (dir_size - 1) * 8;
+	if (label)
+	{
+		lst->label_nb++;
+		fill_label_pos(lst->label_pos, lst->pos);
+	}
 	while (dir_size > 0)
 	{
 		lst->op[lst->pos++] = (unsigned char)(param >> d);
@@ -95,4 +100,22 @@ char		*epur_str_beginning(char *line)
 		dest = ft_strsub(line, i, ft_strlen(line));
 	free(line);
 	return (dest);
+}
+
+/*
+** CHECK_LABEL - Renvoit (1) si char **inst contient un label minimum
+*/
+
+int			check_label(char **inst)
+{
+	int i;
+
+	i = 0;
+	while (inst[i])
+	{
+		if (check_label_char(inst[i]))
+			return (1);
+		i++;
+	}
+	return (0);
 }

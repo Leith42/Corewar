@@ -13,24 +13,6 @@
 #include "asm.h"
 
 /*
-** AFF_LABEL - fonction utilitaire servant juste à afficher la totalité des \
-** labels (pour tests)
-*/
-
-void		aff_label(t_label *label_lst)
-{
-	t_label *tmp;
-
-	tmp = label_lst;
-	while (tmp)
-	{
-		if (tmp->type <= 0)
-			ft_printf("label = %s, de type %d, et d'octet %d et est a la ligne numero %d\n", tmp->name, tmp->type, tmp->oct, tmp->line);
-		tmp = tmp->next;
-	}
-}
-
-/*
 ** SET_LABEL_NAME - assigne le nom du label dans la structure
 */
 
@@ -119,13 +101,17 @@ t_label		*set_label(char **inst, t_label *label_list, int pos, int line)
 				label_tmp, new->name)) ? 0 : pos;
 			if (label_tmp && new->type == 1 && !ft_strcmp(label_tmp, new->name))
 				new->is_set = 1;
+			free(label_tmp);
 			label_list = add_to_lst(label_list, new);
 		}
 		i++;
 	}
-	free(label_tmp);
 	return (label_list);
 }
+
+/*
+**	fill_label_pos - Remplit le tableau de pos et assigne la derniere pos connue en fin de tableau
+*/
 
 void		fill_label_pos(int *tab, int pos)
 {

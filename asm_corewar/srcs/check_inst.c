@@ -36,15 +36,11 @@ int					get_params(char	**inst, t_lst_op *lst, int opc)
 			lst->op[lst->pos++] = (unsigned char)(nb);
 		}
 		else if (type == T_DIR && inst[i][1] == ':')
-		{
-			lst->label_nb++;
-			fill_label_pos(lst->label_pos, lst->pos);
-			lst = rmp_param(0, lst, dir_size);
-		}
+			lst = rmp_param(0, lst, dir_size, 1);
 		else if (type == T_DIR)
-			lst = rmp_param(ft_atoi(inst[i] + 1), lst, dir_size);
+			lst = rmp_param(ft_atoi(inst[i] + 1), lst, dir_size, 0);
 		else if (type == T_IND)
-			lst = rmp_param(ft_atoi(inst[i]), lst, 2);
+			lst = rmp_param(ft_atoi(inst[i]), lst, 2, 0);
 	}
 	return (1);
 }
@@ -128,26 +124,12 @@ int					get_inst(char **inst, t_lst_op *lst, int *line)
 	return (1);
 }
 
-int					check_label(char **inst)
-{
-	int i;
-
-	i = 0;
-	while (inst[i])
-	{
-		if (check_label_char(inst[i]))
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 /*
 ** CHECK_INST - fonction qui lis le fichier ligne par ligne et qui creer **inst
 ** et qui renvoie chaque ligne ainsi separer vers get_inst.
 */
 
-int					check_inst(t_lst_op *lst, int fd, int lnbr)
+int					check_inst(t_lst_op *lst, int fd)
 {
 	t_label		*label_lst;
 	char 		*line;
@@ -156,13 +138,11 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 	int i;
 
 	tmp = lst;
-	tmp->line_nb = lnbr + 1;
 	label_lst = NULL;
 	line = NULL;
 	i = 0;
 	while ((get_next_line(fd, &line, 64)) > 0)
 	{
-		lnbr++;
 		if (line && (inst = ft_split_inst(line)) != NULL)
 		{
 			i++;
@@ -174,8 +154,8 @@ int					check_inst(t_lst_op *lst, int fd, int lnbr)
 			tmp = tmp->next;
 		}
 	}
+	free(line);
 	if (!fill_label(label_lst, lst))
 		return (0);
-	free(line);
 	return (1);
 }

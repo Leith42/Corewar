@@ -12,6 +12,10 @@
 
 #include "asm.h"
 
+/*
+**	header_error - Msgs d'erreurs liés au header
+*/
+
 void	header_error(enum e_error error, int line_nb, char *str)
 {
 	if (error == QUOTE_MARK)
@@ -29,6 +33,10 @@ void	header_error(enum e_error error, int line_nb, char *str)
 		ft_printf("Champion comment too long (Max length 2048)\n");
 	exit(1);
 }
+
+/*
+**	inst_error - Msgs d'erreurs liés à une instruction
+*/
 
 int		inst_error(enum e_error error, int line_nb, char *str)
 {
