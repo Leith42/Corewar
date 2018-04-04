@@ -51,7 +51,7 @@ enum					e_opcode
 	OP_LFORK = 0x0F,
 	OP_AFF = 0x10,
 };
-g
+
 typedef	struct			s_process
 {
 	unsigned int		pc;
