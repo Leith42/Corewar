@@ -48,6 +48,8 @@ static void		parse_options(char **arguments, size_t *index, t_env *env)
 			env->debug = true;
 		else if (ft_strequ(arguments[*index], "-a") == true)
 			env->aff = true;
+		else if (ft_strequ(arguments[*index], "-c") == true)
+			env->comparison = true;
 		else if (ft_strequ(arguments[*index], "--no-skip") == true)
 			env->skip_cycle = false;
 		else

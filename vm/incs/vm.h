@@ -83,6 +83,7 @@ typedef struct			s_env
 	bool				debug;
 	bool				interactive;
 	bool				visual;
+	bool				comparison;
 	bool				aff;
 	bool				skip_cycle;
 	size_t				dump_cycle;

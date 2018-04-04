@@ -59,6 +59,7 @@ void		init_env(t_env *env)
 	env->interactive = false;
 	env->visual = false;
 	env->aff = false;
+	env->comparison = false;
 	env->skip_cycle = true;
 	init_champions(env);
 	init_exec_inst_tab(env);
