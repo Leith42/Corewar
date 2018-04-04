@@ -6,7 +6,7 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/27 03:39:52 by gudemare          #+#    #+#              #
-#    Updated: 2018/04/04 22:40:27 by gudemare         ###   ########.fr        #
+#    Updated: 2018/04/04 23:53:08 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -105,6 +105,8 @@ run_duel_checks()
 			|| `basename $champ` = "barriere.cor" \
 			|| `basename $champ` = "mandragore.cor" \
 			|| `basename $champ` = "mise_a_jour_windows95.cor" \
+			|| `basename $champ` = "Gagnant.cor" \
+			|| `basename $opponent` = "Octobre_Rouge_V4.2.cor" \
 			|| `basename $opponent` = "mise_a_jour_windows95.cor"  \
 			|| `basename $opponent` = "car.cor" \
 			|| `basename $opponent` = "bee_gees.cor" \
@@ -180,20 +182,25 @@ else
 	CHAMPS_LIST=$CHAMPS_DIR/*.cor
 fi
 mkdir -p $TESTS_DIR
-for champ in $CHAMPS_LIST
-do
-	printf "\e[36m`basename $champ`\n"
-done
-for champ in $CHAMPS_LIST
-do
-	if [ $1 = "duels" ] ; then
-		run_duel_checks $champ $vpos $CHAMPS_DIR
-	elif [ $1 = "asm" ] ; then
-		run_asm_check $champ $vpos $CHAMPS_DIR
-	else
-		run_individual_check $1 $2 $3 $champ $vpos
-	fi
-	(( vpos++ ))
-done
+if [ -z $4 ] ; then
+	for champ in $CHAMPS_LIST
+	do
+		printf "\e[36m`basename $champ`\n"
+	done
+	for champ in $CHAMPS_LIST
+	do
+		if [ $1 = "duels" ] ; then
+			run_duel_checks $champ $vpos $CHAMPS_DIR
+		elif [ $1 = "asm" ] ; then
+			run_asm_check $champ $vpos $CHAMPS_DIR
+		else
+			run_individual_check $1 $2 $3 $champ $vpos
+		fi
+		(( vpos++ ))
+	done
+else
+	printf "\e[36m`basename $4`\n"
+	run_individual_check $1 $2 $3 $4 $vpos
+fi
 wait
 rm -rf $TESTS_DIR 2>/dev/null
