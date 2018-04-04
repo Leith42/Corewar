@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 17:59:15 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/28 14:42:34 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 01:09:25 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ effectue un \x1b[1;32m%-4s (%#-.2hx)\x1b[0m au pc \x1b[1;36m%-4d\x1b[0m ",
 				proc->reg[i], (i == 15) ? "\x1b[0;1m}\x1b[0m" : "\x1b[0m,");
 		i++;
 	}
-	ft_putstr("\n\x1b[K");
+	ft_printf(" Carry = %d\n\x1b[K", proc->carry);
 }
 
 void			disp_cycle_data(t_env *env, size_t cycle,
