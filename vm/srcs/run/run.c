@@ -150,7 +150,7 @@ void			run(t_env *env)
 	{
 		if (env->is_dump_cycle_specified && env->dump_cycle-- == 0)
 		{
-			dump_memory(env, env->comparison ? 32 : 64);
+			dump_memory(env, env->comparison ? 64 : 32);
 			return ;
 		}
 		run_processes(env);
