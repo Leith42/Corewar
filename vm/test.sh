@@ -6,7 +6,7 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/27 03:39:52 by gudemare          #+#    #+#              #
-#    Updated: 2018/04/04 21:36:17 by gudemare         ###   ########.fr        #
+#    Updated: 2018/04/04 22:40:27 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ run_individual_check()
 		(FILE_VM="$TESTS_DIR/vm_dump_`basename $champ`_$i.log"
 		FILE_REF_VM="$TESTS_DIR/ref_vm_dump_`basename $champ`_$i.log"
 		touch $FILE_VM $FILE_REF_VM
-		./$VM $champ -dump $i 2>/dev/null | tail -n 64 > $FILE_VM &
+		./$VM $champ -dump $i -c 2>/dev/null | tail -n 64 > $FILE_VM &
 		./$REF_VM $champ -d $i 2>/dev/null | tail -n 64 > $FILE_REF_VM &
 		wait
 		if [ `cat $FILE_VM $FILE_REF_VM | grep -c ^0x0 ` -lt 128 ] ; then
