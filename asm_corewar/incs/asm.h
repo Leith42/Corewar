@@ -169,5 +169,6 @@ t_lst_op			*rmp_param(int param, t_lst_op *lst, int dir_size, int label);
 int					param_type(char *param);
 char				**ft_split_inst(char *inst);
 char				*epur_str_beginning(char *line);
+void				free_lst(t_lst_op *lst);
 
 #endif

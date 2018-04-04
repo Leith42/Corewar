@@ -119,6 +119,6 @@ int		ft_write(char *file_name, t_lst_op *lst, t_header *header)
 	}
 	free(file_name_tmp);
 	free(new_file_name);
-	//free(file_name);
+	free_lst(lst);
 	return (0);
 }

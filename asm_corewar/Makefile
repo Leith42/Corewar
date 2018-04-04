@@ -39,6 +39,7 @@ SRCS_LIST		=	\
 					oct_count.c \
 					ft_error.c \
 					ft_init.c \
+					ft_free.c
 
 OBJS_DIR		=	./objs/
 OBJS_LIST		=	$(patsubst %.c, %.o, $(SRCS_LIST))
