@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 18:49:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/28 20:11:09 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/04 22:56:07 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ static void		exec_inst(t_env *env, t_process *process)
 
 	if (process->cur_opcode > 16 || process->cur_opcode == 0)
 	{
-		process->pc++;
-		process->pc %= MEM_SIZE;
-		process->cur_opcode = env->arena[process->pc];
-		process->cycle_to_wait = 1;
-		if (process->cur_opcode < 16 && process->cur_opcode > 0)
-			process->cycle_to_wait = g_op_tab[process->cur_opcode - 1].cycle_nb;
+		if (!(is_reg(env->arena[process->pc])))
+		{
+			process->pc++;
+			process->pc %= MEM_SIZE;
+		}
+		set_process_instruction(env, process);
 		return ;
 	}
 	new_pc = 0;
@@ -42,6 +42,7 @@ static void		exec_inst(t_env *env, t_process *process)
 		process->pc = new_pc;
 	if (g_op_tab[process->cur_opcode - 1].modif_carry == 1)
 		process->carry = (ret == 0) ? 1 : 0;
+	set_process_instruction(env, process);
 }
 
 static void		run_processes(t_env *env)
@@ -57,18 +58,6 @@ static void		run_processes(t_env *env)
 			disp_process_state(env, proc);
 		if (proc->cycle_to_wait == 0)
 			exec_inst(env, proc);
-		proc_lst = proc_lst->next;
-	}
-	proc_lst = env->process;
-	while (proc_lst && proc_lst->content)
-	{
-		if ((proc = ((t_process *)proc_lst->content))->cycle_to_wait == 0)
-		{
-			proc->cur_opcode = env->arena[proc->pc];
-			proc->cycle_to_wait = 1;
-			if (proc->cur_opcode < 16 && proc->cur_opcode > 0)
-				proc->cycle_to_wait = g_op_tab[proc->cur_opcode - 1].cycle_nb;
-		}
 		proc_lst = proc_lst->next;
 	}
 }

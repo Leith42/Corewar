@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:10:32 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/28 14:42:34 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/04 22:56:27 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ void					ft_pause(t_env *env);
 void					dump_memory(t_env *env, size_t line_len);
 void					disp_cycle_data(t_env *env, size_t cycle,
 						size_t global_cycle, size_t nb_checks);
+void					set_process_instruction(t_env *env, t_process *process);
 
 /*
 ** List of actions tht can be performed by the process
