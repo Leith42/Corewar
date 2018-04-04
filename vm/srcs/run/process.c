@@ -13,14 +13,71 @@
 #include "vm.h"
 #include <stdlib.h>
 
-void	add_new_process(t_env *env, unsigned int champion_id)
+/*
+**	Create a process by allocating memory according to
+**	whether the list of dead processes is empty or not.
+**	This way we reduce unnecessary calls to malloc and free.
+*/
+
+static t_process	*create_new_process(t_env *env)
 {
 	t_process	*process;
-	t_list		*tmp;
+	t_list		*to_free;
+
+	if (env->dead_processes == NULL)
+	{
+		if ((process = malloc(sizeof(t_process))) == NULL)
+			ft_free_exit(*env, NULL, 1, 0);
+	}
+	else
+	{
+		process = env->dead_processes->content;
+		to_free = env->dead_processes;
+		env->dead_processes = env->dead_processes->next;
+		free(to_free);
+	}
+	return (process);
+}
+
+/*
+**	Destroys a node from the list of dead processes.
+*/
+
+void				pop_one_dead_process(t_env *env)
+{
+	t_list	*to_free;
+
+	if (env->dead_processes != NULL)
+	{
+		to_free = env->dead_processes;
+		env->dead_processes = env->dead_processes->next;
+		free(to_free->content);
+		free(to_free);
+	}
+}
+
+/*
+**	Add a process to the dead processes list.
+*/
+
+static void			kill_process(t_list *current, t_env *env)
+{
+	if (env->visual)
+		release_aff_buffer(current->content);
+	current->next = NULL;
+	if (env->dead_processes == NULL)
+		env->dead_processes = current;
+	else
+		ft_lstpush_back(env->dead_processes, current);
+}
+
+void				add_new_process(t_env *env, unsigned int champion_id)
+{
+	t_process	*process;
+	t_list		*current_node;
 	size_t		i;
 
-	if ((process = (t_process *)malloc(sizeof(t_process))) == NULL)
-		ft_free_exit(*env, NULL, 1, 0);
+	process = create_new_process(env);
 	process->reg[0] = champion_id;
 	i = 1;
 	while (i < REG_NUMBER)
@@ -29,12 +86,17 @@ void	add_new_process(t_env *env, unsigned int champion_id)
 	process->cycle_to_wait = 0;
 	process->cur_opcode = 0;
 	process->aff_buffer = NULL;
-	if (!(tmp = ft_lstnew((void *)process, sizeof(t_process))))
-		ft_free_exit(*env, NULL, 1, 0);
-	ft_lstpush_front(&(env->process), tmp);
+	if ((current_node = env->dead_processes) != NULL)
+		env->dead_processes = env->dead_processes->next;
+	else
+	{
+		if (!(current_node = ft_lstnew((void *)process, sizeof(t_process))))
+			ft_free_exit(*env, NULL, 1, 0);
+	}
+	ft_lstpush_front(&(env->process), current_node);
 }
 
-size_t	kill_dead_process(t_env *env)
+size_t				kill_dead_processes(t_env *env)
 {
 	size_t	nb_death;
 	t_list	**prev_next;
@@ -48,10 +110,7 @@ size_t	kill_dead_process(t_env *env)
 		if (((t_process *)(cur->content))->is_alive == false)
 		{
 			*prev_next = cur->next;
-			if (env->visual)
-				release_aff_buffer(cur->content);
-			free(cur->content);
-			free(cur);
+			kill_process(cur, env);
 			nb_death++;
 			cur = *prev_next;
 			continue;

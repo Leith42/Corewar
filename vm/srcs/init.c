@@ -52,6 +52,7 @@ void		init_env(t_env *env)
 	env->is_dump_cycle_specified = false;
 	env->nb_of_champions = 0;
 	env->process = NULL;
+	env->dead_processes = NULL;
 	env->cycle_to_die = CYCLE_TO_DIE;
 	env->nb_live = 0;
 	env->debug = false;

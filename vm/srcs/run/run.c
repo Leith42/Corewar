@@ -122,7 +122,7 @@ static void		cycle_check(t_env *env)
 		disp_cycle_data(env, cycle, global_cycle, nb_checks);
 	if (!(cycle >= env->cycle_to_die))
 		return ;
-	kill_proc = kill_dead_process(env);
+	kill_proc = kill_dead_processes(env);
 	(env->visual) ? (void)ft_printf("\n\x1b[KProcesses killed at last check : \
 %d\n\x1b[K", kill_proc) : (void)env;
 	if ((env->nb_live >= NBR_LIVE || nb_checks >= MAX_CHECKS)
@@ -155,6 +155,7 @@ void			run(t_env *env)
 		}
 		run_processes(env);
 		cycle_check(env);
+		pop_one_dead_process(env);
 		if (env->visual)
 			disp_arena(env, 64);
 		if (env->interactive)

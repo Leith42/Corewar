@@ -91,6 +91,7 @@ typedef struct			s_env
 	unsigned int		mask[MEM_SIZE];
 	t_champion			champions[MAX_PLAYERS];
 	t_list				*process;
+	t_list				*dead_processes;
 	unsigned short		nb_of_champions;
 	bool				is_dump_cycle_specified;
 	bool				debug;
@@ -195,8 +196,9 @@ int						do_aff(t_process *process, t_env *env);
 ** Utils for process
 */
 t_list					*lstdelnode(t_list *cur, t_list *node);
-size_t					kill_dead_process(t_env *env);
+size_t					kill_dead_processes(t_env *env);
 void					add_new_process(t_env *env, unsigned int champion_id);
 void					release_aff_buffer(t_process *process);
+void					pop_one_dead_process(t_env *env);
 
 #endif

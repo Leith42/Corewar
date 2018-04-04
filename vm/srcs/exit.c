@@ -32,6 +32,12 @@ void			free_env(t_env env)
 			free(((t_process *)(env.process->content))->aff_buffer);
 		ft_lstdel(&(env.process), &free_process);
 	}
+	if (env.dead_processes)
+	{
+		if (((t_process *)(env.dead_processes))->aff_buffer != NULL)
+			free(((t_process *)(env.dead_processes))->aff_buffer);
+		ft_lstdel(&(env.dead_processes), &free_process);
+	}
 }
 
 /*
