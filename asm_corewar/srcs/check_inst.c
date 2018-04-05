@@ -6,7 +6,7 @@
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:54:16 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/04/05 03:45:43 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 03:59:18 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,5 @@ int						check_inst(t_lst_op *lst, int fd)
 		}
 	}
 	free(line);
-	if (!fill_label(label_lst, lst))
-		return (0);
-	return (1);
+	return ((!fill_label(label_lst, lst)) ? 0 : 1);
 }

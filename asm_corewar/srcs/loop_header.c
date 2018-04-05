@@ -6,7 +6,7 @@
 /*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 18:49:21 by mmatime           #+#    #+#             */
-/*   Updated: 2018/04/05 03:48:16 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 03:53:26 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,10 @@ int			set_name(char *line, t_header *header, int line_nb)
 			header_error(COMMENT_NOT_IN_PLACE, line_nb, ".name");
 		if (line[i] == '"' && !header->name_is_set)
 		{
-			if (loop_name(&i, line, header))
-			{
-				i++;
-				continue ;
-			}
-			header_error(QUOTE_MARK, line_nb, ".name");
+			if (!(loop_name(&i, line, header)))
+				header_error(QUOTE_MARK, line_nb, ".name");
+			i++;
+			continue ;
 		}
 		if (!char_is_valid(line[i]) && comment == 0)
 			header_error(INVALID_CHAR_NAME, line_nb, ".name");
@@ -121,12 +119,10 @@ int			set_comment(char *line, t_header *header, int line_nb)
 			header_error(COMMENT_NOT_IN_PLACE, line_nb, ".comment");
 		if (line[i] == '"' && !header->comment_is_set)
 		{
-			if (loop_comment(&i, line, header))
-			{
-				i++;
-				continue ;
-			}
-			header_error(QUOTE_MARK, line_nb, ".comment");
+			if (!(loop_comment(&i, line, header)))
+				header_error(QUOTE_MARK, line_nb, ".comment");
+			i++;
+			continue ;
 		}
 		if (!char_is_valid(line[i]) && comment == 0)
 			header_error(INVALID_CHAR_NAME, line_nb, ".comment");
