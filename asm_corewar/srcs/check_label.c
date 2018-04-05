@@ -6,7 +6,7 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 01:10:03 by lgraham           #+#    #+#             */
-/*   Updated: 2018/04/05 04:22:15 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 04:28:23 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int				check_label_char(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == LABEL_CHAR && str[i - 1] == DIRECT_CHAR)
+		if (str[i] == LABEL_CHAR && i > 0 && str[i - 1] == DIRECT_CHAR)
 			return (1);
 		i++;
 	}

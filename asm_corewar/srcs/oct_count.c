@@ -6,7 +6,7 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 03:49:24 by lgraham           #+#    #+#             */
-/*   Updated: 2018/04/05 04:11:06 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 04:17:49 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ static void	search_label_call_after(char *to_search,
 		tmp_label = tmp_label->next;
 	while (tmp_lst)
 	{
-		i = 0;
 		while (tmp_label && (tmp_label->type == 0 || tmp_label->type == -1))
 			tmp_label = tmp_label->next;
+		i = 0;
 		while (i < tmp_lst->label_nb)
 		{
 			if (ft_strcmp(tmp_label->name, to_search) == 0)

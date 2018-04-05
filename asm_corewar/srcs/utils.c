@@ -6,7 +6,7 @@
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 16:05:06 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/04/05 03:45:11 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 04:25:04 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ char		*epur_str_beginning(char *line)
 
 	i = 0;
 	dest = NULL;
+	if (!line)
+		return (NULL);
 	while ((line[i] && line[i] == ' ') || (line[i] && line[i] == '\t'))
 		++i;
 	if (line[i])

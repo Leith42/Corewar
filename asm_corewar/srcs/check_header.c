@@ -6,7 +6,7 @@
 /*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 09:38:17 by mmatime           #+#    #+#             */
-/*   Updated: 2018/04/05 03:39:53 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 04:27:00 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int			check_header(int fd, t_header *header)
 	{
 		line = epur_str_beginning(line);
 		line_nb++;
-		if (*line == COMMENT_CHAR)
+		if (!line || *line == COMMENT_CHAR)
 			continue ;
 		else if (line_is_point(line, header, line_nb))
 			continue ;
