@@ -6,7 +6,7 @@
 /*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 18:44:39 by mmatime           #+#    #+#             */
-/*   Updated: 2018/03/21 21:45:08 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 03:02:03 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdbool.h>
-
 
 enum				e_error
 {
@@ -68,14 +67,15 @@ extern t_op			g_op_tab[17];
 
 /*
 ** LISTE LABEL
+** type is 0 for a declaration, 1 for a call
 */
 
 typedef struct		s_label
 {
 	char			*name;
 	int				oct;
-	int 			line;
-	int				type; // 0 for a declaration, 1 for a call;
+	int				line;
+	int				type;
 	int				is_set;
 	struct s_label	*next;
 }					t_label;
@@ -125,9 +125,8 @@ int					inst_error(enum e_error error, int line_nb, char *str);
 int					get_params(char	**inst, t_lst_op *lst, int opc);
 int					check_params(char **inst, int opcode, int line_nb);
 unsigned char		get_ocp(char **inst);
-int                 get_inst(char **inst, t_lst_op *lst, int *line);
+int					get_inst(char **inst, t_lst_op *lst, int *line);
 int					check_inst(t_lst_op *lst, int fd);
-
 
 /*
 ** FONCTION LABEL
@@ -135,11 +134,13 @@ int					check_inst(t_lst_op *lst, int fd);
 
 int					double_check_label(t_label *label);
 int					find_match(t_label *label, char *str);
-t_label				*set_label(char **inst, t_label *label_list, int pos, int line);
+t_label				*set_label(char **inst, t_label *label_list,
+					int pos, int line);
 int					check_label_char(char *str);
 int					check_label(char **inst);
 t_label				*add_to_lst(t_label *label_list, t_label *new);
-void				set_label_name(t_label *new, char *src, char *src_next, int line);
+void				set_label_name(t_label *new, char *src,
+					char *src_next, int line);
 void				aff_label(t_label *label_lst);
 void				oct_count(char **inst, int pos, t_label *label);
 int					oct_prec(int pos, char **str);
@@ -147,9 +148,12 @@ void				calc_dist_label(t_label *label, t_lst_op *lst);
 void				replace_dist(t_label *label, t_lst_op *lst);
 void				fill_label_pos(int *tab, int pos);
 void				add_value_to_inst(int res, t_lst_op *lst_node, int pos_tmp);
-int					calculate_res(t_lst_op *tmp_lst, t_label *tmp_label, int line);
-void				search_label_call_after(char *to_search, t_label *tmp_label, t_lst_op *tmp_lst);
-void				search_label_call(char *to_search, t_label *label, t_lst_op *lst, int line);
+int					calculate_res(t_lst_op *tmp_lst,
+					t_label *tmp_label, int line);
+void				search_label_call_after(char *to_search,
+					t_label *tmp_label, t_lst_op *tmp_lst);
+void				search_label_call(char *to_search, t_label *label,
+					t_lst_op *lst, int line);
 int					fill_label(t_label *label, t_lst_op *lst);
 
 /*
@@ -165,7 +169,8 @@ void				print_header(int fd, t_header *header, t_lst_op *lst);
 ** FONCTION UTILITAIRE
 */
 
-t_lst_op			*rmp_param(int param, t_lst_op *lst, int dir_size, int label);
+t_lst_op			*rmp_param(int param, t_lst_op *lst,
+					int dir_size, int label);
 int					param_type(char *param);
 char				**ft_split_inst(char *inst);
 char				*epur_str_beginning(char *line);

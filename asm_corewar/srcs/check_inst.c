@@ -6,7 +6,7 @@
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:54:16 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/03/22 10:06:17 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/04/05 03:11:41 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** GET_PARAMS - fonction qui ecris les parametres dans le lst->op.
 */
 
-int					get_params(char	**inst, t_lst_op *lst, int opc)
+int					get_params(char **inst, t_lst_op *lst, int opc)
 {
 	int		dir_size;
 	int		i;
@@ -132,10 +132,10 @@ int					get_inst(char **inst, t_lst_op *lst, int *line)
 int					check_inst(t_lst_op *lst, int fd)
 {
 	t_label		*label_lst;
-	char 		*line;
+	char		*line;
 	char		**inst;
 	t_lst_op	*tmp;
-	int i;
+	int			i;
 
 	tmp = lst;
 	label_lst = NULL;

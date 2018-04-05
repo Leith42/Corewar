@@ -6,14 +6,15 @@
 /*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 09:38:17 by mmatime           #+#    #+#             */
-/*   Updated: 2018/03/22 10:08:48 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/04/05 03:03:27 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
 /*
-**	line_is_point - si la ligne commence par (.), traitement des données du header
+**	line_is_point - si la ligne commence par (.), traitement
+**	des données du header
 */
 
 int		line_is_point(char *line, t_header *header, int line_nb)
@@ -34,9 +35,9 @@ int		line_is_point(char *line, t_header *header, int line_nb)
 }
 
 /*
-** header_is_set - fonction qui vérifie a chaque GNL si ce que l'on recherche est set
+** header_is_set - fonction qui vérifie a chaque GNL
+** si ce que l'on recherche est set
 */
-
 
 int		header_is_set(t_header *header)
 {
@@ -46,9 +47,9 @@ int		header_is_set(t_header *header)
 }
 
 /*
-** CHECK_HEADER - fonction qui lis le fichier ligne par ligne pour y trouver et set un header
+** CHECK_HEADER - fonction qui lit le fichier ligne par ligne
+** pour y trouver et set un header
 */
-
 
 int		check_header(int fd, t_header *header)
 {

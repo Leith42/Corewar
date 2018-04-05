@@ -6,7 +6,7 @@
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 15:47:03 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/03/22 10:02:50 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/04/05 03:10:59 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,15 @@ int		file_size(t_lst_op *lst)
 }
 
 /*
-**	print_header - Ecrit dans le fd sous forme d'octet .name, .comment, et la taille du fichier
+**	print_header - Ecrit dans le fd sous forme d'octet .name, .comment,
+**	et la taille du fichier
 */
 
 void	print_header(int fd, t_header *header, t_lst_op *lst)
 {
-	int i;
-	int champion;
-	char champion_size[4];
+	int		i;
+	int		champion;
+	char	champion_size[4];
 
 	i = 0;
 	champion = file_size(lst);

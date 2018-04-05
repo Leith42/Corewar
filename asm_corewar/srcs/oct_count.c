@@ -6,7 +6,7 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 03:49:24 by lgraham           #+#    #+#             */
-/*   Updated: 2018/03/22 10:11:54 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/04/05 03:10:34 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,12 @@ int		calculate_res(t_lst_op *tmp_lst, t_label *tmp_label, int line)
 }
 
 /*
-** Parcours tous les labels qui sont APRÈS la déclaration et y ajoute la valeur négative
+**	Parcours tous les labels qui sont APRÈS la déclaration
+**	et y ajoute la valeur négative
 */
 
-void	search_label_call_after(char *to_search, t_label *tmp_label, t_lst_op *tmp_lst)
+void	search_label_call_after(char *to_search,
+		t_label *tmp_label, t_lst_op *tmp_lst)
 {
 	int res;
 	int i;
@@ -96,7 +98,8 @@ void	search_label_call_after(char *to_search, t_label *tmp_label, t_lst_op *tmp_
 ** correspondants à la déclaration (to_search) FONCTION A NORMER
 */
 
-void	search_label_call(char *to_search, t_label *label, t_lst_op *lst, int line)
+void	search_label_call(char *to_search, t_label *label,
+		t_lst_op *lst, int line)
 {
 	int			i;
 	int			res;
@@ -130,7 +133,8 @@ void	search_label_call(char *to_search, t_label *label, t_lst_op *lst, int line)
 		}
 		while (i < tmp_lst->label_nb)
 		{
-			if (!ft_strcmp(to_search, tmp_label->name) && tmp_label->is_set == 0)
+			if (!ft_strcmp(to_search, tmp_label->name)
+					&& tmp_label->is_set == 0)
 			{
 				res = calculate_res(tmp_lst, tmp_label, line - line_diff);
 				add_value_to_inst(res, tmp_lst, i);
@@ -149,7 +153,7 @@ void	search_label_call(char *to_search, t_label *label, t_lst_op *lst, int line)
 ** Check si un label appellé trouve bien son parent
 */
 
-char		*check_label_match(t_label *label)
+char	*check_label_match(t_label *label)
 {
 	while (label)
 	{
@@ -181,7 +185,8 @@ int		fill_label(t_label *label, t_lst_op *lst)
 	}
 	if ((label_error = check_label_match(label)))
 	{
-		printf("No such label reference > %s < found in the file\n", label_error);
+		printf("No such label reference > %s < found in the file\n",
+				label_error);
 		return (0);
 	}
 	// Affichage >>

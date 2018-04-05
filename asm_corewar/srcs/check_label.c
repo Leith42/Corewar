@@ -6,7 +6,7 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 01:10:03 by lgraham           #+#    #+#             */
-/*   Updated: 2018/03/22 10:11:56 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/04/05 03:05:25 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,7 @@ t_label		*set_label(char **inst, t_label *label_list, int pos, int line)
 			if (!(new = ft_memalloc(sizeof(t_label))))
 				return (NULL);
 			set_label_name(new, inst[i], inst[i + 1], line);
-			if (new->type == 0)
-				label_tmp = ft_strdup(new->name);
+			label_tmp = (new->type == 0) ? ft_strdup(new->name) : label_tmp;
 			new->oct = (label_tmp && new->type == 1 && !ft_strcmp(\
 				label_tmp, new->name)) ? 0 : pos;
 			if (label_tmp && new->type == 1 && !ft_strcmp(label_tmp, new->name))
@@ -110,7 +109,8 @@ t_label		*set_label(char **inst, t_label *label_list, int pos, int line)
 }
 
 /*
-**	fill_label_pos - Remplit le tableau de pos et assigne la derniere pos connue en fin de tableau
+**	fill_label_pos - Remplit le tableau de pos et assigne
+**	la derniere pos connue en fin de tableau
 */
 
 void		fill_label_pos(int *tab, int pos)
