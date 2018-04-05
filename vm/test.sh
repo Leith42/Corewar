@@ -6,7 +6,7 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/27 03:39:52 by gudemare          #+#    #+#              #
-#    Updated: 2018/04/04 21:36:17 by gudemare         ###   ########.fr        #
+#    Updated: 2018/04/05 04:39:46 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -140,10 +140,10 @@ run_asm_check()
 	cd $TESTS_DIR
 	FILE_ASM="`basename ${champ/.s/.cor}`"
 	FILE_REF_ASM="`basename ${champ/.s/.cor}`.ref"
-	touch $FILE_ASM $FILE_REF_ASM
 	./../$REF_ASM $champ &>/dev/null
 	mv $FILE_ASM $FILE_REF_ASM
 	./../$ASM $champ &>/dev/null
+	touch $FILE_ASM $FILE_REF_ASM
 	if [ -f $FILE_ASM -a -f $FILE_REF_ASM ] ; then
 		diff $FILE_ASM $FILE_REF_ASM &>/dev/null && res=$DISP_OK || res=$DISP_BAD
 	else
