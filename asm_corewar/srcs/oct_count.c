@@ -6,7 +6,7 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 03:49:24 by lgraham           #+#    #+#             */
-/*   Updated: 2018/04/05 03:46:03 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 04:11:06 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,49 +102,40 @@ static void	search_label_call(char *to_search, t_label *label,
 			t_lst_op *lst, int line)
 {
 	int			i;
-	int			res;
-	int			before;
 	int			line_diff;
-	t_label		*tmp_label;
-	t_lst_op	*tmp_lst;
 
-	res = 0;
 	line_diff = 0;
-	tmp_label = label;
-	tmp_lst = lst;
-	before = 0;
-	while (tmp_lst)
+	while (lst)
 	{
-		i = 0;
 		line_diff++;
-		while (tmp_label->type == 0 || tmp_label->type == -1)
+		while (label->type == 0 || label->type == -1)
 		{
-			if (ft_strcmp(tmp_label->name, to_search) == 0)
+			if (ft_strequ(label->name, to_search))
 			{
 				while (line_diff < line)
 				{
-					tmp_lst = tmp_lst->next;
+					lst = lst->next;
 					line_diff++;
 				}
-				search_label_call_after(to_search, tmp_label, tmp_lst);
+				search_label_call_after(to_search, label, lst);
 				return ;
 			}
-			tmp_label = tmp_label->next;
+			label = label->next;
 		}
-		while (i < tmp_lst->label_nb)
+		i = 0;
+		while (i < lst->label_nb)
 		{
-			if (!ft_strcmp(to_search, tmp_label->name)
-					&& tmp_label->is_set == 0)
+			if (ft_strequ(to_search, label->name) && !label->is_set)
 			{
-				res = calculate_res(tmp_lst, tmp_label, line - line_diff);
-				add_value_to_inst(res, tmp_lst, i);
-				tmp_label->is_set = 1;
+				add_value_to_inst(calculate_res(lst, label,
+							line - line_diff), lst, i);
+				label->is_set = 1;
 			}
 			i++;
-			tmp_label = tmp_label->next;
+			label = label->next;
 		}
-		tmp_lst = tmp_lst->next;
-		if (tmp_lst && !tmp_label)// a corriger ? maillon en trop dans la chaine
+		lst = lst->next;
+		if (lst && !label)// a corriger ? maillon en trop dans la chaine
 			return ;
 	}
 }
@@ -175,8 +166,6 @@ int			fill_label(t_label *label, t_lst_op *lst)
 	t_label	*tmp_label;
 
 	tmp_label = label;
-	nbw = 0;
-	label_error = NULL;
 	while (tmp_label)
 	{
 		if (tmp_label->type == 0 || tmp_label->type == -1)
