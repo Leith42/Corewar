@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:52:13 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/28 14:06:30 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 01:59:25 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int					do_or(t_process *process, t_env *env)
 	type[1] = get_param_type(env, process->pc, OP_OR, 1);
 	type[2] = get_param_type(env, process->pc, OP_OR, 2);
 	if (!(type[0] != 0 && type[1] != 0 && type[2] == T_REG))
-		return (0);
+		return (1);
 	value[0] = get_param_raw_value(env, process->pc + skip, type[0], OP_OR);
 	skip += get_skip(type[0]);
 	value[1] = get_param_raw_value(env, process->pc + skip, type[1], OP_OR);
