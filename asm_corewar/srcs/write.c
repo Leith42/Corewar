@@ -6,7 +6,7 @@
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 15:47:03 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/04/05 03:24:55 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 03:44:26 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	print_magic_number(int fd)
 	magic_num = COREWAR_EXEC_MAGIC;
 	while (i < 4)
 	{
-		magic_tab[i] = magic_num;
+		magic_tab[i] = (unsigned char)magic_num;
 		magic_num >>= 8;
 		i++;
 	}
@@ -87,7 +87,7 @@ static void	print_header(int fd, t_header *header, t_lst_op *lst)
 	i = 0;
 	while (i < 4)
 	{
-		champion_size[i] = champion;
+		champion_size[i] = (char)champion;
 		champion >>= 8;
 		i++;
 	}

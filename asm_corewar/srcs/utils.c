@@ -6,7 +6,7 @@
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 16:05:06 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/04/05 03:12:00 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 03:45:11 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char		**ft_split_inst(char *inst)
 			++i;
 		i += (inst[n + i] == ':') ? 1 : 0;
 		if (i > 0)
-			params[t++] = ft_strndup(inst + n, i);
+			params[t++] = ft_strndup(inst + n, (size_t)i);
 		n += i;
 		i = 0;
 	}
@@ -97,7 +97,7 @@ char		*epur_str_beginning(char *line)
 	while ((line[i] && line[i] == ' ') || (line[i] && line[i] == '\t'))
 		++i;
 	if (line[i])
-		dest = ft_strsub(line, i, ft_strlen(line));
+		dest = ft_strsub(line, (unsigned int)i, ft_strlen(line));
 	free(line);
 	return (dest);
 }

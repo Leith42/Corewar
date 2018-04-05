@@ -6,7 +6,7 @@
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:54:16 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/04/05 03:38:09 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 03:45:43 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ static int				get_inst(char **inst, t_lst_op *lst, int *line)
 		return (inst_error(INVALID_INST, lst->line_nb, inst[nbw]));
 	if (!(check_params(inst + ++nbw, i, lst->line_nb)))
 		return (0);
-	lst->op[lst->pos++] = i + 1;
+	lst->op[lst->pos++] = (unsigned char)(i + 1);
 	if (g_op_tab[i].ocp == 1 && lst->pos++)
 		lst->op[lst->pos - 1] = get_ocp(inst + nbw);
 	if (!(get_params(inst + nbw, lst, i)))

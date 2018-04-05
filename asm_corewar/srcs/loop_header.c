@@ -6,7 +6,7 @@
 /*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 18:49:21 by mmatime           #+#    #+#             */
-/*   Updated: 2018/04/05 03:31:51 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 03:43:38 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	loop_name(int *i, char *line, t_header *header)
 		{
 			if ((*i - tmp) > PROG_NAME_LENGTH)
 				header_error(NAME_TOO_LONG, 0, "");
-			name_tmp = ft_strsub(line, tmp, (*i - tmp));
+			name_tmp = ft_strsub(line, (unsigned int)tmp, (size_t)(*i - tmp));
 			ft_memcpy(header->prog_name, name_tmp, ft_strlen(name_tmp));
 			free(name_tmp);
 			header->name_is_set = 1;
@@ -94,7 +94,7 @@ static int	loop_comment(int *i, char *line, t_header *header)
 		{
 			if ((*i - tmp) > COMMENT_LENGTH)
 				header_error(COMMENT_TOO_LONG, 0, "");
-			comment_tmp = ft_strsub(line, tmp, *i - tmp);
+			comment_tmp = ft_strsub(line, (unsigned int)tmp, (size_t)(*i - tmp));
 			ft_memcpy(header->comment, comment_tmp, ft_strlen(comment_tmp));
 			free(comment_tmp);
 			header->comment_is_set = 1;

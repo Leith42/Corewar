@@ -6,7 +6,7 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 03:49:24 by lgraham           #+#    #+#             */
-/*   Updated: 2018/04/05 03:29:52 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 03:46:03 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	add_value_to_inst(int res, t_lst_op *lst_node, int pos_tmp)
 		final_place += 3;
 	while (i < dir_size)
 	{
-		lst_node->op[final_place] = res;
+		lst_node->op[final_place] = (unsigned char)res;
 		final_place--;
 		res >>= 8;
 		i++;
