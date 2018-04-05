@@ -6,7 +6,7 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 01:10:03 by lgraham           #+#    #+#             */
-/*   Updated: 2018/04/05 03:35:54 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 03:47:47 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 ** SET_LABEL_NAME - assigne le nom du label dans la structure
 */
 
-static void		set_label_name(t_label *new, char *src, char *src_next, int line)
+static void		set_label_name(t_label *new, char *src,
+				char *src_next, int line)
 {
 	if (src[0] == DIRECT_CHAR)
 	{
