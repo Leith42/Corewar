@@ -6,7 +6,7 @@
 #    By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/08 22:26:50 by mgonon           ###   ########.fr        #
+#    Updated: 2018/04/04 22:53:44 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,11 @@ SRCS_LIST		=	\
 					run/run.c \
 					run/load_champions.c \
 					run/utils.c \
+					run/utils2.c \
+					run/utils3.c \
 					run/process.c \
-					op_func/op_bad_opc.c \
+					run/param_utils.c \
+					run/param_utils2.c \
 					op_func/op_add.c \
 					op_func/op_aff.c \
 					op_func/op_and.c \
@@ -125,7 +128,7 @@ norme :
 		printf "$(RED)Norminette not installed, cannot check norm.\n$(END_GRAPHICS)" ; \
 	fi
 
-debug : CFLAGS=-Wall -Wextra -g
+debug : CFLAGS=-Wall -Wextra -Weverything -Wno-padded -Wno-missing-noreturn -g -fsanitize=address
 debug : all
 	@printf "\e[K$(GREEN)Executable $(BOLD)$(NAME)$(END_GRAPHICS)$(GREEN) has successfully compiled $(YELLOW)(with debug symbols).$(END_GRAPHICS)\n"
 

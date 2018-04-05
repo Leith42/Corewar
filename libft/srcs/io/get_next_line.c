@@ -6,7 +6,7 @@
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/08 17:27:43 by gudemare          #+#    #+#             */
-/*   Updated: 2018/02/27 20:06:51 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/21 22:54:07 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ int			get_next_line(const int fd, char **line, unsigned int buff_size)
 			return ((!*line) ? -1 : 1);
 		}
 	}
-	*line = ft_strsub(buf, 0, (size_t)(end - buf));
+	if (!(*line = ft_strsub(buf, 0, (size_t)(end - buf))) && end > buf)
+		return (-1);
 	end = ft_strdup(end + 1);
 	ft_strdel(&buf);
-	if (!*line || !(buf = end) || !*buf)
-		ft_strdel(&buf);
+	(!(buf = end) || !*buf) ? ft_strdel(&buf) : (void)buf;
 	return (1);
 }

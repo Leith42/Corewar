@@ -6,7 +6,7 @@
 /*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:21:11 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/08 23:13:38 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/14 21:55:32 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,23 @@ static void	init_champions(t_env *env)
 
 static void	init_exec_inst_tab(t_env *env)
 {
-	env->exec_inst_tab[0] = do_bad_opc;
-	env->exec_inst_tab[1] = do_live;
-	env->exec_inst_tab[2] = do_ld;
-	env->exec_inst_tab[3] = do_st;
-	env->exec_inst_tab[4] = do_zjmp;
-	env->exec_inst_tab[5] = do_ldi;
-	env->exec_inst_tab[6] = do_add;
-	env->exec_inst_tab[7] = do_sub;
-	env->exec_inst_tab[8] = do_and;
-	env->exec_inst_tab[9] = do_or;
-	env->exec_inst_tab[10] = do_xor;
-	env->exec_inst_tab[11] = do_sti;
-	env->exec_inst_tab[12] = do_fork;
-	env->exec_inst_tab[13] = do_lld;
-	env->exec_inst_tab[14] = do_lldi;
-	env->exec_inst_tab[15] = do_lfork;
-	env->exec_inst_tab[16] = do_aff;
+	env->exec_inst_tab[0] = NULL;
+	env->exec_inst_tab[OP_LIVE] = do_live;
+	env->exec_inst_tab[OP_LD] = do_ld;
+	env->exec_inst_tab[OP_ST] = do_st;
+	env->exec_inst_tab[OP_ADD] = do_add;
+	env->exec_inst_tab[OP_SUB] = do_sub;
+	env->exec_inst_tab[OP_AND] = do_and;
+	env->exec_inst_tab[OP_OR] = do_or;
+	env->exec_inst_tab[OP_XOR] = do_xor;
+	env->exec_inst_tab[OP_ZJMP] = do_zjmp;
+	env->exec_inst_tab[OP_LDI] = do_ldi;
+	env->exec_inst_tab[OP_STI] = do_sti;
+	env->exec_inst_tab[OP_FORK] = do_fork;
+	env->exec_inst_tab[OP_LLD] = do_lld;
+	env->exec_inst_tab[OP_LLDI] = do_lldi;
+	env->exec_inst_tab[OP_LFORK] = do_lfork;
+	env->exec_inst_tab[OP_AFF] = do_aff;
 }
 
 void		init_env(t_env *env)
@@ -52,8 +52,15 @@ void		init_env(t_env *env)
 	env->is_dump_cycle_specified = false;
 	env->nb_of_champions = 0;
 	env->process = NULL;
+	env->dead_processes = NULL;
 	env->cycle_to_die = CYCLE_TO_DIE;
 	env->nb_live = 0;
+	env->debug = false;
+	env->interactive = false;
+	env->visual = false;
+	env->aff = false;
+	env->comparison = false;
+	env->skip_cycle = true;
 	init_champions(env);
 	init_exec_inst_tab(env);
 	ft_bzero(&(env->arena), sizeof(env->arena));

@@ -21,13 +21,21 @@
 static void		free_process(void *process, size_t size)
 {
 	(void)size;
-	free((t_process*)process);
+	free((t_process *)process);
 }
 
 void			free_env(t_env env)
 {
 	if (env.process)
+	{
+		if (((t_process *)(env.process->content))->aff_buffer != NULL)
+			free(((t_process *)(env.process->content))->aff_buffer);
 		ft_lstdel(&(env.process), &free_process);
+	}
+	if (env.dead_processes)
+	{
+		ft_lstdel(&(env.dead_processes), &free_process);
+	}
 }
 
 /*

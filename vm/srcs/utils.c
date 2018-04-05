@@ -37,10 +37,10 @@ bool			is_string_numeric(char *string)
 
 	if (!string)
 		return (false);
-	i = 0;
+	i = string[0] == '-' ? 1 : 0;
 	while (string[i] != '\0')
 	{
-		if (ft_isdigit((int)string[i]) == false)
+		if (ft_isdigit(string[i]) == false)
 			return (false);
 		i++;
 	}

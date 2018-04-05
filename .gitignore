@@ -27,6 +27,8 @@
 *.so
 *.so.*
 *.dylib
+libft/object/
+ressources/
 
 # Executables
 *.exe
@@ -57,8 +59,6 @@ dkms.conf
 # CLion IDE
 .idea
 build/
-libft/object/
-ressources/
 cmake-build-debug/
 
 *.swp

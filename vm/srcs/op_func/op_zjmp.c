@@ -3,17 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   op_zjmp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 23:56:02 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/07 23:56:10 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/19 17:23:29 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	do_zjmp(t_process *process, t_env *env)
+int	do_zjmp(t_process *process, t_env *env)
 {
-	debug_actions(process, "zjmp");
-	(void)env;
+	if (process->carry == 1)
+	{
+		process->pc += (((short)get_param_raw_value(env, process->pc + 1,
+			T_DIR, OP_ZJMP)) % IDX_MOD);
+		process->pc %= MEM_SIZE;
+	}
+	return (0);
 }
