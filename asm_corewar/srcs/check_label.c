@@ -6,7 +6,7 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 01:10:03 by lgraham           #+#    #+#             */
-/*   Updated: 2018/04/05 03:47:47 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 04:22:15 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_label			*set_label(char **inst, t_label *label_list, int pos, int line)
 				label_tmp, new->name)) ? 0 : pos;
 			if (label_tmp && new->type == 1 && !ft_strcmp(label_tmp, new->name))
 				new->is_set = 1;
-			free(label_tmp);
+			//free(label_tmp);
 			label_list = add_to_lst(label_list, new);
 		}
 		i++;
