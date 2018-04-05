@@ -6,7 +6,7 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/27 03:39:52 by gudemare          #+#    #+#              #
-#    Updated: 2018/04/04 23:53:08 by gudemare         ###   ########.fr        #
+#    Updated: 2018/04/05 02:08:08 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ elif [ $1 = "duels" -o $1 = "asm" ] ; then
 	break
 elif [ `tput cols` -le $(( (($3 - $1) / $2) + 1 + 24 )) ] \
 	|| [ `tput cols` -le 72 ] ; then
-printf "Abort : not enough columns.\n"
+	printf "Abort : not enough columns.\n"
 exit 1
 fi
 
