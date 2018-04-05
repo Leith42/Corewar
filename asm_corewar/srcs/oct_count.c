@@ -12,23 +12,51 @@
 
 #include "asm.h"
 
+int			only_on_two(char op)
+{
+	if (op == 3 || op == 9 || op == 12 || op == 15)
+		return (1);
+	return (0);
+}
+
+void		set_by_type(int *dir_size, int *final_place, int type)
+{
+	if (type == 2)
+	{
+		*dir_size = 2;
+		*final_place += 1;
+	}
+	else
+	{
+		*dir_size = 4;
+		*final_place += 3;
+	}
+}
+
 /*
 ** Ajoute la value au bon endroit dans la liste d'instructions
 */
 
-static void	add_value_to_inst(int res, t_lst_op *lst_node, int pos_tmp)
+static void	add_value_to_inst(int res, t_lst_op *lst_node, int pos_tmp, int type)
 {
 	int i;
 	int final_place;
 	int dir_size;
 
 	i = 0;
-	dir_size = (g_op_tab[lst_node->op[0] - 1].addr_or_nb == 1) ? 2 : 4;
 	final_place = lst_node->label_pos[pos_tmp];
-	if (dir_size == 2)
-		final_place++;
-	else
+	if (lst_node->op[0] == 1)
+	{
+		dir_size = 4;
 		final_place += 3;
+	}
+	else if (only_on_two(lst_node->op[0]))
+	{
+		dir_size = 2;
+		final_place++;
+	}
+	else
+		set_by_type(&dir_size, &final_place, type);
 	while (i < dir_size)
 	{
 		lst_node->op[final_place] = (unsigned char)res;
@@ -82,7 +110,7 @@ static void	search_label_call_after(char *to_search,
 		{
 			if (ft_strcmp(tmp_label->name, to_search) == 0)
 			{
-				add_value_to_inst(0 - res, tmp_lst, i);
+				add_value_to_inst(0 - res, tmp_lst, i, tmp_label->type);
 				tmp_label->is_set = 1;
 			}
 			tmp_label = tmp_label->next;
@@ -128,7 +156,7 @@ static void	search_label_call(char *to_search, t_label *label,
 			if (ft_strequ(to_search, label->name) && !label->is_set)
 			{
 				add_value_to_inst(calculate_res(lst, label,
-							line - line_diff), lst, i);
+							line - line_diff), lst, i, label->type);
 				label->is_set = 1;
 			}
 			i++;

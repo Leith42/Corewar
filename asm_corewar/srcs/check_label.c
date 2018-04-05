@@ -24,6 +24,11 @@ static void		set_label_name(t_label *new, char *src,
 		new->name = ft_strsub(src, 2, ft_strlen(src) - 2);
 		new->type = 1;
 	}
+	else if (src[0] == LABEL_CHAR)
+	{
+		new->name = ft_strsub(src, 1, ft_strlen(src) - 1);
+		new->type = 2;
+	}
 	else
 	{
 		new->name = ft_strsub(src, 0, ft_strlen(src) - 1);
@@ -69,6 +74,8 @@ int				check_label_char(char *str)
 	{
 		if (str[i] == LABEL_CHAR && i > 0 && str[i - 1] == DIRECT_CHAR)
 			return (1);
+		else if (i > 0 && str[0] == LABEL_CHAR) // && c'est un char valide?
+			return (1);
 		i++;
 	}
 	if (i >= 2 && str[i - 1] == LABEL_CHAR)
@@ -91,6 +98,7 @@ t_label			*set_label(char **inst, t_label *label_list, int pos, int line)
 	label_tmp = NULL;
 	while (inst[i])
 	{
+		printf("inst = >%s<\n", inst[i]);
 		if (check_label_char(inst[i]))
 		{
 			if (!(new = ft_memalloc(sizeof(t_label))))

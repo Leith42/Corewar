@@ -35,8 +35,10 @@ static int				get_params(char **inst, t_lst_op *lst, int opc)
 				return (inst_error(WRONG_REGISTER, lst->line_nb, inst[i] + 1));
 			lst->op[lst->pos++] = (unsigned char)(nb);
 		}
-		else if (type == T_DIR && inst[i][1] == ':')
+		else if ((type == T_DIR && inst[i][1] == ':'))
 			lst = rmp_param(0, lst, dir_size, 1);
+		else if ((type == T_IND && inst[i][0] == ':'))
+			lst = rmp_param(0, lst, 2, 1);
 		else if (type == T_DIR)
 			lst = rmp_param(ft_atoi(inst[i] + 1), lst, dir_size, 0);
 		else if (type == T_IND)
@@ -124,6 +126,15 @@ static int				get_inst(char **inst, t_lst_op *lst, int *line)
 	return (1);
 }
 
+void				aff_label(t_label *label_lst)
+{
+	while (label_lst)
+	{
+		printf("label >%s< de type >%d<\n", label_lst->name, label_lst->type);
+		label_lst = label_lst->next;
+	}
+}
+
 /*
 ** CHECK_INST - fonction qui lis le fichier ligne par ligne et qui creer **inst
 ** et qui renvoie chaque ligne ainsi separer vers get_inst.
@@ -155,5 +166,6 @@ int						check_inst(t_lst_op *lst, int fd)
 		}
 	}
 	free(line);
+	aff_label(label_lst);
 	return ((!fill_label(label_lst, lst)) ? 0 : 1);
 }
