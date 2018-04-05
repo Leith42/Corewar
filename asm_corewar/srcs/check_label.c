@@ -6,7 +6,7 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 01:10:03 by lgraham           #+#    #+#             */
-/*   Updated: 2018/04/05 03:05:25 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 03:35:54 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** SET_LABEL_NAME - assigne le nom du label dans la structure
 */
 
-void		set_label_name(t_label *new, char *src, char *src_next, int line)
+static void		set_label_name(t_label *new, char *src, char *src_next, int line)
 {
 	if (src[0] == DIRECT_CHAR)
 	{
@@ -39,7 +39,7 @@ void		set_label_name(t_label *new, char *src, char *src_next, int line)
 ** ADD_TO_LST - ajoute le maillon en fin de liste chainée
 */
 
-t_label		*add_to_lst(t_label *label_list, t_label *new)
+static t_label	*add_to_lst(t_label *label_list, t_label *new)
 {
 	t_label *tmp;
 
@@ -59,7 +59,7 @@ t_label		*add_to_lst(t_label *label_list, t_label *new)
 ** CHECK_LABEL_CHAR - Check si l'argument reçu est un label
 */
 
-int			check_label_char(char *str)
+int				check_label_char(char *str)
 {
 	int i;
 
@@ -79,7 +79,7 @@ int			check_label_char(char *str)
 ** CHECK_LABEL - Créer ou MAJ une liste chainée t_label et la renvoit
 */
 
-t_label		*set_label(char **inst, t_label *label_list, int pos, int line)
+t_label			*set_label(char **inst, t_label *label_list, int pos, int line)
 {
 	int			i;
 	char		*label_tmp;
@@ -113,7 +113,7 @@ t_label		*set_label(char **inst, t_label *label_list, int pos, int line)
 **	la derniere pos connue en fin de tableau
 */
 
-void		fill_label_pos(int *tab, int pos)
+void			fill_label_pos(int *tab, int pos)
 {
 	int i;
 

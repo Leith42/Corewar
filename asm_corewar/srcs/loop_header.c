@@ -6,20 +6,20 @@
 /*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 18:49:21 by mmatime           #+#    #+#             */
-/*   Updated: 2018/03/22 10:07:56 by lgraham          ###   ########.fr       */
+/*   Updated: 2018/04/05 03:31:51 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int		char_is_valid(char c)
+static int	char_is_valid(char c)
 {
 	if (c == ' ' || c == '\t' || c == '#')
 		return (1);
 	return (0);
 }
 
-int		loop_name(int *i, char *line, t_header *header)
+static int	loop_name(int *i, char *line, t_header *header)
 {
 	int		tmp;
 	char	*name_tmp;
@@ -47,7 +47,7 @@ int		loop_name(int *i, char *line, t_header *header)
 	return (0);
 }
 
-int		set_name(char *line, t_header *header, int line_nb)
+int			set_name(char *line, t_header *header, int line_nb)
 {
 	int i;
 	int comment;
@@ -77,7 +77,7 @@ int		set_name(char *line, t_header *header, int line_nb)
 	return (1);
 }
 
-int		loop_comment(int *i, char *line, t_header *header)
+static int	loop_comment(int *i, char *line, t_header *header)
 {
 	int		tmp;
 	char	*comment_tmp;

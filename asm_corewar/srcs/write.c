@@ -6,7 +6,7 @@
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 15:47:03 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/04/05 03:10:59 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 03:24:55 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	print_inst - Ecrit dans le fd la totalité des octets d'instructions
 */
 
-void	print_inst(int fd, t_lst_op *inst)
+static void	print_inst(int fd, t_lst_op *inst)
 {
 	int n;
 
@@ -33,7 +33,7 @@ void	print_inst(int fd, t_lst_op *inst)
 **	print_magic_number - Ecrit dans le fd le magic number
 */
 
-void	print_magic_number(int fd)
+static void	print_magic_number(int fd)
 {
 	int				i;
 	unsigned char	magic_tab[4];
@@ -55,7 +55,7 @@ void	print_magic_number(int fd)
 **	file_size - Calcule et renvoit le nb d'octet du fichier entier
 */
 
-int		file_size(t_lst_op *lst)
+static int	file_size(t_lst_op *lst)
 {
 	int champion;
 
@@ -73,7 +73,7 @@ int		file_size(t_lst_op *lst)
 **	et la taille du fichier
 */
 
-void	print_header(int fd, t_header *header, t_lst_op *lst)
+static void	print_header(int fd, t_header *header, t_lst_op *lst)
 {
 	int		i;
 	int		champion;
@@ -103,7 +103,7 @@ void	print_header(int fd, t_header *header, t_lst_op *lst)
 **	ft_write - Ecrit dans le fd la totalité du fichier
 */
 
-int		ft_write(char *file_name, t_lst_op *lst, t_header *header)
+int			ft_write(char *file_name, t_lst_op *lst, t_header *header)
 {
 	int		fd;
 	char	*new_file_name;

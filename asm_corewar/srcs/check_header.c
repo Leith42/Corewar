@@ -6,7 +6,7 @@
 /*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 09:38:17 by mmatime           #+#    #+#             */
-/*   Updated: 2018/04/05 03:03:27 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 03:39:53 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 **	des données du header
 */
 
-int		line_is_point(char *line, t_header *header, int line_nb)
+static int	line_is_point(char *line, t_header *header, int line_nb)
 {
 	int i;
 
@@ -39,7 +39,7 @@ int		line_is_point(char *line, t_header *header, int line_nb)
 ** si ce que l'on recherche est set
 */
 
-int		header_is_set(t_header *header)
+static int	header_is_set(t_header *header)
 {
 	if (!header->name_is_set || !header->comment_is_set)
 		return (0);
@@ -51,7 +51,7 @@ int		header_is_set(t_header *header)
 ** pour y trouver et set un header
 */
 
-int		check_header(int fd, t_header *header)
+int			check_header(int fd, t_header *header)
 {
 	int		line_nb;
 	int		i;

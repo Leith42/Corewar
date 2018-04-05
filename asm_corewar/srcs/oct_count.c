@@ -6,7 +6,7 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 03:49:24 by lgraham           #+#    #+#             */
-/*   Updated: 2018/04/05 03:10:34 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 03:29:52 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Ajoute la value au bon endroit dans la liste d'instructions
 */
 
-void	add_value_to_inst(int res, t_lst_op *lst_node, int pos_tmp)
+static void	add_value_to_inst(int res, t_lst_op *lst_node, int pos_tmp)
 {
 	int i;
 	int final_place;
@@ -42,7 +42,7 @@ void	add_value_to_inst(int res, t_lst_op *lst_node, int pos_tmp)
 ** Calcule et renvoi la valeur entre le call et sa déclaration
 */
 
-int		calculate_res(t_lst_op *tmp_lst, t_label *tmp_label, int line)
+static int	calculate_res(t_lst_op *tmp_lst, t_label *tmp_label, int line)
 {
 	int res;
 	int i;
@@ -64,8 +64,8 @@ int		calculate_res(t_lst_op *tmp_lst, t_label *tmp_label, int line)
 **	et y ajoute la valeur négative
 */
 
-void	search_label_call_after(char *to_search,
-		t_label *tmp_label, t_lst_op *tmp_lst)
+static void	search_label_call_after(char *to_search,
+			t_label *tmp_label, t_lst_op *tmp_lst)
 {
 	int res;
 	int i;
@@ -98,8 +98,8 @@ void	search_label_call_after(char *to_search,
 ** correspondants à la déclaration (to_search) FONCTION A NORMER
 */
 
-void	search_label_call(char *to_search, t_label *label,
-		t_lst_op *lst, int line)
+static void	search_label_call(char *to_search, t_label *label,
+			t_lst_op *lst, int line)
 {
 	int			i;
 	int			res;
@@ -153,7 +153,7 @@ void	search_label_call(char *to_search, t_label *label,
 ** Check si un label appellé trouve bien son parent
 */
 
-char	*check_label_match(t_label *label)
+static char	*check_label_match(t_label *label)
 {
 	while (label)
 	{
@@ -168,7 +168,7 @@ char	*check_label_match(t_label *label)
 ** Cherche un label déclaré
 */
 
-int		fill_label(t_label *label, t_lst_op *lst)
+int			fill_label(t_label *label, t_lst_op *lst)
 {
 	int		nbw;
 	char	*label_error;

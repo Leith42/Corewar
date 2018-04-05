@@ -6,7 +6,7 @@
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:54:16 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/04/05 03:11:41 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/05 03:38:09 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** GET_PARAMS - fonction qui ecris les parametres dans le lst->op.
 */
 
-int					get_params(char **inst, t_lst_op *lst, int opc)
+static int				get_params(char **inst, t_lst_op *lst, int opc)
 {
 	int		dir_size;
 	int		i;
@@ -50,7 +50,7 @@ int					get_params(char **inst, t_lst_op *lst, int opc)
 ** en fonction de l'instruction.
 */
 
-int					check_params(char **inst, int opcode, int line_nb)
+static int				check_params(char **inst, int opcode, int line_nb)
 {
 	int		n;
 	int		type;
@@ -72,7 +72,7 @@ int					check_params(char **inst, int opcode, int line_nb)
 ** stock dans lst->op;
 */
 
-unsigned char		get_ocp(char **inst)
+static unsigned char	get_ocp(char **inst)
 {
 	unsigned char	ocp;
 	int				type;
@@ -95,7 +95,7 @@ unsigned char		get_ocp(char **inst)
 ** fonctions qui vont les verifier et les stocker dans lst->op.
 */
 
-int					get_inst(char **inst, t_lst_op *lst, int *line)
+static int				get_inst(char **inst, t_lst_op *lst, int *line)
 {
 	static int	nb_oc = 0;
 	int			i;
@@ -129,7 +129,7 @@ int					get_inst(char **inst, t_lst_op *lst, int *line)
 ** et qui renvoie chaque ligne ainsi separer vers get_inst.
 */
 
-int					check_inst(t_lst_op *lst, int fd)
+int						check_inst(t_lst_op *lst, int fd)
 {
 	t_label		*label_lst;
 	char		*line;
