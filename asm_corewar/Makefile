@@ -6,7 +6,7 @@
 #    By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/03/31 20:31:00 by mmatime          ###   ########.fr        #
+#    Updated: 2018/04/05 03:14:10 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,6 @@ SRCS_LIST		=	\
 					ft_error.c \
 					ft_init.c \
 					ft_free.c
-
 OBJS_DIR		=	./objs/
 OBJS_LIST		=	$(patsubst %.c, %.o, $(SRCS_LIST))
 OBJS			=	$(addprefix $(OBJS_DIR), $(OBJS_LIST))
@@ -84,7 +83,7 @@ $(LIBFT) :
 	@make -C ../libft -j8
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
-	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)/{parsing,run,op_func}
+	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)
 	@printf "\e[K$(CYAN)Compiling $(BOLD)$(notdir $<)$(END_GRAPHICS)$(CYAN) ...\n\e[A$(END_GRAPHICS)"
 	@$(COMPILE.c) -c $< -o $@
 
