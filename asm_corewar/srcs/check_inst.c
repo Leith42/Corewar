@@ -110,8 +110,11 @@ static int				get_inst(char **inst, t_lst_op *lst, int *line)
 	lst->pos = 0;
 	i = 0;
 	nbw = (inst[0][ft_strlen(inst[0]) - 1] == ':') ? 1 : 0;
-	if (nbw == 1 && inst[nbw + 1] == NULL && (*line -= 1))
+	if (nbw == 1 && inst[nbw + 1] == NULL)
+	{
+		*line -= 1;
 		return (1);
+	}
 	while (i < 16 && (ft_strcmp(g_op_tab[i].name, inst[nbw]) != 0))
 		++i;
 	if (i == 16)
@@ -126,6 +129,10 @@ static int				get_inst(char **inst, t_lst_op *lst, int *line)
 	nb_oc += lst->pos;
 	return (1);
 }
+
+/*
+** FONCTION DE DEBUG - a supprimer
+*/
 
 void				aff_label(t_label *label_lst)
 {
@@ -153,16 +160,16 @@ int						check_inst(t_lst_op *lst, int fd)
 	label_lst = NULL;
 	line = NULL;
 	i = 0;
-	while (((get_next_line(fd, &line, 64)) > 0) && lst->line_nb++)
+	while (((get_next_line(fd, &line, 64)) > 0) && tmp->line_nb++)
 	{
 		if (line && (inst = ft_split_inst(line)) != NULL && ++i)
 		{
 			if ((!get_inst(inst, tmp, &i) || (check_label(inst) &&
 (!(label_lst = set_label(inst, label_lst, tmp->pos, i))))) && ft_free_arr(inst))
 				return (0); //Instruction incorrecte
-			if (lst->pos != 0 && (tmp->next = init_lst(tmp->line_nb)) == NULL)
+			if (tmp->pos != 0 && (tmp->next = init_lst(tmp->line_nb)) == NULL)
 				return (0);
-			tmp = (lst->pos != 0) ? tmp->next : tmp;
+			tmp = (tmp->pos != 0) ? tmp->next : tmp;
 		}
 	}
 	free(line);
