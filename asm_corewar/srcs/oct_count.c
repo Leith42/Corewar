@@ -14,7 +14,7 @@
 
 int			only_on_two(char op)
 {
-	if (op == 3 || op == 9 || op == 12 || op == 15)
+	if (op == 3 || op == 9 || op == 10 || op == 11 || op == 12 || op == 14 || op == 15)
 		return (1);
 	return (0);
 }
@@ -80,6 +80,7 @@ static int	calculate_res(t_lst_op *tmp_lst, t_label *tmp_label, int line)
 	while (i < line)
 	{
 		res += tmp_lst->pos;
+		printf("on cherche %s, res = %d\n", tmp_label->name, res);
 		tmp_lst = tmp_lst->next;
 		i++;
 	}
