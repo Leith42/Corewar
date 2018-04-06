@@ -46,7 +46,7 @@ int			param_type(char *param)
 		return (0);
 	if (param[0] == 'r')
 		return (T_REG);
-	if (param[0] == '%')
+	if (param[0] == DIRECT_CHAR)
 		return (T_DIR);
 	return (T_IND);
 }
@@ -67,14 +67,15 @@ char		**ft_split_inst(char *inst)
 	i = 0;
 	t = 0;
 	params = ft_arrnew(7);
-	while (inst[n] && inst[n] != '#' && t < 7)
+	while (inst[n] && inst[n] != COMMENT_CHAR && t < 7)
 	{
 		while (inst[n] == ' ' || inst[n] == '\t' || inst[n] == ',')
 			++n;
 		while (inst[n + i] && inst[n + i] != ' ' && inst[n + i] != '\t' && \
-	inst[n + i] != ',' && inst[n + i] != '#' && (t != 0 || inst[n + i] != ':'))
+		inst[n + i] != SEPARATOR_CHAR && inst[n + i] != COMMENT_CHAR &&
+		(t != 0 || inst[n + i] != LABEL_CHAR))
 			++i;
-		i += (inst[n + i] == ':') ? 1 : 0;
+		i += (inst[n + i] == LABEL_CHAR) ? 1 : 0;
 		if (i > 0)
 			params[t++] = ft_strndup(inst + n, (size_t)i);
 		n += i;
