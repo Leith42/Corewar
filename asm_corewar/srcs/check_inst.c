@@ -65,7 +65,7 @@ static int				check_params(char **inst, int opcode, int line_nb)
 		type = param_type(inst[n]);
 		if ((type == T_DIR && inst[n][1] != ':') || (type == T_REG))
 			while (inst[n][i])
-				if (!ft_isdigit(inst[n][i++]))
+				if (!ft_isdigit(inst[n][i++]) && inst[n][1] != '-')
 					return (inst_error(SYNTAX_ERROR, line_nb, inst[n]));
 		if (!(type & g_op_tab[opcode].param_type[n]))
 			return (inst_error(INVALID_PARAMS, line_nb, ""));
