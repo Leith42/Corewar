@@ -19,7 +19,7 @@ int					ft_read_file(int fd, char *file_name)
 	int				n;
 
 	n = 0;
-	lst = init_lst(1);
+	lst = init_lst(0);
 	if ((lst->line_nb += check_header(fd, &header)) != 0 && check_inst(lst, fd))
 		ft_write(file_name, lst, &header);
 	else

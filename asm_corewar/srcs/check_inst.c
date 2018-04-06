@@ -57,9 +57,9 @@ static int				check_params(char **inst, int opcode, int line_nb)
 	int		type;
 
 	n = -1;
-	i = 1;
 	while (inst[++n])
 	{
+		i = 1;
 		if (g_op_tab[opcode].param_nb <= n)
 			return (inst_error(TOO_MANY_PARAMS, line_nb, ""));
 		type = param_type(inst[n]);
