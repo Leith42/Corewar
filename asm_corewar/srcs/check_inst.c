@@ -53,14 +53,20 @@ static int				get_params(char **inst, t_lst_op *lst, int opc)
 static int				check_params(char **inst, int opcode, int line_nb)
 {
 	int		n;
+	int 	i;
 	int		type;
 
 	n = -1;
+	i = 1;
 	while (inst[++n])
 	{
 		if (g_op_tab[opcode].param_nb <= n)
 			return (inst_error(TOO_MANY_PARAMS, line_nb, ""));
 		type = param_type(inst[n]);
+		if ((type == T_DIR && inst[n][1] != ':') || (type == T_REG))
+			while (inst[n][i])
+				if (!ft_isdigit(inst[n][i++]))
+					return (inst_error(SYNTAX_ERROR, line_nb, inst[n]));
 		if (!(type & g_op_tab[opcode].param_type[n]))
 			return (inst_error(INVALID_PARAMS, line_nb, ""));
 	}
@@ -147,17 +153,16 @@ int						check_inst(t_lst_op *lst, int fd)
 	label_lst = NULL;
 	line = NULL;
 	i = 0;
-	while ((get_next_line(fd, &line, 64)) > 0)
+	while (((get_next_line(fd, &line, 64)) > 0) && lst->line_nb++)
 	{
-		if (line && (inst = ft_split_inst(line)) != NULL)
+		if (line && (inst = ft_split_inst(line)) != NULL && ++i)
 		{
-			i++;
 			if ((!get_inst(inst, tmp, &i) || (check_label(inst) &&
 (!(label_lst = set_label(inst, label_lst, tmp->pos, i))))) && ft_free_arr(inst))
 				return (0); //Instruction incorrecte
-			if (inst->pos != 0 && (tmp->next = init_lst()) == NULL)
+			if (lst->pos != 0 && (tmp->next = init_lst(tmp->line_nb)) == NULL)
 				return (0);
-			tmp = (inst->pos != 0) tmp->next : tmp;
+			tmp = (lst->pos != 0) ? tmp->next : tmp;
 		}
 	}
 	free(line);

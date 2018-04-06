@@ -31,7 +31,8 @@ enum				e_error
 	INVALID_INST,
 	INVALID_PARAMS,
 	TOO_MANY_PARAMS,
-	WRONG_REGISTER
+	WRONG_REGISTER,
+	SYNTAX_ERROR
 };
 
 /*
@@ -117,7 +118,7 @@ void				init_set(t_header *header);
 ** FONCTION INSTRUCTION
 */
 
-t_lst_op			*init_lst(void);
+t_lst_op			*init_lst(int ln);
 int					inst_error(enum e_error error, int line_nb, char *str);
 int					check_inst(t_lst_op *lst, int fd);
 

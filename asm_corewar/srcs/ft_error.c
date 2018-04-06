@@ -48,5 +48,7 @@ int		inst_error(enum e_error error, int line_nb, char *str)
 		ft_printf("Too many parameter on line %d\n", line_nb);
 	else if (error == WRONG_REGISTER)
 		ft_printf("Register can't be \"%s\" on line %d\n", str, line_nb);
+	else if (error == SYNTAX_ERROR)
+		ft_printf("Syntax error for inst \"%s\" on line %d\n", str, line_nb);
 	return (0);
 }

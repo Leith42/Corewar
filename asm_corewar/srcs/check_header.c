@@ -71,5 +71,5 @@ int			check_header(int fd, t_header *header)
 			continue ;
 		header_error(WRONG_INPUT, line_nb, "");
 	}
-	return (1);
+	return (line_nb);
 }

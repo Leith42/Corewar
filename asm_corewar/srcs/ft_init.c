@@ -29,7 +29,7 @@ void			init_set(t_header *header)
 **	init_lst - Initialise un maillon d'instruction
 */
 
-t_lst_op		*init_lst(void)
+t_lst_op		*init_lst(int ln)
 {
 	t_lst_op	*new;
 
@@ -37,5 +37,6 @@ t_lst_op		*init_lst(void)
 		return (NULL);
 	ft_memset(new->label_pos, 0, 4);
 	new->pos = 0;
+	new->line_nb = ln;
 	return (new);
 }
