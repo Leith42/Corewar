@@ -36,5 +36,6 @@ t_lst_op		*init_lst(void)
 	if (!(new = ft_memalloc(sizeof(t_lst_op))))
 		return (NULL);
 	ft_memset(new->label_pos, 0, 4);
+	new->pos = 0;
 	return (new);
 }

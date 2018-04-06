@@ -27,18 +27,16 @@ static int				get_params(char **inst, t_lst_op *lst, int opc)
 	dir_size = (g_op_tab[opc].addr_or_nb == 1) ? 2 : 4;
 	while (inst[++i])
 	{
-		type = param_type(inst[i]);
-		if (type == T_REG)
+		if ((type = param_type(inst[i])) && type == T_REG)
 		{
 			nb = ft_atoi(inst[i] + 1);
 			if (nb > 16 || nb < 1)
 				return (inst_error(WRONG_REGISTER, lst->line_nb, inst[i] + 1));
 			lst->op[lst->pos++] = (unsigned char)(nb);
 		}
-		else if ((type == T_DIR && inst[i][1] == ':'))
-			lst = rmp_param(0, lst, dir_size, 1);
-		else if ((type == T_IND && inst[i][0] == ':'))
-			lst = rmp_param(0, lst, 2, 1);
+		else if ((type == T_DIR && inst[i][1] == ':') ||
+		(type == T_IND && inst[i][0] == ':'))
+			lst = rmp_param(0, lst, (type == T_IND) ? 2 : dir_size, 1);
 		else if (type == T_DIR)
 			lst = rmp_param(ft_atoi(inst[i] + 1), lst, dir_size, 0);
 		else if (type == T_IND)
@@ -106,11 +104,8 @@ static int				get_inst(char **inst, t_lst_op *lst, int *line)
 	lst->pos = 0;
 	i = 0;
 	nbw = (inst[0][ft_strlen(inst[0]) - 1] == ':') ? 1 : 0;
-	if (nbw == 1 && inst[nbw + 1] == NULL)
-	{
-		*line -= 1;
+	if (nbw == 1 && inst[nbw + 1] == NULL && (*line -= 1))
 		return (1);
-	}
 	while (i < 16 && (ft_strcmp(g_op_tab[i].name, inst[nbw]) != 0))
 		++i;
 	if (i == 16)
@@ -160,9 +155,9 @@ int						check_inst(t_lst_op *lst, int fd)
 			if ((!get_inst(inst, tmp, &i) || (check_label(inst) &&
 (!(label_lst = set_label(inst, label_lst, tmp->pos, i))))) && ft_free_arr(inst))
 				return (0); //Instruction incorrecte
-			if ((tmp->next = init_lst()) == NULL)
+			if (inst->pos != 0 && (tmp->next = init_lst()) == NULL)
 				return (0);
-			tmp = tmp->next;
+			tmp = (inst->pos != 0) tmp->next : tmp;
 		}
 	}
 	free(line);
