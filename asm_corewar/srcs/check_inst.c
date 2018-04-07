@@ -53,7 +53,7 @@ static int				get_params(char **inst, t_lst_op *lst, int opc)
 static int				check_params(char **inst, int opcode, int line_nb)
 {
 	int		n;
-	int 	i;
+	int		i;
 	int		type;
 
 	n = -1;
@@ -148,7 +148,7 @@ void				aff_label(t_label *label_lst)
 ** et qui renvoie chaque ligne ainsi separer vers get_inst.
 */
 
-int						check_inst(t_lst_op *lst, int fd)
+int					check_inst(t_lst_op *lst, int fd)
 {
 	t_label		*label_lst;
 	char		*line;

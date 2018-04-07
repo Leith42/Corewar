@@ -102,7 +102,7 @@ norme :
 	@if type "norminette" &> /dev/null ; then \
 		printf "Checking Norm...\n"; \
 		printf "$(BLUE)$(BOLD)[ ] $(NAME)$(END_GRAPHICS)\n\e[A" && \
-		norminette $(SRCS) $(PROJECT_H_DIR) | grep -v -B 1 "^Norme: " || printf "$(GREEN)[✔]\n$(END_GRAPHICS)" ; \
+		norminette $(SRCS_DIR) $(PROJECT_H_DIR) | grep -v -B 1 "^Norme: " || printf "$(GREEN)[✔]\n$(END_GRAPHICS)" ; \
 	else \
 		printf "$(RED)Norminette not installed, cannot check norm.\n$(END_GRAPHICS)" ; \
 	fi

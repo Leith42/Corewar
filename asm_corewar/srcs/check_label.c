@@ -74,7 +74,7 @@ int				check_label_char(char *str)
 	{
 		if (str[i] == LABEL_CHAR && i > 0 && str[i - 1] == DIRECT_CHAR)
 			return (1);
-		else if (i > 0 && str[0] == LABEL_CHAR) // && c'est un char valide?
+		else if (i > 0 && str[0] == LABEL_CHAR)
 			return (1);
 		i++;
 	}
@@ -109,7 +109,6 @@ t_label			*set_label(char **inst, t_label *label_list, int pos, int line)
 				label_tmp, new->name)) ? 0 : pos;
 			if (label_tmp && new->type == 1 && !ft_strcmp(label_tmp, new->name))
 				new->is_set = 1;
-			//free(label_tmp);
 			label_list = add_to_lst(label_list, new);
 		}
 		i++;

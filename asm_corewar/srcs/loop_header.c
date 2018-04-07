@@ -71,7 +71,6 @@ int			set_name(char *line, t_header *header, int line_nb)
 			header_error(INVALID_CHAR_NAME, line_nb, NAME_CMD_STRING);
 		i++;
 	}
-//	free(line);
 	return (1);
 }
 
@@ -128,6 +127,5 @@ int			set_comment(char *line, t_header *header, int line_nb)
 			header_error(INVALID_CHAR_NAME, line_nb, COMMENT_CMD_STRING);
 		i++;
 	}
-	//free(line);
 	return (1);
 }
