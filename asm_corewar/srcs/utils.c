@@ -100,7 +100,7 @@ char		*epur_str_beginning(char *line)
 	while ((line[i] && line[i] == ' ') || (line[i] && line[i] == '\t'))
 		++i;
 	if (line[i])
-		dest = ft_strsub(line, (unsigned int)i, ft_strlen(line) - i);
+		dest = ft_strsub(line, (unsigned int)i, ft_strlen(line) - (unsigned int)i);
 	free(line);
 	return (dest);
 }
