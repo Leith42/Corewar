@@ -14,7 +14,7 @@
 
 static int	char_is_valid(char c)
 {
-	if (c == ' ' || c == '\t' || c == COMMENT_CHAR)
+	if (c == ' ' || c == '\t' || c == COMMENT_CHAR || c == WEIRD_CHAR)
 		return (1);
 	return (0);
 }

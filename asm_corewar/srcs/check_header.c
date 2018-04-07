@@ -62,13 +62,16 @@ int			check_header(int fd, t_header *header)
 	line_nb = 0;
 	line = NULL;
 	while (!header_is_set(header) && get_next_line(fd, &line, 100) > 0)
-	{
+	{	
+		printf("line = %s\n", line);
 		line = epur_str_beginning(line);
+		printf("line = %s\n", line);
 		line_nb++;
-		if (!line || *line == COMMENT_CHAR)
+		if (!line || *line == COMMENT_CHAR || *line == WEIRD_CHAR)
 			continue ;
 		else if (line_is_point(line, header, line_nb))
 			continue ;
+		printf("line = %s", line);
 		header_error(WRONG_INPUT, line_nb, "");
 	}
 	return (line_nb);
