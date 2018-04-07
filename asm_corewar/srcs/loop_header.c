@@ -14,7 +14,7 @@
 
 static int	char_is_valid(char c)
 {
-	if (c == ' ' || c == '\t' || c == '#')
+	if (c == ' ' || c == '\t' || c == COMMENT_CHAR)
 		return (1);
 	return (0);
 }
@@ -56,19 +56,19 @@ int			set_name(char *line, t_header *header, int line_nb)
 	comment = 0;
 	while (line[i])
 	{
-		if (line[i] == '#' && header->name_is_set)
+		if (line[i] == COMMENT_CHAR && header->name_is_set)
 			comment = 1;
-		else if (line[i] == '#' && !header->name_is_set)
-			header_error(COMMENT_NOT_IN_PLACE, line_nb, ".name");
+		else if (line[i] == COMMENT_CHAR && !header->name_is_set)
+			header_error(COMMENT_NOT_IN_PLACE, line_nb, NAME_CMD_STRING);
 		if (line[i] == '"' && !header->name_is_set)
 		{
 			if (!(loop_name(&i, line, header)))
-				header_error(QUOTE_MARK, line_nb, ".name");
+				header_error(QUOTE_MARK, line_nb, NAME_CMD_STRING);
 			i++;
 			continue ;
 		}
 		if (!char_is_valid(line[i]) && comment == 0)
-			header_error(INVALID_CHAR_NAME, line_nb, ".name");
+			header_error(INVALID_CHAR_NAME, line_nb, NAME_CMD_STRING);
 		i++;
 	}
 //	free(line);
@@ -113,19 +113,19 @@ int			set_comment(char *line, t_header *header, int line_nb)
 	comment = 0;
 	while (line[i])
 	{
-		if (line[i] == '#' && header->comment_is_set)
+		if (line[i] == COMMENT_CHAR && header->comment_is_set)
 			comment = 1;
-		else if (line[i] == '#' && !header->comment_is_set)
-			header_error(COMMENT_NOT_IN_PLACE, line_nb, ".comment");
+		else if (line[i] == COMMENT_CHAR && !header->comment_is_set)
+			header_error(COMMENT_NOT_IN_PLACE, line_nb, COMMENT_CMD_STRING);
 		if (line[i] == '"' && !header->comment_is_set)
 		{
 			if (!(loop_comment(&i, line, header)))
-				header_error(QUOTE_MARK, line_nb, ".comment");
+				header_error(QUOTE_MARK, line_nb, COMMENT_CMD_STRING);
 			i++;
 			continue ;
 		}
 		if (!char_is_valid(line[i]) && comment == 0)
-			header_error(INVALID_CHAR_NAME, line_nb, ".comment");
+			header_error(INVALID_CHAR_NAME, line_nb, COMMENT_CMD_STRING);
 		i++;
 	}
 	//free(line);

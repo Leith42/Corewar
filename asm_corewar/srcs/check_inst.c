@@ -34,8 +34,8 @@ static int				get_params(char **inst, t_lst_op *lst, int opc)
 				return (inst_error(WRONG_REGISTER, lst->line_nb, inst[i] + 1));
 			lst->op[lst->pos++] = (unsigned char)(nb);
 		}
-		else if ((type == T_DIR && inst[i][1] == ':') ||
-		(type == T_IND && inst[i][0] == ':'))
+		else if ((type == T_DIR && inst[i][1] == LABEL_CHAR) ||
+		(type == T_IND && inst[i][0] == LABEL_CHAR))
 			lst = rmp_param(0, lst, (type == T_IND) ? 2 : dir_size, 1);
 		else if (type == T_DIR)
 			lst = rmp_param(ft_atoi(inst[i] + 1), lst, dir_size, 0);
@@ -63,7 +63,7 @@ static int				check_params(char **inst, int opcode, int line_nb)
 		if (g_op_tab[opcode].param_nb <= n)
 			return (inst_error(TOO_MANY_PARAMS, line_nb, ""));
 		type = param_type(inst[n]);
-		if ((type == T_DIR && inst[n][1] != ':') || (type == T_REG))
+		if ((type == T_DIR && inst[n][1] != LABEL_CHAR) || (type == T_REG))
 			while (inst[n][i])
 				if (!ft_isdigit(inst[n][i++]) && inst[n][1] != '-')
 					return (inst_error(SYNTAX_ERROR, line_nb, inst[n]));
@@ -109,7 +109,7 @@ static int				get_inst(char **inst, t_lst_op *lst, int *line)
 
 	lst->pos = 0;
 	i = 0;
-	nbw = (inst[0][ft_strlen(inst[0]) - 1] == ':') ? 1 : 0;
+	nbw = (inst[0][ft_strlen(inst[0]) - 1] == LABEL_CHAR) ? 1 : 0;
 	if (nbw == 1 && inst[nbw + 1] == NULL)
 	{
 		*line -= 1;

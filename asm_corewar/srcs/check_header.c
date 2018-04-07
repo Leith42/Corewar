@@ -22,7 +22,7 @@ static int	line_is_point(char *line, t_header *header, int line_nb)
 	int i;
 
 	i = 0;
-	if (line[0] && line[0] == '.')
+	if (line[0] && line[0] == CMD_CHAR)
 	{
 		if (ft_strnequ(line, NAME_CMD_STRING, 5) && set_name(line, header, \
 			line_nb))
