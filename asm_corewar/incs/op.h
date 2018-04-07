@@ -36,6 +36,7 @@
 # define DIRECT_CHAR			'%'
 # define SEPARATOR_CHAR			','
 # define CMD_CHAR				'.'
+# define WEIRD_CHAR				';'
 
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 

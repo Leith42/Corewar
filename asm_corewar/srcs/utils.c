@@ -67,13 +67,13 @@ char		**ft_split_inst(char *inst)
 	i = 0;
 	t = 0;
 	params = ft_arrnew(7);
-	while (inst[n] && inst[n] != COMMENT_CHAR && t < 7)
+	while (inst[n] && inst[n] != COMMENT_CHAR && inst[n] != WEIRD_CHAR && t < 7)
 	{
 		while (inst[n] == ' ' || inst[n] == '\t' || inst[n] == SEPARATOR_CHAR)
 			++n;
 		while (inst[n + i] && inst[n + i] != ' ' && inst[n + i] != '\t' && \
 		inst[n + i] != SEPARATOR_CHAR && inst[n + i] != COMMENT_CHAR &&
-		(t != 0 || inst[n + i] != LABEL_CHAR))
+		(t != 0 || inst[n + i] != LABEL_CHAR) && inst[n + i] != WEIRD_CHAR)
 			++i;
 		i += (inst[n + i] == LABEL_CHAR) ? 1 : 0;
 		if (i > 0)
