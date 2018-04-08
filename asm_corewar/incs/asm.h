@@ -25,6 +25,7 @@ enum				e_error
 	QUOTE_MARK,
 	INVALID_CHAR_NAME,
 	WRONG_INPUT,
+	WRONG_HEADER,
 	COMMENT_NOT_IN_PLACE,
 	NAME_TOO_LONG,
 	COMMENT_TOO_LONG,
@@ -95,6 +96,9 @@ typedef struct		s_header
 	int				name_is_set;
 	int				comment_is_set;
 	int				head_error;
+	int				name_length;
+	int				comment_length;
+	int				waiting_next_line;
 }					t_header;
 
 /*

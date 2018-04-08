@@ -21,6 +21,9 @@ void			init_set(t_header *header)
 	header->name_is_set = 0;
 	header->comment_is_set = 0;
 	header->head_error = 0;
+	header->name_length = 0;
+	header->comment_length = 0;
+	header->waiting_next_line = 0;
 	memset(header->prog_name, 0, PROG_NAME_LENGTH + 1);
 	memset(header->comment, 0, COMMENT_LENGTH + 1);
 }

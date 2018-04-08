@@ -21,10 +21,12 @@ void	header_error(enum e_error error, int line_nb, char *str)
 	if (error == QUOTE_MARK)
 		ft_printf("Can't find quote mark on line %d\n", line_nb);
 	else if (error == INVALID_CHAR_NAME)
-		ft_printf("Can't write anything without sharp sign ('#') on line %d\n",
+		ft_printf("Can't write anything without ('#') or (';') on line %d\n",
 		line_nb);
 	else if (error == WRONG_INPUT)
 		ft_printf("Wrong input on line %d\n", line_nb);
+	else if (error == WRONG_HEADER)
+		ft_printf("Header is not set\n");
 	else if (error == COMMENT_NOT_IN_PLACE)
 		ft_printf("Can't comment before %s input on line %d\n", str, line_nb);
 	else if (error == NAME_TOO_LONG)
