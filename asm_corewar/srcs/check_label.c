@@ -112,6 +112,7 @@ t_label			*set_label(char **inst, t_label *label_list, int pos, int line)
 		}
 		i++;
 	}
+	free(label_tmp);
 	return (label_list);
 }
 
