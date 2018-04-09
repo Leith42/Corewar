@@ -160,5 +160,6 @@ int					param_type(char *param);
 char				**ft_split_inst(char *inst);
 char				*epur_str_beginning(char *line);
 void				free_lst(t_lst_op *lst);
+void				free_label(t_label *label);
 
 #endif

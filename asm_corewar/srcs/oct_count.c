@@ -216,5 +216,6 @@ int			fill_label(t_label *label, t_lst_op *lst)
 		lst = lst->next;
 	}
 	// << temporaire
+	free_label(label);
 	return (1);
 }
