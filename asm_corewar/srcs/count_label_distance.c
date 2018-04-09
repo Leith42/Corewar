@@ -6,7 +6,7 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 03:49:24 by lgraham           #+#    #+#             */
-/*   Updated: 2018/04/09 23:06:21 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/09 23:11:43 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,28 @@ static void	search_label_call_after(char *to_search,
 ** correspondants à la déclaration (to_search) FONCTION A NORMER
 */
 
+static void	search_label_call_bis(t_lst_op *lst, char *to_search,
+			t_label *label, int line_minus_line_diff)
+{
+	int		i;
+
+	i = 0;
+	while (i < lst->label_nb)
+	{
+		if (ft_strequ(to_search, label->name) && !label->is_set)
+		{
+			add_value_to_inst(calculate_res(lst, label,
+				line_minus_line_diff), lst, i, label->type);
+			label->is_set = 1;
+		}
+		i++;
+		label = label->next;
+	}
+}
+
 static void	search_label_call(char *to_search, t_label *label,
 			t_lst_op *lst, int line)
 {
-	int			i;
 	int			line_diff;
 
 	line_diff = 0;
@@ -75,18 +93,7 @@ static void	search_label_call(char *to_search, t_label *label,
 			}
 			label = label->next;
 		}
-		i = 0;
-		while (i < lst->label_nb)
-		{
-			if (ft_strequ(to_search, label->name) && !label->is_set)
-			{
-				add_value_to_inst(calculate_res(lst, label,
-							line - line_diff), lst, i, label->type);
-				label->is_set = 1;
-			}
-			i++;
-			label = label->next;
-		}
+		search_label_call_bis(lst, to_search, label, line - line_diff);
 		lst = lst->next;
 		if (lst && !label)// a corriger ? maillon en trop dans la chaine
 			return ;
