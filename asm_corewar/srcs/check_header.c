@@ -112,10 +112,8 @@ int			line_is_point(char *line, t_header *header, int line_nb)
 int			check_header(int fd, t_header *header)
 {
 	int		line_nb;
-	int		i;
 	char	*line;
 
-	i = 0;
 	header_init(header);
 	line_nb = 0;
 	line = NULL;
@@ -136,5 +134,6 @@ int			check_header(int fd, t_header *header)
 	}
 	if (!header_is_set(header))
 		header_error(WRONG_HEADER, line_nb, line);
+	free(line);
 	return (line_nb);
 }
