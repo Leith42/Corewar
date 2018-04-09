@@ -113,10 +113,10 @@ int			ft_write(char *file_name, t_lst_op *lst, t_header *header)
 	new_file_name = ft_strjoin(file_name_tmp, ".cor");
 	if ((fd = open(new_file_name, O_WRONLY | O_CREAT | O_TRUNC, 0755)))
 	{
-		ft_printf("Fichier %s crée avec succès !\n", new_file_name);
 		print_magic_number(fd);
 		print_header(fd, header, lst);
 		print_inst(fd, lst);
+		ft_printf("Writing output program to %s\n", new_file_name);
 	}
 	free(file_name_tmp);
 	free(new_file_name);

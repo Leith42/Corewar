@@ -189,7 +189,6 @@ static char	*check_label_match(t_label *label)
 
 int			fill_label(t_label *label, t_lst_op *lst)
 {
-	int		nbw;
 	char	*label_error;
 	t_label	*tmp_label;
 
@@ -206,16 +205,6 @@ int			fill_label(t_label *label, t_lst_op *lst)
 		label_error);
 		return (0);
 	}
-	// Affichage >>
-	while (lst)
-	{
-		nbw = 0;
-		while (nbw < lst->pos)
-			printf("%02x ", lst->op[nbw++]);
-		printf("\n");
-		lst = lst->next;
-	}
-	// << temporaire
 	free_label(label);
 	return (1);
 }

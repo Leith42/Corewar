@@ -112,11 +112,20 @@ int					ft_read_file(int fd, char *file_name);
 ** FONCTION HEADER
 */
 
+int					set_comment(char *str, t_header *header, int line_nb);
+int					set_name(char *str, t_header *header, int line_nb);
+int					line_is_point(char *line, t_header *header, int line_nb);
 int					check_header(int fd, t_header *header);
+void				add_to_name(char *line, t_header *header, int line_nb);
+void				add_to_comment(char *line, t_header *header, int line_nb);
+void				loop_name(char *str, int *i, int *start, t_header *header);
+void				loop_comment(char *str, int *i, int *start, t_header *header);
+void				add_backslash_to_name(t_header *header, char *str);
+void				add_backslash_to_comment(t_header *header, char *str);
+int					header_is_set(t_header *header);
+void				add_to_header(char *line, t_header *header, int line_nb);
+void				header_init(t_header *header);
 void				header_error(enum e_error error, int line_nb, char *str);
-int					set_name(char *line, t_header *header, int line_nb);
-int					set_comment(char *line, t_header *header, int line_nb);
-void				init_set(t_header *header);
 
 /*
 ** FONCTION INSTRUCTION
@@ -163,3 +172,4 @@ void				free_lst(t_lst_op *lst);
 void				free_label(t_label *label);
 
 #endif
+

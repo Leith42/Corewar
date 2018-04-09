@@ -12,116 +12,119 @@
 
 #include "asm.h"
 
-/*static int	char_is_valid(char c)
+/*
+**	add_to_name - stock le contenu de la ligne jusqu'a trouver "
+**	cette fonction ajoute au name deja existant sur le précédent GNL
+*/
+
+void	add_to_name(char *line, t_header *header, int line_nb)
 {
-	if (c == ' ' || c == '\t' || c == COMMENT_CHAR || c == WEIRD_CHAR)
-		return (1);
-	return (0);
+	int i;
+	int comment;
+
+	i = 0;
+	comment = 0;
+	while (line && line[i])
+	{
+		if ((ft_isdigit(line[i]) || ft_isalpha(line[i])) && header->name_is_set && comment == 0)
+			header_error(INVALID_CHAR_NAME, line_nb, NAME_CMD_STRING);
+		else if ((line[i] == COMMENT_CHAR || line[i] == WEIRD_CHAR) && header->name_is_set)
+			comment = 1;
+		if (header->name_length > PROG_NAME_LENGTH)
+			header_error(NAME_TOO_LONG, 0, line);
+		if (line[i] != '"' && header->name_is_set == 0)
+			header->prog_name[header->name_length++] = line[i];
+		else
+		{
+			header->name_is_set = 1;
+			header->waiting_next_line = 0;
+		}
+		i++;
+	}
+	if (header->name_is_set == 0)
+		add_backslash_to_name(header, line);
 }
 
-static int	loop_name(int *i, char *line, t_header *header)
-{
-	int		tmp;
-	char	*name_tmp;
+/*
+**	add_to_comment - stock le contenu de la ligne jusqu'a trouver "
+**	cette fonction ajoute au comment deja existant sur le précédent GNL
+*/
 
+void	add_to_comment(char *line, t_header *header, int line_nb)
+{
+	int i;
+	int comment;
+
+	i = 0;
+	comment = 0;
+	while (line && line[i])
+	{
+		
+		if ((ft_isdigit(line[i]) || ft_isalpha(line[i])) && header->comment_is_set && comment == 0)
+			header_error(INVALID_CHAR_NAME, line_nb, NAME_CMD_STRING);
+		else if ((line[i] == COMMENT_CHAR || line[i] == WEIRD_CHAR) && header->comment_is_set)
+			comment = 1;
+		if (header->comment_length > COMMENT_LENGTH)
+			header_error(COMMENT_TOO_LONG, 0, line);
+		if (line[i] != '"' && header->comment_is_set == 0)
+			header->comment[header->comment_length++] = line[i];
+		else
+		{
+			header->comment_is_set = 1;
+			header->waiting_next_line = 0;
+		}
+		i++;
+	}
+	if (header->comment_is_set == 0)
+		add_backslash_to_comment(header, line);
+}
+
+/*
+**	loop_name - stock le contenu de la ligne jusqu'a trouver "
+*/
+
+void		loop_name(char *str, int *i, int *start, t_header *header)
+{
 	*i += 1;
-	if (line[*i] && line[*i] == '"')
+	*start = 1;
+	while (str[*i] && str[*i] != '"')
+	{
+		if (header->name_length > PROG_NAME_LENGTH)
+			header_error(NAME_TOO_LONG, 0, str);
+		header->prog_name[header->name_length++] = str[*i];
+		*i += 1;
+	}
+	if (str[*i] == '"')
 		header->name_is_set = 1;
 	else
 	{
-		tmp = *i;
-		while (line[*i] && line[*i] != '"')
-			*i += 1;
-		if (line[*i] == '"')
-		{
-			if ((*i - tmp) > PROG_NAME_LENGTH)
-				header_error(NAME_TOO_LONG, 0, "");
-			name_tmp = ft_strsub(line, (unsigned int)tmp, (size_t)(*i - tmp));
-			ft_memcpy(header->prog_name, name_tmp, ft_strlen(name_tmp));
-			free(name_tmp);
-			header->name_is_set = 1;
-		}
+		add_backslash_to_name(header, str);
+		*i -= 1;
+		header->waiting_next_line = 1;	
 	}
-	return ((header->name_is_set == 1) ? 1 : 0);
 }
 
-int			set_name(char *line, t_header *header, int line_nb)
+/*
+**	loop_comment - stock le contenu de la ligne jusqu'a trouver "
+*/
+
+void		loop_comment(char *str, int *i, int *start, t_header *header)
 {
-	int i;
-	int comment;
-
-	i = 5;
-	comment = 0;
-	while (line[i])
-	{
-		if ((line[i] == COMMENT_CHAR || line[i] == WEIRD_CHAR) && header->name_is_set)
-			comment = 1;
-		else if ((line[i] == COMMENT_CHAR || line[i] == WEIRD_CHAR) && !header->name_is_set)
-			header_error(COMMENT_NOT_IN_PLACE, line_nb, NAME_CMD_STRING);
-		if (line[i] == '"' && !header->name_is_set)
-		{
-			if (!(loop_name(&i, line, header)))
-				header_error(QUOTE_MARK, line_nb, NAME_CMD_STRING);
-			i++;
-			continue ;
-		}
-		if (!char_is_valid(line[i]) && comment == 0)
-			header_error(INVALID_CHAR_NAME, line_nb, NAME_CMD_STRING);
-		i++;
-	}
-	return (1);
-}
-
-static int	loop_comment(int *i, char *line, t_header *header)
-{
-	int		tmp;
-	char	*comment_tmp;
-
 	*i += 1;
-	if (line[*i] && line[*i] == '"')
+	*start = 1;
+	while (str[*i] && str[*i] != '"')
+	{
+		if (header->comment_length > COMMENT_LENGTH)
+			header_error(COMMENT_TOO_LONG, 0, str);
+		header->comment[header->comment_length++] = str[*i];
+		*i += 1;
+	}
+	if (str[*i] == '"')
 		header->comment_is_set = 1;
 	else
 	{
-		tmp = *i;
-		while (line[*i] && line[*i] != '"')
-			*i += 1;
-		if (line[*i] == '"')
-		{
-			if ((*i - tmp) > COMMENT_LENGTH)
-				header_error(COMMENT_TOO_LONG, 0, "");
-			comment_tmp = ft_strsub(line, (unsigned int)tmp,
-					(size_t)(*i - tmp));
-			ft_memcpy(header->comment, comment_tmp, ft_strlen(comment_tmp));
-			free(comment_tmp);
-			header->comment_is_set = 1;
-		}
+		add_backslash_to_comment(header, str);
+		*i -= 1;
+		header->waiting_next_line = 1;	
 	}
-	return ((header->comment_is_set == 1) ? 1 : 0);
 }
-
-int			set_comment(char *line, t_header *header, int line_nb)
-{
-	int i;
-	int comment;
-
-	i = 8;
-	comment = 0;
-	while (line[i])
-	{
-		if (line[i] == COMMENT_CHAR && header->comment_is_set)
-			comment = 1;
-		else if (line[i] == COMMENT_CHAR && !header->comment_is_set)
-			header_error(COMMENT_NOT_IN_PLACE, line_nb, COMMENT_CMD_STRING);
-		if (line[i] == '"' && !header->comment_is_set)
-		{
-			if (!(loop_comment(&i, line, header)))
-				header_error(QUOTE_MARK, line_nb, COMMENT_CMD_STRING);
-			i++;
-			continue ;
-		}
-		if (!char_is_valid(line[i]) && comment == 0)
-			header_error(INVALID_CHAR_NAME, line_nb, COMMENT_CMD_STRING);
-		i++;
-	}
-	return (1);
-}*/

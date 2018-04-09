@@ -16,7 +16,7 @@
 ** init_set - Initialise la structure du header
 */
 
-void			init_set(t_header *header)
+void			header_init(t_header *header)
 {
 	header->name_is_set = 0;
 	header->comment_is_set = 0;

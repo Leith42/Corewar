@@ -31,12 +31,13 @@ SRCS_LIST		=	\
 					main.c \
 					read.c \
 					loop_header.c \
+					utils_header.c \
 					write.c \
 					utils.c \
 					op.c \
 					check_inst.c \
 					check_label.c \
-					oct_count.c \
+					count_label_distance.c \
 					ft_error.c \
 					ft_init.c \
 					ft_free.c
