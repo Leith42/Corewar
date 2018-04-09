@@ -6,7 +6,7 @@
 /*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 18:49:21 by mmatime           #+#    #+#             */
-/*   Updated: 2018/04/09 22:58:23 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/09 23:02:48 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	add_to_name(char *line, t_header *header, int line_nb)
 	int i;
 	int comment;
 
-	i = 0;
+	i = -1;
 	comment = 0;
-	while (line && line[i])
+	while (line && line[++i])
 	{
 		if ((ft_isdigit(line[i]) || ft_isalpha(line[i]))
 			&& header->name_is_set && comment == 0)
@@ -41,7 +41,6 @@ void	add_to_name(char *line, t_header *header, int line_nb)
 			header->name_is_set = 1;
 			header->waiting_next_line = 0;
 		}
-		i++;
 	}
 	if (header->name_is_set == 0)
 		add_backslash_to_name(header, line);
@@ -57,9 +56,9 @@ void	add_to_comment(char *line, t_header *header, int line_nb)
 	int i;
 	int comment;
 
-	i = 0;
+	i = -1;
 	comment = 0;
-	while (line && line[i])
+	while (line && line[++i])
 	{
 		if ((ft_isdigit(line[i]) || ft_isalpha(line[i]))
 			&& header->comment_is_set && comment == 0)
@@ -76,7 +75,6 @@ void	add_to_comment(char *line, t_header *header, int line_nb)
 			header->comment_is_set = 1;
 			header->waiting_next_line = 0;
 		}
-		i++;
 	}
 	if (header->comment_is_set == 0)
 		add_backslash_to_comment(header, line);
