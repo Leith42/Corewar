@@ -24,3 +24,17 @@ void	free_lst(t_lst_op *lst)
 		lst = next;
 	}
 }
+
+void	free_label(t_label *label)
+{
+	t_label *next;
+
+	next = NULL;
+	while (label)
+	{
+		next = label->next;
+		free(label->name);
+		free(label);
+		label = next;
+	}
+}
