@@ -53,7 +53,7 @@ int						ft_arrnstr_loc(char **arr, char *str, size_t n);
 int						ft_arrstr_loc(char **arr, char *str);
 size_t					ft_arrlen(char **ar);
 void					ft_arrdel_size(char **arr, size_t size);
-void					ft_free_arr(char **ar);
+int						ft_free_arr(char **ar);
 
 /*
 ** <========================= Binary Tree Functions ========================> **

@@ -6,7 +6,7 @@
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 15:26:19 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/03/06 10:45:49 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/03/19 02:51:04 by lgraham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define LABEL_CHAR				':'
 # define DIRECT_CHAR			'%'
 # define SEPARATOR_CHAR			','
+# define CMD_CHAR				'.'
+# define WEIRD_CHAR				';'
 
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
@@ -58,13 +60,5 @@ typedef char	t_arg_type;
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
-
-typedef struct		s_header
-{
-	unsigned int		magic;
-	char				prog_name[PROG_NAME_LENGTH + 1];
-	unsigned int		prog_size;
-	char				comment[COMMENT_LENGTH + 1];
-}					t_header;
 
 #endif

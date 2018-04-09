@@ -1,27 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_arr.c                                      :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/21 05:27:27 by gudemare          #+#    #+#             */
-/*   Updated: 2018/03/29 17:42:09 by mmatime          ###   ########.fr       */
+/*   Created: 2018/04/05 03:32:20 by gudemare          #+#    #+#             */
+/*   Updated: 2018/04/09 22:54:07 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft.h"
+#include "asm.h"
 
-int			ft_free_arr(char **ar)
+void	free_lst(t_lst_op *lst)
 {
-	size_t	i;
+	t_lst_op *next;
 
-	if (!ar)
-		return (0);
-	i = 0;
-	while (ar[i])
-		ft_strdel((ar + i++));
-	free(ar);
-	return (0);
+	next = NULL;
+	while (lst)
+	{
+		next = lst->next;
+		free(lst);
+		lst = next;
+	}
+}
+
+void	free_label(t_label *label)
+{
+	t_label *next;
+
+	next = NULL;
+	while (label)
+	{
+		next = label->next;
+		free(label->name);
+		free(label);
+		label = next;
+	}
 }
