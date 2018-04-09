@@ -6,7 +6,7 @@
 /*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 18:44:39 by mmatime           #+#    #+#             */
-/*   Updated: 2018/04/09 22:51:33 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/09 23:06:11 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,5 +171,16 @@ char				**ft_split_inst(char *inst);
 char				*epur_str_beginning(char *line);
 void				free_lst(t_lst_op *lst);
 void				free_label(t_label *label);
+
+/*
+** FONCTION COUNT LABEL DISTANCE
+*/
+
+int					only_on_two(char op);
+void				set_by_type(int *dir_size, int *final_place, int type);
+void				add_value_to_inst(int res, t_lst_op *lst_node,
+					int pos_tmp, int type);
+int					calculate_res(t_lst_op *tmp_lst, t_label *tmp_label,
+					int line);
 
 #endif

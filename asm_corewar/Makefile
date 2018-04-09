@@ -6,7 +6,7 @@
 #    By: mgonon <mgonon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/26 01:34:51 by gudemare          #+#    #+#              #
-#    Updated: 2018/04/05 03:14:10 by gudemare         ###   ########.fr        #
+#    Updated: 2018/04/09 23:03:38 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS_LIST		=	\
 					check_inst.c \
 					check_label.c \
 					count_label_distance.c \
+					count_label_distance_2.c \
 					ft_error.c \
 					ft_init.c \
 					ft_free.c
