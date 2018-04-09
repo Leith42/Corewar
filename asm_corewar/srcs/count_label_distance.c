@@ -6,7 +6,7 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 03:49:24 by lgraham           #+#    #+#             */
-/*   Updated: 2018/04/09 23:20:19 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/10 01:34:40 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static void		search_label_call(char *to_search, t_label *label,
 		}
 		label = search_label_call_bis(lst, to_search, label, line - line_diff);
 		lst = lst->next;
-		if (lst && !label)// a corriger ? maillon en trop dans la chaine
+		if (lst && !label)
 			return ;
 	}
 }
