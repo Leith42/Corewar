@@ -6,7 +6,7 @@
 /*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 09:38:17 by mmatime           #+#    #+#             */
-/*   Updated: 2018/04/09 22:55:40 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/10 00:36:49 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,32 +85,28 @@ int			set_name(char *str, t_header *header, int line_nb)
 
 int			line_is_point(char *line, t_header *header, int line_nb)
 {
-	int		i;
 	char	*str;
 
-	i = 0;
-	str = NULL;
-	if (line[0] && line[0] == CMD_CHAR)
+	if (!(line[0] && line[0] == CMD_CHAR))
+		return (0);
+	if (ft_strnequ(line, NAME_CMD_STRING, 5))
 	{
-		if (ft_strnequ(line, NAME_CMD_STRING, 5))
+		str = ft_strsub(line, 5, ft_strlen(line) - 5);
+		str = epur_str_beginning(str);
+		if (set_name(str, header, line_nb))
 		{
-			str = ft_strsub(line, 5, ft_strlen(line) - 5);
-			str = epur_str_beginning(str);
-			if (set_name(str, header, line_nb))
-			{
-				free(str);
-				return (1);
-			}
+			free(str);
+			return (1);
 		}
-		else if (ft_strnequ(line, COMMENT_CMD_STRING, 8))
+	}
+	else if (ft_strnequ(line, COMMENT_CMD_STRING, 8))
+	{
+		str = ft_strsub(line, 8, ft_strlen(line) - 8);
+		str = epur_str_beginning(str);
+		if (set_comment(str, header, line_nb))
 		{
-			str = ft_strsub(line, 8, ft_strlen(line) - 8);
-			str = epur_str_beginning(str);
-			if (set_comment(str, header, line_nb))
-			{
-				free(str);
-				return (1);
-			}
+			free(str);
+			return (1);
 		}
 	}
 	return (0);
