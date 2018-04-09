@@ -131,24 +131,11 @@ static int				get_inst(char **inst, t_lst_op *lst, int *line)
 }
 
 /*
-** FONCTION DE DEBUG - a supprimer
-*/
-
-void				aff_label(t_label *label_lst)
-{
-	while (label_lst)
-	{
-		printf("label >%s< de type >%d<\n", label_lst->name, label_lst->type);
-		label_lst = label_lst->next;
-	}
-}
-
-/*
 ** CHECK_INST - fonction qui lis le fichier ligne par ligne et qui creer **inst
 ** et qui renvoie chaque ligne ainsi separer vers get_inst.
 */
 
-int					check_inst(t_lst_op *lst, int fd)
+int						check_inst(t_lst_op *lst, int fd)
 {
 	t_label		*label_lst;
 	char		*line;
@@ -165,8 +152,9 @@ int					check_inst(t_lst_op *lst, int fd)
 		if (line && (inst = ft_split_inst(line)) != NULL && ++i)
 		{
 			if ((!get_inst(inst, tmp, &i) || (check_label(inst) &&
-(!(label_lst = set_label(inst, label_lst, tmp->pos, i))))) && ft_free_arr(inst))
-				return (0); //Instruction incorrecte
+(!(label_lst = set_label(inst, label_lst, tmp->pos, i))))))
+				return (ft_free_arr(inst));
+			ft_free_arr(inst);
 			if (tmp->pos != 0 && (tmp->next = init_lst(tmp->line_nb)) == NULL)
 				return (0);
 			tmp = (tmp->pos != 0) ? tmp->next : tmp;

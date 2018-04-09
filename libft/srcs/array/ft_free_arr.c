@@ -23,5 +23,5 @@ int			ft_free_arr(char **ar)
 	while (ar[i])
 		ft_strdel((ar + i++));
 	free(ar);
-	return (1);
+	return (0);
 }
