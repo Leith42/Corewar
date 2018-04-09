@@ -73,7 +73,8 @@ char		**ft_split_inst(char *inst)
 			++n;
 		while (inst[n + i] && inst[n + i] != ' ' && inst[n + i] != '\t' && \
 		inst[n + i] != SEPARATOR_CHAR && inst[n + i] != COMMENT_CHAR &&
-		(t != 0 || inst[n + i] != LABEL_CHAR) && inst[n + i] != WEIRD_CHAR)
+		(t != 0 || (inst[n + i] != LABEL_CHAR && inst[n + i] != DIRECT_CHAR))
+		&& inst[n + i] != WEIRD_CHAR)
 			++i;
 		i += (inst[n + i] == LABEL_CHAR) ? 1 : 0;
 		if (i > 0)
