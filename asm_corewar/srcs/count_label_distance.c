@@ -6,7 +6,7 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 03:49:24 by lgraham           #+#    #+#             */
-/*   Updated: 2018/04/09 23:11:43 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/09 23:20:19 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 **	et y ajoute la valeur négative
 */
 
-static void	search_label_call_after(char *to_search,
+static void		search_label_call_after(char *to_search,
 			t_label *tmp_label, t_lst_op *tmp_lst)
 {
 	int res;
@@ -51,7 +51,7 @@ static void	search_label_call_after(char *to_search,
 ** correspondants à la déclaration (to_search) FONCTION A NORMER
 */
 
-static void	search_label_call_bis(t_lst_op *lst, char *to_search,
+static t_label	*search_label_call_bis(t_lst_op *lst, char *to_search,
 			t_label *label, int line_minus_line_diff)
 {
 	int		i;
@@ -68,9 +68,10 @@ static void	search_label_call_bis(t_lst_op *lst, char *to_search,
 		i++;
 		label = label->next;
 	}
+	return (label);
 }
 
-static void	search_label_call(char *to_search, t_label *label,
+static void		search_label_call(char *to_search, t_label *label,
 			t_lst_op *lst, int line)
 {
 	int			line_diff;
@@ -93,7 +94,7 @@ static void	search_label_call(char *to_search, t_label *label,
 			}
 			label = label->next;
 		}
-		search_label_call_bis(lst, to_search, label, line - line_diff);
+		label = search_label_call_bis(lst, to_search, label, line - line_diff);
 		lst = lst->next;
 		if (lst && !label)// a corriger ? maillon en trop dans la chaine
 			return ;
@@ -104,7 +105,7 @@ static void	search_label_call(char *to_search, t_label *label,
 ** Check si un label appellé trouve bien son parent
 */
 
-static char	*check_label_match(t_label *label)
+static char		*check_label_match(t_label *label)
 {
 	while (label)
 	{
@@ -119,7 +120,7 @@ static char	*check_label_match(t_label *label)
 ** Cherche un label déclaré
 */
 
-int			fill_label(t_label *label, t_lst_op *lst)
+int				fill_label(t_label *label, t_lst_op *lst)
 {
 	char	*label_error;
 	t_label	*tmp_label;
