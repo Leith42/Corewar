@@ -97,14 +97,20 @@ int			line_is_point(char *line, t_header *header, int line_nb)
 			str = ft_strsub(line, 5, ft_strlen(line) - 5);
 			str = epur_str_beginning(str);
 			if (set_name(str, header, line_nb))
+			{
+				free(str);
 				return (1);
+			}
 		}
 		else if (ft_strnequ(line, COMMENT_CMD_STRING, 8))
 		{
 			str = ft_strsub(line, 8, ft_strlen(line) - 8);
 			str = epur_str_beginning(str);
 			if (set_comment(str, header, line_nb))
+			{
+				free(str);
 				return (1);
+			}
 		}
 	}
 	return (0);

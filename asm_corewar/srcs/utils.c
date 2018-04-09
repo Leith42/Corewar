@@ -63,9 +63,7 @@ char		**ft_split_inst(char *inst)
 	int		i;
 	int		t;
 
-	n = 0;
-	i = 0;
-	t = 0;
+	set_to_zero(&n, &i, &t);
 	params = ft_arrnew(7);
 	while (inst[n] && inst[n] != COMMENT_CHAR && inst[n] != WEIRD_CHAR && t < 7)
 	{
@@ -82,6 +80,8 @@ char		**ft_split_inst(char *inst)
 		n += i;
 		i = 0;
 	}
+	if (t == 0)
+		free(params);
 	return ((t > 0) ? params : NULL);
 }
 

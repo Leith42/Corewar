@@ -171,6 +171,9 @@ char				**ft_split_inst(char *inst);
 char				*epur_str_beginning(char *line);
 void				free_lst(t_lst_op *lst);
 void				free_label(t_label *label);
+char				free_param(char **param);
+void				set_to_zero(int *a, int *b, int *c);
+
 
 /*
 ** FONCTION COUNT LABEL DISTANCE
@@ -180,7 +183,7 @@ int					only_on_two(char op);
 void				set_by_type(int *dir_size, int *final_place, int type);
 void				add_value_to_inst(int res, t_lst_op *lst_node,
 					int pos_tmp, int type);
-int					calculate_res(t_lst_op *tmp_lst, t_label *tmp_label,
+int					calculate_res(t_lst_op *tmp_lst, t_label **tmp_label,
 					int line);
 
 #endif

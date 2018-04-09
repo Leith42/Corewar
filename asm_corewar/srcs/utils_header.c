@@ -59,3 +59,10 @@ void		add_to_header(char *line, t_header *header, int line_nb)
 	else
 		add_to_comment(line, header, line_nb);
 }
+
+void		set_to_zero(int *a, int *b, int *c)
+{
+	*a = 0;
+	*b = 0;
+	*c = 0;
+}
