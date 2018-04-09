@@ -6,7 +6,7 @@
 /*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 18:49:21 by mmatime           #+#    #+#             */
-/*   Updated: 2018/04/05 03:53:26 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/09 22:58:23 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ void	add_to_name(char *line, t_header *header, int line_nb)
 	comment = 0;
 	while (line && line[i])
 	{
-		if ((ft_isdigit(line[i]) || ft_isalpha(line[i])) && header->name_is_set && comment == 0)
+		if ((ft_isdigit(line[i]) || ft_isalpha(line[i]))
+			&& header->name_is_set && comment == 0)
 			header_error(INVALID_CHAR_NAME, line_nb, NAME_CMD_STRING);
-		else if ((line[i] == COMMENT_CHAR || line[i] == WEIRD_CHAR) && header->name_is_set)
+		else if ((line[i] == COMMENT_CHAR || line[i] == WEIRD_CHAR)
+			&& header->name_is_set)
 			comment = 1;
 		if (header->name_length > PROG_NAME_LENGTH)
 			header_error(NAME_TOO_LONG, 0, line);
@@ -59,10 +61,11 @@ void	add_to_comment(char *line, t_header *header, int line_nb)
 	comment = 0;
 	while (line && line[i])
 	{
-		
-		if ((ft_isdigit(line[i]) || ft_isalpha(line[i])) && header->comment_is_set && comment == 0)
+		if ((ft_isdigit(line[i]) || ft_isalpha(line[i]))
+			&& header->comment_is_set && comment == 0)
 			header_error(INVALID_CHAR_NAME, line_nb, NAME_CMD_STRING);
-		else if ((line[i] == COMMENT_CHAR || line[i] == WEIRD_CHAR) && header->comment_is_set)
+		else if ((line[i] == COMMENT_CHAR || line[i] == WEIRD_CHAR)
+				&& header->comment_is_set)
 			comment = 1;
 		if (header->comment_length > COMMENT_LENGTH)
 			header_error(COMMENT_TOO_LONG, 0, line);
@@ -83,7 +86,7 @@ void	add_to_comment(char *line, t_header *header, int line_nb)
 **	loop_name - stock le contenu de la ligne jusqu'a trouver "
 */
 
-void		loop_name(char *str, int *i, int *start, t_header *header)
+void	loop_name(char *str, int *i, int *start, t_header *header)
 {
 	*i += 1;
 	*start = 1;
@@ -100,7 +103,7 @@ void		loop_name(char *str, int *i, int *start, t_header *header)
 	{
 		add_backslash_to_name(header, str);
 		*i -= 1;
-		header->waiting_next_line = 1;	
+		header->waiting_next_line = 1;
 	}
 }
 
@@ -108,7 +111,7 @@ void		loop_name(char *str, int *i, int *start, t_header *header)
 **	loop_comment - stock le contenu de la ligne jusqu'a trouver "
 */
 
-void		loop_comment(char *str, int *i, int *start, t_header *header)
+void	loop_comment(char *str, int *i, int *start, t_header *header)
 {
 	*i += 1;
 	*start = 1;
@@ -125,6 +128,6 @@ void		loop_comment(char *str, int *i, int *start, t_header *header)
 	{
 		add_backslash_to_comment(header, str);
 		*i -= 1;
-		header->waiting_next_line = 1;	
+		header->waiting_next_line = 1;
 	}
 }

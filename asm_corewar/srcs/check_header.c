@@ -6,7 +6,7 @@
 /*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 09:38:17 by mmatime           #+#    #+#             */
-/*   Updated: 2018/04/05 04:27:00 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/09 22:55:40 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,18 @@ int			set_comment(char *str, t_header *header, int line_nb)
 	start = 0;
 	while (str[i])
 	{
-		if ((ft_isdigit(str[i]) || ft_isalpha(str[i])) && header->comment_is_set == 0)
+		if ((ft_isdigit(str[i]) || ft_isalpha(str[i]))
+			&& header->comment_is_set == 0)
 			header_error(WRONG_INPUT, line_nb, str);
-		else if ((ft_isdigit(str[i]) || ft_isalpha(str[i])) && header->comment_is_set && comment == 0)
+		else if ((ft_isdigit(str[i]) || ft_isalpha(str[i]))
+			&& header->comment_is_set && comment == 0)
 			header_error(INVALID_CHAR_NAME, line_nb, NAME_CMD_STRING);
 		else if (str[i] == COMMENT_CHAR && start == 0)
 			header_error(COMMENT_NOT_IN_PLACE, line_nb, NAME_CMD_STRING);
 		else if (str[i] == '"' && start == 0)
 			loop_comment(str, &i, &start, header);
-		else if ((str[i] == COMMENT_CHAR || str[i] == WEIRD_CHAR) && header->comment_is_set)
+		else if ((str[i] == COMMENT_CHAR || str[i] == WEIRD_CHAR)
+			&& header->comment_is_set)
 			comment = 1;
 		i++;
 	}
@@ -57,15 +60,18 @@ int			set_name(char *str, t_header *header, int line_nb)
 	start = 0;
 	while (str[i])
 	{
-		if ((ft_isdigit(str[i]) || ft_isalpha(str[i])) && header->name_is_set == 0)
+		if ((ft_isdigit(str[i]) || ft_isalpha(str[i]))
+			&& header->name_is_set == 0)
 			header_error(WRONG_INPUT, line_nb, str);
-		else if ((ft_isdigit(str[i]) || ft_isalpha(str[i])) && header->name_is_set && comment == 0)
+		else if ((ft_isdigit(str[i]) || ft_isalpha(str[i]))
+			&& header->name_is_set && comment == 0)
 			header_error(INVALID_CHAR_NAME, line_nb, NAME_CMD_STRING);
 		else if (str[i] == COMMENT_CHAR && start == 0)
 			header_error(COMMENT_NOT_IN_PLACE, line_nb, NAME_CMD_STRING);
 		else if (str[i] == '"' && start == 0)
 			loop_name(str, &i, &start, header);
-		else if ((str[i] == COMMENT_CHAR || str[i] == WEIRD_CHAR) && header->name_is_set)
+		else if ((str[i] == COMMENT_CHAR || str[i] == WEIRD_CHAR)
+			&& header->name_is_set)
 			comment = 1;
 		i++;
 	}
@@ -79,8 +85,8 @@ int			set_name(char *str, t_header *header, int line_nb)
 
 int			line_is_point(char *line, t_header *header, int line_nb)
 {
-	int i;
-	char *str;
+	int		i;
+	char	*str;
 
 	i = 0;
 	str = NULL;
@@ -121,7 +127,7 @@ int			check_header(int fd, t_header *header)
 	{
 		line_nb++;
 		if (header->waiting_next_line)
-		{	
+		{
 			add_to_header(line, header, line_nb);
 			continue ;
 		}

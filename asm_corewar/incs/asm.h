@@ -6,7 +6,7 @@
 /*   By: mmatime <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 18:44:39 by mmatime           #+#    #+#             */
-/*   Updated: 2018/04/05 03:39:52 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/09 22:51:33 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,8 @@ int					check_header(int fd, t_header *header);
 void				add_to_name(char *line, t_header *header, int line_nb);
 void				add_to_comment(char *line, t_header *header, int line_nb);
 void				loop_name(char *str, int *i, int *start, t_header *header);
-void				loop_comment(char *str, int *i, int *start, t_header *header);
+void				loop_comment(char *str, int *i, int *start,
+					t_header *header);
 void				add_backslash_to_name(t_header *header, char *str);
 void				add_backslash_to_comment(t_header *header, char *str);
 int					header_is_set(t_header *header);
@@ -172,4 +173,3 @@ void				free_lst(t_lst_op *lst);
 void				free_label(t_label *label);
 
 #endif
-
