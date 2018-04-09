@@ -173,6 +173,5 @@ int					check_inst(t_lst_op *lst, int fd)
 		}
 	}
 	free(line);
-	aff_label(label_lst);
 	return ((!fill_label(label_lst, lst)) ? 0 : 1);
 }

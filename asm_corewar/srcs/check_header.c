@@ -202,9 +202,11 @@ void	add_to_comment(char *line, t_header *header, int line_nb)
 	comment = 0;
 	if (!line)
 	{
+		printf("line est vide et line_nb = %d\n", line_nb);
 		if (header->comment_length < COMMENT_LENGTH)
 		{
-			header->comment[header->name_length++] = '\n';
+			printf("on inscrit ici ?\n");
+			header->comment[header->comment_length++] = '\n';
 			return ;
 		}
 		header_error(COMMENT_TOO_LONG, 0, "");
@@ -257,7 +259,8 @@ int			check_header(int fd, t_header *header)
 	line = NULL;
 	while (!header_is_set(header) && get_next_line(fd, &line, 100) > 0)
 	{
-		line = epur_str_beginning(line);
+		if (!header->waiting_next_line)
+			line = epur_str_beginning(line);
 		line_nb++;
 		if (header->waiting_next_line)
 		{	

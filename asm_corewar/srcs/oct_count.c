@@ -80,7 +80,6 @@ static int	calculate_res(t_lst_op *tmp_lst, t_label *tmp_label, int line)
 	while (i < line)
 	{
 		res += tmp_lst->pos;
-		printf("on cherche %s, res = %d\n", tmp_label->name, res);
 		tmp_lst = tmp_lst->next;
 		i++;
 	}

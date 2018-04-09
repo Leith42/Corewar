@@ -98,7 +98,7 @@ t_label			*set_label(char **inst, t_label *label_list, int pos, int line)
 	label_tmp = NULL;
 	while (inst[i])
 	{
-		printf("inst = >%s<\n", inst[i]);
+	//	printf("inst = >%s<\n", inst[i]);
 		if (check_label_char(inst[i]))
 		{
 			if (!(new = ft_memalloc(sizeof(t_label))))
