@@ -92,18 +92,18 @@ char		**ft_split_inst(char *inst)
 char		*epur_str_beginning(char *line)
 {
 	int		i;
-	char	*dest;
+	char	*d;
 
 	i = 0;
-	dest = NULL;
+	d = NULL;
 	if (!line)
 		return (NULL);
 	while ((line[i] && line[i] == ' ') || (line[i] && line[i] == '\t'))
 		++i;
 	if (line[i])
-		dest = ft_strsub(line, (unsigned int)i, ft_strlen(line) - (unsigned int)i);
+		d = ft_strsub(line, (unsigned int)i, ft_strlen(line) - (unsigned int)i);
 	free(line);
-	return (dest);
+	return (d);
 }
 
 /*
