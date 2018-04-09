@@ -6,13 +6,13 @@
 /*   By: lgraham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 03:49:24 by lgraham           #+#    #+#             */
-/*   Updated: 2018/04/09 22:56:23 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/09 23:01:12 by gudemare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int			only_on_two(char op)
+static int	only_on_two(char op)
 {
 	if (op == 3 || op == 9 || op == 10 || op == 11
 		|| op == 12 || op == 14 || op == 15)
@@ -20,7 +20,7 @@ int			only_on_two(char op)
 	return (0);
 }
 
-void		set_by_type(int *dir_size, int *final_place, int type)
+static void	set_by_type(int *dir_size, int *final_place, int type)
 {
 	if (type == 2)
 	{
@@ -52,7 +52,7 @@ static void	add_value_to_inst(int res, t_lst_op *lst_node,
 		dir_size = 4;
 		final_place += 3;
 	}
-	else if (only_on_two(lst_node->op[0]))
+	else if (only_on_two((char)lst_node->op[0]))
 	{
 		dir_size = 2;
 		final_place++;
