@@ -134,7 +134,7 @@ int				fill_label(t_label *label, t_lst_op *lst)
 	}
 	if ((label_error = check_label_match(label)))
 	{
-		printf("No such label reference \"%s\" found in the file\n",
+		ft_printf("No such label reference \"%s\" found in the file\n",
 		label_error);
 		return (0);
 	}
