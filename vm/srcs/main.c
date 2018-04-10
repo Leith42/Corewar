@@ -23,7 +23,8 @@ void		print_usage(void)
 	ft_putendl("-v\t : Graphic mode.");
 	ft_putendl("-i\t : Interactive mode.");
 	ft_putendl("-d\t : Debug mode.");
-	ft_putendl("-c\t : Comparison mode. Dumps will display 64 bytes per line instead of 32.");
+	ft_putendl("-c\t : Comparison mode. "
+			"Dumps will display 64 bytes per line instead of 32.");
 	ft_putendl("--no-skip: Disable skip of unused cycles.");
 }
 

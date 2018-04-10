@@ -72,7 +72,7 @@ static t_label	*search_label_call_bis(t_lst_op *lst, char *to_search,
 }
 
 /*
-** Cherche un label de type 1 (call) 
+** Cherche un label de type 1 (call)
 */
 
 static void		search_label_call(char *to_search, t_label *label,
