@@ -18,7 +18,8 @@ int					ft_read_file(int fd, char *file_name)
 	t_header		header;
 
 	lst = init_lst(0);
-	if ((lst->line_nb += check_header(fd, &header)) != 0 && check_inst(lst, fd) && lst->op[0])
+	if ((lst->line_nb += check_header(fd, &header)) != 0 &&
+	check_inst(lst, fd) && lst->op[0])
 		ft_write(file_name, lst, &header);
 	else if (!lst->op[0])
 		inst_error(NO_INST, lst->line_nb, "");

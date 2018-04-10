@@ -28,7 +28,7 @@ void	add_to_name(char *line, t_header *header, int line_nb)
 	{
 		if ((ft_isdigit(line[i]) || ft_isalpha(line[i]))
 			&& header->name_is_set && comment == 0)
-			header_error(INVALID_CHAR_NAME, line_nb, NAME_CMD_STRING);
+			header_error(INVALID_CHAR_NAME, line_nb, line);
 		else if ((line[i] == COMMENT_CHAR || line[i] == WEIRD_CHAR)
 			&& header->name_is_set)
 			comment = 1;
@@ -62,7 +62,7 @@ void	add_to_comment(char *line, t_header *header, int line_nb)
 	{
 		if ((ft_isdigit(line[i]) || ft_isalpha(line[i]))
 			&& header->comment_is_set && comment == 0)
-			header_error(INVALID_CHAR_NAME, line_nb, NAME_CMD_STRING);
+			header_error(INVALID_CHAR_NAME, line_nb, line);
 		else if ((line[i] == COMMENT_CHAR || line[i] == WEIRD_CHAR)
 				&& header->comment_is_set)
 			comment = 1;
