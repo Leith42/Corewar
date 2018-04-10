@@ -32,9 +32,9 @@ int			set_comment(char *str, t_header *header, int line_nb)
 			header_error(WRONG_INPUT, line_nb, str);
 		else if ((ft_isdigit(str[i]) || ft_isalpha(str[i]))
 			&& header->comment_is_set && comment == 0)
-			header_error(INVALID_CHAR_NAME, line_nb, NAME_CMD_STRING);
+			header_error(INVALID_CHAR_NAME, line_nb, str);
 		else if (str[i] == COMMENT_CHAR && start == 0)
-			header_error(COMMENT_NOT_IN_PLACE, line_nb, NAME_CMD_STRING);
+			header_error(COMMENT_NOT_IN_PLACE, line_nb, str);
 		else if (str[i] == '"' && start == 0)
 			loop_comment(str, &i, &start, header);
 		else if ((str[i] == COMMENT_CHAR || str[i] == WEIRD_CHAR)
@@ -65,9 +65,9 @@ int			set_name(char *str, t_header *header, int line_nb)
 			header_error(WRONG_INPUT, line_nb, str);
 		else if ((ft_isdigit(str[i]) || ft_isalpha(str[i]))
 			&& header->name_is_set && comment == 0)
-			header_error(INVALID_CHAR_NAME, line_nb, NAME_CMD_STRING);
+			header_error(INVALID_CHAR_NAME, line_nb, str);
 		else if (str[i] == COMMENT_CHAR && start == 0)
-			header_error(COMMENT_NOT_IN_PLACE, line_nb, NAME_CMD_STRING);
+			header_error(COMMENT_NOT_IN_PLACE, line_nb, str);
 		else if (str[i] == '"' && start == 0)
 			loop_name(str, &i, &start, header);
 		else if ((str[i] == COMMENT_CHAR || str[i] == WEIRD_CHAR)
@@ -89,23 +89,23 @@ int			line_is_point(char *line, t_header *header, int line_nb)
 
 	if (!(line[0] && line[0] == CMD_CHAR))
 		return (0);
-	if (ft_strnequ(line, NAME_CMD_STRING, 5))
+	if (ft_strnequ(line, NAME_CMD_STRING, 5) && !header->name_is_set)
 	{
 		str = ft_strsub(line, 5, ft_strlen(line) - 5);
 		str = epur_str_beginning(str);
 		if (set_name(str, header, line_nb))
 		{
-			free(str);
+			ft_strdel(&str);
 			return (1);
 		}
 	}
-	else if (ft_strnequ(line, COMMENT_CMD_STRING, 8))
+	else if (ft_strnequ(line, COMMENT_CMD_STRING, 8) && !header->comment_is_set)
 	{
 		str = ft_strsub(line, 8, ft_strlen(line) - 8);
 		str = epur_str_beginning(str);
 		if (set_comment(str, header, line_nb))
 		{
-			free(str);
+			ft_strdel(&str);
 			return (1);
 		}
 	}

@@ -33,8 +33,7 @@ void	header_error(enum e_error error, int line_nb, char *str)
 		ft_printf("Champion name too long (Max length 128)\n");
 	else if (error == COMMENT_TOO_LONG)
 		ft_printf("Champion comment too long (Max length 2048)\n");
-	if (str)
-		free(str);
+	//ft_strdel(&str);
 	exit(1);
 }
 
@@ -50,9 +49,13 @@ int		inst_error(enum e_error error, int line_nb, char *str)
 		ft_printf("Invalid parameter on line %d\n", line_nb);
 	else if (error == TOO_MANY_PARAMS)
 		ft_printf("Too many parameter on line %d\n", line_nb);
+	else if (error == TOO_FEW_PARAMS)
+		ft_printf("Not enough parameter on line %d\n", line_nb);
 	else if (error == WRONG_REGISTER)
 		ft_printf("Register can't be \"%s\" on line %d\n", str, line_nb);
 	else if (error == SYNTAX_ERROR)
 		ft_printf("Syntax error for inst \"%s\" on line %d\n", str, line_nb);
+	else if (error == NO_INST)
+		ft_printf("Wtf dude, where's your champ ?\n");
 	exit(1);
 }

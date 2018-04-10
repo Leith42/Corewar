@@ -59,18 +59,22 @@ static int				check_params(char **inst, int opcode, int line_nb)
 	n = -1;
 	while (inst[++n])
 	{
-		i = 1;
 		if (g_op_tab[opcode].param_nb <= n)
 			return (inst_error(TOO_MANY_PARAMS, line_nb, ""));
 		type = param_type(inst[n]);
-		if ((type == T_DIR && inst[n][1] != LABEL_CHAR) || (type == T_REG))
+		i = (type == T_IND && inst[n][0] != '-') ? 0 : 1;
+		if ((type == T_DIR && inst[n][1] != LABEL_CHAR) || (type == T_REG)
+		|| (type == T_IND && inst[n][0] != LABEL_CHAR))
 			while (inst[n][i])
-				if (!ft_isdigit(inst[n][i++]) && inst[n][1] != '-')
+				if (!ft_isdigit(inst[n][i++]) && (type == T_IND
+				|| inst[n][1] != '-'))
 					return (inst_error(SYNTAX_ERROR, line_nb, inst[n]));
 		if (!(type & g_op_tab[opcode].param_type[n]))
 			return (inst_error(INVALID_PARAMS, line_nb, ""));
 	}
-	return ((g_op_tab[opcode].param_nb == n) ? 1 : 0);
+	if (g_op_tab[opcode].param_nb != n)
+		return (inst_error(TOO_FEW_PARAMS, line_nb, ""));
+	return (1);
 }
 
 /*

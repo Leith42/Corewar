@@ -6,7 +6,7 @@
 #    By: gudemare <gudemare@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/27 03:39:52 by gudemare          #+#    #+#              #
-#    Updated: 2018/04/10 01:28:30 by gudemare         ###   ########.fr        #
+#    Updated: 2018/04/05 04:39:46 by gudemare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ elif [ $1 = "duels" -o $1 = "asm" ] ; then
 	break
 elif [ `tput cols` -le $(( (($3 - $1) / $2) + 1 + 24 )) ] \
 	|| [ `tput cols` -le 72 ] ; then
-	printf "Abort : not enough columns.\n"
+printf "Abort : not enough columns.\n"
 exit 1
 fi
 
@@ -68,7 +68,7 @@ run_individual_check()
 		(FILE_VM="$TESTS_DIR/vm_dump_`basename $champ`_$i.log"
 		FILE_REF_VM="$TESTS_DIR/ref_vm_dump_`basename $champ`_$i.log"
 		touch $FILE_VM $FILE_REF_VM
-		./$VM $champ -dump $i -c 2>/dev/null | tail -n 64 > $FILE_VM &
+		./$VM $champ -dump $i 2>/dev/null | tail -n 64 > $FILE_VM &
 		./$REF_VM $champ -d $i 2>/dev/null | tail -n 64 > $FILE_REF_VM &
 		wait
 		if [ `cat $FILE_VM $FILE_REF_VM | grep -c ^0x0 ` -lt 128 ] ; then
@@ -105,8 +105,6 @@ run_duel_checks()
 			|| `basename $champ` = "barriere.cor" \
 			|| `basename $champ` = "mandragore.cor" \
 			|| `basename $champ` = "mise_a_jour_windows95.cor" \
-			|| `basename $champ` = "Gagnant.cor" \
-			|| `basename $opponent` = "Octobre_Rouge_V4.2.cor" \
 			|| `basename $opponent` = "mise_a_jour_windows95.cor"  \
 			|| `basename $opponent` = "car.cor" \
 			|| `basename $opponent` = "bee_gees.cor" \
@@ -142,10 +140,10 @@ run_asm_check()
 	cd $TESTS_DIR
 	FILE_ASM="`basename ${champ/.s/.cor}`"
 	FILE_REF_ASM="`basename ${champ/.s/.cor}`.ref"
-	touch $FILE_ASM $FILE_REF_ASM
 	./../$REF_ASM $champ &>/dev/null
 	mv $FILE_ASM $FILE_REF_ASM
 	./../$ASM $champ &>/dev/null
+	touch $FILE_ASM $FILE_REF_ASM
 	if [ -f $FILE_ASM -a -f $FILE_REF_ASM ] ; then
 		diff $FILE_ASM $FILE_REF_ASM &>/dev/null && res=$DISP_OK || res=$DISP_BAD
 	else
@@ -182,25 +180,20 @@ else
 	CHAMPS_LIST=$CHAMPS_DIR/*.cor
 fi
 mkdir -p $TESTS_DIR
-if [ -z $4 ] ; then
-	for champ in $CHAMPS_LIST
-	do
-		printf "\e[36m`basename $champ`\n"
-	done
-	for champ in $CHAMPS_LIST
-	do
-		if [ $1 = "duels" ] ; then
-			run_duel_checks $champ $vpos $CHAMPS_DIR
-		elif [ $1 = "asm" ] ; then
-			run_asm_check $champ $vpos $CHAMPS_DIR
-		else
-			run_individual_check $1 $2 $3 $champ $vpos
-		fi
-		(( vpos++ ))
-	done
-else
-	printf "\e[36m`basename $4`\n"
-	run_individual_check $1 $2 $3 $4 $vpos
-fi
+for champ in $CHAMPS_LIST
+do
+	printf "\e[36m`basename $champ`\n"
+done
+for champ in $CHAMPS_LIST
+do
+	if [ $1 = "duels" ] ; then
+		run_duel_checks $champ $vpos $CHAMPS_DIR
+	elif [ $1 = "asm" ] ; then
+		run_asm_check $champ $vpos $CHAMPS_DIR
+	else
+		run_individual_check $1 $2 $3 $champ $vpos
+	fi
+	(( vpos++ ))
+done
 wait
 rm -rf $TESTS_DIR 2>/dev/null
