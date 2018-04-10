@@ -12,6 +12,10 @@
 
 #include "asm.h"
 
+/*
+** Si cette ft retourne 1, le label est TOUJOURS codé sur 2 octs
+*/
+
 int		only_on_two(char op)
 {
 	if (op == 3 || op == 9 || op == 10 || op == 11
@@ -19,6 +23,10 @@ int		only_on_two(char op)
 		return (1);
 	return (0);
 }
+
+/*
+** Détermine si le label doit etre codé sur 2 ou 4 octs
+*/
 
 void	set_by_type(int *dir_size, int *final_place, int type)
 {

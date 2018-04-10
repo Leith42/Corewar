@@ -48,7 +48,7 @@ static void		search_label_call_after(char *to_search,
 
 /*
 ** Repart au début du fichier et cherche les appels
-** correspondants à la déclaration (to_search) FONCTION A NORMER
+** correspondants à la déclaration (to_search)
 */
 
 static t_label	*search_label_call_bis(t_lst_op *lst, char *to_search,
@@ -70,6 +70,10 @@ static t_label	*search_label_call_bis(t_lst_op *lst, char *to_search,
 	}
 	return (label);
 }
+
+/*
+** Cherche un label de type 1 (call) 
+*/
 
 static void		search_label_call(char *to_search, t_label *label,
 			t_lst_op *lst, int line)
@@ -96,8 +100,6 @@ static void		search_label_call(char *to_search, t_label *label,
 		}
 		label = search_label_call_bis(lst, to_search, label, line - line_diff);
 		lst = lst->next;
-		if (lst && !label)
-			return ;
 	}
 }
 
