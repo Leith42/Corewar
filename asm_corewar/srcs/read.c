@@ -18,8 +18,14 @@ int					ft_read_file(int fd, char *file_name)
 	t_header		header;
 
 	lst = init_lst(0);
+	lst->pos = -1;
 	if ((lst->line_nb += check_header(fd, &header)) != 0 &&
-	check_inst(lst, fd))
+	check_inst(lst, fd) && lst->pos != -1)
 		ft_write(file_name, lst, &header);
+	else if (lst->pos == -1)
+	{
+		free_lst(lst);
+		inst_error(NO_INST, 0, "");
+	}
 	return (1);
 }

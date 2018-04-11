@@ -155,12 +155,12 @@ int						check_inst(t_lst_op *lst, int fd)
 	{
 		if (line && (inst = ft_split_inst(line)) != NULL && ++i)
 		{
-			if ((!get_inst(inst, tmp, &i) || ckl(inst) == -1 || (ckl(inst) &&
+			if ((!get_inst(inst, tmp, &i) || label(inst) < 0 || (label(inst) &&
 					(!(label_lst = set_label(inst, label_lst, tmp->pos, i))))))
-				return (ft_free_arr(inst));
+				return (free_all(label_lst, inst, lst, line));
 			ft_free_arr(inst);
 			if (tmp->pos != 0 && (tmp->next = init_lst(tmp->line_nb)) == NULL)
-				return (0);
+				return (free_all(label_lst, inst, lst, line));
 			tmp = (tmp->pos != 0) ? tmp->next : tmp;
 		}
 	}

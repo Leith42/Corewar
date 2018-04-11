@@ -146,13 +146,13 @@ int					double_check_label(t_label *label);
 t_label				*set_label(char **inst, t_label *label_list,
 					int pos, int line);
 int					check_label_char(char *str);
-int					ckl(char **inst);
+int					label(char **inst);
 void				aff_label(t_label *label_lst);
 void				calc_dist_label(t_label *label, t_lst_op *lst);
 void				replace_dist(t_label *label, t_lst_op *lst);
 void				fill_label_pos(int *tab, int pos);
 int					fill_label(t_label *label, t_lst_op *lst);
-int        			char_label_is_valid(char *str, int n);
+int					char_label_is_valid(char *str, int n);
 
 /*
 ** FONCTION WRITE
@@ -173,6 +173,8 @@ void				free_lst(t_lst_op *lst);
 void				free_label(t_label *label);
 char				free_param(char **param);
 void				set_to_zero(int *a, int *b, int *c);
+int					free_all(t_label *lab, char **inst, t_lst_op *lst, char *l);
+int					file_size(t_lst_op *lst);
 
 /*
 ** FONCTION COUNT LABEL DISTANCE

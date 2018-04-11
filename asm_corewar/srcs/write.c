@@ -55,15 +55,17 @@ static void	print_magic_number(int fd)
 **	file_size - Calcule et renvoit le nb d'octet du fichier entier
 */
 
-static int	file_size(t_lst_op *lst)
+int			file_size(t_lst_op *lst)
 {
-	int champion;
+	t_lst_op	*tmp;
+	int			champion;
 
 	champion = 0;
-	while (lst)
+	tmp = lst;
+	while (tmp)
 	{
-		champion += lst->pos;
-		lst = lst->next;
+		champion += tmp->pos;
+		tmp = tmp->next;
 	}
 	return (champion);
 }

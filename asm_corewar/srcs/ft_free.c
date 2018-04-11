@@ -23,6 +23,7 @@ void	free_lst(t_lst_op *lst)
 		free(lst);
 		lst = next;
 	}
+	lst = NULL;
 }
 
 void	free_label(t_label *label)
@@ -37,4 +38,15 @@ void	free_label(t_label *label)
 		free(label);
 		label = next;
 	}
+	label = NULL;
+}
+
+int		free_all(t_label *lab, char **inst, t_lst_op *lst, char *l)
+{
+	free_lst(lst);
+	free_label(lab);
+	ft_free_arr(inst);
+	if (l)
+		free(l);
+	return (0);
 }

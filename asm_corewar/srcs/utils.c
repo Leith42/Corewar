@@ -72,7 +72,7 @@ char		**ft_split_inst(char *inst)
 		while (inst[n + i] && inst[n + i] != ' ' && inst[n + i] != '\t' &&
 		inst[n + i] != SEPARATOR_CHAR && inst[n + i] != COMMENT_CHAR &&
 		(t != 0 || i == 0 || (inst[n + i] != LABEL_CHAR &&
-		inst[n + i]!= DIRECT_CHAR)) && inst[n + i] != WEIRD_CHAR)
+		inst[n + i] != DIRECT_CHAR)) && inst[n + i] != WEIRD_CHAR)
 			++i;
 		i += (inst[n + i] == LABEL_CHAR) ? 1 : 0;
 		if (i > 0)
@@ -110,7 +110,7 @@ char		*epur_str_beginning(char *line)
 ** CHECK_LABEL - Renvoit (1) si char **inst contient un label minimum
 */
 
-int			ckl(char **inst)
+int			label(char **inst)
 {
 	int i;
 	int label;
