@@ -39,7 +39,6 @@ t_lst_op		*init_lst(int ln)
 	if (!(new = ft_memalloc(sizeof(t_lst_op))))
 		return (NULL);
 	ft_memset(new->label_pos, 0, 4);
-	new->pos = 0;
 	new->line_nb = ln;
 	return (new);
 }
