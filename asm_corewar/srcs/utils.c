@@ -6,7 +6,7 @@
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 16:05:06 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/04/05 04:25:04 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/11 05:40:52 by mmatime          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ char		**ft_split_inst(char *inst)
 		while (inst[n] == ' ' || inst[n] == '\t' || inst[n] == SEPARATOR_CHAR)
 			++n;
 		while (inst[n + i] && inst[n + i] != ' ' && inst[n + i] != '\t' && \
-		inst[n + i] != SEPARATOR_CHAR && inst[n + i] != COMMENT_CHAR &&
-		(t != 0 || (inst[n + i] != LABEL_CHAR && inst[n + i] != DIRECT_CHAR))
-		&& inst[n + i] != WEIRD_CHAR)
+				inst[n + i] != SEPARATOR_CHAR && inst[n + i] != COMMENT_CHAR &&
+				(t != 0 || (inst[n + i] != LABEL_CHAR && inst[n + i]
+					!= DIRECT_CHAR)) && inst[n + i] != WEIRD_CHAR)
 			++i;
 		i += (inst[n + i] == LABEL_CHAR) ? 1 : 0;
 		if (i > 0)
@@ -110,16 +110,26 @@ char		*epur_str_beginning(char *line)
 ** CHECK_LABEL - Renvoit (1) si char **inst contient un label minimum
 */
 
-int			check_label(char **inst)
+int			ckl(char **inst)
 {
 	int i;
+	int label;
 
 	i = 0;
+	label = 0;
 	while (inst[i])
 	{
 		if (check_label_char(inst[i]))
-			return (1);
+		{
+			if (char_label_is_valid(inst[i], i))
+				label++;
+			else
+			{
+				ft_printf("Forbidden char found in the label %s\n", inst[i]);
+				return (-1);
+			}
+		}
 		i++;
 	}
-	return (0);
+	return (label);
 }

@@ -143,18 +143,16 @@ int					check_inst(t_lst_op *lst, int fd);
 */
 
 int					double_check_label(t_label *label);
-int					find_match(t_label *label, char *str);
 t_label				*set_label(char **inst, t_label *label_list,
 					int pos, int line);
 int					check_label_char(char *str);
-int					check_label(char **inst);
+int					ckl(char **inst);
 void				aff_label(t_label *label_lst);
-void				oct_count(char **inst, int pos, t_label *label);
-int					oct_prec(int pos, char **str);
 void				calc_dist_label(t_label *label, t_lst_op *lst);
 void				replace_dist(t_label *label, t_lst_op *lst);
 void				fill_label_pos(int *tab, int pos);
 int					fill_label(t_label *label, t_lst_op *lst);
+int        			char_label_is_valid(char *str, int n);
 
 /*
 ** FONCTION WRITE

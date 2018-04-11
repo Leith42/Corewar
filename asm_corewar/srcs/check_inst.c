@@ -6,7 +6,7 @@
 /*   By: lmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:54:16 by lmartin-          #+#    #+#             */
-/*   Updated: 2018/04/09 22:59:02 by gudemare         ###   ########.fr       */
+/*   Updated: 2018/04/11 05:40:40 by mmatime          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int				get_params(char **inst, t_lst_op *lst, int opc)
 			lst->op[lst->pos++] = (unsigned char)(nb);
 		}
 		else if ((type == T_DIR && inst[i][1] == LABEL_CHAR) ||
-		(type == T_IND && inst[i][0] == LABEL_CHAR))
+				(type == T_IND && inst[i][0] == LABEL_CHAR))
 			lst = rmp_param(0, lst, (type == T_IND) ? 2 : dir_size, 1);
 		else if (type == T_DIR)
 			lst = rmp_param(ft_atoi(inst[i] + 1), lst, dir_size, 0);
@@ -64,10 +64,10 @@ static int				check_params(char **inst, int opcode, int line_nb)
 		type = param_type(inst[n]);
 		i = (type == T_IND && inst[n][0] != '-') ? 0 : 1;
 		if ((type == T_DIR && inst[n][1] != LABEL_CHAR) || (type == T_REG)
-		|| (type == T_IND && inst[n][0] != LABEL_CHAR))
+				|| (type == T_IND && inst[n][0] != LABEL_CHAR))
 			while (inst[n][i])
 				if (!ft_isdigit(inst[n][i++]) && (type == T_IND
-				|| inst[n][1] != '-'))
+							|| inst[n][1] != '-'))
 					return (inst_error(SYNTAX_ERROR, line_nb, inst[n]));
 		if (!(type & g_op_tab[opcode].param_type[n]))
 			return (inst_error(INVALID_PARAMS, line_nb, ""));
@@ -155,8 +155,8 @@ int						check_inst(t_lst_op *lst, int fd)
 	{
 		if (line && (inst = ft_split_inst(line)) != NULL && ++i)
 		{
-			if ((!get_inst(inst, tmp, &i) || (check_label(inst) &&
-(!(label_lst = set_label(inst, label_lst, tmp->pos, i))))))
+			if ((!get_inst(inst, tmp, &i) || ckl(inst) == -1 || (ckl(inst) &&
+					(!(label_lst = set_label(inst, label_lst, tmp->pos, i))))))
 				return (ft_free_arr(inst));
 			ft_free_arr(inst);
 			if (tmp->pos != 0 && (tmp->next = init_lst(tmp->line_nb)) == NULL)
