@@ -25,7 +25,7 @@ int			set_comment(char *str, t_header *header, int line_nb)
 	i = 0;
 	comment = 0;
 	start = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		if ((ft_isdigit(str[i]) || ft_isalpha(str[i]))
 			&& header->comment_is_set == 0)
@@ -42,7 +42,7 @@ int			set_comment(char *str, t_header *header, int line_nb)
 			comment = 1;
 		i++;
 	}
-	return (1);
+	return ((start) ? 1 : 0);
 }
 
 /*
@@ -58,7 +58,7 @@ int			set_name(char *str, t_header *header, int line_nb)
 	i = 0;
 	comment = 0;
 	start = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		if ((ft_isdigit(str[i]) || ft_isalpha(str[i]))
 			&& header->name_is_set == 0)
@@ -75,7 +75,7 @@ int			set_name(char *str, t_header *header, int line_nb)
 			comment = 1;
 		i++;
 	}
-	return (1);
+	return ((start) ? 1 : 0);
 }
 
 /*

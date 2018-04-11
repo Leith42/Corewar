@@ -33,7 +33,8 @@ void	header_error(enum e_error error, int line_nb, char *str)
 		ft_printf("Champion name too long (Max length 128)\n");
 	else if (error == COMMENT_TOO_LONG)
 		ft_printf("Champion comment too long (Max length 2048)\n");
-	ft_strdel(&str);
+	if (str && ft_strcmp(str, ""))
+		ft_strdel(&str);
 	exit(1);
 }
 
