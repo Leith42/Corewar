@@ -52,24 +52,25 @@ static int				get_params(char **inst, t_lst_op *lst, int opc)
 
 static int				check_params(char **inst, int opcode, int line_nb)
 {
-	int		n;
-	int		i;
-	int		type;
+	int n;
+	int i;
+	int t;
 
 	n = -1;
 	while (inst[++n])
 	{
 		if (g_op_tab[opcode].param_nb <= n)
 			return (inst_error(TOO_MANY_PARAMS, line_nb, ""));
-		type = param_type(inst[n]);
-		i = (type == T_IND && inst[n][0] != '-') ? 0 : 1;
-		if ((type == T_DIR && inst[n][1] != LABEL_CHAR) || (type == T_REG)
-				|| (type == T_IND && inst[n][0] != LABEL_CHAR))
-			while (inst[n][i])
-				if (!ft_isdigit(inst[n][i++]) && (type == T_IND
-							|| inst[n][1] != '-'))
-					return (inst_error(SYNTAX_ERROR, line_nb, inst[n]));
-		if (!(type & g_op_tab[opcode].param_type[n]))
+		t = param_type(inst[n]);
+		i = (t == T_IND && inst[n][0] != '-') ? 0 : 1;
+		if ((inst[n][0] == LABEL_CHAR && !inst[n][1]) ||
+		(inst[n][1] == LABEL_CHAR && !inst[n][2]))
+			return (inst_error(INVALID_PARAMS, line_nb, ""));
+		while (inst[n][0] != LABEL_CHAR && inst[n][1] != LABEL_CHAR
+		&& inst[n][i])
+			if (!ft_isdigit(inst[n][i++]) && (t == T_IND || inst[n][1] != '-'))
+				return (inst_error(SYNTAX_ERROR, line_nb, inst[n]));
+		if (!(t & g_op_tab[opcode].param_type[n]))
 			return (inst_error(INVALID_PARAMS, line_nb, ""));
 	}
 	if (g_op_tab[opcode].param_nb != n)
