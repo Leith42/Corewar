@@ -115,7 +115,7 @@ static int				get_inst(char **inst, t_lst_op *lst, int *line)
 	lst->pos = 0;
 	i = 0;
 	nbw = (inst[0][ft_strlen(inst[0]) - 1] == LABEL_CHAR) ? 1 : 0;
-	if (nbw == 1 && inst[nbw + 1] == NULL)
+	if (nbw == 1 && !inst[nbw])
 	{
 		*line -= 1;
 		return (1);
