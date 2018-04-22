@@ -1,4 +1,6 @@
-<center><img src="https://pbs.twimg.com/media/Ccdrb83WoAAS6fb.jpg:large" width="60%"></center>
+<p align="center">
+  <img src="https://pbs.twimg.com/media/Ccdrb83WoAAS6fb.jpg:large" width="60%">
+</p>
 
 ---
 
